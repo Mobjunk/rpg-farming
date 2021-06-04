@@ -10,6 +10,10 @@
           <e p="Munro_Licence.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
+          <e p="Body" t="Include">
+            <e p="BodyPart.cs" t="Include" />
+            <e p="BodyType.cs" t="Include" />
+          </e>
           <e p="Character" t="Include">
             <e p="Action" t="Include">
               <e p="CharacterAction.cs" t="Include" />
@@ -17,6 +21,8 @@
             </e>
             <e p="CharacterManager.cs" t="Include" />
             <e p="Input" t="Include">
+              <e p="CharacterControllerManager.cs" t="Include" />
+              <e p="CharacterKeyboardManager.cs" t="Include" />
               <e p="ICharacterInput.cs" t="Include" />
             </e>
             <e p="Movement" t="Include">
@@ -31,8 +37,10 @@
               <e p="CharacterStates.cs" t="Include" />
             </e>
           </e>
+          <e p="CharacterBodyManager.cs" t="Include" />
           <e p="Utility" t="Include">
             <e p="Singleton.cs" t="Include" />
+            <e p="SpriteLayout.cs" t="Include" />
             <e p="Utility.cs" t="Include" />
           </e>
         </e>
