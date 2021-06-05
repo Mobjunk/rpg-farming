@@ -2,14 +2,11 @@ using UnityEngine;
 
 public class Player : CharacterManager
 {
-    private CharacterMovementMananger characterMovementMananger;
-    
     public override void Awake()
     {
         base.Awake();
         
         characterInputManager = GetComponent<ICharacterInput>();
-        characterMovementMananger = GetComponent<CharacterMovementMananger>();
     }
 
     public override void Start()
@@ -50,7 +47,7 @@ public class Player : CharacterManager
 
     void SubscribeToInput()
     {
-        characterInputManager.OnCharacterMovement += characterMovementMananger.Move;
+        characterInputManager.OnCharacterMovement += CharacterMovementMananger.Move;
         //characterInputManager.OnCharacterInteraction += characterInteractionManager.OnCharacterInteraction;
         //characterInputManager.OnCharacterAttack += CharacterAttackManager.Attack;
     }

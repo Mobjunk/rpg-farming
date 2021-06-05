@@ -22,7 +22,11 @@ public abstract class CharacterAction : ICharacterAction
     
     public virtual void Update()
     {
-        characterStateManager.SetCharacterState(GetCharacterState());
+        if (!GetCharacterState().Equals(CharacterStates.NONE))
+        {
+            Debug.LogError("dafuq");
+            characterStateManager.SetCharacterState(GetCharacterState());
+        }
     }
 
     public virtual void OnStart()

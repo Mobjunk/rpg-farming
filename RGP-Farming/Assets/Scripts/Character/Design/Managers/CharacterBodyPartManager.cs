@@ -30,6 +30,11 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     /// </summary>
     private void OnStateChange()
     {
+        /*CharacterManager cManager = GetComponentInParent<CharacterManager>();
+        if (cManager.GetType() == typeof(Npc))
+        {
+            Debug.Log("characterStateManager: " + characterStateManager.GetCharacterState());
+        }*/
         UpdateBodyPart(currentBodyPart, characterStateManager.GetDirection());
     }
 

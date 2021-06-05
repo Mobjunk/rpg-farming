@@ -4,5 +4,6 @@ public enum CharacterStates
     WALKING_0,
     WALKING_1,
     WALKING_2,
-    USE_TOOL
+    USE_TOOL,
+    NONE,
 }

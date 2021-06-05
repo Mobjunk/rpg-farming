@@ -14,18 +14,24 @@
             <e p="Action" t="Include">
               <e p="CharacterAction.cs" t="Include" />
               <e p="ICharacterAction.cs" t="Include" />
+              <e p="impl" t="Include">
+                <e p="RandomMovementManager.cs" t="Include" />
+              </e>
             </e>
             <e p="CharacterManager.cs" t="Include" />
             <e p="Design" t="Include">
-              <e p="Body.cs" t="Include" />
               <e p="BodyPart.cs" t="Include" />
               <e p="BodyType.cs" t="Include" />
-              <e p="Chest.cs" t="Include" />
-              <e p="Eyes.cs" t="Include" />
-              <e p="Feet.cs" t="Include" />
-              <e p="Hair.cs" t="Include" />
-              <e p="Hat.cs" t="Include" />
-              <e p="Legs.cs" t="Include" />
+              <e p="CharacterDesignManager.cs" t="Include" />
+              <e p="impl" t="Include">
+                <e p="Body.cs" t="Include" />
+                <e p="Chest.cs" t="Include" />
+                <e p="Eyes.cs" t="Include" />
+                <e p="Feet.cs" t="Include" />
+                <e p="Hair.cs" t="Include" />
+                <e p="Hat.cs" t="Include" />
+                <e p="Legs.cs" t="Include" />
+              </e>
               <e p="Managers" t="Include">
                 <e p="CharacterBodyManager.cs" t="Include" />
                 <e p="CharacterBodyPartManager.cs" t="Include" />
@@ -46,6 +52,10 @@
               <e p="CharacterMovementMananger.cs" t="Include" />
               <e p="ICharacterMovement.cs" t="Include" />
             </e>
+            <e p="Npc" t="Include">
+              <e p="Npc.cs" t="Include" />
+              <e p="NpcData.cs" t="Include" />
+            </e>
             <e p="Player" t="Include">
               <e p="Player.cs" t="Include" />
             </e>
@@ -54,8 +64,13 @@
               <e p="CharacterStates.cs" t="Include" />
             </e>
           </e>
+          <e p="StaticObjectManager.cs" t="Include" />
+          <e p="Test.cs" t="Include" />
           <e p="Utility" t="Include">
+            <e p="HeightBasedSorting.cs" t="Include" />
+            <e p="OnTriggerListener.cs" t="Include" />
             <e p="Singleton.cs" t="Include" />
+            <e p="SpriteFader.cs" t="Include" />
             <e p="SpriteLayout.cs" t="Include" />
             <e p="Utility.cs" t="Include" />
           </e>

@@ -7,11 +7,13 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
     [SerializeField] private float speed = 0.65f;
     private Rigidbody2D rigidBody2D;
     private Animator animator;
+    private HeightBasedSorting sorting;
     
     private void Awake()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        sorting = GetComponent<HeightBasedSorting>();
     }
 
     public void Move(Vector2 direction)
@@ -27,5 +29,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
         }
 
         animator.SetBool("moving", !direction.Equals(Vector2.zero));
+        
+        sorting.UpdateOrder();
     }
 }
