@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
@@ -10,8 +11,15 @@ public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
     {
         if(Input.GetMouseButtonDown(0)) OnCharacterAttack();
         if (Input.GetKeyDown(KeyCode.F)) OnCharacterInteraction();
+    }
+
+    private void FixedUpdate()
+    {
         
-        Vector2 direction = Vector2.zero;
+        float horizontalMovement = Input.GetAxisRaw("Horizontal");
+        float verticalMovement = Input.GetAxisRaw("Vertical");
+        
+        Vector2 direction = new Vector2(horizontalMovement, verticalMovement);
          
         OnCharacterMovement(direction);
     }

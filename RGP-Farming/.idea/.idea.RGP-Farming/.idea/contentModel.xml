@@ -10,23 +10,40 @@
           <e p="Munro_Licence.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
-          <e p="Body" t="Include">
-            <e p="BodyPart.cs" t="Include" />
-            <e p="BodyType.cs" t="Include" />
-          </e>
           <e p="Character" t="Include">
             <e p="Action" t="Include">
               <e p="CharacterAction.cs" t="Include" />
               <e p="ICharacterAction.cs" t="Include" />
             </e>
             <e p="CharacterManager.cs" t="Include" />
+            <e p="Design" t="Include">
+              <e p="Body.cs" t="Include" />
+              <e p="BodyPart.cs" t="Include" />
+              <e p="BodyType.cs" t="Include" />
+              <e p="Chest.cs" t="Include" />
+              <e p="Eyes.cs" t="Include" />
+              <e p="Feet.cs" t="Include" />
+              <e p="Hair.cs" t="Include" />
+              <e p="Hat.cs" t="Include" />
+              <e p="Legs.cs" t="Include" />
+              <e p="Managers" t="Include">
+                <e p="CharacterBodyManager.cs" t="Include" />
+                <e p="CharacterBodyPartManager.cs" t="Include" />
+                <e p="CharacterChestManager.cs" t="Include" />
+                <e p="CharacterEyesManager.cs" t="Include" />
+                <e p="CharacterFeetManager.cs" t="Include" />
+                <e p="CharacterHairManager.cs" t="Include" />
+                <e p="CharacterHatManager.cs" t="Include" />
+                <e p="CharacterLegsManager.cs" t="Include" />
+              </e>
+            </e>
             <e p="Input" t="Include">
               <e p="CharacterControllerManager.cs" t="Include" />
               <e p="CharacterKeyboardManager.cs" t="Include" />
               <e p="ICharacterInput.cs" t="Include" />
             </e>
             <e p="Movement" t="Include">
-              <e p="CharacterMovement.cs" t="Include" />
+              <e p="CharacterMovementMananger.cs" t="Include" />
               <e p="ICharacterMovement.cs" t="Include" />
             </e>
             <e p="Player" t="Include">
@@ -37,7 +54,6 @@
               <e p="CharacterStates.cs" t="Include" />
             </e>
           </e>
-          <e p="CharacterBodyManager.cs" t="Include" />
           <e p="Utility" t="Include">
             <e p="Singleton.cs" t="Include" />
             <e p="SpriteLayout.cs" t="Include" />

@@ -2,17 +2,27 @@ using UnityEngine;
 
 public class Player : CharacterManager
 {
+    private CharacterMovementMananger characterMovementMananger;
+    
     public override void Awake()
     {
         base.Awake();
         
         characterInputManager = GetComponent<ICharacterInput>();
+        characterMovementMananger = GetComponent<CharacterMovementMananger>();
+    }
+
+    public override void Start()
+    {
+        base.Start();
+
+        SubscribeToInput();
     }
 
     public override void Update()
     {
         base.Update();
-        
+
         bool controllerConnected = false;
         foreach(string name in Input.GetJoystickNames())
         {
@@ -40,7 +50,7 @@ public class Player : CharacterManager
 
     void SubscribeToInput()
     {
-        //characterInputManager.OnCharacterMovement += characterMovementManager.Move;
+        characterInputManager.OnCharacterMovement += characterMovementMananger.Move;
         //characterInputManager.OnCharacterInteraction += characterInteractionManager.OnCharacterInteraction;
         //characterInputManager.OnCharacterAttack += CharacterAttackManager.Attack;
     }

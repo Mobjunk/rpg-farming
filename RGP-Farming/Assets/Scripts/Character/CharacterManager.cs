@@ -1,12 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterStateManager))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(CharacterStateManager))]
 public class CharacterManager : MonoBehaviour
 {
-    [SerializeField] protected ICharacterInput characterInputManager;
+    protected ICharacterInput characterInputManager;
     
-    [SerializeField] private CharacterStateManager characterStateManager;
+    private CharacterStateManager characterStateManager;
     
     private CharacterAction characterAction;
 
@@ -15,7 +15,7 @@ public class CharacterManager : MonoBehaviour
         get => characterAction;
         set => characterAction = value;
     }
-    
+
     public virtual void Awake() { }
     
     public virtual void Start()
