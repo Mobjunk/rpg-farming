@@ -16,6 +16,10 @@ public class Player : CharacterManager
     public CharacterInventory CharacterInventory => characterInventory;
 
     private PlayerInvenotryUIManager playerInventoryUIManager;
+
+    private bool controllerConnected;
+
+    public bool ControllerConnected => controllerConnected;
     
     public override void Awake()
     {
@@ -41,7 +45,7 @@ public class Player : CharacterManager
     {
         base.Update();
 
-        bool controllerConnected = false;
+        controllerConnected = false;
         foreach(string name in Input.GetJoystickNames())
         {
             //Debug.Log("Controllername: " + name);
@@ -82,5 +86,10 @@ public class Player : CharacterManager
     public void Remove()
     {
         characterInventory.RemoveItem(ItemManager.Instance().ForName("Pickaxe"));
+    }
+
+    public void Coins()
+    {
+        characterInventory.UpdateCoins(-100);
     }
 }

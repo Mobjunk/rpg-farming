@@ -17,4 +17,9 @@ public class CharacterInventory : AbstractItemInventory
         return goldCoins > price;
     }
 
+    public void UpdateCoins(int amount)
+    {
+        goldCoins += amount;
+        GoldIndicatorManager.Instance().UpdateCoins(goldCoins);
+    }
 }

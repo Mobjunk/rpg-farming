@@ -53,7 +53,16 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
     public Slider Slider => slider;
 
     //Settings
-    public bool isHighlighted;
+    private bool isHighlighted;
+
+    public bool IsHighlighted => isHighlighted;
+
+    public void SetHighlighted(bool set)
+    {
+        isHighlighted = set;
+        Highlight.enabled = isHighlighted;
+    }
+    
     public bool allowMoving;
     
     public virtual void SetContainment(T containment)

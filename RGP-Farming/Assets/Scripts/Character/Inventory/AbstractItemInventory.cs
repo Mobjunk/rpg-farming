@@ -184,6 +184,25 @@ public abstract class AbstractItemInventory : MonoBehaviour
         InventoryChanged(slotsUpdated);
     }
 
+    public int GetNextOccupiedSlot(int currentSlot, bool increase = true)
+    {
+        currentSlot += increase ? 1 : -1;
+        for (int index = currentSlot, tries = 0; index < 12; tries++)
+        {
+            //Make sure it only has 12 tries, else it creates a inf loop
+            if (tries > 12) break;
+            
+            if (index < 0) index = 11;
+            else if (index > 10) index = 0;
+            
+            if (items[index].item != null) return index;
+            
+            if (increase) index++;
+            else index--;
+        }
+        return -1;
+    }
+    
     public bool HasItem(AbstractItemData item, int itemAmount = 1)
     {
         return items.Any(data => data.item == item && data.amount >= itemAmount);

@@ -10,7 +10,6 @@
           <e p="Munro_Licence.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
-          <e p="ButtonManager.cs" t="Include" />
           <e p="Character" t="Include">
             <e p="Action" t="Include">
               <e p="CharacterAction.cs" t="Include" />
@@ -51,7 +50,12 @@
             </e>
             <e p="Inventory" t="Include">
               <e p="AbstractItemInventory.cs" t="Include" />
-              <e p="CharacterInventory.cs" t="Include" />
+              <e p="UI" t="Include">
+                <e p="AbstractInventoryUIManger.cs" t="Include" />
+                <e p="AbstractItemContainer.cs" t="Include" />
+                <e p="ItemContainerGrid.cs" t="Include" />
+                <e p="UIContainerbase.cs" t="Include" />
+              </e>
             </e>
             <e p="Movement" t="Include">
               <e p="CharacterMovementMananger.cs" t="Include" />
@@ -62,7 +66,9 @@
               <e p="NpcData.cs" t="Include" />
             </e>
             <e p="Player" t="Include">
+              <e p="CharacterInventory.cs" t="Include" />
               <e p="Player.cs" t="Include" />
+              <e p="PlayerInvenotryUIManager.cs" t="Include" />
             </e>
             <e p="State" t="Include">
               <e p="CharacterStateManager.cs" t="Include" />
@@ -70,24 +76,31 @@
             </e>
           </e>
           <e p="GameManager.cs" t="Include" />
-          <e p="StaticObjectManager.cs" t="Include" />
-          <e p="Test" t="Include">
-            <e p="AbstractInventoryUIManger.cs" t="Include" />
-            <e p="AbstractItemContainer.cs" t="Include" />
+          <e p="Item" t="Include">
             <e p="AbstractItemData.cs" t="Include" />
+            <e p="Bar" t="Include">
+              <e p="ItemBarManager.cs" t="Include" />
+            </e>
             <e p="Item.cs" t="Include" />
-            <e p="ItemContainerGrid.cs" t="Include" />
-            <e p="ItemManager.cs" t="Include" />
-            <e p="ItemSnapperManager.cs" t="Include" />
-            <e p="PlayerInvenotryUIManager.cs" t="Include" />
-            <e p="UIContainerbase.cs" t="Include" />
+            <e p="Manager" t="Include">
+              <e p="ItemManager.cs" t="Include" />
+            </e>
+            <e p="Snapper" t="Include">
+              <e p="ItemSnapperManager.cs" t="Include" />
+            </e>
           </e>
+          <e p="StaticObjectManager.cs" t="Include" />
           <e p="Utility" t="Include">
             <e p="HeightBasedSorting.cs" t="Include" />
             <e p="OnTriggerListener.cs" t="Include" />
             <e p="Singleton.cs" t="Include" />
             <e p="SpriteFader.cs" t="Include" />
             <e p="SpriteLayout.cs" t="Include" />
+            <e p="UI" t="Include">
+              <e p="ButtonManager.cs" t="Include" />
+              <e p="CoinAnimation.cs" t="Include" />
+              <e p="GoldIndicatorManager.cs" t="Include" />
+            </e>
             <e p="Utility.cs" t="Include" />
           </e>
         </e>
