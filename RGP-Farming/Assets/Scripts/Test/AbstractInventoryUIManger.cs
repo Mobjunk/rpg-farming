@@ -128,8 +128,11 @@ public abstract class AbstractInventoryUIManger<T> : Singleton<T> where T : Mono
         foreach (int slot in slotsUpdated)
         {
             //Debug.LogWarning($"Slot {slot} needs updating");
-            for(int index = 0; index < containers.Length; index++)
+            for (int index = 0; index < containers.Length; index++)
+            {
+                if (slot >= containers[index].Count) continue;
                 containers[index][slot].SetContainment(ContainmentContainer.items[slot]);
+            }
         }
     }
 }

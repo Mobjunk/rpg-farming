@@ -4,12 +4,24 @@ using UnityEngine;
 public class Player : CharacterManager
 {
 
+    private static Player intsance;
+
+    public static Player Instance()
+    {
+        return intsance;
+    }
+    
     private CharacterInventory characterInventory;
+
+    public CharacterInventory CharacterInventory => characterInventory;
+
     private PlayerInvenotryUIManager playerInventoryUIManager;
     
     public override void Awake()
     {
         base.Awake();
+
+        intsance = this;
         
         characterInputManager = GetComponent<ICharacterInput>();
         characterInventory = GetComponent<CharacterInventory>();

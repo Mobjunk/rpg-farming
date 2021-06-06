@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [Serializable]
-public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, IDragHandler
+public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
 {
     /// <summary>
     /// The containment
@@ -13,6 +13,8 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     [SerializeReference] protected T containment;
 
     public T Containment => containment;
+
+    public int slotIndex;
     
     //References
     /// <summary>
@@ -20,51 +22,36 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     [SerializeField] private TextMeshProUGUI slot;
 
-    public TextMeshProUGUI Slot
-    {
-        get => slot;
-    }
-    
+    public TextMeshProUGUI Slot => slot;
+
     /// <summary>
     /// Amount text of the containment
     /// </summary>
     [SerializeField] private TextMeshProUGUI amount;
 
-    public TextMeshProUGUI Amount
-    {
-        get => amount;
-    }
-    
+    public TextMeshProUGUI Amount => amount;
+
     /// <summary>
     /// Icon of the containment
     /// </summary>
     [SerializeField] private Image icon;
 
-    public Image Icon
-    {
-        get => icon;
-    }
-    
+    public Image Icon => icon;
+
     /// <summary>
     /// Highlight of the containment
     /// </summary>
     [SerializeField] private Image highlight;
 
-    public Image Highlight
-    {
-        get => highlight;
-    }
-    
+    public Image Highlight => highlight;
+
     /// <summary>
     /// Slider of the containment
     /// </summary>
     [SerializeField] private Slider slider;
 
-    public Slider Slider
-    {
-        get => slider;
-    }
-    
+    public Slider Slider => slider;
+
     //Settings
     public bool isHighlighted;
     public bool allowMoving;
@@ -86,7 +73,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     private void Start()
     {
         string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
-        int slotIndex = int.Parse(gameObject.name);
+        slotIndex = int.Parse(gameObject.name);
         
         if (slotIndex < slotIcon.Length) slot.text = slotIcon[slotIndex];
         else slot.text = "";
@@ -102,8 +89,6 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     {
         if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Middle)
         {
-            if (containment == null) return;
-
             if (allowMoving) SnapContainment();
             else SwitchContainment();
         }
@@ -116,11 +101,14 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
 
     void SnapContainment()
     {
-        
-    }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        
+        if (!ItemSnapperManager.Instance().isSnapped) ItemSnapperManager.Instance().SetSnappedItem(this as UIContainerbase<Item>);
+        else
+        {
+            if (ItemSnapperManager.Instance().currentItemSnapped == this as UIContainerbase<Item>) ItemSnapperManager.Instance().ResetSnappedItem();
+            else if (containment == null) ItemSnapperManager.Instance().ResetSnappedItem();
+            Player.Instance().CharacterInventory
+                .Swap(ItemSnapperManager.Instance().currentItemSnapped.slotIndex, slotIndex);
+        }
     }
 }

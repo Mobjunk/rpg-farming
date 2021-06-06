@@ -58,7 +58,18 @@ public abstract class AbstractItemInventory : MonoBehaviour
             items[index] = new Item();
     }
 
-    public void Swap(int from, int to)
+    public void Set(int slot, AbstractItemData item, bool update = true)
+    {
+        items[slot].item = item;
+        
+        if (update)
+        {
+            slotsUpdated.Add(slot);
+            InventoryChanged(slotsUpdated);
+        }
+    }
+
+    public void Swap(int from, int to, bool update = true)
     {
         //Creates an copy of the item
         var temp = items[from];
@@ -66,11 +77,14 @@ public abstract class AbstractItemInventory : MonoBehaviour
         //Spawns around the 2 items
         items[from] = items[to];
         items[to] = temp;
-        
-        slotsUpdated.Add(from);
-        slotsUpdated.Add(to);
-        
-        InventoryChanged(slotsUpdated);
+
+        if (update)
+        {
+            slotsUpdated.Add(from);
+            slotsUpdated.Add(to);
+
+            InventoryChanged(slotsUpdated);
+        }
     }
 
     public void AddItem(AbstractItemData item, int itemAmount = 1)
