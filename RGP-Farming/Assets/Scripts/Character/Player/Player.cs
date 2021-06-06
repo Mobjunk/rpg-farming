@@ -1,12 +1,19 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterInventory), typeof(PlayerInvenotryUIManager))]
 public class Player : CharacterManager
 {
+
+    private CharacterInventory characterInventory;
+    private PlayerInvenotryUIManager playerInventoryUIManager;
+    
     public override void Awake()
     {
         base.Awake();
         
         characterInputManager = GetComponent<ICharacterInput>();
+        characterInventory = GetComponent<CharacterInventory>();
+        playerInventoryUIManager = GetComponent<PlayerInvenotryUIManager>();
     }
 
     public override void Start()
@@ -14,6 +21,8 @@ public class Player : CharacterManager
         base.Start();
 
         SubscribeToInput();
+        
+        playerInventoryUIManager.Initialize(characterInventory);
     }
 
     public override void Update()
@@ -50,5 +59,16 @@ public class Player : CharacterManager
         characterInputManager.OnCharacterMovement += CharacterMovementMananger.Move;
         //characterInputManager.OnCharacterInteraction += characterInteractionManager.OnCharacterInteraction;
         //characterInputManager.OnCharacterAttack += CharacterAttackManager.Attack;
+    }
+
+    public void Add()
+    {
+        characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"));
+        characterInventory.AddItem(ItemManager.Instance().ForName("Axe"));
+    }
+
+    public void Remove()
+    {
+        characterInventory.RemoveItem(ItemManager.Instance().ForName("Pickaxe"));
     }
 }

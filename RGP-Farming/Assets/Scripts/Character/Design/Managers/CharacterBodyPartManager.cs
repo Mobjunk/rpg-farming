@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class CharacterBodyPartManager : MonoBehaviour
@@ -59,9 +60,19 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         int currentIndex = 1;
         if (characterStateManager.GetCharacterState().ToString().Contains("WALKING"))
             currentIndex = int.Parse(characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
+        else if(characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
+            currentIndex = 3 + (int.Parse(characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
         
         if (bodySprites.sprites[0].sprite.Length != 0)
         {
+            if (currentIndex >= bodySprites.sprites[darkSkin ? 1 : 0].sprite.Length)
+            {
+                //Debug.Log("bodySprites: " + gameObject.name);
+                //Debug.Log("currentIndex: " + currentIndex);
+                //Debug.Log("bodySprites.sprites[darkSkin ? 1 : 0].sprite.Length: " + bodySprites.sprites[darkSkin ? 1 : 0].sprite.Length);
+                return;
+            }
+            
             spriteRenderer.sprite = bodySprites.sprites[darkSkin ? 1 : 0].sprite[currentIndex];
             spriteRenderer.enabled = true;
         } else spriteRenderer.enabled = false;
