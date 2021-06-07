@@ -62,6 +62,17 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         isHighlighted = set;
         Highlight.enabled = isHighlighted;
     }
+
+    private bool showIndicator;
+
+    public bool ShowIndicator => showIndicator;
+
+    public void SetIndicator(bool set)
+    {
+        showIndicator = set;
+        if (slotIndex < slotIcon.Length && ShowIndicator) slot.text = slotIcon[slotIndex];
+        else slot.text = "";
+    }
     
     public bool allowMoving;
     
@@ -79,12 +90,12 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         slider.enabled = false;
     }
 
+    string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
     private void Start()
     {
-        string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
         slotIndex = int.Parse(gameObject.name);
         
-        if (slotIndex < slotIcon.Length) slot.text = slotIcon[slotIndex];
+        if (slotIndex < slotIcon.Length && ShowIndicator) slot.text = slotIcon[slotIndex];
         else slot.text = "";
         
         if (isHighlighted) highlight.enabled = true;

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class AbstractInventoryUIManger<T> : Singleton<T> where T : MonoBehaviour
 {
+    public abstract bool ShowIndicators();
+    
     /// <summary>
     /// The different containers with slots
     /// This is needed for the double inventory ui to work
@@ -111,6 +113,7 @@ public abstract class AbstractInventoryUIManger<T> : Singleton<T> where T : Mono
 
                 AbstractItemContainer container = containment.GetComponent<AbstractItemContainer>();
 
+                container.SetIndicator(parent.showIdicator);
                 container.allowMoving = parent.maxSlots != 12;
                 container.SetContainment(ContainmentContainer.items[index]);
                 
@@ -142,4 +145,5 @@ public class ParentData
 {
     public Transform inventoryContainer;
     public int maxSlots;
+    public bool showIdicator;
 }
