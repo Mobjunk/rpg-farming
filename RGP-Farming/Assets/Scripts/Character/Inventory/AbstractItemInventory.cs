@@ -58,9 +58,20 @@ public abstract class AbstractItemInventory : MonoBehaviour
             items[index] = new Item();
     }
 
-    public void Set(int slot, AbstractItemData item, bool update = true)
+    /*public void Set(int slot, AbstractItemData item, bool update = true)
     {
         items[slot].item = item;
+        
+        if (update)
+        {
+            slotsUpdated.Add(slot);
+            InventoryChanged(slotsUpdated);
+        }
+    }*/
+
+    public void Set(int slot, Item item, bool update = true)
+    {
+        items[slot] = item;
         
         if (update)
         {

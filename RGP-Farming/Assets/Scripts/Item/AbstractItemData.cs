@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class AbstractItemData : ScriptableObject
 {
-    public string name;
+    public string itemName;
     public Sprite uiSprite;
     public bool stackable;
 }

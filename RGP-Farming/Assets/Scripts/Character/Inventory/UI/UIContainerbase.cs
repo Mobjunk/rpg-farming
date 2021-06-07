@@ -14,9 +14,22 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
 
     public T Containment => containment;
 
+    /// <summary>
+    /// The index of the slot
+    /// </summary>
     public int slotIndex;
     
     //References
+    #region References
+
+    private AbstractItemInventory container;
+
+    public AbstractItemInventory Container
+    {
+        get => container;
+        set => container = value;
+    }
+    
     /// <summary>
     /// Slot text of the containment
     /// </summary>
@@ -52,7 +65,14 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
 
     public Slider Slider => slider;
 
+    #endregion
+
     //Settings
+    #region Settings
+    
+    /// <summary>
+    /// Handles the highlight of a slot in use
+    /// </summary>
     private bool isHighlighted;
 
     public bool IsHighlighted => isHighlighted;
@@ -63,6 +83,9 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         Highlight.enabled = isHighlighted;
     }
 
+    /// <summary>
+    /// Indicator of what key is used to select the slot
+    /// </summary>
     private bool showIndicator;
 
     public bool ShowIndicator => showIndicator;
@@ -74,8 +97,19 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         else slot.text = "";
     }
     
-    public bool allowMoving;
-    
+    /// <summary>
+    /// To check if the slot is allowed to be moved
+    /// </summary>
+    private bool allowMoving;
+
+    public bool AllowMoving
+    {
+        get => allowMoving;
+        set => allowMoving = value;
+    }
+
+    #endregion
+
     public virtual void SetContainment(T containment)
     {
         this.containment = containment;
@@ -121,16 +155,21 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
 
     void SnapContainment()
     {
-
-        if (!ItemSnapperManager.Instance().isSnapped) ItemSnapperManager.Instance().SetSnappedItem(this as UIContainerbase<Item>);
+        ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
+        
+        if (!snapperManager.isSnapped) snapperManager.SetSnappedItem(this as UIContainerbase<Item>);
         else
         {
-            if (ItemSnapperManager.Instance().currentItemSnapped == this as UIContainerbase<Item>) ItemSnapperManager.Instance().ResetSnappedItem();
-            else if (containment == null) ItemSnapperManager.Instance().ResetSnappedItem();
+            UIContainerbase<Item> currentSnap = snapperManager.currentItemSnapped;
+            //Handles resetting snapping
+            if (currentSnap == this as UIContainerbase<Item> || containment == null) snapperManager.ResetSnappedItem();
             
-            //TODO: Check what inventory is linked to it and use that
+            //Creates a placeholder of the current item
+            Item placeHolder = new Item(Container.items[slotIndex].item, Container.items[slotIndex].amount);
             
-            Player.Instance().CharacterInventory.Swap(ItemSnapperManager.Instance().currentItemSnapped.slotIndex, slotIndex);
+            //Handles updating the containers
+            Container.Set(slotIndex, currentSnap.Container.items[currentSnap.slotIndex]);
+            currentSnap.Container.Set(currentSnap.slotIndex, placeHolder);
         }
     }
 }

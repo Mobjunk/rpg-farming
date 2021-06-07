@@ -111,8 +111,10 @@ public abstract class AbstractInventoryUIManger<T> : Singleton<T> where T : Mono
 
                 AbstractItemContainer container = containment.GetComponent<AbstractItemContainer>();
 
+                //TODO: CLEAN THIS SHIT
+                container.Container = pInventory;
                 container.SetIndicator(parent.showIdicator);
-                container.allowMoving = parent.maxSlots != 12;
+                container.AllowMoving = parent.maxSlots != 12;
                 container.SetContainment(ContainmentContainer.items[index]);
                 
                 containers[parentIndex].Add(container);
