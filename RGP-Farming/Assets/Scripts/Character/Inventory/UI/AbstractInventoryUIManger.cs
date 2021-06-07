@@ -5,8 +5,6 @@ using UnityEngine;
 
 public abstract class AbstractInventoryUIManger<T> : Singleton<T> where T : MonoBehaviour
 {
-    public abstract bool ShowIndicators();
-    
     /// <summary>
     /// The different containers with slots
     /// This is needed for the double inventory ui to work
@@ -58,7 +56,7 @@ public abstract class AbstractInventoryUIManger<T> : Singleton<T> where T : Mono
     private void Awake()
     {
         //Handles setting up the array of lists
-        for(int index = 0; index < containers.Length; index++)
+        for (int index = 0; index < containers.Length; index++)
             containers[index] = new List<AbstractItemContainer>();
     }
 

@@ -1,8 +1,1 @@
-public class PlayerInvenotryUIManager : AbstractInventoryUIManger<PlayerInvenotryUIManager> {
-    
-    public override bool ShowIndicators()
-    {
-        return true;
-    }
-    
-}
+public class PlayerInvenotryUIManager : AbstractInventoryUIManger<PlayerInvenotryUIManager> { }

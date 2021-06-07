@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemBarManager : Singleton<ItemBarManager>
+public class ItemBarManager : MenuManager<ItemBarManager>
 {
 
-    [SerializeField] public int selectedSlot = 0;
+    [HideInInspector] public int selectedSlot = 0;
     
     private PlayerInvenotryUIManager inventoryUIManager;
 

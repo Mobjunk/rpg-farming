@@ -116,7 +116,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
 
     void SwitchContainment()
     {
-        
+        Debug.Log("Handle clicking a item...");
     }
 
     void SnapContainment()
@@ -127,8 +127,10 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         {
             if (ItemSnapperManager.Instance().currentItemSnapped == this as UIContainerbase<Item>) ItemSnapperManager.Instance().ResetSnappedItem();
             else if (containment == null) ItemSnapperManager.Instance().ResetSnappedItem();
-            Player.Instance().CharacterInventory
-                .Swap(ItemSnapperManager.Instance().currentItemSnapped.slotIndex, slotIndex);
+            
+            //TODO: Check what inventory is linked to it and use that
+            
+            Player.Instance().CharacterInventory.Swap(ItemSnapperManager.Instance().currentItemSnapped.slotIndex, slotIndex);
         }
     }
 }

@@ -11,15 +11,34 @@ public class Player : CharacterManager
         return intsance;
     }
     
+    /// <summary>
+    /// Players inventory
+    /// </summary>
     private CharacterInventory characterInventory;
-
     public CharacterInventory CharacterInventory => characterInventory;
 
+    /// <summary>
+    /// The ui linked to the player's inventory
+    /// </summary>
     private PlayerInvenotryUIManager playerInventoryUIManager;
 
+    /// <summary>
+    /// Checks if a player has a controller connected
+    /// </summary>
     private bool controllerConnected;
-
     public bool ControllerConnected => controllerConnected;
+
+
+    /// <summary>
+    /// The current gameobject the player is interacting with
+    /// </summary>
+    private GameObject interactedObject;
+
+    public GameObject InteractedObject
+    {
+        get => interactedObject;
+        set => interactedObject = value;
+    }
     
     public override void Awake()
     {
