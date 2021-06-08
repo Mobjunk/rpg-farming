@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 652923553878110858}
   - component: {fileID: 652923553878110898}
   - component: {fileID: 652923553878110859}
-  - component: {fileID: 652923553878110899}
+  - component: {fileID: 5807500060518409157}
   - component: {fileID: 652923553878110902}
   - component: {fileID: 652923553878110897}
   - component: {fileID: 652923553878110857}
@@ -76,8 +76,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerCollider: {fileID: 0}
   interactionManager: {fileID: 0}
---- !u!58 &652923553878110899
-CircleCollider2D:
+--- !u!61 &5807500060518409157
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -89,9 +89,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.008694507, y: 0.009522557}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.22, y: 0.17}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Size: {x: 0.20261098, y: 0.1509549}
+  m_EdgeRadius: 0
 --- !u!50 &652923553878110902
 Rigidbody2D:
   serializedVersion: 4
