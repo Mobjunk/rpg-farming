@@ -5,6 +5,11 @@ using UnityEngine;
 
 public abstract class AbstractInventoryUIManger : MonoBehaviour
 {
+    //TODO: Add a event that is called when it closes the ui then subscribe to it in the opener class
+    
+    public delegate void OnInventoryUIClosing();
+    public OnInventoryUIClosing onInventoryUIClosing = delegate {  };
+
     /// <summary>
     /// The different containers with slots
     /// This is needed for the double inventory ui to work
@@ -60,6 +65,11 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
             containers[index] = new List<AbstractItemContainer>();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape)) Close();
+    }
+
     /// <summary>
     /// Handles opening the UI
     /// </summary>
@@ -76,6 +86,7 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
     {
         isOpened = false;
         InventoryUI.SetActive(isOpened);
+        onInventoryUIClosing.Invoke();
     }
 
     /// <summary>

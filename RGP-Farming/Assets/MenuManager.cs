@@ -6,6 +6,7 @@ public abstract class MenuManager<T> : Singleton<T> where T : MonoBehaviour
 {
     [SerializeField] private GameObject content;
     [SerializeField] private RectTransform contents;
+    [SerializeField] private GameObject[] buttons;
     
     public void SetAnchorPoint(AnchorsPresets anchor, Vector2 offset)
     {
@@ -18,13 +19,19 @@ public abstract class MenuManager<T> : Singleton<T> where T : MonoBehaviour
         
     }
     
-    public void Unhide()
+    public void Unhide(bool hideButtons = false)
     {
+        if(hideButtons)
+            foreach(GameObject o in buttons)
+                o.SetActive(false);
         content.SetActive(true);
     }
 
-    public void Hide()
+    public void Hide(bool unhideButtons = false)
     {
+        if(unhideButtons)
+            foreach(GameObject o in buttons)
+                o.SetActive(true);
         content.SetActive(false);
     }
 }

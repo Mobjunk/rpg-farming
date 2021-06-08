@@ -7,6 +7,7 @@ public class CharacterControllerManager : MonoBehaviour, ICharacterInput
     public event CharacterInputAction OnCharacterAttack = delegate {  };
     public event CharacterInputActionMove OnCharacterMovement = delegate {  };
     public event CharacterInteraction OnCharacterInteraction = delegate {  };
+    public event CharacterSecondaryInteraction OnCharacterSecondaryInteraction = delegate {  };
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class CharacterControllerManager : MonoBehaviour, ICharacterInput
     {
         if(Input.GetButtonDown("Fire1")) OnCharacterAttack();
         if (Input.GetButtonDown("Fire2")) OnCharacterInteraction(characterManager);
+        if (Input.GetButtonDown("Fire3")) OnCharacterSecondaryInteraction(characterManager);
         
         Vector2 direction = Vector2.zero;
          

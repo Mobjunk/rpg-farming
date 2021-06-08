@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class ChestInteraction : ObjectInteractionManager
 {
-    public override void OnInteraction(CharacterManager characterManager)
+    public override void OnSecondaryInteraction(CharacterManager characterManager)
     {
+        base.OnSecondaryInteraction(characterManager);
+        
         ChestOpener chestOpener = GetComponent<ChestOpener>();
 
         if (chestOpener == null)

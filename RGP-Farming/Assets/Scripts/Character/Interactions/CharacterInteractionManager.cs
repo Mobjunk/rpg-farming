@@ -1,7 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterInteractionManager : MonoBehaviour
 {
+    [SerializeField] private List<InteractionManager> interactables;
+
+    public List<InteractionManager> GetInteractables()
+    {
+        return interactables;
+    }
+
     [SerializeField] private InteractionManager interactable;
 
     public InteractionManager Interactable
@@ -18,5 +26,15 @@ public class CharacterInteractionManager : MonoBehaviour
             return;
         }
         Interactable.OnInteraction(characterManager);
+    }
+
+    public void OnCharacterSecondaryInteraction(CharacterManager characterManager)
+    {
+        if (Interactable == null)
+        {
+            Debug.Log("Interactable is null...");
+            return;
+        }
+        Interactable.OnSecondaryInteraction(characterManager);
     }
 }

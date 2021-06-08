@@ -33,18 +33,6 @@ public class Player : CharacterManager
     /// </summary>
     private bool controllerConnected;
     public bool ControllerConnected => controllerConnected;
-
-
-    /// <summary>
-    /// The current gameobject the player is interacting with
-    /// </summary>
-    private GameObject interactedObject;
-
-    public GameObject InteractedObject
-    {
-        get => interactedObject;
-        set => interactedObject = value;
-    }
     
     public override void Awake()
     {
@@ -100,6 +88,7 @@ public class Player : CharacterManager
     {
         characterInputManager.OnCharacterMovement += CharacterMovementMananger.Move;
         characterInputManager.OnCharacterInteraction += characterInteractionManager.OnCharacterInteraction;
+        characterInputManager.OnCharacterSecondaryInteraction += characterInteractionManager.OnCharacterSecondaryInteraction;
         //characterInputManager.OnCharacterAttack += CharacterAttackManager.Attack;
     }
 

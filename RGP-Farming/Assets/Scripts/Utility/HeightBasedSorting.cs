@@ -11,6 +11,8 @@ public class HeightBasedSorting : MonoBehaviour
 
     [SerializeField] private int offset;
 
+    [SerializeField] private bool skip;
+
     private void OnValidate()
     {
         if (sortingGroup == null)
@@ -28,6 +30,7 @@ public class HeightBasedSorting : MonoBehaviour
 
     public void UpdateOrder()
     {
+        if (skip) return;
         if (sortingGroup != null)
         {
             sortingGroup.sortingOrder = (int)(transform.position.y * positionScaling - offset);

@@ -33,11 +33,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         if (Input.mouseScrollDelta.y == 0) return;
         
         int nextSlot = Player.Instance().CharacterInventory.GetNextOccupiedSlot(selectedSlot, value > 0);
-        if (nextSlot == -1)
-        {
-            Debug.LogError("No slot to switch to");
-            return;
-        }
+        if (nextSlot == -1) return;
 
         inventoryUIManager.containers[0][selectedSlot].SetHighlighted(false);
         selectedSlot = nextSlot;

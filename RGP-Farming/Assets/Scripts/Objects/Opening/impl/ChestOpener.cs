@@ -50,5 +50,10 @@ public class ChestOpener : Opener
         Debug.Log("Handle interaction for " + characterManager.gameObject.name);
         base.Interact(characterManager);
     }
-    
+
+    public override void OnInventoryUIClosing()
+    {
+        base.OnInventoryUIClosing();
+        animator.SetBool("opening", false);
+    }
 }
