@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractInventoryUIManger<T> : Singleton<T> where T : MonoBehaviour
+public abstract class AbstractInventoryUIManger : MonoBehaviour
 {
     /// <summary>
     /// The different containers with slots

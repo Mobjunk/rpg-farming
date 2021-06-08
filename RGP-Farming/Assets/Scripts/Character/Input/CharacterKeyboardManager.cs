@@ -3,14 +3,21 @@ using UnityEngine;
 
 public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
 {
+    private CharacterManager characterManager;
+    
     public event CharacterInputAction OnCharacterAttack = delegate {  };
     public event CharacterInputActionMove OnCharacterMovement = delegate {  };
-    public event CharacterInputAction OnCharacterInteraction = delegate {  };
+    public event CharacterInteraction OnCharacterInteraction = delegate {  };
+
+    private void Awake()
+    {
+        characterManager = GetComponent<CharacterManager>();
+    }
 
     private void Update()
     {
         if(Input.GetMouseButtonDown(0)) OnCharacterAttack();
-        if (Input.GetKeyDown(KeyCode.F)) OnCharacterInteraction();
+        if (Input.GetKeyDown(KeyCode.F)) OnCharacterInteraction(characterManager);
     }
 
     private void FixedUpdate()

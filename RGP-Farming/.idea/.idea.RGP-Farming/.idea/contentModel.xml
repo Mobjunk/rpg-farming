@@ -50,6 +50,9 @@
               <e p="CharacterKeyboardManager.cs" t="Include" />
               <e p="ICharacterInput.cs" t="Include" />
             </e>
+            <e p="Interactions" t="Include">
+              <e p="CharacterInteractionManager.cs" t="Include" />
+            </e>
             <e p="Inventory" t="Include">
               <e p="AbstractItemInventory.cs" t="Include" />
               <e p="Chest" t="Include">
@@ -82,6 +85,16 @@
             </e>
           </e>
           <e p="GameManager.cs" t="Include" />
+          <e p="Interaction" t="Include">
+            <e p="IInteraction.cs" t="Include" />
+            <e p="InteractionManager.cs" t="Include" />
+            <e p="Object" t="Include">
+              <e p="impl" t="Include">
+                <e p="ChestInteraction.cs" t="Include" />
+              </e>
+              <e p="ObjectInteractionManager.cs" t="Include" />
+            </e>
+          </e>
           <e p="Item" t="Include">
             <e p="AbstractItemData.cs" t="Include" />
             <e p="Bar" t="Include">
@@ -95,7 +108,16 @@
               <e p="ItemSnapperManager.cs" t="Include" />
             </e>
           </e>
-          <e p="StaticObjectManager.cs" t="Include" />
+          <e p="Objects" t="Include">
+            <e p="Opening" t="Include">
+              <e p="impl" t="Include">
+                <e p="ChestOpener.cs" t="Include" />
+              </e>
+              <e p="IOpener.cs" t="Include" />
+              <e p="Opener.cs" t="Include" />
+            </e>
+            <e p="StaticObjectManager.cs" t="Include" />
+          </e>
           <e p="Utility" t="Include">
             <e p="CursorManager.cs" t="Include" />
             <e p="HeightBasedSorting.cs" t="Include" />

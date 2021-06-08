@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2662423359628921969}
   - component: {fileID: 4985750740829715719}
   - component: {fileID: 4990165636136102976}
+  - component: {fileID: 8149774648384929234}
   - component: {fileID: 4990165636136102975}
   - component: {fileID: 4374187241684769131}
   - component: {fileID: 2124916917677514975}
@@ -60,7 +61,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
 --- !u!50 &4990165636136102978
 Rigidbody2D:
   serializedVersion: 4
@@ -153,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingGroup: {fileID: 2803016351203578844}
   positionScaling: -100
+  offset: -11
 --- !u!114 &4990165636136102976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +168,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterState: 0
+--- !u!114 &8149774648384929234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990165636136102972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99efc67abc1a589468e27b62805e2b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: {fileID: 0}
 --- !u!114 &4990165636136102975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -975,7 +990,7 @@ Camera:
   far clip plane: 5000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.25
+  orthographic size: 1
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

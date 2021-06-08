@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestInvenotryUIManager : AbstractInventoryUIManger<ChestInvenotryUIManager>
+public class ChestInvenotryUIManager : AbstractInventoryUIManger
 {
     
     [SerializeField] private ChestInventory chestInventory;

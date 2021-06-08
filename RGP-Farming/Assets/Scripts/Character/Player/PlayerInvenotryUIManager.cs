@@ -1,1 +1,1 @@
-public class PlayerInvenotryUIManager : AbstractInventoryUIManger<PlayerInvenotryUIManager> { }
+public class PlayerInvenotryUIManager : AbstractInventoryUIManger { }

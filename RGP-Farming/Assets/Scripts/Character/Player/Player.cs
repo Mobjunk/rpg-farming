@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterInventory), typeof(PlayerInvenotryUIManager))]
+[RequireComponent(typeof(CharacterInventory), typeof(PlayerInvenotryUIManager), typeof(CharacterInteractionManager))]
 public class Player : CharacterManager
 {
 
@@ -10,6 +10,12 @@ public class Player : CharacterManager
     {
         return intsance;
     }
+
+    /// <summary>
+    /// Character interaction
+    /// </summary>
+    private CharacterInteractionManager characterInteractionManager;
+    public CharacterInteractionManager CharacterInteractionManager => characterInteractionManager;
     
     /// <summary>
     /// Players inventory
@@ -45,7 +51,8 @@ public class Player : CharacterManager
         base.Awake();
 
         intsance = this;
-        
+
+        characterInteractionManager = GetComponent<CharacterInteractionManager>();
         characterInputManager = GetComponent<ICharacterInput>();
         characterInventory = GetComponent<CharacterInventory>();
         playerInventoryUIManager = GetComponent<PlayerInvenotryUIManager>();
@@ -92,7 +99,7 @@ public class Player : CharacterManager
     void SubscribeToInput()
     {
         characterInputManager.OnCharacterMovement += CharacterMovementMananger.Move;
-        //characterInputManager.OnCharacterInteraction += characterInteractionManager.OnCharacterInteraction;
+        characterInputManager.OnCharacterInteraction += characterInteractionManager.OnCharacterInteraction;
         //characterInputManager.OnCharacterAttack += CharacterAttackManager.Attack;
     }
 
