@@ -248,7 +248,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
 --- !u!50 &6675756735418209121
 Rigidbody2D:
   serializedVersion: 4
@@ -342,6 +342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingGroup: {fileID: 3496901473670824409}
   positionScaling: -100
+  offset: -11
+  skip: 0
 --- !u!114 &6675756735418209123
 MonoBehaviour:
   m_ObjectHideFlags: 0

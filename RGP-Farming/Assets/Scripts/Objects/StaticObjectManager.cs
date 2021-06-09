@@ -8,6 +8,13 @@ public class StaticObjectManager : MonoBehaviour
 {
     [SerializeField] private InteractionManager interactionManager;
 
+
+    public InteractionManager InteractionManager
+    {
+        get => interactionManager;
+        set => interactionManager = value;
+    }
+
     private void Awake()
     {
         interactionManager = GetComponent<InteractionManager>();
