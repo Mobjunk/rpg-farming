@@ -9,6 +9,10 @@
         <e p="Fonts" t="Include">
           <e p="Munro_Licence.txt" t="Include" />
         </e>
+        <e p="GroundItems" t="Include">
+          <e p="Crops.cs" t="Include" />
+          <e p="CropsCycle.cs" t="Include" />
+        </e>
         <e p="InventoryMenuManager.cs" t="Include" />
         <e p="MenuManager.cs" t="Include" />
         <e p="Scripts" t="Include">
@@ -84,6 +88,7 @@
               <e p="CharacterStates.cs" t="Include" />
             </e>
           </e>
+          <e p="CharacterPlaceObject.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="Interaction" t="Include">
             <e p="IInteraction.cs" t="Include" />
@@ -91,6 +96,7 @@
             <e p="Object" t="Include">
               <e p="impl" t="Include">
                 <e p="ChestInteraction.cs" t="Include" />
+                <e p="CropsInteraction.cs" t="Include" />
                 <e p="TreeInteraction.cs" t="Include" />
               </e>
               <e p="ObjectInteractionManager.cs" t="Include" />
@@ -98,6 +104,8 @@
           </e>
           <e p="Item" t="Include">
             <e p="AbstractItemData.cs" t="Include" />
+            <e p="AbstractPlaceableItem.cs" t="Include" />
+            <e p="AbstractToolItem.cs" t="Include" />
             <e p="Bar" t="Include">
               <e p="ItemBarManager.cs" t="Include" />
             </e>
@@ -118,6 +126,9 @@
               <e p="Opener.cs" t="Include" />
             </e>
             <e p="StaticObjectManager.cs" t="Include" />
+          </e>
+          <e p="Tiles" t="Include">
+            <e p="TilePlacer.cs" t="Include" />
           </e>
           <e p="Utility" t="Include">
             <e p="CursorManager.cs" t="Include" />

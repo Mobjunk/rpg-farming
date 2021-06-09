@@ -1,14 +1,28 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterInventory), typeof(PlayerInvenotryUIManager), typeof(CharacterInteractionManager))]
+[RequireComponent(typeof(CharacterPlaceObject))]
 public class Player : CharacterManager
 {
-
     private static Player intsance;
 
     public static Player Instance()
     {
         return intsance;
+    }
+
+    [SerializeField] private Item itemAboveHead;
+    public Item ItemAboveHead
+    {
+        get => itemAboveHead;
+        set => itemAboveHead = value;
+    }
+
+    [SerializeField] private SpriteRenderer itemAboveHeadRenderer;
+    public SpriteRenderer ItemAboveHeadRenderer
+    {
+        get => itemAboveHeadRenderer;
+        set => itemAboveHeadRenderer = value;
     }
 
     /// <summary>
@@ -28,6 +42,14 @@ public class Player : CharacterManager
     /// </summary>
     private PlayerInvenotryUIManager playerInventoryUIManager;
 
+    private CharacterPlaceObject characterPlaceObject;
+
+    public CharacterPlaceObject CharacterPlaceObject
+    {
+        get => characterPlaceObject;
+        set => characterPlaceObject = value;
+    }
+
     /// <summary>
     /// Checks if a player has a controller connected
     /// </summary>
@@ -44,6 +66,7 @@ public class Player : CharacterManager
         characterInputManager = GetComponent<ICharacterInput>();
         characterInventory = GetComponent<CharacterInventory>();
         playerInventoryUIManager = GetComponent<PlayerInvenotryUIManager>();
+        characterPlaceObject = GetComponent<CharacterPlaceObject>();
     }
 
     public override void Start()
@@ -96,6 +119,8 @@ public class Player : CharacterManager
     {
         characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Axe"));
+        characterInventory.AddItem(ItemManager.Instance().ForName("Chest"));
+        characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 1000);
     }
 
     public void Remove()

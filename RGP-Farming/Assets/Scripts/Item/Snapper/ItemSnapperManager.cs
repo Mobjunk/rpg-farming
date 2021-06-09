@@ -19,6 +19,8 @@ public class ItemSnapperManager : Singleton<ItemSnapperManager>
 
     public void ResetSnappedItem()
     {
+        if (currentItemSnapped == null) return;
+        
         Destroy(currentItemSnapped.Icon.gameObject.GetComponent<Canvas>());
         currentItemSnapped.Icon.transform.localPosition = Vector3.zero;
         currentItemSnapped.Amount.transform.localPosition = Vector3.zero;

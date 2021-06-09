@@ -5,23 +5,28 @@ using UnityEngine;
 
 public abstract class InteractionManager : MonoBehaviour, IInteraction
 {
+    private Player player => Player.Instance();
+    private CursorManager cursor => CursorManager.Instance();
+    
     public virtual void OnInteraction(CharacterManager characterManager) { }
 
     public virtual void OnSecondaryInteraction(CharacterManager characterManager) { }
 
     private void OnMouseOver()
     {
-        if (Player.Instance().CharacterInteractionManager.GetInteractables().Contains(this))
+        player.CharacterPlaceObject.CurrentGameObjectHoverd = gameObject;
+        if (player.CharacterInteractionManager.GetInteractables().Contains(this))
         {
-            CursorManager.Instance().SetUsableInteractionCursor();
-            Player.Instance().CharacterInteractionManager.Interactable = this;
+            cursor.SetUsableInteractionCursor();
+            player.CharacterInteractionManager.Interactable = this;
         }
-        else CursorManager.Instance().SetNonUsableInteractionCursor();
+        else cursor.SetNonUsableInteractionCursor();
     }
 
     private void OnMouseExit()
     {
-        CursorManager.Instance().SetDefaultCursor();
-        Player.Instance().CharacterInteractionManager.Interactable = null;
+        cursor.SetDefaultCursor();
+        player.CharacterPlaceObject.CurrentGameObjectHoverd = null;
+        player.CharacterInteractionManager.Interactable = null;
     }
 }

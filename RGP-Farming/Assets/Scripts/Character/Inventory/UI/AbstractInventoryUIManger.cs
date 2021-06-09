@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class AbstractInventoryUIManger : MonoBehaviour
 {
-    //TODO: Add a event that is called when it closes the ui then subscribe to it in the opener class
+    private ItemSnapperManager itemSnapper => ItemSnapperManager.Instance();
     
     public delegate void OnInventoryUIClosing();
     public OnInventoryUIClosing onInventoryUIClosing = delegate {  };
@@ -75,6 +75,7 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
     /// </summary>
     public virtual void Open()
     {
+        if(itemSnapper.isSnapped) itemSnapper.ResetSnappedItem();
         isOpened = true;
         InventoryUI.SetActive(isOpened);
     }

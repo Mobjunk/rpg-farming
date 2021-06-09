@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CursorManager : Singleton<CursorManager>
@@ -5,6 +6,10 @@ public class CursorManager : Singleton<CursorManager>
     [SerializeField] private Texture2D regularCursor;
     [SerializeField] private Texture2D useableInteractionCursor;
     [SerializeField] private Texture2D nonUseableInteractionCursor;
+
+    [Header("Sprite attached to the mouse")]
+    [SerializeField] private ItemContainerGrid itemContainerGrid;
+
     private void Awake()
     {
         SetDefaultCursor();
