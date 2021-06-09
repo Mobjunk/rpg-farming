@@ -14,7 +14,7 @@ public class CropsCycle : MonoBehaviour
     private bool readyToHarvest;
     private BoxCollider2D cropsCollider;
     private StaticObjectManager _objectManager;
-    public int harvestAmount;
+    private int harvestAmount;
     private bool isWatered;
     
     private void Awake()
@@ -57,6 +57,7 @@ public class CropsCycle : MonoBehaviour
         if (!isWatered)
         {
             sr.sprite = crops.diseased;
+            readyToHarvest = true;
 
         }
     }
