@@ -120,7 +120,7 @@ public class Player : CharacterManager
         characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Axe"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Chest"));
-        characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 1000);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 10);
     }
 
     public void Remove()

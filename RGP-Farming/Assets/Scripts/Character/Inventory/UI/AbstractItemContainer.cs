@@ -23,5 +23,6 @@ public abstract class AbstractItemContainer : UIContainerbase<Item>
         if(ItemBarManager.Instance().selectedSlot == slotIndex && !AllowMoving) SetHighlighted(true);
 
         Amount.text = $"{(Containment.amount > 1 ? Containment.amount.ToString() : "")}";
+        Amount.enabled = Containment.amount > 1;
     }
 }

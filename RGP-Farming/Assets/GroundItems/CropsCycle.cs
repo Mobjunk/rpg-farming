@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(CropsInteraction))]
 public class CropsCycle : MonoBehaviour
 {
     public Crops crops;
@@ -13,7 +14,7 @@ public class CropsCycle : MonoBehaviour
     private SpriteRenderer sr;
     private bool readyToHarvest;
     private BoxCollider2D cropsCollider;
-    private StaticObjectManager _objectManager;
+    //private StaticObjectManager _objectManager;
     private int harvestAmount;
     private bool isWatered;
     
@@ -21,7 +22,7 @@ public class CropsCycle : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         cropsCollider = GetComponent<BoxCollider2D>();
-        _objectManager = GetComponent<StaticObjectManager>();
+        //_objectManager = GetComponent<StaticObjectManager>();
     }
 
     private void Update()
@@ -44,9 +45,9 @@ public class CropsCycle : MonoBehaviour
             }
             if (spriteCount == crops.spriteStages.Length && !readyToHarvest)
             {
-                Debug.Log("Done");
+                harvestAmount = Random.Range(crops.harvestAmount - crops.harvestModifier, crops.harvestAmount + crops.harvestModifier);
                 readyToHarvest = true;
-                _objectManager.InteractionManager = gameObject.AddComponent<CropsInteraction>();              
+                //_objectManager.InteractionManager = gameObject.AddComponent<CropsInteraction>();              
             }
         }
     }
@@ -63,9 +64,15 @@ public class CropsCycle : MonoBehaviour
     }
     public void GivePlayerHarvestedItem()
     {
-        harvestAmount = Random.Range(crops.harvestAmount - 5, crops.harvestAmount + 5);
-        Debug.Log("Harvested" + harvestAmount);
-        Player.Instance().CharacterInventory.AddItem(crops.harvestedItem, harvestAmount);
+        if (!readyToHarvest) return;
+        
+        harvestAmount--;
+        Player.Instance().CharacterInventory.AddItem(crops.harvestedItem);
+        if (harvestAmount <= 0)
+        {
+            Destroy(gameObject);
+            CursorManager.Instance().SetDefaultCursor();
+        }
     }
 
 }

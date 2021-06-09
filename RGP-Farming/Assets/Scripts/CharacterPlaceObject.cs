@@ -33,7 +33,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int tilePosition = placeableTiles.WorldToCell(mousePosition);
 
-        canPlaceObject = CurrentGameObjectHoverd == null;
+        canPlaceObject = CurrentGameObjectHoverd == null && !CursorManager.Instance().IsPointerOverUIElement();
         if (player.ItemAboveHeadRenderer.sprite != null)
         {
             //Checks if the current tile is still the same one as before
@@ -46,13 +46,23 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             placeableTiles.SetTile(tilePosition, CurrentGameObjectHoverd == null ? canPlace : cannotPlace);
         } else placeableTiles.ClearAllTiles();
 
-        if (Input.GetMouseButtonDown(0) && player.ItemAboveHead.item != null && canPlaceObject)
+        if (Input.GetMouseButtonDown(0) && player.ItemAboveHead != null && canPlaceObject)
         {
             
             AbstractPlaceableItem currentItem = (AbstractPlaceableItem) player.ItemAboveHead.item;
+            if (currentItem == null) return;
+            
             //var onePixel = 0.08f / 16; //0.08f
             //var additionX = player.ItemAboveHead.item.uiSprite.bounds.size.x * onePixel;
             //var additionY = player.ItemAboveHead.item.uiSprite.bounds.size.y * onePixel;
+            
+            player.CharacterInventory.RemoveItem(currentItem);
+            if (!player.CharacterInventory.HasItem(currentItem))
+            {
+                player.ItemAboveHeadRenderer.sprite = null;
+                player.ItemAboveHead = null;
+                ItemSnapperManager.Instance().ResetSnappedItem();
+            }
             
             var test = placeableTiles.CellToWorld(tilePosition);
             Instantiate(currentItem.objectPrefab, new Vector3(test.x + 0.08f, test.y + 0.08f), Quaternion.identity);

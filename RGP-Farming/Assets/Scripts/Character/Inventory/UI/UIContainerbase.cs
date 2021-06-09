@@ -127,7 +127,11 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
     string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
     private void Start()
     {
-        slotIndex = int.Parse(gameObject.name);
+        //slotIndex = ;
+        if (!int.TryParse(gameObject.name, out slotIndex))
+        {
+            Debug.Log($"Cannot try parse {gameObject.name} to int...");
+        }
         
         if (slotIndex < slotIcon.Length && ShowIndicator) slot.text = slotIcon[slotIndex];
         else slot.text = "";
@@ -150,7 +154,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
 
     void SwitchContainment()
     {
-        Debug.Log("Handle clicking a item...");
+        ItemBarManager.Instance().UpdateSlot(slotIndex);
     }
 
     void SnapContainment()
@@ -166,9 +170,10 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
             
             //Creates a placeholder of the current item
             Item placeHolder = new Item(Container.items[slotIndex].item, Container.items[slotIndex].amount);
+            Item currentItem = currentSnap.Container.items[currentSnap.slotIndex];
             
             //Handles updating the containers
-            Container.Set(slotIndex, currentSnap.Container.items[currentSnap.slotIndex]);
+            Container.Set(slotIndex, currentItem);
             currentSnap.Container.Set(currentSnap.slotIndex, placeHolder);
         }
     }

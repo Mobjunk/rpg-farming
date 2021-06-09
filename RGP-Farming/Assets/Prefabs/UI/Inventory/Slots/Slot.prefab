@@ -109,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.6900101}
+  m_AnchoredPosition: {x: -2.77, y: 0.92}
   m_SizeDelta: {x: 32, y: 33.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3260006364430278685
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -479,8 +479,6 @@ MonoBehaviour:
   icon: {fileID: 3439734531972240181}
   highlight: {fileID: 3439763868865359401}
   slider: {fileID: 3440349095732449653}
-  isHighlighted: 0
-  allowMoving: 0
   references:
     version: 1
     00000000:
@@ -520,7 +518,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 32, y: 32}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3259662747231206089
 CanvasRenderer:

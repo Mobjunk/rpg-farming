@@ -15,6 +15,9 @@ public class Crops : ScriptableObject
     public bool useOfWater; 
     public int harvestAmount;
 
+    [Header("Min and max amount randomize value")]
+    public int harvestModifier;
+
     [Header("Sprites")]
     public AbstractItemData harvestedItem;
     public Sprite[] spriteStages;

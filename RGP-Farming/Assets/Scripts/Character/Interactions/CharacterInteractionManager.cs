@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CharacterInteractionManager : MonoBehaviour
 {
+    private CursorManager cursorManager => CursorManager.Instance();
+    
     [SerializeField] private List<InteractionManager> interactables;
 
     public List<InteractionManager> GetInteractables()
@@ -20,6 +22,8 @@ public class CharacterInteractionManager : MonoBehaviour
 
     public void OnCharacterInteraction(CharacterManager characterManager)
     {
+        if (cursorManager.IsPointerOverUIElement()) return;
+        
         if (Interactable == null)
         {
             Debug.Log("Interactable is null...");
@@ -30,6 +34,8 @@ public class CharacterInteractionManager : MonoBehaviour
 
     public void OnCharacterSecondaryInteraction(CharacterManager characterManager)
     {
+        if (cursorManager.IsPointerOverUIElement()) return;
+        
         if (Interactable == null)
         {
             Debug.Log("Interactable is null...");
