@@ -50,20 +50,15 @@ public class CropsCycle : MonoBehaviour
             }
         }
     }
-    public void HarvestEnabler()
-    {
-        if (readyToHarvest)
-        {
-            sr.sprite = crops.spriteStages[crops.spriteStages.Length];
-            // Stop growing.
-            // When harvested Destroy Gameobject.
-            
-        }
-    }
+    
     public void DiseasePlant()
     {
         // Set the sprite of the plant to dead.
+        if (!isWatered)
+        {
+            sr.sprite = crops.diseased;
 
+        }
     }
     public void GivePlayerHarvestedItem()
     {
