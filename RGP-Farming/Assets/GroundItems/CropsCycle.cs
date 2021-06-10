@@ -16,7 +16,7 @@ public class CropsCycle : MonoBehaviour
     private BoxCollider2D cropsCollider;
     //private StaticObjectManager _objectManager;
     private int harvestAmount;
-    private bool isWatered;
+    public bool isWatered;
     
     private void Awake()
     {
@@ -36,36 +36,48 @@ public class CropsCycle : MonoBehaviour
 
     public void CropsUpdater()
     {
+        isWatered = TilePlacer.Instance().CheckTileUnderObject(gameObject, TileType.WATER);
         if (Time.time > lastUpdate + crops.timeBetweenGrowthStage)
         {
             lastUpdate = Time.time;
-            if (spriteCount < crops.spriteStages.Length)
+            TilePlacer.Instance().UpdateTile(gameObject, TileType.WATER);
+            if (!PlantHasDied())
             {
-                sr.sprite = crops.spriteStages[spriteCount++];
+                if (spriteCount < crops.spriteStages.Length)
+                {
+                    sr.sprite = crops.spriteStages[spriteCount++];              
+                }
+                if (spriteCount == crops.spriteStages.Length && !readyToHarvest)
+                {
+                    harvestAmount = Random.Range(crops.harvestAmount - crops.harvestModifier, crops.harvestAmount + crops.harvestModifier);
+                    readyToHarvest = true;
+                }
             }
-            if (spriteCount == crops.spriteStages.Length && !readyToHarvest)
-            {
-                harvestAmount = Random.Range(crops.harvestAmount - crops.harvestModifier, crops.harvestAmount + crops.harvestModifier);
-                readyToHarvest = true;
-                //_objectManager.InteractionManager = gameObject.AddComponent<CropsInteraction>();              
-            }
+
         }
     }
     
-    public void DiseasePlant()
+    public bool PlantHasDied()
     {
         // Set the sprite of the plant to dead.
         if (!isWatered)
         {
             sr.sprite = crops.diseased;
             readyToHarvest = true;
+            return true;
 
         }
+        return false;
     }
     public void GivePlayerHarvestedItem()
     {
         if (!readyToHarvest) return;
-        
+        if (harvestAmount <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+            
         harvestAmount--;
         Player.Instance().CharacterInventory.AddItem(crops.harvestedItem);
         if (harvestAmount <= 0)
@@ -74,5 +86,4 @@ public class CropsCycle : MonoBehaviour
             CursorManager.Instance().SetDefaultCursor();
         }
     }
-
 }
