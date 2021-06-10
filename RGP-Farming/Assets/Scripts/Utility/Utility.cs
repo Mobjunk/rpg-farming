@@ -75,6 +75,19 @@ public static class Utility
                 throw new ArgumentOutOfRangeException(nameof(anchor), anchor, null);
         }
     }
+
+    public static bool CanInteractWithTile(Grid grid, Vector3Int tilePosition, GameObject[] tileChecker)
+    {
+        for (int index = 0; index < tileChecker.Length; index++)
+        {
+            Vector3Int pos = grid.WorldToCell(tileChecker[index].transform.position);
+            int distance = Mathf.FloorToInt(Vector2.Distance(new Vector2(tilePosition.x, tilePosition.y), new Vector2(pos.x, pos.y)));
+
+            if (distance <= 1) return true;
+        }
+
+        return false;
+    }
 }
 
 public enum AnchorsPresets

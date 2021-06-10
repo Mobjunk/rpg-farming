@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class TilePlacer : Singleton<TilePlacer>
 {
+    private ItemBarManager itemBarManager => ItemBarManager.Instance();
+
     public Tilemap tilesGrass;
     public Tilemap tilesDirt;
     public Tile dirtTile;
@@ -18,7 +20,8 @@ public class TilePlacer : Singleton<TilePlacer>
     {
         mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //If Holding ....
-        if (Input.GetMouseButtonDown(0))
+        location = tilesGrass.WorldToCell(mp);
+        if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(grid, location, Player.Instance().TileChecker))
         {
             PlaceWaterTile();
             PlaceDirtTile();
@@ -26,30 +29,17 @@ public class TilePlacer : Singleton<TilePlacer>
     }
     public void PlaceDirtTile()
     {
-        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == null)
-        {
-            location = tilesGrass.WorldToCell(mp);
-
+        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == null && itemBarManager.IsWearingCorrectTool(ToolType.HOE))
             tilesDirt.SetTile(location, dirtTile);
-        }
     }
     public void PlaceWaterTile()
     {
-        // if(Player.Instance().CharacterInventory.HasItem(ItemManager.Instance().ForName("Watering Can")))
-        // {
-        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile)
-        {
-            location = tilesGrass.WorldToCell(mp);
+        //TODO: Add a check to see if the crop is finished growing
+        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
             tilesDirt.SetTile(location, wateredDirtTile);
-            Debug.Log("Water Locatie "+ location);
-        }
-        //}
-
-
     }
     public bool CheckTileUnderObject(GameObject crop, TileType tileType)
     {
-        
         Tile checkTile = wateredDirtTile;
         if (tileType == TileType.DIRT)
             checkTile = dirtTile;

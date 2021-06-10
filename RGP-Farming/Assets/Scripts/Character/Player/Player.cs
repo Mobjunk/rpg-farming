@@ -11,6 +11,13 @@ public class Player : CharacterManager
         return intsance;
     }
 
+    [SerializeField] private GameObject[] tileChecker;
+    public GameObject[] TileChecker
+    {
+        get => tileChecker;
+        set => tileChecker = value;
+    }
+
     [SerializeField] private Item itemAboveHead;
     public Item ItemAboveHead
     {
@@ -119,7 +126,9 @@ public class Player : CharacterManager
     {
         characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Axe"));
-        characterInventory.AddItem(ItemManager.Instance().ForName("Chest"));
+        characterInventory.AddItem(ItemManager.Instance().ForName("Hoe"));
+        characterInventory.AddItem(ItemManager.Instance().ForName("Watering can"));
+        characterInventory.AddItem(ItemManager.Instance().ForName("Chest"), 5);
         characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 10);
     }
 

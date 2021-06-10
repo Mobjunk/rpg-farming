@@ -8,21 +8,24 @@ public class CropsCycle : MonoBehaviour
 {
     public Crops crops;
 
-    private float lastUpdate;
-    private int spriteCount= 0;
-
+    private float updateTimer;
+    
+    private int spriteCount;
+    
     private SpriteRenderer sr;
+    
     private bool readyToHarvest;
-    private BoxCollider2D cropsCollider;
-    //private StaticObjectManager _objectManager;
+    
     private int harvestAmount;
-    public bool isWatered;
+    
+    private bool isWatered;
     
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        cropsCollider = GetComponent<BoxCollider2D>();
-        //_objectManager = GetComponent<StaticObjectManager>();
+
+        sr.sprite = crops.spriteStages[0];
+        updateTimer = crops.timeBetweenGrowthStage;
     }
 
     private void Update()
@@ -37,15 +40,17 @@ public class CropsCycle : MonoBehaviour
     public void CropsUpdater()
     {
         isWatered = TilePlacer.Instance().CheckTileUnderObject(gameObject, TileType.WATER);
-        if (Time.time > lastUpdate + crops.timeBetweenGrowthStage)
+        updateTimer -= Time.deltaTime;
+        if (updateTimer <= 0)
         {
-            lastUpdate = Time.time;
-            TilePlacer.Instance().UpdateTile(gameObject, TileType.WATER);
+            updateTimer = crops.timeBetweenGrowthStage;
             if (!PlantHasDied())
             {
                 if (spriteCount < crops.spriteStages.Length)
                 {
-                    sr.sprite = crops.spriteStages[spriteCount++];              
+                    sr.sprite = crops.spriteStages[++spriteCount];
+                    
+                    Debug.Log("ABCDEF");
                 }
                 if (spriteCount == crops.spriteStages.Length && !readyToHarvest)
                 {
@@ -53,7 +58,7 @@ public class CropsCycle : MonoBehaviour
                     readyToHarvest = true;
                 }
             }
-
+            TilePlacer.Instance().UpdateTile(gameObject, TileType.WATER);
         }
     }
     

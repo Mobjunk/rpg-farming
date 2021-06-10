@@ -1,16 +1,14 @@
-using System;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Quaternion = UnityEngine.Quaternion;
-using Vector3 = UnityEngine.Vector3;
 
 public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 {
     private Player player;
     private GameObject currentGameObjectHoverd;
 
-    [SerializeField] public Tilemap placeableTiles;
+    [SerializeField] private GameObject[] tileChecker;
+    [SerializeField] private Grid grid;
+    [SerializeField] private Tilemap placeableTiles;
     [SerializeField] private Tile canPlace;
     [SerializeField] private Tile cannotPlace;
 
@@ -31,9 +29,22 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
     private void Update()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3Int tilePosition = placeableTiles.WorldToCell(mousePosition);
 
-        canPlaceObject = CurrentGameObjectHoverd == null && !CursorManager.Instance().IsPointerOverUIElement();
+        //float distance = Vector2.Distance(playerFeet.transform.position, mousePosition);
+        
+        //Debug.Log("distance: " + distance);
+
+        Vector3Int tilePosition = placeableTiles.WorldToCell(mousePosition);
+        /*for (int index = 0; index < tileChecker.Length; index++)
+        {
+            Vector3Int pos = grid.WorldToCell(tileChecker[index].transform.position);
+            int distance = Mathf.FloorToInt(Vector2.Distance(new Vector2(tilePosition.x, tilePosition.y), new Vector2(pos.x, pos.y)));
+            
+            canPlaceObject = CurrentGameObjectHoverd == null && !CursorManager.Instance().IsPointerOverUIElement() && distance <= 1;
+            if (canPlaceObject) break;
+        }*/
+        
+        canPlaceObject = CurrentGameObjectHoverd == null && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(grid, tilePosition, tileChecker);
         if (player.ItemAboveHeadRenderer.sprite != null)
         {
             //Checks if the current tile is still the same one as before
@@ -43,7 +54,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             //Handles setting the placeholder position
             //And the tile to the correct one
             placeHolderPosition = tilePosition;
-            placeableTiles.SetTile(tilePosition, CurrentGameObjectHoverd == null ? canPlace : cannotPlace);
+            placeableTiles.SetTile(tilePosition, canPlaceObject ? canPlace : cannotPlace);
         } else placeableTiles.ClearAllTiles();
 
         if (Input.GetMouseButtonDown(0) && player.ItemAboveHead != null && canPlaceObject)
