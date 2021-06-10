@@ -22,25 +22,15 @@ public class CharacterInteractionManager : MonoBehaviour
 
     public void OnCharacterInteraction(CharacterManager characterManager)
     {
-        if (cursorManager.IsPointerOverUIElement()) return;
+        if (cursorManager.IsPointerOverUIElement() || Interactable == null) return;
         
-        if (Interactable == null)
-        {
-            Debug.Log("Interactable is null...");
-            return;
-        }
         Interactable.OnInteraction(characterManager);
     }
 
     public void OnCharacterSecondaryInteraction(CharacterManager characterManager)
     {
-        if (cursorManager.IsPointerOverUIElement()) return;
+        if (cursorManager.IsPointerOverUIElement() || Interactable == null) return;
         
-        if (Interactable == null)
-        {
-            Debug.Log("Interactable is null...");
-            return;
-        }
         Interactable.OnSecondaryInteraction(characterManager);
     }
 }

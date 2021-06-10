@@ -3,6 +3,8 @@ using UnityEngine.Tilemaps;
 
 public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 {
+    private TilePlacer tilePlacer => TilePlacer.Instance();
+    
     private Player player;
     private GameObject currentGameObjectHoverd;
 
@@ -30,23 +32,16 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //float distance = Vector2.Distance(playerFeet.transform.position, mousePosition);
-        
-        //Debug.Log("distance: " + distance);
-
         Vector3Int tilePosition = placeableTiles.WorldToCell(mousePosition);
-        /*for (int index = 0; index < tileChecker.Length; index++)
-        {
-            Vector3Int pos = grid.WorldToCell(tileChecker[index].transform.position);
-            int distance = Mathf.FloorToInt(Vector2.Distance(new Vector2(tilePosition.x, tilePosition.y), new Vector2(pos.x, pos.y)));
-            
-            canPlaceObject = CurrentGameObjectHoverd == null && !CursorManager.Instance().IsPointerOverUIElement() && distance <= 1;
-            if (canPlaceObject) break;
-        }*/
-        
+
         canPlaceObject = CurrentGameObjectHoverd == null && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(grid, tilePosition, tileChecker);
+        bool meetsRequirment = true;
+        
         if (player.ItemAboveHeadRenderer.sprite != null)
         {
+            //Checks if the item in the hand is a plantable object
+            if (player.ItemAboveHead.item != null && player.ItemAboveHead.item.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) meetsRequirment = false;
+            
             //Checks if the current tile is still the same one as before
             //If not it removes the tile
             if (placeHolderPosition != tilePosition && placeableTiles.GetTile(placeHolderPosition) != null) placeableTiles.SetTile(placeHolderPosition, null);
@@ -54,29 +49,36 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             //Handles setting the placeholder position
             //And the tile to the correct one
             placeHolderPosition = tilePosition;
-            placeableTiles.SetTile(tilePosition, canPlaceObject ? canPlace : cannotPlace);
+            placeableTiles.SetTile(tilePosition, canPlaceObject && meetsRequirment ? canPlace : cannotPlace);
         } else placeableTiles.ClearAllTiles();
 
-        if (Input.GetMouseButtonDown(0) && player.ItemAboveHead != null && canPlaceObject)
+        //Checks if the player clicked the mouse and has all required requirments
+        if (Input.GetMouseButtonDown(0) && player.ItemAboveHead != null && canPlaceObject && meetsRequirment)
         {
-            
+            //Checks if its a placeable 
             AbstractPlaceableItem currentItem = (AbstractPlaceableItem) player.ItemAboveHead.item;
-            if (currentItem == null) return;
+            if (currentItem == null)
+            {
+                currentItem = (AbstractPlantData) player.ItemAboveHead.item;
+                if (currentItem == null) return;
+            }
             
-            //var onePixel = 0.08f / 16; //0.08f
-            //var additionX = player.ItemAboveHead.item.uiSprite.bounds.size.x * onePixel;
-            //var additionY = player.ItemAboveHead.item.uiSprite.bounds.size.y * onePixel;
+            //Checks if you are trying to plant a crop on anything other then dirt
+            if (currentItem.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
             
+            //Handles removing the item from the inventory
             player.CharacterInventory.RemoveItem(currentItem);
-            if (!player.CharacterInventory.HasItem(currentItem))
+            //Checks if the player still has the item it has to remove
+            if (player.CharacterInventory.items[ItemBarManager.Instance().selectedSlot].item == null)
             {
                 player.ItemAboveHeadRenderer.sprite = null;
                 player.ItemAboveHead = null;
                 ItemSnapperManager.Instance().ResetSnappedItem();
             }
             
-            var test = placeableTiles.CellToWorld(tilePosition);
-            Instantiate(currentItem.objectPrefab, new Vector3(test.x + 0.08f, test.y + 0.08f), Quaternion.identity);
+            //Handles spawning the game object
+            Vector3 cellToWorld = placeableTiles.CellToWorld(tilePosition);
+            Instantiate(currentItem.objectPrefab, new Vector3(cellToWorld.x + 0.08f, cellToWorld.y + 0.08f), Quaternion.identity);
         }
     }
 }

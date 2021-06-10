@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class TilePlacer : Singleton<TilePlacer>
 {
     private ItemBarManager itemBarManager => ItemBarManager.Instance();
+    private Player player => Player.Instance();
 
     public Tilemap tilesGrass;
     public Tilemap tilesDirt;
@@ -21,7 +22,7 @@ public class TilePlacer : Singleton<TilePlacer>
         mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //If Holding ....
         location = tilesGrass.WorldToCell(mp);
-        if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(grid, location, Player.Instance().TileChecker))
+        if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(grid, location, player.TileChecker))
         {
             PlaceWaterTile();
             PlaceDirtTile();
@@ -31,21 +32,33 @@ public class TilePlacer : Singleton<TilePlacer>
     {
         if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == null && itemBarManager.IsWearingCorrectTool(ToolType.HOE))
             tilesDirt.SetTile(location, dirtTile);
+        else if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.HOE) && player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
+            tilesDirt.SetTile(location, null);
     }
     public void PlaceWaterTile()
     {
         //TODO: Add a check to see if the crop is finished growing
+        //TODO: Add a check if the player is in the collider (trigger) of the crops/tile
         if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
+        {
+            if (player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
+
+            //Checks if the crops the player is clicking is finished growing
+            CropsCycle cropsCycle = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsCycle>();
+            if (cropsCycle != null && cropsCycle.HasFinishedGrowing()) return;
+            
             tilesDirt.SetTile(location, wateredDirtTile);
+        }
     }
-    public bool CheckTileUnderObject(GameObject crop, TileType tileType)
+    public bool CheckTileUnderObject(Vector3 position, TileType tileType)
     {
         Tile checkTile = wateredDirtTile;
         if (tileType == TileType.DIRT)
             checkTile = dirtTile;
-
-        return tilesDirt.GetTile(grid.WorldToCell(crop.transform.position)) == checkTile;
+        
+        return tilesDirt.GetTile(grid.WorldToCell(position)) == checkTile;
     }
+    
     public void UpdateTile(GameObject crop, TileType tileType)
     {
         Tile setTile = dirtTile;
@@ -62,9 +75,14 @@ public class TilePlacer : Singleton<TilePlacer>
         if (tilesDirt.GetTile(pos) == checkTile)
             tilesDirt.SetTile(pos, setTile);
     }
+
+    public Vector3Int GetTilePosition(Vector3 mousePosition)
+    {
+        return tilesDirt.WorldToCell(mp);
+    }
 }
 public enum TileType
 {
     DIRT,
-    WATER,
+    WATER
 }

@@ -51,7 +51,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         inventoryUIManager.containers[0][selectedSlot].SetHighlighted(true);
 
         //Checks if the item is a placeable item
-        if (characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlaceableItem))
+        if (characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlantData))
         {
             player.ItemAboveHead = characterInventory.items[nextSlot];
             //Sets the sprite above the head

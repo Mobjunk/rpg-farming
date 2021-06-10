@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "New item", menuName = "New Item")]
+[CreateAssetMenu(fileName = "New item", menuName = "Items/New Item")]
 [System.Serializable]
 public class AbstractItemData : ScriptableObject
 {

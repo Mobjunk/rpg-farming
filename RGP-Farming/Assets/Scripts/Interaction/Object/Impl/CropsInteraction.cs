@@ -13,9 +13,6 @@ public class CropsInteraction : ObjectInteractionManager
     public override void OnInteraction(CharacterManager characterManager)
     {
         _cycle.GivePlayerHarvestedItem();
-        Debug.Log("Crop Interaction");
-        // Add x amount to player inventory
-        //Destroy(gameObject);
     }
 
 }
