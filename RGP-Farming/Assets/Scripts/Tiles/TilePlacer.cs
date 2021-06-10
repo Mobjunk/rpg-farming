@@ -26,19 +26,23 @@ public class TilePlacer : Singleton<TilePlacer>
         {
             PlaceWaterTile();
             PlaceDirtTile();
+            RemoveDirtTile();
         } 
     }
     public void PlaceDirtTile()
     {
         if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == null && itemBarManager.IsWearingCorrectTool(ToolType.HOE))
             tilesDirt.SetTile(location, dirtTile);
-        else if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.HOE) && player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
+    }
+
+    public void RemoveDirtTile()
+    {
+        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
             tilesDirt.SetTile(location, null);
     }
+    
     public void PlaceWaterTile()
     {
-        //TODO: Add a check to see if the crop is finished growing
-        //TODO: Add a check if the player is in the collider (trigger) of the crops/tile
         if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
         {
             if (player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
@@ -46,8 +50,11 @@ public class TilePlacer : Singleton<TilePlacer>
             //Checks if the crops the player is clicking is finished growing
             CropsCycle cropsCycle = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsCycle>();
             if (cropsCycle != null && cropsCycle.HasFinishedGrowing()) return;
-            
-            tilesDirt.SetTile(location, wateredDirtTile);
+
+            //Checks if the crops you are hovering is in the interactable list
+            InteractionManager interactionManager = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
+            if(player.CharacterInteractionManager.GetInteractables().Contains(interactionManager))
+                tilesDirt.SetTile(location, wateredDirtTile);
         }
     }
     public bool CheckTileUnderObject(Vector3 position, TileType tileType)

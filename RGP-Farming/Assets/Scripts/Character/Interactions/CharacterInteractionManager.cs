@@ -23,6 +23,13 @@ public class CharacterInteractionManager : MonoBehaviour
     public void OnCharacterInteraction(CharacterManager characterManager)
     {
         if (cursorManager.IsPointerOverUIElement() || Interactable == null) return;
+
+        //Set the interactble to null if its no logner in the list
+        if (!interactables.Contains(Interactable))
+        {
+            Interactable = null;
+            return;
+        }
         
         Interactable.OnInteraction(characterManager);
     }
@@ -30,6 +37,13 @@ public class CharacterInteractionManager : MonoBehaviour
     public void OnCharacterSecondaryInteraction(CharacterManager characterManager)
     {
         if (cursorManager.IsPointerOverUIElement() || Interactable == null) return;
+
+        //Set the interactble to null if its no logner in the list
+        if (!interactables.Contains(Interactable))
+        {
+            Interactable = null;
+            return;
+        }
         
         Interactable.OnSecondaryInteraction(characterManager);
     }

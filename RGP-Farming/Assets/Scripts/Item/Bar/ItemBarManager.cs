@@ -45,6 +45,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
     public void UpdateSlot(int nextSlot)
     {
         CharacterInventory characterInventory = player.CharacterInventory;
+
+        if (characterInventory.items[nextSlot].item == null) return;
         
         inventoryUIManager.containers[0][selectedSlot].SetHighlighted(false);
         selectedSlot = nextSlot;
