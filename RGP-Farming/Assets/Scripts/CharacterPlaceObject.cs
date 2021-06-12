@@ -30,6 +30,12 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 
     private void Update()
     {
+        if (player.CharacterUIManager.CurrentUIOpened != null)
+        {
+            placeableTiles.ClearAllTiles();
+            return;
+        }
+        
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3Int tilePosition = placeableTiles.WorldToCell(mousePosition);
@@ -40,7 +46,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
         if (player.ItemAboveHeadRenderer.sprite != null)
         {
             //Checks if the item in the hand is a plantable object
-            if (player.ItemAboveHead.item != null && player.ItemAboveHead.item.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) meetsRequirment = false;
+            if (tilePlacer != null && player.ItemAboveHead != null && player.ItemAboveHead.item != null && player.ItemAboveHead.item.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) meetsRequirment = false;
             
             //Checks if the current tile is still the same one as before
             //If not it removes the tile
@@ -71,6 +77,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             //Checks if the player still has the item it has to remove
             if (player.CharacterInventory.items[ItemBarManager.Instance().selectedSlot].item == null)
             {
+                player.CharacterStateManager.SetAnimator("wieldingItem", false);
                 player.ItemAboveHeadRenderer.sprite = null;
                 player.ItemAboveHead = null;
                 ItemSnapperManager.Instance().ResetSnappedItem();

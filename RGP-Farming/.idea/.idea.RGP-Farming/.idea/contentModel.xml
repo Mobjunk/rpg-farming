@@ -66,8 +66,11 @@
               <e p="UI" t="Include">
                 <e p="AbstractInventoryUIManger.cs" t="Include" />
                 <e p="AbstractItemContainer.cs" t="Include" />
+                <e p="AbstractShopContainer.cs" t="Include" />
                 <e p="ItemContainerGrid.cs" t="Include" />
+                <e p="ShopContainerGrid.cs" t="Include" />
                 <e p="UIContainerbase.cs" t="Include" />
+                <e p="UIShopContainment.cs" t="Include" />
               </e>
             </e>
             <e p="Movement" t="Include">
@@ -83,13 +86,20 @@
               <e p="Player.cs" t="Include" />
               <e p="PlayerInvenotryUIManager.cs" t="Include" />
             </e>
+            <e p="Shop" t="Include">
+              <e p="ShopInventory.cs" t="Include" />
+              <e p="ShopStock.cs" t="Include" />
+              <e p="ShopUIManager.cs" t="Include" />
+            </e>
             <e p="State" t="Include">
               <e p="CharacterStateManager.cs" t="Include" />
               <e p="CharacterStates.cs" t="Include" />
             </e>
           </e>
           <e p="CharacterPlaceObject.cs" t="Include" />
+          <e p="CharacterUIManager.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="GameUIManager.cs" t="Include" />
           <e p="Interaction" t="Include">
             <e p="IInteraction.cs" t="Include" />
             <e p="InteractionManager.cs" t="Include" />
@@ -128,6 +138,7 @@
             </e>
             <e p="StaticObjectManager.cs" t="Include" />
           </e>
+          <e p="Test.cs" t="Include" />
           <e p="Tiles" t="Include">
             <e p="TilePlacer.cs" t="Include" />
           </e>
@@ -146,6 +157,7 @@
             <e p="Utility.cs" t="Include" />
           </e>
         </e>
+        <e p="ShopContainerHover.cs" t="Include" />
         <e p="Sounds" t="Include">
           <e p="Gameplay" t="Include">
             <e p="Freesound.org (Public Domain)" t="Include">

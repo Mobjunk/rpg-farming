@@ -50,24 +50,12 @@ public abstract class AbstractItemInventory : MonoBehaviour
     public virtual void Awake()
     {
         items = new Item[maxInventorySize];
-    }
-
-    public virtual void Start()
-    {
+        
         for (int index = 0; index < maxInventorySize; index++)
             items[index] = new Item();
     }
 
-    /*public void Set(int slot, AbstractItemData item, bool update = true)
-    {
-        items[slot].item = item;
-        
-        if (update)
-        {
-            slotsUpdated.Add(slot);
-            InventoryChanged(slotsUpdated);
-        }
-    }*/
+    public virtual void Start() { }
 
     public void Set(int slot, Item item, bool update = true)
     {
@@ -221,7 +209,9 @@ public abstract class AbstractItemInventory : MonoBehaviour
 
     public bool ItemFitsInventory()
     {
-        return items.Any(data => data.item == null);
+        
+        return SlotsOccupied() < maxInventorySize;
+        //return items.Any(data => data.item == null);
     }
 
     int GetSlot(AbstractItemData item)
@@ -242,8 +232,12 @@ public abstract class AbstractItemInventory : MonoBehaviour
     {
         int amount = 0;
         for (int index = 0; index < maxInventorySize; index++)
+        {
+            if(items[index] == null) Debug.Log($"WTF[{index}]");
             if (items[index].item != null)
                 amount++;
+        }
+
         return amount;
     }
     

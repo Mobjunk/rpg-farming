@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterInventory), typeof(PlayerInvenotryUIManager), typeof(CharacterInteractionManager))]
-[RequireComponent(typeof(CharacterPlaceObject))]
+[RequireComponent(typeof(CharacterPlaceObject), typeof(CharacterUIManager))]
 public class Player : CharacterManager
 {
     private static Player intsance;
@@ -57,6 +57,14 @@ public class Player : CharacterManager
         set => characterPlaceObject = value;
     }
 
+    private CharacterUIManager characterUIManager;
+
+    public CharacterUIManager CharacterUIManager
+    {
+        get => characterUIManager;
+        set => characterUIManager = value;
+    }
+
     /// <summary>
     /// Checks if a player has a controller connected
     /// </summary>
@@ -74,6 +82,7 @@ public class Player : CharacterManager
         characterInventory = GetComponent<CharacterInventory>();
         playerInventoryUIManager = GetComponent<PlayerInvenotryUIManager>();
         characterPlaceObject = GetComponent<CharacterPlaceObject>();
+        characterUIManager = GetComponent<CharacterUIManager>();
     }
 
     public override void Start()
@@ -114,21 +123,39 @@ public class Player : CharacterManager
         SubscribeToInput();
     }
 
+    private bool inputEnabled;
+    public bool InputEnabled
+    {
+        get => inputEnabled;
+        set => inputEnabled = value;
+    }
+
     void SubscribeToInput()
     {
         characterInputManager.OnCharacterMovement += CharacterMovementMananger.Move;
         characterInputManager.OnCharacterInteraction += characterInteractionManager.OnCharacterInteraction;
         characterInputManager.OnCharacterSecondaryInteraction += characterInteractionManager.OnCharacterSecondaryInteraction;
-        //characterInputManager.OnCharacterAttack += CharacterAttackManager.Attack;
+        inputEnabled = true;
     }
 
+    public void ToggleInput()
+    {
+        if (inputEnabled)
+        {
+            characterInputManager.OnCharacterMovement -= CharacterMovementMananger.Move;
+            characterInputManager.OnCharacterInteraction -= characterInteractionManager.OnCharacterInteraction;
+            characterInputManager.OnCharacterSecondaryInteraction -= characterInteractionManager.OnCharacterSecondaryInteraction;
+            inputEnabled = false;
+        } else SubscribeToInput();
+    }
+    
     public void Add()
     {
         characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Axe"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Hoe"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Watering can"));
-        characterInventory.AddItem(ItemManager.Instance().ForName("Chest"), 5);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Chest"), 1);
         characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 10);
     }
 

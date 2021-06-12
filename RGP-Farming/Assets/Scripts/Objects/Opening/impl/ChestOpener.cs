@@ -27,6 +27,7 @@ public class ChestOpener : Opener
             characterManager = null;
             isOpened = true;
             animationRunning = false;
+            animator.SetBool("opening", false);
         }
     }
 
@@ -49,11 +50,5 @@ public class ChestOpener : Opener
     {
         Debug.Log("Handle interaction for " + characterManager.gameObject.name);
         base.Interact(characterManager);
-    }
-
-    public override void OnInventoryUIClosing()
-    {
-        base.OnInventoryUIClosing();
-        animator.SetBool("opening", false);
     }
 }

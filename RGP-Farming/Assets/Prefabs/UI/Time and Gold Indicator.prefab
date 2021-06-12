@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 223776825089922840}
   - component: {fileID: 114270578898646678}
   - component: {fileID: 114494203929979494}
+  - component: {fileID: 4347300430496550413}
   m_Layer: 5
   m_Name: Time and Gold Indicator
   m_TagString: Untagged
@@ -459,6 +460,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4347300430496550413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615593016621710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78a5ca0ae5d11640b365933dd8a83d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldAmount: 0
+  placeHolderAmount: 0
+  goldText: {fileID: 114181654073376756}
 --- !u!1 &1808125048910172
 GameObject:
   m_ObjectHideFlags: 0

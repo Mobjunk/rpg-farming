@@ -210,6 +210,8 @@ GameObject:
   - component: {fileID: 6675756735418209123}
   - component: {fileID: 6675756735418209052}
   - component: {fileID: 6675756735418209127}
+  - component: {fileID: 8880990196221829215}
+  - component: {fileID: 6278091589208244301}
   m_Layer: 7
   m_Name: Character
   m_TagString: Untagged
@@ -384,6 +386,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.015
+--- !u!114 &8880990196221829215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6675756735418209055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03222264f378e5429af893d75b586b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugInventory: 1
+  maxInventorySize: 20
+  stackType: 0
+  items: []
+  shopStock: {fileID: 11400000, guid: 46dbe4d2d04ab244384c56df3fe88275, type: 2}
+--- !u!114 &6278091589208244301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6675756735418209055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b956bd56d014da282d11154acdfd683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiTabs: []
+  currentTabId: 0
+  containmentPrefab:
+  - {fileID: 3019499798928330606, guid: 052dff4c088ed314aabeeff04342b06c, type: 3}
+  inventoryUI: {fileID: 0}
+  inventoryContainers:
+  - inventoryContainer: {fileID: 0}
+    maxSlots: 0
+    showIdicator: 0
+    useSecondSlotPrefab: 0
+  isOpened: 0
 --- !u!1 &6675756735848630432
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,12 +20,17 @@ public abstract class Opener : MonoBehaviour, IOpener
     public virtual void Open(CharacterManager characterManager)
     {
         inventoryUIManager.Open();
+        ((Player)characterManager).ToggleInput();
     }
 
     public virtual void Close(CharacterManager characterManager)
     {
         inventoryUIManager.Close();
+        ((Player)characterManager).ToggleInput();
     }
 
-    public virtual void OnInventoryUIClosing() { }
+    public virtual void OnInventoryUIClosing()
+    {
+        Player.Instance().ToggleInput();
+    }
 }

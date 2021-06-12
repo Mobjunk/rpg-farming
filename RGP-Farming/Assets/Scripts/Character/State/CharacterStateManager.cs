@@ -26,6 +26,21 @@ public class CharacterStateManager : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    public void SetAnimator(string name, bool set)
+    {
+        animator.SetBool(name, set);
+    }
+
+    public void SetAnimator(string name, float set)
+    {
+        animator.SetFloat(name, set);
+    }
+
+    public void SetAnimator(string name, int set)
+    {
+        animator.SetInteger(name, set);
+    }
+
     /// <summary>
     /// The current direction the character is facing based on the moveX and moveY in the animator
     /// </summary>

@@ -14,6 +14,12 @@ public class CharacterManager : MonoBehaviour
     /// Statemachine of the character
     /// </summary>
     private CharacterStateManager characterStateManager;
+
+    public CharacterStateManager CharacterStateManager
+    {
+        get => characterStateManager;
+        set => characterStateManager = value;
+    }
     
     /// <summary>
     /// Movement of the character

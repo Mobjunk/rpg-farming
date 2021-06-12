@@ -10,4 +10,5 @@ public class AbstractItemData : ScriptableObject
     public string itemName;
     public Sprite uiSprite;
     public bool stackable;
+    public int itemPrice;
 }

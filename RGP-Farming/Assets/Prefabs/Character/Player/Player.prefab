@@ -266,15 +266,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f109bc0841add3140a8ce9839545fd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  containmentPrefab: {fileID: 3327382381837659215, guid: cb654d975588e79469fd85be399acb6a, type: 3}
+  containmentPrefab:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   inventoryUI: {fileID: 0}
   inventoryContainers:
   - inventoryContainer: {fileID: 0}
     maxSlots: 12
     showIdicator: 1
+    useSecondSlotPrefab: 0
   - inventoryContainer: {fileID: 0}
     maxSlots: 36
     showIdicator: 1
+    useSecondSlotPrefab: 0
+  - inventoryContainer: {fileID: 0}
+    maxSlots: 36
+    showIdicator: 0
+    useSecondSlotPrefab: 1
   isOpened: 0
 --- !u!114 &4990165636136102980
 MonoBehaviour:
@@ -1017,7 +1026,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5760169097359189574}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.213, z: 0}
+  m_LocalPosition: {x: -0.0073, y: 0.1652, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4990165636136102974}

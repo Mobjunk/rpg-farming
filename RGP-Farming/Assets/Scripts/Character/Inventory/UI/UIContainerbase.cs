@@ -120,8 +120,8 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         containment = default;
         amount.text = "";
         icon.enabled = false;
-        highlight.enabled = false;
-        slider.enabled = false;
+        if(highlight != null) highlight.enabled = false;
+        if(slider != null) slider.enabled = false;
     }
 
     string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };

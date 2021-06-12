@@ -33,7 +33,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
 
     void UpdateSlot(float value)
     {
-        if (Input.mouseScrollDelta.y == 0) return;
+        //TODO: Add a check to see if the player has a UI element open (Like shops/inventory)
+        if (Input.mouseScrollDelta.y == 0 || player.CharacterUIManager.CurrentUIOpened != null) return;
 
         CharacterInventory characterInventory = player.CharacterInventory;
         int nextSlot = characterInventory.GetNextOccupiedSlot(selectedSlot, value > 0);
@@ -55,6 +56,9 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         //Checks if the item is a placeable item
         if (characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlantData))
         {
+            //Sets the animator
+            player.CharacterStateManager.SetAnimator("wieldingItem", true);
+            //Sets item above head
             player.ItemAboveHead = characterInventory.items[nextSlot];
             //Sets the sprite above the head
             player.ItemAboveHeadRenderer.sprite = characterInventory.items[nextSlot].item.uiSprite;
@@ -69,6 +73,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
         else
         { //Reset everything
+            player.CharacterStateManager.SetAnimator("wieldingItem", false);
             player.ItemAboveHead = null;
             player.ItemAboveHeadRenderer.sprite = null;
             itemDisplayer.Icon.enabled = false;

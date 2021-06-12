@@ -14,6 +14,12 @@ public abstract class InteractionManager : MonoBehaviour, IInteraction
 
     private void OnMouseOver()
     {
+        if (cursor.IsPointerOverUIElement())
+        {
+            cursor.SetDefaultCursor();
+            return;
+        }
+        
         player.CharacterPlaceObject.CurrentGameObjectHoverd = gameObject;
         if (player.CharacterInteractionManager.GetInteractables().Contains(this))
         {

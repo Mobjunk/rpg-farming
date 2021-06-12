@@ -57,8 +57,6 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
             return;
         }
 
-        
-        Debug.Log("characterStateManager.GetCharacterState().ToString(): " + characterStateManager.GetCharacterState().ToString());
         int currentIndex = 1;
         if (characterStateManager.GetCharacterState().ToString().Contains("WALKING_HOLD"))
             currentIndex = 3 + int.Parse(characterStateManager.GetCharacterState().ToString().Replace("WALKING_HOLD_", ""));
@@ -66,6 +64,8 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
             currentIndex = int.Parse(characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
         else if(characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
             currentIndex = 6 + (int.Parse(characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
+        else if (characterStateManager.GetCharacterState().ToString().Equals("IDLE_HOLD"))
+            currentIndex = 4;
         
         if (bodySprites.sprites[0].sprite.Length != 0)
         {

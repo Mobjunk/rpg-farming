@@ -10,6 +10,7 @@ public enum CharacterStates
     PICKUP_0,
     PICKUP_1,
     PICKUP_2,
+    IDLE_HOLD,
     USE_TOOL,
     NONE,
 }

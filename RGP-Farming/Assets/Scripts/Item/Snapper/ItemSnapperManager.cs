@@ -39,7 +39,7 @@ public class ItemSnapperManager : Singleton<ItemSnapperManager>
         {
             Vector3 movePoint = Input.mousePosition;
             
-            Vector3 position = new Vector3(movePoint.x + 50, movePoint.y - 50);
+            Vector3 position = new Vector3(movePoint.x + 65, movePoint.y - 65);
             
             currentItemSnapped.Icon.transform.position = position;
             currentItemSnapped.Amount.transform.position = position;

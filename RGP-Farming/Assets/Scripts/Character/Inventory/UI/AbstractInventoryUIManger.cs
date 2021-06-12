@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractInventoryUIManger : MonoBehaviour
+public abstract class AbstractInventoryUIManger : GameUIManager
 {
     private ItemSnapperManager itemSnapper => ItemSnapperManager.Instance();
     
@@ -14,7 +14,7 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
     /// The different containers with slots
     /// This is needed for the double inventory ui to work
     /// </summary>
-    public List<AbstractItemContainer>[] containers = new List<AbstractItemContainer>[2];
+    public List<UIContainerbase<Item>>[] containers = new List<UIContainerbase<Item>>[3];
 
     /// <summary>
     /// The character inventory linked to the UI
@@ -29,9 +29,10 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
     /// <summary>
     /// The slot prefab
     /// </summary>
-    [SerializeField] private GameObject containmentPrefab;
+    [Header("Abstract Inventory UI Settings")]
+    [SerializeField] private GameObject[] containmentPrefab;
 
-    public GameObject ContainmentPrefab
+    public GameObject[] ContainmentPrefab
     {
         get => containmentPrefab;
     }
@@ -58,11 +59,11 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
     
     public bool isOpened;
 
-    private void Awake()
+    public virtual void Awake()
     {
         //Handles setting up the array of lists
         for (int index = 0; index < containers.Length; index++)
-            containers[index] = new List<AbstractItemContainer>();
+            containers[index] = new List<UIContainerbase<Item>>();
     }
 
     private void Update()
@@ -70,11 +71,18 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape)) Close();
     }
 
+    public virtual void Interact()
+    {
+        if (!isOpened) Open();
+        else Close();
+    }
+    
     /// <summary>
     /// Handles opening the UI
     /// </summary>
     public virtual void Open()
     {
+        base.Open();
         if(itemSnapper.isSnapped) itemSnapper.ResetSnappedItem();
         isOpened = true;
         InventoryUI.SetActive(isOpened);
@@ -85,6 +93,7 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
     /// </summary>
     public virtual void Close()
     {
+        base.Close();
         isOpened = false;
         InventoryUI.SetActive(isOpened);
         onInventoryUIClosing.Invoke();
@@ -117,13 +126,18 @@ public abstract class AbstractInventoryUIManger : MonoBehaviour
             ParentData parent = InventoryContainers[parentIndex];
             for (int index = 0; index < parent.maxSlots; index++)
             {
-                GameObject containment = Instantiate(ContainmentPrefab, parent.inventoryContainer, true);
+                GameObject containment = Instantiate(ContainmentPrefab[parent.useSecondSlotPrefab ? 1 : 0], parent.inventoryContainer, true);
                 containment.name = $"{index}";
                 containment.transform.localScale = new Vector3(1, 1, 1);
 
-                AbstractItemContainer container = containment.GetComponent<AbstractItemContainer>();
+                UIContainerbase<Item> container = containment.GetComponent<AbstractItemContainer>();
+                if (container == null)// && parent.useSecondSlotPrefab
+                    container = containment.GetComponent<AbstractShopContainer>();
 
                 //TODO: CLEAN THIS SHIT
+                if(container == null) Debug.Log("container null");
+                if(pInventory == null) Debug.Log("pInventory null");
+                
                 container.Container = pInventory;
                 container.SetIndicator(parent.showIdicator);
                 container.AllowMoving = parent.maxSlots != 12;
@@ -158,4 +172,5 @@ public class ParentData
     public Transform inventoryContainer;
     public int maxSlots;
     public bool showIdicator;
+    public bool useSecondSlotPrefab;
 }
