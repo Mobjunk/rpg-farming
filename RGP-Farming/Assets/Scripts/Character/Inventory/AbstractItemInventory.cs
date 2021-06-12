@@ -94,7 +94,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
             return;
         }
         var newSlot = GetFreeSlot();
-        if (item.stackable && HasItem(item)) newSlot = GetSlot(item);
+        if ((item.stackable || stackType.Equals(StackType.ALWAYS_STACK)) && HasItem(item, 0)) newSlot = GetSlot(item);
 
         if (newSlot == -1)
         {
@@ -134,7 +134,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
         InventoryChanged(slotsUpdated);
     }
 
-    public void RemoveItem(AbstractItemData item, int itemAmount = 1)
+    public void RemoveItem(AbstractItemData item, int itemAmount = 1, bool allowZero = false)
     {
         int slot = GetSlot(item);
         if (slot == -1)
@@ -156,7 +156,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
             if (currentItem.amount > itemAmount) currentItem.amount -= itemAmount;
             else
             {
-                currentItem.item = null;
+                if(!allowZero) currentItem.item = null;
                 currentItem.amount = 0;
                 shiftContainer = true;
             }
@@ -210,8 +210,8 @@ public abstract class AbstractItemInventory : MonoBehaviour
     public bool ItemFitsInventory()
     {
         
-        return SlotsOccupied() < maxInventorySize;
-        //return items.Any(data => data.item == null);
+        //return SlotsOccupied() < maxInventorySize;
+        return items.Any(data => data.item == null);
     }
 
     int GetSlot(AbstractItemData item)

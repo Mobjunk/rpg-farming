@@ -6,7 +6,7 @@ public class GameUIManager : MonoBehaviour
     
     [Header("GameUI Settings")]
     [SerializeField] private GameObject[] uiTabs;
-    [SerializeField] private int currentTabId;
+    private int currentTabId;
     
     public GameObject[] UiTabs
     {

@@ -27,20 +27,17 @@ public class AbstractShopContainer : UIShopContainment<Item>
 
         ItemName.text = $"{Containment.item.itemName}";
         ItemNameShadow.text = $"{Containment.item.itemName}";
-        ItemPrice.text = $"{Containment.item.itemPrice}";
         
-        Amount.text = $"{(Containment.amount > 1 ? Containment.amount.ToString() : "")}";
-        Amount.enabled = Containment.amount > 1;
+        ItemPrice.text = $"0";
+        
+        Amount.text = $"{Containment.amount.ToString()}";
+        Amount.enabled = true;
 
         GoldCoin.enabled = true;
+    }
 
-        //TODO: Update the image stuff
-        /*Icon.sprite = Containment.item.uiSprite;
-        Icon.enabled = true;
-
-        if(ItemBarManager.Instance().selectedSlot == slotIndex && !AllowMoving) SetHighlighted(true);
-
-        Amount.text = $"{(Containment.amount > 1 ? Containment.amount.ToString() : "")}";
-        Amount.enabled = Containment.amount > 1;*/
+    public virtual void UpdateItemPrice(int price)
+    {
+        ItemPrice.text = $"{price}";
     }
 }

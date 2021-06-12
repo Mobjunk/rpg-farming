@@ -71,6 +71,9 @@ public abstract class AbstractInventoryUIManger : GameUIManager
         if(Input.GetKeyDown(KeyCode.Escape)) Close();
     }
 
+    /// <summary>
+    /// Handles the interaction of this ui
+    /// </summary>
     public virtual void Interact()
     {
         if (!isOpened) Open();
@@ -80,7 +83,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// <summary>
     /// Handles opening the UI
     /// </summary>
-    public virtual void Open()
+    public override void Open()
     {
         base.Open();
         if(itemSnapper.isSnapped) itemSnapper.ResetSnappedItem();
@@ -91,12 +94,14 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// <summary>
     /// Handles closing the UI
     /// </summary>
-    public virtual void Close()
+    public override void Close()
     {
         base.Close();
         isOpened = false;
         InventoryUI.SetActive(isOpened);
         onInventoryUIClosing.Invoke();
+        //for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
+        //    containers[parentIndex].Clear();
     }
 
     /// <summary>
@@ -108,21 +113,11 @@ public abstract class AbstractInventoryUIManger : GameUIManager
         ContainmentContainer = pInventory;
         ContainmentContainer.onInventoryChanged += OnInventoryChanged;
 
-        if (ContainmentPrefab == null)
-        {
-            Debug.LogError("ContainmentPrefab = null");
-            return;
-        }
-
-        if (InventoryContainers == null)
-        {
-            Debug.LogError("InventoryContainer = null");
-            return;
-        }
-
         //Handles setting up the container
         for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
         {
+            containers[parentIndex].Clear();
+            
             ParentData parent = InventoryContainers[parentIndex];
             for (int index = 0; index < parent.maxSlots; index++)
             {
@@ -130,14 +125,12 @@ public abstract class AbstractInventoryUIManger : GameUIManager
                 containment.name = $"{index}";
                 containment.transform.localScale = new Vector3(1, 1, 1);
 
+                //TODO: ALSO CLEAN THIS SHIT
                 UIContainerbase<Item> container = containment.GetComponent<AbstractItemContainer>();
-                if (container == null)// && parent.useSecondSlotPrefab
+                if (container == null)
                     container = containment.GetComponent<AbstractShopContainer>();
 
                 //TODO: CLEAN THIS SHIT
-                if(container == null) Debug.Log("container null");
-                if(pInventory == null) Debug.Log("pInventory null");
-                
                 container.Container = pInventory;
                 container.SetIndicator(parent.showIdicator);
                 container.AllowMoving = parent.maxSlots != 12;
@@ -152,7 +145,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// Handles the updating of a containment
     /// </summary>
     /// <param name="slotsUpdated"></param>
-    private void OnInventoryChanged(List<int> slotsUpdated)
+    public virtual void OnInventoryChanged(List<int> slotsUpdated)
     {
         foreach (int slot in slotsUpdated)
         {

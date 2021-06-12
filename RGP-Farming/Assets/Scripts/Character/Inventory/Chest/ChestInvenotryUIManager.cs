@@ -33,7 +33,7 @@ public class ChestInvenotryUIManager : AbstractInventoryUIManger
         ItemBarManager.Instance().Unhide();
     }
 
-    public void Interact()
+    public override void Interact()
     {
         if (isOpened) Close();
         else Open();

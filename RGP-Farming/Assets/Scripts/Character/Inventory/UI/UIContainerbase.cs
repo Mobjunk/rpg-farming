@@ -17,7 +17,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
     /// <summary>
     /// The index of the slot
     /// </summary>
-    public int slotIndex;
+    [HideInInspector] public int slotIndex;
     
     //References
     #region References
@@ -75,8 +75,6 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
     /// </summary>
     private bool isHighlighted;
 
-    public bool IsHighlighted => isHighlighted;
-
     public void SetHighlighted(bool set)
     {
         isHighlighted = set;
@@ -110,11 +108,18 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
 
     #endregion
 
+    /// <summary>
+    /// Handles setting the containment
+    /// </summary>
+    /// <param name="containment"></param>
     public virtual void SetContainment(T containment)
     {
         this.containment = containment;
     }
 
+    /// <summary>
+    /// Handles clearing the containment
+    /// </summary>
     public virtual void ClearContainment()
     {
         containment = default;
@@ -139,10 +144,6 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         if (isHighlighted) highlight.enabled = true;
     }
     
-    //When clicking a item you cannot close the inventory
-    //When clicking a item it locks the item to the mouse untill clicked on a slot (In inventory menu)
-    //When clickign a item it selects that item (In inventory bar)
-    
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Middle)
@@ -152,11 +153,17 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    /// <summary>
+    /// Handles switching to a containment
+    /// </summary>
     void SwitchContainment()
     {
         ItemBarManager.Instance().UpdateSlot(slotIndex);
     }
 
+    /// <summary>
+    /// Handles the item snapping to the mouse when clicking a containment
+    /// </summary>
     void SnapContainment()
     {
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();

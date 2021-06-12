@@ -8,6 +8,8 @@ public class ItemSnapperManager : Singleton<ItemSnapperManager>
 
     public void SetSnappedItem(UIContainerbase<Item> currentItemSnapped)
     {
+        if (currentItemSnapped.GetType() == typeof(ShopContainerGrid)) return;
+        
         this.currentItemSnapped = currentItemSnapped;
 
         Canvas canvas = this.currentItemSnapped.Icon.gameObject.AddComponent<Canvas>();

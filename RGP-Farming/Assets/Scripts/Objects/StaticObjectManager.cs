@@ -7,8 +7,6 @@ using UnityEngine.Rendering;
 public class StaticObjectManager : MonoBehaviour
 {
     [SerializeField] private InteractionManager interactionManager;
-
-
     public InteractionManager InteractionManager
     {
         get => interactionManager;

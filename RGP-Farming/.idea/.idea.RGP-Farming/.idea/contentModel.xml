@@ -13,8 +13,6 @@
           <e p="Crops.cs" t="Include" />
           <e p="CropsCycle.cs" t="Include" />
         </e>
-        <e p="InventoryMenuManager.cs" t="Include" />
-        <e p="MenuManager.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Character" t="Include">
             <e p="Action" t="Include">
@@ -66,11 +64,8 @@
               <e p="UI" t="Include">
                 <e p="AbstractInventoryUIManger.cs" t="Include" />
                 <e p="AbstractItemContainer.cs" t="Include" />
-                <e p="AbstractShopContainer.cs" t="Include" />
                 <e p="ItemContainerGrid.cs" t="Include" />
-                <e p="ShopContainerGrid.cs" t="Include" />
                 <e p="UIContainerbase.cs" t="Include" />
-                <e p="UIShopContainment.cs" t="Include" />
               </e>
             </e>
             <e p="Movement" t="Include">
@@ -81,6 +76,9 @@
               <e p="Npc.cs" t="Include" />
               <e p="NpcData.cs" t="Include" />
             </e>
+            <e p="Placer" t="Include">
+              <e p="CharacterPlaceObject.cs" t="Include" />
+            </e>
             <e p="Player" t="Include">
               <e p="CharacterInventory.cs" t="Include" />
               <e p="Player.cs" t="Include" />
@@ -90,19 +88,31 @@
               <e p="ShopInventory.cs" t="Include" />
               <e p="ShopStock.cs" t="Include" />
               <e p="ShopUIManager.cs" t="Include" />
+              <e p="UI" t="Include">
+                <e p="AbstractShopContainer.cs" t="Include" />
+                <e p="ShopContainerGrid.cs" t="Include" />
+                <e p="ShopContainerInteraction.cs" t="Include" />
+                <e p="UIShopContainment.cs" t="Include" />
+              </e>
             </e>
             <e p="State" t="Include">
               <e p="CharacterStateManager.cs" t="Include" />
               <e p="CharacterStates.cs" t="Include" />
             </e>
+            <e p="UI" t="Include">
+              <e p="CharacterUIManager.cs" t="Include" />
+            </e>
           </e>
-          <e p="CharacterPlaceObject.cs" t="Include" />
-          <e p="CharacterUIManager.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
-          <e p="GameUIManager.cs" t="Include" />
           <e p="Interaction" t="Include">
             <e p="IInteraction.cs" t="Include" />
             <e p="InteractionManager.cs" t="Include" />
+            <e p="Npc" t="Include">
+              <e p="impl" t="Include">
+                <e p="ShopInteraction.cs" t="Include" />
+              </e>
+              <e p="NpcInteraction.cs" t="Include" />
+            </e>
             <e p="Object" t="Include">
               <e p="impl" t="Include">
                 <e p="ChestInteraction.cs" t="Include" />
@@ -138,7 +148,6 @@
             </e>
             <e p="StaticObjectManager.cs" t="Include" />
           </e>
-          <e p="Test.cs" t="Include" />
           <e p="Tiles" t="Include">
             <e p="TilePlacer.cs" t="Include" />
           </e>
@@ -152,12 +161,18 @@
             <e p="UI" t="Include">
               <e p="ButtonManager.cs" t="Include" />
               <e p="CoinAnimation.cs" t="Include" />
+              <e p="GameUIManager.cs" t="Include" />
               <e p="GoldIndicatorManager.cs" t="Include" />
+              <e p="Menu" t="Include">
+                <e p="impl" t="Include">
+                  <e p="InventoryMenuManager.cs" t="Include" />
+                </e>
+                <e p="MenuManager.cs" t="Include" />
+              </e>
             </e>
             <e p="Utility.cs" t="Include" />
           </e>
         </e>
-        <e p="ShopContainerHover.cs" t="Include" />
         <e p="Sounds" t="Include">
           <e p="Gameplay" t="Include">
             <e p="Freesound.org (Public Domain)" t="Include">
