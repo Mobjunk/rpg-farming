@@ -45,6 +45,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     public GameObject InventoryUI
     {
         get => inventoryUI;
+        set => inventoryUI = value;
     }
     
     /// <summary>

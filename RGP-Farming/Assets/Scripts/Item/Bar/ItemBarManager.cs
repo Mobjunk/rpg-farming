@@ -81,6 +81,11 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
     }
 
+    public AbstractItemData GetItemSelected()
+    {
+        return player.CharacterInventory.items[selectedSlot].item;
+    }
+    
     public bool IsWearingCorrectTool(ToolType tooltype)
     {
         if (player.CharacterInventory.items[selectedSlot].item == null) return false;

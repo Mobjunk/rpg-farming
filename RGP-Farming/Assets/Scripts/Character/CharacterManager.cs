@@ -3,6 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(Animator))]
 [RequireComponent(typeof(HeightBasedSorting),typeof(CharacterStateManager), typeof(CharacterDesignManager))]
+[RequireComponent(typeof(CharacterHealthManager))]
 public class CharacterManager : MonoBehaviour
 {
     /// <summary>

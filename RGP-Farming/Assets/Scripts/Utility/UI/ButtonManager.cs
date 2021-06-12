@@ -9,8 +9,8 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         Utility.UnloadScene("MainMenu");
-        Utility.AddSceneIfNotLoaded("Level");
         Utility.AddSceneIfNotLoaded("Core");
+        Utility.AddSceneIfNotLoaded("Level");
     }
     
     public void Quit()

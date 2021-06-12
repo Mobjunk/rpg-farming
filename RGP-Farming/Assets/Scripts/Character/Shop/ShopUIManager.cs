@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShopUIManager : AbstractInventoryUIManger
 {
+    private ShopUI shopUI => ShopUI.Instance();
     private Player player => Player.Instance();
     private ShopInventory shopInventory;
     private PlayerInvenotryUIManager inventoryUIManager;
@@ -12,6 +13,12 @@ public class ShopUIManager : AbstractInventoryUIManger
     {
         base.Awake();
         shopInventory = GetComponent<ShopInventory>();
+        if (InventoryUI == null && InventoryContainers[0].inventoryContainer == null && UiTabs[0] == null && UiTabs[1] == null)
+        {
+            InventoryUI = shopUI.Contents;
+            InventoryContainers[0].inventoryContainer = shopUI.ItemContainer.transform;
+            UiTabs = shopUI.UiTabs;
+        }
     }
 
     public void Start()

@@ -45,10 +45,4 @@ public class ChestOpener : Opener
         base.Close(characterManager);
         animator.SetBool("opening", false);
     }
-
-    public override void Interact(CharacterManager characterManager)
-    {
-        Debug.Log("Handle interaction for " + characterManager.gameObject.name);
-        base.Interact(characterManager);
-    }
 }

@@ -149,7 +149,7 @@ public class Player : CharacterManager
         } else SubscribeToInput();
     }
     
-    public void Add()
+    public void AddStarterItems()
     {
         characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Axe"));
@@ -157,15 +157,5 @@ public class Player : CharacterManager
         characterInventory.AddItem(ItemManager.Instance().ForName("Watering can"));
         characterInventory.AddItem(ItemManager.Instance().ForName("Chest"), 1);
         characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 10);
-    }
-
-    public void Remove()
-    {
-        characterInventory.RemoveItem(ItemManager.Instance().ForName("Pickaxe"));
-    }
-
-    public void Coins()
-    {
-        characterInventory.UpdateCoins(-100);
     }
 }

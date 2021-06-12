@@ -53,6 +53,8 @@ GameObject:
   - component: {fileID: 4990165636136102980}
   - component: {fileID: 2368994498836970983}
   - component: {fileID: 3769904240916278307}
+  - component: {fileID: 2482437820657588259}
+  - component: {fileID: 1295267173746240204}
   m_Layer: 6
   m_Name: Player
   m_TagString: Character
@@ -266,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f109bc0841add3140a8ce9839545fd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiTabs: []
   containmentPrefab:
   - {fileID: 0}
   - {fileID: 0}
@@ -329,6 +332,32 @@ MonoBehaviour:
   placeableTiles: {fileID: 0}
   canPlace: {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
   cannotPlace: {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
+--- !u!114 &2482437820657588259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990165636136102972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef55daa4c15a67e4189b0edc506507c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentUIOpened: {fileID: 0}
+--- !u!114 &1295267173746240204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990165636136102972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850dc69e34ab85142b38f33bc1149b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 100
 --- !u!1 &4990165636548847576
 GameObject:
   m_ObjectHideFlags: 0

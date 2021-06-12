@@ -9,6 +9,7 @@
         <e p="Fonts" t="Include">
           <e p="Munro_Licence.txt" t="Include" />
         </e>
+        <e p="HealthBarManager.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Character" t="Include">
             <e p="Action" t="Include">
@@ -42,6 +43,9 @@
                 <e p="CharacterHatManager.cs" t="Include" />
                 <e p="CharacterLegsManager.cs" t="Include" />
               </e>
+            </e>
+            <e p="Health" t="Include">
+              <e p="CharacterHealthManager.cs" t="Include" />
             </e>
             <e p="Input" t="Include">
               <e p="CharacterControllerManager.cs" t="Include" />
@@ -81,8 +85,10 @@
               <e p="PlayerInvenotryUIManager.cs" t="Include" />
             </e>
             <e p="Shop" t="Include">
+              <e p="Scriptable" t="Include">
+                <e p="ShopStock.cs" t="Include" />
+              </e>
               <e p="ShopInventory.cs" t="Include" />
-              <e p="ShopStock.cs" t="Include" />
               <e p="ShopUIManager.cs" t="Include" />
               <e p="UI" t="Include">
                 <e p="AbstractShopContainer.cs" t="Include" />
@@ -100,16 +106,16 @@
             </e>
           </e>
           <e p="Farming" t="Include">
-            <e p="Crops" t="Include">
-              <e p="Carrots.asset" t="Include" />
-              <e p="Carrots.asset.meta" t="Include" />
-              <e p="Crops.png" t="Include" />
-              <e p="Crops.png.meta" t="Include" />
-            </e>
             <e p="Crops.cs" t="Include" />
             <e p="CropsCycle.cs" t="Include" />
           </e>
           <e p="GameManager.cs" t="Include" />
+          <e p="Health" t="Include">
+            <e p="HealthManager.cs" t="Include" />
+            <e p="Object" t="Include">
+              <e p="TreeHealth.cs" t="Include" />
+            </e>
+          </e>
           <e p="Interaction" t="Include">
             <e p="IInteraction.cs" t="Include" />
             <e p="InteractionManager.cs" t="Include" />
@@ -123,22 +129,26 @@
               <e p="impl" t="Include">
                 <e p="ChestInteraction.cs" t="Include" />
                 <e p="CropsInteraction.cs" t="Include" />
+                <e p="GiftInteraction.cs" t="Include" />
                 <e p="TreeInteraction.cs" t="Include" />
               </e>
               <e p="ObjectInteractionManager.cs" t="Include" />
             </e>
           </e>
           <e p="Item" t="Include">
-            <e p="AbstractItemData.cs" t="Include" />
-            <e p="AbstractPlaceableItem.cs" t="Include" />
-            <e p="AbstractPlantData.cs" t="Include" />
-            <e p="AbstractToolItem.cs" t="Include" />
             <e p="Bar" t="Include">
               <e p="ItemBarManager.cs" t="Include" />
             </e>
             <e p="Item.cs" t="Include" />
             <e p="Manager" t="Include">
               <e p="ItemManager.cs" t="Include" />
+            </e>
+            <e p="Scriptable" t="Include">
+              <e p="AbstractConsumableItem.cs" t="Include" />
+              <e p="AbstractItemData.cs" t="Include" />
+              <e p="AbstractPlaceableItem.cs" t="Include" />
+              <e p="AbstractPlantData.cs" t="Include" />
+              <e p="AbstractToolItem.cs" t="Include" />
             </e>
             <e p="Snapper" t="Include">
               <e p="ItemSnapperManager.cs" t="Include" />
@@ -154,6 +164,7 @@
             </e>
             <e p="StaticObjectManager.cs" t="Include" />
           </e>
+          <e p="Test.cs" t="Include" />
           <e p="Tiles" t="Include">
             <e p="TilePlacer.cs" t="Include" />
           </e>
@@ -179,6 +190,7 @@
             <e p="Utility.cs" t="Include" />
           </e>
         </e>
+        <e p="ShopUI.cs" t="Include" />
         <e p="Sounds" t="Include">
           <e p="Gameplay" t="Include">
             <e p="Freesound.org (Public Domain)" t="Include">
