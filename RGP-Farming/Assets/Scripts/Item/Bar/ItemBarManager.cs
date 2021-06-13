@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemBarManager : MenuManager<ItemBarManager>
@@ -26,8 +27,19 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
         else
         {
-            //TODO: Add a delay
-            UpdateSlot(Input.mouseScrollDelta.y);
+            if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) UpdateSlot(0);
+            else if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) UpdateSlot(1);
+            else if(Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) UpdateSlot(2);
+            else if(Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) UpdateSlot(3);
+            else if(Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) UpdateSlot(4);
+            else if(Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6)) UpdateSlot(5);
+            else if(Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) UpdateSlot(6);
+            else if(Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8)) UpdateSlot(7);
+            else if(Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) UpdateSlot(8);
+            else if(Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0)) UpdateSlot(9);
+            else if(Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus)) UpdateSlot(10);
+            else if(Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.KeypadEquals)) UpdateSlot(11);
+            else UpdateSlot(Input.mouseScrollDelta.y);
         }
     }
 
@@ -96,5 +108,10 @@ public class ItemBarManager : MenuManager<ItemBarManager>
             if (tool.tooltype.Equals(tooltype)) return true;
         }
         return false;
+    }
+
+    public bool IsWearingCorrectTools(ToolType[] tooltypes)
+    {
+        return tooltypes.Any(type => IsWearingCorrectTool(type));
     }
 }

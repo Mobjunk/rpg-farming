@@ -15,4 +15,9 @@ public class Test : MonoBehaviour
     {
         healthManager.Heal(dmg);
     }
+
+    public void TestAdding()
+    {
+        ItemReceiverManager.Instance().Add(new Item(ItemManager.Instance().ForName("Hoe"), 5));
+    }
 }

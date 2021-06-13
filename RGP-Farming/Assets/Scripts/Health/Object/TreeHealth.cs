@@ -2,7 +2,7 @@
 {
     public override void HandleDeath()
     {
-        CursorManager.Instance().SetDefaultCursor();
         Destroy(gameObject);
+        CursorManager.Instance().SetDefaultCursor();
     }
 }

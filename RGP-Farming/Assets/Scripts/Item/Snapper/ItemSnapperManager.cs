@@ -24,17 +24,12 @@ public class ItemSnapperManager : Singleton<ItemSnapperManager>
         if (currentItemSnapped == null) return;
         
         Destroy(currentItemSnapped.Icon.gameObject.GetComponent<Canvas>());
+        currentItemSnapped.Icon.enabled = false;
         currentItemSnapped.Icon.transform.localPosition = Vector3.zero;
         currentItemSnapped.Amount.transform.localPosition = Vector3.zero;
         isSnapped = false;
     }
 
-    public void Swap(UIContainerbase<Item> itemSnapped)
-    {
-        ResetSnappedItem();
-        SetSnappedItem(itemSnapped);
-    }
-    
     private void Update()
     {
         if (isSnapped)

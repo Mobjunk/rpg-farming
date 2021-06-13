@@ -54,7 +54,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 7
-  m_Spacing: 0
+  m_Spacing: 1
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 2576951337916614312}
   - component: {fileID: 2576951337916614313}
   - component: {fileID: 2576951337916614314}
+  - component: {fileID: 5596696073208595602}
   m_Layer: 0
   m_Name: Item Receiver UI
   m_TagString: Untagged
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 10
+  m_ScaleFactor: 8
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -162,3 +163,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5596696073208595602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2576951337916614308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80839a0b310c8ef4b9f27d237c4717c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 9064475390884704044, guid: 29853a5684ac4d544a96aac770206359, type: 3}
+  parent: {fileID: 2576951337750323411}
+  itemsReceived: []

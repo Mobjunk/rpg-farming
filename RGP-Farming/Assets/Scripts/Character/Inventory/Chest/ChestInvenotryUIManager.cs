@@ -17,7 +17,7 @@ public class ChestInvenotryUIManager : AbstractInventoryUIManger
     {
         base.Open();
         
-        InventoryMenuManager.Instance().SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 33.5f));
+        InventoryMenuManager.Instance().SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 56.6f));
         InventoryMenuManager.Instance().Unhide(true);
         
         ItemBarManager.Instance().Hide();

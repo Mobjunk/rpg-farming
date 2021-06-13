@@ -26,4 +26,10 @@ public class CharacterInventory : AbstractItemInventory
         goldCoins += amount;
         GoldIndicatorManager.Instance().UpdateCoins(goldCoins);
     }
+
+    public void AddItem(AbstractItemData item, int itemAmount = 1, bool show = false)
+    {
+        if (show) ItemReceiverManager.Instance().Add(new Item(item, itemAmount));
+        base.AddItem(item, itemAmount);
+    }
 }

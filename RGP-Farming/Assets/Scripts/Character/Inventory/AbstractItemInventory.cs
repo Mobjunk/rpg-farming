@@ -86,7 +86,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
         }
     }
 
-    public void AddItem(AbstractItemData item, int itemAmount = 1)
+    protected void AddItem(AbstractItemData item, int itemAmount = 1)
     {
         if (!ItemFitsInventory())
         {
@@ -233,7 +233,6 @@ public abstract class AbstractItemInventory : MonoBehaviour
         int amount = 0;
         for (int index = 0; index < maxInventorySize; index++)
         {
-            if(items[index] == null) Debug.Log($"WTF[{index}]");
             if (items[index].item != null)
                 amount++;
         }

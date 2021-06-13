@@ -151,11 +151,12 @@ public class Player : CharacterManager
     
     public void AddStarterItems()
     {
-        characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"));
-        characterInventory.AddItem(ItemManager.Instance().ForName("Axe"));
-        characterInventory.AddItem(ItemManager.Instance().ForName("Hoe"));
-        characterInventory.AddItem(ItemManager.Instance().ForName("Watering can"));
-        characterInventory.AddItem(ItemManager.Instance().ForName("Chest"), 1);
-        characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 10);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"), show: true);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Axe"), show: true);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Hoe"), show: true);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Scythe"), show: true);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Watering can"), show: true);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 10, true);
+        characterInventory.AddItem(ItemManager.Instance().ForName("Chest"));
     }
 }
