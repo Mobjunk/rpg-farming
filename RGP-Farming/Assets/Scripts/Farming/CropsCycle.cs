@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.WSA;
@@ -13,20 +14,24 @@ public class CropsCycle : MonoBehaviour
 
     private float updateTimer;
     
-    [SerializeField] private int spriteCount;
+    private int spriteCount;
     
     private SpriteRenderer sr;
     
-    [SerializeField] private bool readyToHarvest;
+    private bool readyToHarvest;
     
     private int harvestAmount;
     
     private bool isWatered;
-    
+
+    [SerializeField] private GameObject diseasedObject;
+
+
+
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-
+        diseasedObject = transform.GetChild(0).gameObject;
         sr.sprite = crops.spriteStages[0];
         updateTimer = crops.timeBetweenGrowthStage;
     }
@@ -65,7 +70,9 @@ public class CropsCycle : MonoBehaviour
         // Set the sprite of the plant to dead.
         if (!isWatered && crops.useOfWater)
         {
-            sr.sprite = crops.diseased;
+            //SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+            //spriteRenderer.enabled = true;
+            diseasedObject.SetActive(true);
             readyToHarvest = true;
             return true;
 
