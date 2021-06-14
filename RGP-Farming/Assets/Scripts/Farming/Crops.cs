@@ -21,8 +21,4 @@ public class Crops : ScriptableObject
     [Header("Sprites")]
     public AbstractItemData harvestedItem;
     public Sprite[] spriteStages;
-    public Sprite diseased;
-
-
-
 }
