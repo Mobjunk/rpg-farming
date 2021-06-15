@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: ff3aa789dce6dcf4ea28a7d9451d7cbb
+guid: e13f3c3ba58cc5344abc1ed8b3659f20
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2142185268650758390
-    second: Bars_0
+      213: 6419731832514676712
+    second: Water_Top_Corner_Left_0
   - first:
-      213: -359480309759690003
-    second: Bars_1
+      213: 8413357670623946560
+    second: Water_Top_Corner_Left_1
+  - first:
+      213: 5540798903078184611
+    second: Water_Top_Corner_Left_2
+  - first:
+      213: -467417328764040583
+    second: Water_Top_Corner_Left_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -93,29 +99,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bars_0
+      name: Water_Top_Corner_Left_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 48
-        height: 224
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,20 +117,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0f2ff219dd6542e0800000000000000
-      internalID: -2142185268650758390
+      spriteID: 8e70e46a618771950800000000000000
+      internalID: 6419731832514676712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bars_1
+      name: Water_Top_Corner_Left_1
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 224
+        x: 16
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,8 +138,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: deab609109ed20bf0800000000000000
-      internalID: -359480309759690003
+      spriteID: 04729ddb93042c470800000000000000
+      internalID: 8413357670623946560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_Top_Corner_Left_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a669d5fe3fd4ec40800000000000000
+      internalID: 5540798903078184611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_Top_Corner_Left_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a482d7a666389f0800000000000000
+      internalID: -467417328764040583
       vertices: []
       indices: 
       edges: []
