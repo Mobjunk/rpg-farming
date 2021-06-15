@@ -49,4 +49,16 @@ public class AbstractCraftingContainer : AbstractItemContainer<Item>
             } else Debug.LogError("Player is missing some of the items...");
         }
     }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        base.OnPointerEnter(eventData);
+        CraftingTooltipManager.Instance().SetTooltip(Containment.item);
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        base.OnPointerExit(eventData);
+        CraftingTooltipManager.Instance().SetTooltip(null);
+    }
 }

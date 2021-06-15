@@ -24,12 +24,12 @@ public class ItemContainerGrid : AbstractItemContainer<Item>
     {
         base.OnPointerEnter(eventData);
         if (Containment == null) return;
-        ItemToolTipManager.Instance().SetTooltip(Containment.item);        
+        ItemTooltipManager.Instance().SetTooltip(Containment.item);        
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
-        ItemToolTipManager.Instance().SetTooltip(null);
+        ItemTooltipManager.Instance().SetTooltip(null);
     }
 }

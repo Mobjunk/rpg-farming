@@ -98,7 +98,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         return player.CharacterInventory.items[selectedSlot].item;
     }
     
-    public bool IsWearingCorrectTool(ItemType tooltype)
+    public bool IsWearingCorrectTool(ToolType tooltype)
     {
         if (player.CharacterInventory.items[selectedSlot].item == null) return false;
         
@@ -110,7 +110,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         return false;
     }
 
-    public bool IsWearingCorrectTools(ItemType[] tooltypes)
+    public bool IsWearingCorrectTools(ToolType[] tooltypes)
     {
         return tooltypes.Any(type => IsWearingCorrectTool(type));
     }

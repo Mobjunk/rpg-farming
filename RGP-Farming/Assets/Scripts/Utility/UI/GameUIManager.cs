@@ -29,6 +29,7 @@ public class GameUIManager : MonoBehaviour
 
     public virtual void Close()
     {
+        ItemTooltipManager.Instance().SetTooltip(null);
         player.CharacterUIManager.CurrentUIOpened = null;
     }
 

@@ -12,7 +12,7 @@ public class TreeInteraction : ObjectInteractionManager
 
     public override void OnInteraction(CharacterManager characterManager)
     {
-        if (itemBarManager.IsWearingCorrectTool(ItemType.AXE))
+        if (itemBarManager.IsWearingCorrectTool(ToolType.AXE))
         {
             AbstractToolItem tool = (AbstractToolItem) itemBarManager.GetItemSelected();
             healthManager.TakeDamage(tool.toolDamage);

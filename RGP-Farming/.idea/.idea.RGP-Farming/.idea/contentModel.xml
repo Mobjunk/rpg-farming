@@ -6,7 +6,6 @@
     <e p="C:\Users\Nighel Nijhuis\Desktop\rpg-farming\RGP-Farming" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="AnimatedTile.cs" t="Include" />
         <e p="Fonts" t="Include">
           <e p="Munro_Licence.txt" t="Include" />
         </e>
@@ -190,10 +189,13 @@
           </e>
           <e p="Test.cs" t="Include" />
           <e p="Tiles" t="Include">
+            <e p="AnimatedTile.cs" t="Include" />
             <e p="TilePlacer.cs" t="Include" />
           </e>
           <e p="Tooltip" t="Include">
+            <e p="CraftingTooltipManager.cs" t="Include" />
             <e p="ItemToolTipManager.cs" t="Include" />
+            <e p="TooltipManager.cs" t="Include" />
           </e>
           <e p="Utility" t="Include">
             <e p="CursorManager.cs" t="Include" />
@@ -235,7 +237,9 @@
           </e>
         </e>
         <e p="Sprites" t="Include">
-          <e p="WindmillRotater.cs" t="Include" />
+          <e p="Buildings" t="Include">
+            <e p="WindmillRotater.cs" t="Include" />
+          </e>
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">

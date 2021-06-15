@@ -21,12 +21,12 @@ public class ItemSnapperManager : Singleton<ItemSnapperManager>
         isSnapped = true;
     }
 
-    public void ResetSnappedItem()
+    public void ResetSnappedItem(bool iconEnabled = true)
     {
         if (currentItemSnapped == null) return;
         
         Destroy(currentItemSnapped.Icon.gameObject.GetComponent<Canvas>());
-        currentItemSnapped.Icon.enabled = false;
+        currentItemSnapped.Icon.enabled = iconEnabled;
         currentItemSnapped.Icon.transform.localPosition = Vector3.zero;
         currentItemSnapped.Amount.transform.localPosition = Vector3.zero;
         isSnapped = false;

@@ -12,17 +12,16 @@ public class AbstractItemData : ScriptableObject
     public Sprite uiSprite;
     public bool stackable;
     public int itemPrice;
-    [Header("Item Type")] public ItemType tooltype;
+    [Header("Item Type")] public ItemType itemType;
     [Header("Optional data")] public AbstractCraftingRecipe craftingRecipe;
 }
 
 public enum ItemType
 {
     NONE,
-    AXE,
-    PICKAXE,
-    SCYTHE,
-    HOE,
-    WATERING_CAN,
-    SWORD
+    TOOL,
+    CONSUMABLE,
+    RESOURCE,
+    OBJECT,
+    SEED
 }

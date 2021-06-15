@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -87,6 +88,12 @@ public static class Utility
         }
 
         return false;
+    }
+    
+    
+    public static string UppercaseFirst(string input)
+    {
+        return input.First().ToString().ToUpper() + input.Substring(1);
     }
 }
 
