@@ -21,6 +21,18 @@ public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
         if(Input.GetMouseButtonDown(1)) OnCharacterSecondaryInteraction(characterManager);
         //if(Input.GetMouseButtonDown(0)) OnCharacterAttack();
         //if (Input.GetKeyDown(KeyCode.F)) OnCharacterInteraction(characterManager);
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Player player = (Player) characterManager;
+            
+            if (player.PlayerInventoryUIManager.isOpened && player.CharacterUIManager.CurrentUIOpened.GetType() == typeof(PlayerInvenotryUIManager))
+                player.PlayerInventoryUIManager.Close();
+            else if (!player.PlayerInventoryUIManager.isOpened)
+            {
+                if (player.CharacterUIManager.CurrentUIOpened != null && !player.CharacterUIManager.CurrentUIOpened.AllowedToOpenInvnetory) return;
+                player.PlayerInventoryUIManager.Open();
+            }
+        }
     }
 
     private void FixedUpdate()

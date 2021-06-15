@@ -20,4 +20,10 @@ public class Test : MonoBehaviour
     {
         ItemReceiverManager.Instance().Add(new Item(ItemManager.Instance().ForName("Hoe"), 5));
     }
+
+    public CraftingInventoryUIManager craftingUIManager;
+    public void TestUI()
+    {
+        craftingUIManager.Interact();
+    }
 }

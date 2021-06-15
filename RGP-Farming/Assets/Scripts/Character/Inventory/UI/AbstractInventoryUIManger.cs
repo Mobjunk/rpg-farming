@@ -101,8 +101,6 @@ public abstract class AbstractInventoryUIManger : GameUIManager
         isOpened = false;
         InventoryUI.SetActive(isOpened);
         onInventoryUIClosing.Invoke();
-        //for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
-        //    containers[parentIndex].Clear();
     }
 
     /// <summary>
@@ -127,14 +125,13 @@ public abstract class AbstractInventoryUIManger : GameUIManager
                 containment.transform.localScale = new Vector3(1, 1, 1);
 
                 //TODO: ALSO CLEAN THIS SHIT
-                UIContainerbase<Item> container = containment.GetComponent<AbstractItemContainer>();
-                if (container == null)
-                    container = containment.GetComponent<AbstractShopContainer>();
-
+                UIContainerbase<Item> container = containment.GetComponent<UIContainerbase<Item>>();
+                if (container == null) container = containment.GetComponent<AbstractShopContainer>();
+                
                 //TODO: CLEAN THIS SHIT
                 container.Container = pInventory;
                 container.SetIndicator(parent.showIdicator);
-                container.AllowMoving = parent.maxSlots != 12;
+                container.AllowMoving = parent.allowSnapping;
                 container.SetContainment(ContainmentContainer.items[index]);
                 
                 containers[parentIndex].Add(container);
@@ -167,4 +164,5 @@ public class ParentData
     public int maxSlots;
     public bool showIdicator;
     public bool useSecondSlotPrefab;
+    public bool allowSnapping = true;
 }

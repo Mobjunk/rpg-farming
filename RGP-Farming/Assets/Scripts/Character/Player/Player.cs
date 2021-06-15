@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterPlaceObject), typeof(CharacterUIManager))]
 public class Player : CharacterManager
 {
+    private ItemManager itemManager => ItemManager.Instance();
     private static Player intsance;
 
     public static Player Instance()
@@ -48,6 +49,11 @@ public class Player : CharacterManager
     /// The ui linked to the player's inventory
     /// </summary>
     private PlayerInvenotryUIManager playerInventoryUIManager;
+
+    public PlayerInvenotryUIManager PlayerInventoryUIManager
+    {
+        get => playerInventoryUIManager;
+    }
 
     private CharacterPlaceObject characterPlaceObject;
 
@@ -151,12 +157,12 @@ public class Player : CharacterManager
     
     public void AddStarterItems()
     {
-        characterInventory.AddItem(ItemManager.Instance().ForName("Pickaxe"), show: true);
-        characterInventory.AddItem(ItemManager.Instance().ForName("Axe"), show: true);
-        characterInventory.AddItem(ItemManager.Instance().ForName("Hoe"), show: true);
-        characterInventory.AddItem(ItemManager.Instance().ForName("Scythe"), show: true);
-        characterInventory.AddItem(ItemManager.Instance().ForName("Watering can"), show: true);
-        characterInventory.AddItem(ItemManager.Instance().ForName("Carrot seed"), 10, true);
-        characterInventory.AddItem(ItemManager.Instance().ForName("Chest"));
+        characterInventory.AddItem(itemManager.ForName("Pickaxe"), show: true);
+        characterInventory.AddItem(itemManager.ForName("Axe"), show: true);
+        characterInventory.AddItem(itemManager.ForName("Hoe"), show: true);
+        characterInventory.AddItem(itemManager.ForName("Scythe"), show: true);
+        characterInventory.AddItem(itemManager.ForName("Watering can"), show: true);
+        characterInventory.AddItem(itemManager.ForName("Carrot seed"), 10, true);
+        characterInventory.AddItem(itemManager.ForName("Wood"), 50);
     }
 }

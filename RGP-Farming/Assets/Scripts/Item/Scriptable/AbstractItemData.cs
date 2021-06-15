@@ -11,4 +11,5 @@ public class AbstractItemData : ScriptableObject
     public Sprite uiSprite;
     public bool stackable;
     public int itemPrice;
+    [Header("Optional data")] public AbstractCraftingRecipe craftingRecipe;
 }

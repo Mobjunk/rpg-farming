@@ -6,6 +6,7 @@
     <e p="C:\Users\Nighel Nijhuis\Desktop\rpg-farming\RGP-Farming" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="AnimatedTile.cs" t="Include" />
         <e p="Fonts" t="Include">
           <e p="Munro_Licence.txt" t="Include" />
         </e>
@@ -104,6 +105,16 @@
             </e>
             <e p="UI" t="Include">
               <e p="CharacterUIManager.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Crafting" t="Include">
+            <e p="CraftingInventory.cs" t="Include" />
+            <e p="Scriptable" t="Include">
+              <e p="AbstractCraftingRecipe.cs" t="Include" />
+            </e>
+            <e p="UI" t="Include">
+              <e p="AbstractCraftingContainer.cs" t="Include" />
+              <e p="CraftingInventoryUIManager.cs" t="Include" />
             </e>
           </e>
           <e p="Farming" t="Include">

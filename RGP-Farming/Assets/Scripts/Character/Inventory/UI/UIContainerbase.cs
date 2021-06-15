@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [Serializable]
-public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
+public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
     /// The containment
@@ -107,6 +107,22 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
     }
 
     #endregion
+    
+    private bool hoveringContainment;
+
+    private void Update()
+    {
+        if (hoveringContainment)
+        {
+            var iconTransform = Icon.transform;
+            bool increase = iconTransform.localScale.x < 1.1f;
+            if(increase)
+            {
+                var localScale = iconTransform.localScale;
+                iconTransform.localScale = new Vector3(localScale.x + 0.01f, localScale.y + 0.01f, localScale.z);
+            }
+        }
+    }
 
     /// <summary>
     /// Handles setting the containment
@@ -143,15 +159,6 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
         
         if (isHighlighted) highlight.enabled = true;
     }
-    
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Middle)
-        {
-            if (allowMoving) SnapContainment();
-            else SwitchContainment();
-        }
-    }
 
     /// <summary>
     /// Handles switching to a containment
@@ -183,5 +190,25 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler
             Container.Set(slotIndex, currentItem);
             currentSnap.Container.Set(currentSnap.slotIndex, placeHolder);
         }
+    }
+    
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Middle)
+        {
+            if (allowMoving) SnapContainment();
+            else SwitchContainment();
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        hoveringContainment = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        hoveringContainment = false;
+        Icon.transform.localScale = new Vector3(1, 1, 1);
     }
 }

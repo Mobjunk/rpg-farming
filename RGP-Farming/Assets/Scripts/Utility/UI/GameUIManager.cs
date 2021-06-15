@@ -3,6 +3,14 @@ using UnityEngine;
 public class GameUIManager : MonoBehaviour
 {
     private Player player => Player.Instance();
+
+    [Header("Allow to open inventory")]
+    [SerializeField] private bool allowedToOpenInvnetory;
+
+    public bool AllowedToOpenInvnetory
+    {
+        get => allowedToOpenInvnetory;
+    }
     
     [Header("GameUI Settings")]
     [SerializeField] private GameObject[] uiTabs;
@@ -22,6 +30,11 @@ public class GameUIManager : MonoBehaviour
     public virtual void Close()
     {
         player.CharacterUIManager.CurrentUIOpened = null;
+    }
+
+    public virtual void Set()
+    {
+        player.CharacterUIManager.CurrentUIOpened = this;
     }
 
     public void SwitchToTab(int index)

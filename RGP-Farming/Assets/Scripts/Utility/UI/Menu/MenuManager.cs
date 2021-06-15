@@ -34,4 +34,10 @@ public abstract class MenuManager<T> : Singleton<T> where T : MonoBehaviour
                 o.SetActive(true);
         content.SetActive(false);
     }
+
+    public void SetButtons(bool unhideButtons = false)
+    {
+        foreach(GameObject o in buttons)
+            o.SetActive(unhideButtons);
+    }
 }
