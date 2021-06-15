@@ -19,10 +19,10 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
         
         Initialize(craftingInventory);
         
-        inventoryMenuManager.SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 158f));
+        inventoryMenuManager.SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 189.5f));
         inventoryMenuManager.Unhide(true);
         
-        itemBarManager.Hide();
+        //itemBarManager.Hide();
     }
 
     public override void Close()
@@ -50,6 +50,8 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
         
         inventoryMenuManager.SetButtons(true);
         inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
+        
+        //itemBarManager.Unhide();
         
         for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
         {
