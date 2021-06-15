@@ -166,8 +166,9 @@ GameObject:
   - component: {fileID: 3044542301266692495}
   - component: {fileID: 2940028872774940951}
   - component: {fileID: 2939841645530824009}
+  - component: {fileID: 4077930249159205253}
   m_Layer: 5
-  m_Name: Tooltip
+  m_Name: Item Tooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +213,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &2940028872774940951
 MonoBehaviour:
@@ -254,6 +255,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4077930249159205253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2980837174719460447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aac55c4d9080a444a05872fc5888435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainBackground: {fileID: 8804162179129781017}
+  itemName: {fileID: 4238953900479368705}
+  itemType: {fileID: 8470028709824614090}
+  itemDescription: {fileID: 6775110383313804733}
 --- !u!1 &3120057494192282651
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +508,7 @@ GameObject:
   - component: {fileID: 3758570451988320513}
   - component: {fileID: 6775110383313804733}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Description (Text)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571,7 +588,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.8
+  m_fontSize: 11.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -638,7 +655,7 @@ RectTransform:
   m_GameObject: {fileID: 5091155029301501683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 9167891247817635460}
   - {fileID: 8415434612913191378}
@@ -648,7 +665,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 106, y: 80}
+  m_SizeDelta: {x: 115, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5359447424022999862
 GameObject:

@@ -31,19 +31,19 @@ public class TilePlacer : Singleton<TilePlacer>
     }
     public void PlaceDirtTile()
     {
-        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == null && itemBarManager.IsWearingCorrectTool(ToolType.HOE))
+        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == null && itemBarManager.IsWearingCorrectTool(ItemType.HOE))
             tilesDirt.SetTile(location, dirtTile);
     }
 
     public void RemoveDirtTile()
     {
-        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
+        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ItemType.PICKAXE) && player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
             tilesDirt.SetTile(location, null);
     }
     
     public void PlaceWaterTile()
     {
-        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
+        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ItemType.WATERING_CAN))
         {
             if (player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
 

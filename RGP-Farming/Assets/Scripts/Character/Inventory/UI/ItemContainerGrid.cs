@@ -1,3 +1,6 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+
 public class ItemContainerGrid : AbstractItemContainer<Item>
 {
     public override void UpdateItemContainer()
@@ -15,5 +18,18 @@ public class ItemContainerGrid : AbstractItemContainer<Item>
 
         Amount.text = $"{(Containment.amount > 1 ? Containment.amount.ToString() : "")}";
         Amount.enabled = Containment.amount > 1;
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        base.OnPointerEnter(eventData);
+        if (Containment == null) return;
+        ItemToolTipManager.Instance().SetTooltip(Containment.item);        
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        base.OnPointerExit(eventData);
+        ItemToolTipManager.Instance().SetTooltip(null);
     }
 }

@@ -9,7 +9,7 @@ public class ChestInteraction : ObjectInteractionManager
         ChestInventory chestInventory = GetComponent<ChestInventory>();
         if (chestInventory.SlotsOccupied() > 0) return;
 
-        if (ItemBarManager.Instance().IsWearingCorrectTools(new[] { ToolType.AXE, ToolType.HOE, ToolType.PICKAXE }))
+        if (ItemBarManager.Instance().IsWearingCorrectTools(new[] { ItemType.AXE, ItemType.HOE, ItemType.PICKAXE }))
         {
             GroundItemsManager.Instance().Add(new Item(ItemManager.Instance().ForName("Chest")), gameObject.transform.position);
             DestroyObject(gameObject);

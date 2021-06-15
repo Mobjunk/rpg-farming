@@ -201,12 +201,12 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         hoveringContainment = true;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         hoveringContainment = false;
         Icon.transform.localScale = new Vector3(1, 1, 1);
