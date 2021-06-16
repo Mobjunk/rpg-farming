@@ -27,6 +27,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
         else
         {
+            //TODO: Clean this mess
             if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) UpdateSlot(0);
             else if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) UpdateSlot(1);
             else if(Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) UpdateSlot(2);
