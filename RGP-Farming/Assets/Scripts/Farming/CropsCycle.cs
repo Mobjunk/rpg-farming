@@ -19,7 +19,7 @@ public class CropsCycle : MonoBehaviour
     
     private bool isWatered;
 
-    [SerializeField] private GameObject diseasedObject;
+    private GameObject diseasedObject;
 
 
 
