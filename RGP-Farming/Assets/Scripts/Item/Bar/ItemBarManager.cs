@@ -81,7 +81,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
             if (!itemSnapper.isSnapped)
             {
                 itemSnapper.SetSnappedItem(itemDisplayer);
-                itemDisplayer.Icon.enabled = true;
+                //itemDisplayer.Icon.enabled = true;
+                itemDisplayer.gameObject.SetActive(true);
             }
         }
         else
@@ -89,7 +90,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
             player.CharacterStateManager.SetAnimator("wieldingItem", false);
             player.ItemAboveHead = null;
             player.ItemAboveHeadRenderer.sprite = null;
-            itemDisplayer.Icon.enabled = false;
+            //itemDisplayer.Icon.enabled = false;
+            itemDisplayer.gameObject.SetActive(false);
             itemSnapper.ResetSnappedItem();
         }
     }
