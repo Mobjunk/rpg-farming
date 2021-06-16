@@ -88,7 +88,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.014439166, y: 0.013899431}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009674653, y: -0.025096148}
+  m_Offset: {x: 0, y: -0.018763259}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -146,7 +146,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.19815597, y: 0.048729002}
+  m_Size: {x: 0.19815597, y: 0.036845595}
   m_EdgeRadius: 0
 --- !u!212 &652923553878110857
 SpriteRenderer:
@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523e33d178d3002459f2879e79c7b73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowedToOpenInvnetory: 0
   uiTabs: []
   containmentPrefab:
   - {fileID: 3327382381837659215, guid: cb654d975588e79469fd85be399acb6a, type: 3}
@@ -263,6 +264,7 @@ MonoBehaviour:
     maxSlots: 36
     showIdicator: 0
     useSecondSlotPrefab: 0
+    allowSnapping: 1
   isOpened: 0
   chestInventory: {fileID: 0}
 --- !u!114 &652923553878110909

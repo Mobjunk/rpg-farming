@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class RockHealth : HealthManager
 {
+    public AbstractItemData resource;
     public override void HandleDeath()
     {
-        //GroundItemsManager.Instance().Add(new Item(ItemManager.Instance().ForName("wood"), 10), gameObject.transform.position);
+        GroundItemsManager.Instance().Add(new Item(resource), gameObject.transform.position);
         Destroy(gameObject);
         CursorManager.Instance().SetDefaultCursor();
     }

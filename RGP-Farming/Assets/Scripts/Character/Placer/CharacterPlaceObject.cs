@@ -43,20 +43,26 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
         canPlaceObject = CurrentGameObjectHoverd == null && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(grid, tilePosition, tileChecker);
         bool meetsRequirment = true;
         
+        placeableTiles.ClearAllTiles();
+        
         if (player.ItemAboveHeadRenderer.sprite != null)
         {
             //Checks if the item in the hand is a plantable object
+            //TODO: Clean this shit
             if (tilePlacer != null && player.ItemAboveHead != null && player.ItemAboveHead.item != null && player.ItemAboveHead.item.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) meetsRequirment = false;
             
-            //Checks if the current tile is still the same one as before
-            //If not it removes the tile
-            if (placeHolderPosition != tilePosition && placeableTiles.GetTile(placeHolderPosition) != null) placeableTiles.SetTile(placeHolderPosition, null);
-            
-            //Handles setting the placeholder position
-            //And the tile to the correct one
-            placeHolderPosition = tilePosition;
-            placeableTiles.SetTile(tilePosition, canPlaceObject && meetsRequirment ? canPlace : cannotPlace);
-        } else placeableTiles.ClearAllTiles();
+            AbstractPlaceableItem placeableItem = (AbstractPlaceableItem) player.ItemAboveHead.item;
+
+            for (int width = 0; width < placeableItem.width; width++)
+            {
+                for (int height = 0; height < placeableItem.height; height++)
+                {
+                    Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
+                    //TODO: Check if any of the tiles comes in contact with some sort of thing on the tile pallet or game object
+                    placeableTiles.SetTile(currentTile, canPlaceObject && meetsRequirment ? canPlace : cannotPlace);
+                }
+            }
+        }
 
         //Checks if the player clicked the mouse and has all required requirments
         if (Input.GetMouseButtonDown(0) && player.ItemAboveHead != null && canPlaceObject && meetsRequirment)
@@ -84,8 +90,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             }
             
             //Handles spawning the game object
-            Vector3 cellToWorld = placeableTiles.CellToWorld(tilePosition);
-            Instantiate(currentItem.objectPrefab, new Vector3(cellToWorld.x + 0.08f, cellToWorld.y + 0.08f), Quaternion.identity);
+            Instantiate(currentItem.objectPrefab, placeableTiles.GetCellCenterWorld(tilePosition), Quaternion.identity);
         }
     }
 }

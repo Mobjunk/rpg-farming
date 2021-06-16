@@ -25,12 +25,15 @@ public class GameUIManager : MonoBehaviour
     public virtual void Open()
     {
         player.CharacterUIManager.CurrentUIOpened = this;
+        if(player.InputEnabled) player.ToggleInput();
     }
 
     public virtual void Close()
     {
         ItemTooltipManager.Instance().SetTooltip(null);
+        CraftingTooltipManager.Instance().SetTooltip(null);
         player.CharacterUIManager.CurrentUIOpened = null;
+        player.ToggleInput();
     }
 
     public virtual void Set()

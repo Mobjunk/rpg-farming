@@ -4,5 +4,8 @@ using UnityEngine;
 public class AbstractPlaceableItem : AbstractItemData
 {
     [Header("Object prefab")] public GameObject objectPrefab;
-    [Header("Settings")] public bool boundToTiles;
+    [Header("Settings")]
+    public bool boundToTiles;
+    public int width = 1;
+    public int height = 1;
 }

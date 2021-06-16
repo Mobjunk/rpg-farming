@@ -8,7 +8,6 @@ public abstract class Opener : MonoBehaviour, IOpener
     public virtual void Awake()
     {
         inventoryUIManager = GetComponent<AbstractInventoryUIManger>();
-        inventoryUIManager.onInventoryUIClosing += OnInventoryUIClosing;
     }
 
     public virtual void Interact(CharacterManager characterManager)
@@ -20,17 +19,20 @@ public abstract class Opener : MonoBehaviour, IOpener
     public virtual void Open(CharacterManager characterManager)
     {
         inventoryUIManager.Open();
-        ((Player)characterManager).ToggleInput();
+        //((Player)characterManager).ToggleInput();
+        inventoryUIManager.onInventoryUIClosing += OnInventoryUIClosing;
     }
 
     public virtual void Close(CharacterManager characterManager)
     {
         inventoryUIManager.Close();
-        ((Player)characterManager).ToggleInput();
+        //((Player)characterManager).ToggleInput();
+        inventoryUIManager.onInventoryUIClosing -= OnInventoryUIClosing;
     }
 
     public virtual void OnInventoryUIClosing()
     {
-        Player.Instance().ToggleInput();
+        //Player.Instance().ToggleInput();
+        //inventoryUIManager.onInventoryUIClosing -= OnInventoryUIClosing;
     }
 }
