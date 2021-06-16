@@ -164,5 +164,7 @@ public class Player : CharacterManager
         characterInventory.AddItem(itemManager.ForName("Watering can"), show: true);
         characterInventory.AddItem(itemManager.ForName("Carrot seed"), 10, true);
         characterInventory.AddItem(itemManager.ForName("Wood"), 50);
+        characterInventory.AddItem(itemManager.ForName("Furnace"));
+
     }
 }

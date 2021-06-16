@@ -85,7 +85,7 @@ public class CropsCycle : MonoBehaviour
         }
             
         harvestAmount--;
-        Player.Instance().CharacterInventory.AddItem(crops.harvestedItem);
+        Player.Instance().CharacterInventory.AddItem(crops.harvestedItem,show:true);
         
         if (harvestAmount <= 0)
         {
