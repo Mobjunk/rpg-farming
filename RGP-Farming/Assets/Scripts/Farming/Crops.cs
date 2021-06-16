@@ -19,6 +19,6 @@ public class Crops : ScriptableObject
     public int harvestModifier;
 
     [Header("Sprites")]
-    public AbstractItemData harvestedItem;
+    public AbstractConsumableItem harvestedItem;
     public Sprite[] spriteStages;
 }
