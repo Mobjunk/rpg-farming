@@ -25,7 +25,7 @@ public class GameUIManager : MonoBehaviour
     public virtual void Open()
     {
         player.CharacterUIManager.CurrentUIOpened = this;
-        if(player.InputEnabled) player.ToggleInput();
+        if (player.InputEnabled) player.ToggleInput();
     }
 
     public virtual void Close()

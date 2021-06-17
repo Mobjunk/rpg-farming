@@ -11,8 +11,9 @@ public class ChestInteraction : ObjectInteractionManager
 
         if (ItemBarManager.Instance().IsWearingCorrectTools(new[] { ToolType.AXE, ToolType.HOE, ToolType.PICKAXE }))
         {
-            GroundItemsManager.Instance().Add(new Item(ItemManager.Instance().ForName("Chest")), gameObject.transform.position);
-            DestroyObject(gameObject);
+            AbstractPlaceableItem placeableItem = (AbstractPlaceableItem) ItemManager.Instance().ForName("Chest");
+            GroundItemsManager.Instance().Add(new Item(placeableItem), gameObject.transform.position);
+            DestroyObject(gameObject, placeableItem);
         }
     }
 

@@ -20,7 +20,6 @@ public abstract class InteractionManager : MonoBehaviour, IInteraction
             return;
         }
         
-        Debug.Log("[]");
         player.CharacterPlaceObject.CurrentGameObjectHoverd = gameObject;
         if (player.CharacterInteractionManager.GetInteractables().Contains(this))
         {
@@ -32,7 +31,6 @@ public abstract class InteractionManager : MonoBehaviour, IInteraction
 
     private void OnMouseExit()
     {
-        Debug.Log("ABC");
         cursor.SetDefaultCursor();
         player.CharacterPlaceObject.CurrentGameObjectHoverd = null;
         player.CharacterInteractionManager.Interactable = null;

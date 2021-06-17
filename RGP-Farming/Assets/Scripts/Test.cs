@@ -26,4 +26,9 @@ public class Test : MonoBehaviour
     {
         craftingUIManager.Interact();
     }
+
+    public void Add()
+    {
+        Player.Instance().AddStarterItems();
+    }
 }

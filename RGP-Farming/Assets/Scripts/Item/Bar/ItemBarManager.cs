@@ -11,6 +11,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
     
     [HideInInspector] public int selectedSlot = 0;
     [SerializeField] private ItemContainerGrid itemDisplayer;
+
+    public ItemContainerGrid ItemDisplayer => itemDisplayer;
     
     private PlayerInvenotryUIManager inventoryUIManager;
 

@@ -10,7 +10,10 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 
     [SerializeField] private GameObject[] tileChecker;
     [SerializeField] private Grid grid;
-    [SerializeField] private Tilemap placeableTiles;
+    [SerializeField] private Tilemap[] tileMaps;
+
+    public Tilemap[] GetTilemaps() => tileMaps;
+    
     [SerializeField] private Tile canPlace;
     [SerializeField] private Tile cannotPlace;
 
@@ -32,65 +35,68 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
     {
         if (player.CharacterUIManager.CurrentUIOpened != null)
         {
-            placeableTiles.ClearAllTiles();
+            tileMaps[0].ClearAllTiles();
             return;
         }
         
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3Int tilePosition = placeableTiles.WorldToCell(mousePosition);
+        Vector3Int tilePosition = tileMaps[0].WorldToCell(mousePosition);
+        
+        tileMaps[0].ClearAllTiles();
 
-        canPlaceObject = CurrentGameObjectHoverd == null && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(grid, tilePosition, tileChecker);
-        bool meetsRequirment = true;
-        
-        placeableTiles.ClearAllTiles();
-        
-        if (player.ItemAboveHeadRenderer.sprite != null)
+        if (CursorManager.Instance().IsPointerOverUIElement()) return;
+
+        bool canPlaceObject = Utility.CanInteractWithTile(grid, tilePosition, tileChecker);
+        AbstractPlaceableItem placeableItem = null;
+        if (player.ItemAboveHeadRenderer.sprite != null && player.ItemAboveHead.item != null)
         {
-            //Checks if the item in the hand is a plantable object
-            //TODO: Clean this shit
-            if (tilePlacer != null && player.ItemAboveHead != null && player.ItemAboveHead.item != null && player.ItemAboveHead.item.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) meetsRequirment = false;
+            placeableItem = (AbstractPlaceableItem) player.ItemAboveHead.item;
+            if (placeableItem == null) placeableItem = (AbstractPlantData) player.ItemAboveHead.item;
             
-            AbstractPlaceableItem placeableItem = (AbstractPlaceableItem) player.ItemAboveHead.item;
-
             for (int width = 0; width < placeableItem.width; width++)
             {
                 for (int height = 0; height < placeableItem.height; height++)
                 {
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
-                    //TODO: Check if any of the tiles comes in contact with some sort of thing on the tile pallet or game object
-                    placeableTiles.SetTile(currentTile, canPlaceObject && meetsRequirment ? canPlace : cannotPlace);
+                    
+                    bool hasTile = tileMaps[1].GetTile(currentTile) != null;
+                    tileMaps[0].SetTile(currentTile, hasTile || !canPlaceObject ? cannotPlace : canPlace);
+                    
+                    if (hasTile) canPlaceObject = false;
                 }
             }
         }
-
-        //Checks if the player clicked the mouse and has all required requirments
-        if (Input.GetMouseButtonDown(0) && player.ItemAboveHead != null && canPlaceObject && meetsRequirment)
+        if (Input.GetMouseButtonDown(0) && canPlaceObject && placeableItem != null)
         {
-            //Checks if its a placeable 
-            AbstractPlaceableItem currentItem = (AbstractPlaceableItem) player.ItemAboveHead.item;
-            if (currentItem == null)
-            {
-                currentItem = (AbstractPlantData) player.ItemAboveHead.item;
-                if (currentItem == null) return;
-            }
-            
             //Checks if you are trying to plant a crop on anything other then dirt
-            if (currentItem.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
+            if (placeableItem.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
             
             //Handles removing the item from the inventory
-            player.CharacterInventory.RemoveItem(currentItem);
+            player.CharacterInventory.RemoveItem(placeableItem);
             //Checks if the player still has the item it has to remove
             if (player.CharacterInventory.items[ItemBarManager.Instance().selectedSlot].item == null)
             {
                 player.CharacterStateManager.SetAnimator("wieldingItem", false);
                 player.ItemAboveHeadRenderer.sprite = null;
                 player.ItemAboveHead = null;
+                ItemBarManager.Instance().ItemDisplayer.gameObject.SetActive(false);
                 ItemSnapperManager.Instance().ResetSnappedItem();
             }
-            
-            //Handles spawning the game object
-            Instantiate(currentItem.objectPrefab, placeableTiles.GetCellCenterWorld(tilePosition), Quaternion.identity);
+
+            for (int width = 0; width < placeableItem.width; width++)
+            {
+                for (int height = 0; height < placeableItem.height; height++)
+                {
+                    Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
+                    tileMaps[1].SetTile(currentTile, cannotPlace);
+                }
+            }
+
+            Vector3 position = tileMaps[1].GetCellCenterWorld(tilePosition);
+            float additionalX = 0.005f * ((placeableItem.uiSprite.bounds.size.x * 100) - 16);
+            float additionalY = 0.005f * ((placeableItem.uiSprite.bounds.size.y * 100) - 16);
+            Instantiate(placeableItem.objectPrefab, new Vector3(position.x + additionalX, position.y + additionalY, position.z), Quaternion.identity);
         }
     }
 }

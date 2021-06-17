@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f109bc0841add3140a8ce9839545fd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowedToOpenInvnetory: 0
   uiTabs: []
   containmentPrefab:
   - {fileID: 0}
@@ -332,7 +333,9 @@ MonoBehaviour:
   - {fileID: 7175613189052391787}
   - {fileID: 4864515225408918063}
   grid: {fileID: 0}
-  placeableTiles: {fileID: 0}
+  tileMaps:
+  - {fileID: 0}
+  - {fileID: 0}
   canPlace: {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
   cannotPlace: {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
 --- !u!114 &2482437820657588259
