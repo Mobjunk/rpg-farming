@@ -3,6 +3,8 @@ using UnityEngine;
 
 public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
 {
+    private ItemSnapperManager itemSnapperManager => ItemSnapperManager.Instance();
+    
     public abstract Vector2 MinSize();
     public abstract Vector2 StartPosition();
     
@@ -37,7 +39,7 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
         mainBackground.sizeDelta = new Vector2(sizeX, sizeY);
         mainBackground.gameObject.SetActive(hoveredItem != null);
         
-        mainBackground.position = new Vector3(mousePosition.x + 65, mousePosition.y);
+        mainBackground.position = new Vector3(mousePosition.x + (itemSnapperManager.isSnapped ? 100 : 65), mousePosition.y);
     }
     
     private void MoveAnchorPoint(Vector2 mousePosition)
@@ -55,13 +57,13 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
     public virtual void SetTooltip(AbstractItemData hoveredItem)
     {
         this.hoveredItem = hoveredItem;
-        if (hoveredItem == null)
+        if (this.hoveredItem == null)
         {
             ResetTooltip();
             return;
-        } 
-        itemName.text = $"{Utility.UppercaseFirst(hoveredItem.itemName.ToLower())}";
-        itemDescription.text = $"{hoveredItem.itemDescription}";
+        }
+        itemName.text = $"{Utility.UppercaseFirst(this.hoveredItem.itemName.ToLower())}";
+        itemDescription.text = $"{this.hoveredItem.itemDescription}";
     }
 
     public virtual void ResetTooltip()

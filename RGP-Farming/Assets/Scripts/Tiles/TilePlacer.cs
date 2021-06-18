@@ -82,11 +82,6 @@ public class TilePlacer : Singleton<TilePlacer>
         if (tilesDirt.GetTile(pos) == checkTile)
             tilesDirt.SetTile(pos, setTile);
     }
-
-    public Vector3Int GetTilePosition(Vector3 mousePosition)
-    {
-        return tilesDirt.WorldToCell(mp);
-    }
 }
 public enum TileType
 {
