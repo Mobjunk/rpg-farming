@@ -149,7 +149,6 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     {
         foreach (int slot in slotsUpdated)
         {
-            //Debug.LogWarning($"Slot {slot} needs updating");
             for (int index = 0; index < containers.Length; index++)
             {
                 if (slot >= containers[index].Count) continue;

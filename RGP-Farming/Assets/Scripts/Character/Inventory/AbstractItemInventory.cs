@@ -64,7 +64,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
     
     public void Set(int slot, Item item, bool update = true)
     {
-        items[slot] = item;
+        items[slot] = item.amount == 0 ? null : item;
         
         if (update)
         {

@@ -10,15 +10,25 @@ public class Item
         amount = 0;
     }
     
-    public Item(AbstractItemData itemData)
+    public Item(AbstractItemData item)
     {
-        this.item = itemData;
+        this.item = item;
         this.amount = 1;
     }
 
-    public Item(AbstractItemData itemData, int amount)
+    public Item(AbstractItemData item, int amount)
     {
-        this.item = itemData;
+        this.item = item;
         this.amount = amount;
+    }
+
+    public void SetAmount(int amount)
+    {
+        this.amount = amount;
+    }
+
+    public override string ToString()
+    {
+        return $"{item}, {amount}";
     }
 }
