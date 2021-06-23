@@ -142,7 +142,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         amount.text = "";
         icon.enabled = false;
         if(highlight != null) highlight.enabled = false;
-        if(slider != null) slider.enabled = false;
+        if(slider != null) slider.gameObject.SetActive(false);
     }
 
     string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };

@@ -1,10 +1,12 @@
+using UnityEngine;
+
 [System.Serializable]
 public class Item
 {
     public AbstractItemData item;
     public int amount;
-    public int durability;
-    public int maxDurability;
+    public int durability = -1;
+    public int maxDurability = -1;
 
     public Item()
     {
@@ -39,6 +41,11 @@ public class Item
     public void SetAmount(int amount)
     {
         this.amount = amount;
+    }
+
+    public void SetDurability(int durability)
+    {
+        this.durability = durability;
     }
 
     public override string ToString()

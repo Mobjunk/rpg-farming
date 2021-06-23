@@ -68,6 +68,6 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
 
     public virtual void ResetTooltip()
     {
-        //mainBackground.gameObject.SetActive(false);
+        mainBackground.gameObject.SetActive(false);
     }
 }
