@@ -14,7 +14,9 @@ public class AbstractItemData : ScriptableObject
     public int itemPrice;
     [Header("Item Type")] public ItemType itemType;
     [Header("Optional data")] public AbstractCraftingRecipe craftingRecipe;
-    [Header("Durability")] public int durability = -1;
+    [Header("Durability")] 
+    public int durability = -1;
+    public bool crumblesToDust;
 }
 
 public enum ItemType

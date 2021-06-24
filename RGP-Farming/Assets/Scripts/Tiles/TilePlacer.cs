@@ -53,8 +53,11 @@ public class TilePlacer : Singleton<TilePlacer>
 
             //Checks if the crops you are hovering is in the interactable list
             InteractionManager interactionManager = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
-            if(player.CharacterInteractionManager.GetInteractables().Contains(interactionManager))
+            if (player.CharacterInteractionManager.GetInteractables().Contains(interactionManager) && player.CharacterInventory.items[itemBarManager.selectedSlot].durability > 0)
+            {
                 tilesDirt.SetTile(location, wateredDirtTile);
+                player.CharacterInventory.UpdateDurability(itemBarManager.GetItemSelected(), -10);
+            }
         }
     }
     public bool CheckTileUnderObject(Vector3 position, TileType tileType)

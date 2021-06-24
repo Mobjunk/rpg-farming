@@ -54,6 +54,9 @@ public abstract class AbstractItemInventory : MonoBehaviour
 
     public virtual void Start() { }
 
+    /// <summary>
+    /// Handles setting up the inventory size and initializing the array
+    /// </summary>
     public void Setup()
     {
         items = new Item[maxInventorySize];
@@ -62,6 +65,12 @@ public abstract class AbstractItemInventory : MonoBehaviour
             items[index] = new Item();
     }
     
+    /// <summary>
+    /// Handles setting a slot
+    /// </summary>
+    /// <param name="slot">The slot being set</param>
+    /// <param name="item">The item being set on the slot</param>
+    /// <param name="update">Should it update the inventory ui</param>
     public void Set(int slot, Item item, bool update = true)
     {
         items[slot] = item.amount == 0 ? null : item;
@@ -73,6 +82,12 @@ public abstract class AbstractItemInventory : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles swapping items between slots
+    /// </summary>
+    /// <param name="from">The from slot</param>
+    /// <param name="to">The to slot</param>
+    /// <param name="update">Should it update the inventory ui</param>
     public void Swap(int from, int to, bool update = true)
     {
         //Creates an copy of the item
@@ -91,6 +106,11 @@ public abstract class AbstractItemInventory : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles adding a item to a inventory
+    /// </summary>
+    /// <param name="item">The item being added</param>
+    /// <param name="itemAmount">The amount of this item being added</param>
     protected void AddItem(AbstractItemData item, int itemAmount = 1)
     {
         if (!ItemFitsInventory())
@@ -139,6 +159,12 @@ public abstract class AbstractItemInventory : MonoBehaviour
         InventoryChanged(slotsUpdated);
     }
 
+    /// <summary>
+    /// Handles removing a item from a inventory
+    /// </summary>
+    /// <param name="item">The item being removed</param>
+    /// <param name="itemAmount">The amount of that item being removed</param>
+    /// <param name="allowZero">Checks if the containment is allowed to be zero</param>
     public void RemoveItem(AbstractItemData item, int itemAmount = 1, bool allowZero = false)
     {
         int slot = GetSlot(item);
@@ -188,6 +214,51 @@ public abstract class AbstractItemInventory : MonoBehaviour
         InventoryChanged(slotsUpdated);
     }
 
+    /// <summary>
+    /// Handles updating the durability of a item
+    /// </summary>
+    /// <param name="item">The item that is being updated</param>
+    /// <param name="durability">The amount of durability that gets added or removed</param>
+    public void UpdateDurability(AbstractItemData item, int durability)
+    {
+        int slot = GetSlot(item);
+        if (slot == -1)
+        {
+            if(debugInventory) Debug.LogError($"There is no slot found with this item[{item.name}].");
+            return;
+        }
+
+        Item currentItem = items[slot];
+
+        if (currentItem.durability == -1 || currentItem.maxDurability == -1)
+        {
+            if(debugInventory) Debug.LogError($"There is no durability found with this item[{item.name}].");
+            return;
+        }
+
+        currentItem.durability += durability;
+        if (currentItem.durability <= 0)
+        {
+            currentItem.durability = 0;
+            if (currentItem.item.crumblesToDust)
+            {
+                currentItem.item = null;
+                currentItem.amount = 0;
+            }
+        } else if (currentItem.durability > currentItem.maxDurability)
+            currentItem.durability = currentItem.maxDurability;
+        
+        slotsUpdated.Add(slot);
+        
+        InventoryChanged(slotsUpdated);
+    }
+
+    /// <summary>
+    /// Gets the next occupied slot in the inventory
+    /// </summary>
+    /// <param name="currentSlot">The current slot the player is on</param>
+    /// <param name="increase">Should it start counting up</param>
+    /// <returns></returns>
     public int GetNextOccupiedSlot(int currentSlot, bool increase = true)
     {
         currentSlot += increase ? 1 : -1;
@@ -207,23 +278,41 @@ public abstract class AbstractItemInventory : MonoBehaviour
         return -1;
     }
     
+    /// <summary>
+    /// Checks if the player has a certain item
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="itemAmount"></param>
+    /// <returns></returns>
     public bool HasItem(AbstractItemData item, int itemAmount = 1)
     {
         return items.Any(data => data.item == item && data.amount >= itemAmount);
     }
 
+    /// <summary>
+    /// Checks if the player has all the items
+    /// </summary>
+    /// <param name="items">A list of items</param>
+    /// <returns></returns>
     public bool HasItems(List<Item> items)
     {
         return items.All(item => HasItem(item.item, item.amount));
     }
 
+    /// <summary>
+    /// Checks if there is room in the inventory
+    /// </summary>
+    /// <returns></returns>
     public bool ItemFitsInventory()
     {
-        
-        //return SlotsOccupied() < maxInventorySize;
         return items.Any(data => data.item == null);
     }
 
+    /// <summary>
+    /// Get the slot for a certain item
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     int GetSlot(AbstractItemData item)
     {
         for (int index = 0; index < maxInventorySize; index++)
@@ -231,6 +320,10 @@ public abstract class AbstractItemInventory : MonoBehaviour
         return -1;
     }
 
+    /// <summary>
+    /// Get the next free available slot
+    /// </summary>
+    /// <returns></returns>
     int GetFreeSlot()
     {
         for (int index = 0; index < maxInventorySize; index++)
@@ -238,6 +331,10 @@ public abstract class AbstractItemInventory : MonoBehaviour
         return -1;
     }
 
+    /// <summary>
+    /// Check how many slots there are occupied
+    /// </summary>
+    /// <returns></returns>
     public int SlotsOccupied()
     {
         int amount = 0;
@@ -250,6 +347,10 @@ public abstract class AbstractItemInventory : MonoBehaviour
         return amount;
     }
     
+    /// <summary>
+    /// Handles the shifting of a inventory
+    /// Currently not being used tho
+    /// </summary>
     public void Shift() {
         Item[] old = items;
         items = new Item[maxInventorySize];

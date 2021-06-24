@@ -19,7 +19,7 @@ public class ItemContainerGrid : AbstractItemContainer<Item>
         Amount.text = $"{(Containment.amount > 1 ? Containment.amount.ToString() : "")}";
         Amount.enabled = Containment.amount > 1;
 
-        if (Containment.maxDurability != -1)
+        if (Containment.maxDurability != -1 && Containment.durability < Containment.maxDurability)
         {
             Slider.value = (Containment.durability / (Containment.maxDurability / 100f)) * (1 / 100f);
             Slider.gameObject.SetActive(true);
