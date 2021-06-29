@@ -102,6 +102,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
     {
         CharacterInventory characterInventory = player.CharacterInventory;
         
+        if(characterInventory.items[selectedSlot].item == null) return;
+        
         //Checks if the item is a placeable item
         if (characterInventory.items[selectedSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.items[selectedSlot].item.GetType() == typeof(AbstractPlantData))
         {
