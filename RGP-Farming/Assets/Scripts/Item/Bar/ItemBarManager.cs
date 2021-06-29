@@ -98,6 +98,40 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
     }
 
+    public void UpdateSlot()
+    {
+        CharacterInventory characterInventory = player.CharacterInventory;
+        
+        //Checks if the item is a placeable item
+        if (characterInventory.items[selectedSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.items[selectedSlot].item.GetType() == typeof(AbstractPlantData))
+        {
+            //Sets the animator
+            player.CharacterStateManager.SetAnimator("wieldingItem", true);
+            //Sets item above head
+            player.ItemAboveHead = characterInventory.items[selectedSlot];
+            //Sets the sprite above the head
+            player.ItemAboveHeadRenderer.sprite = characterInventory.items[selectedSlot].item.uiSprite;
+            //Update the item containment
+            if (itemDisplayer.Containment != characterInventory.items[selectedSlot]) itemDisplayer.SetContainment(characterInventory.items[selectedSlot]);
+            //Checks if there is currently a item snapped
+            if (!itemSnapper.isSnapped)
+            {
+                itemSnapper.SetSnappedItem(itemDisplayer);
+                //itemDisplayer.Icon.enabled = true;
+                itemDisplayer.gameObject.SetActive(true);
+            }
+        }
+        else
+        { //Reset everything
+            player.CharacterStateManager.SetAnimator("wieldingItem", false);
+            player.ItemAboveHead = null;
+            player.ItemAboveHeadRenderer.sprite = null;
+            //itemDisplayer.Icon.enabled = false;
+            itemDisplayer.gameObject.SetActive(false);
+            itemSnapper.ResetSnappedItem();
+        }
+    }
+
     public AbstractItemData GetItemSelected()
     {
         return player.CharacterInventory.items[selectedSlot].item;

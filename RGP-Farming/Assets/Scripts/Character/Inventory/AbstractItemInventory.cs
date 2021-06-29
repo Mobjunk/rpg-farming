@@ -77,6 +77,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
         
         if (update)
         {
+            ItemBarManager.Instance().UpdateSlot();
             slotsUpdated.Add(slot);
             InventoryChanged(slotsUpdated);
         }
