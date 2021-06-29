@@ -31,7 +31,7 @@ public class Item
     {
         this.item = item;
         this.amount = amount;
-        if (item.durability != -1)
+        if (item != null && item.durability != -1)
         {
             durability = item.durability;
             maxDurability = item.durability;

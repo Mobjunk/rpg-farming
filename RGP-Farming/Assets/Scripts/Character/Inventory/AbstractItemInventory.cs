@@ -73,7 +73,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// <param name="update">Should it update the inventory ui</param>
     public void Set(int slot, Item item, bool update = true)
     {
-        items[slot] = item.amount == 0 ? null : item;
+        items[slot] = item.amount == 0 ? new Item() : item;
         
         if (update)
         {
