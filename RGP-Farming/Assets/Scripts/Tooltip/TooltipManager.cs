@@ -28,7 +28,6 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
 
     private void SetPosition(Vector2 mousePosition)
     {
-        MoveAnchorPoint(mousePosition);
         
         float sizeX = StartPosition().x + itemName.preferredWidth;
         float sizeY = StartPosition().y + (increasedY != 0 ? increasedY : itemDescription.preferredHeight);
@@ -39,6 +38,8 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
         mainBackground.sizeDelta = new Vector2(sizeX, sizeY);
         mainBackground.gameObject.SetActive(hoveredItem != null);
         
+        MoveAnchorPoint(mousePosition);
+        
         mainBackground.position = new Vector3(mousePosition.x + (itemSnapperManager.isSnapped ? 110 : 65), mousePosition.y);
     }
     
@@ -48,7 +49,7 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
         Vector2 screenSize = Camera.main.pixelRect.size;
         Vector2 pivot = new Vector2(0, 1);
         
-        if (mousePosition.y - tooltipSize.y < 40) pivot = new Vector2(pivot.x, 0);
+        if (mousePosition.y - tooltipSize.y < tooltipSize.y) pivot = new Vector2(pivot.x, 0);
         if (mousePosition.x + tooltipSize.x > screenSize.x) pivot = new Vector2(1, pivot.y);
 
         mainBackground.pivot = pivot;
