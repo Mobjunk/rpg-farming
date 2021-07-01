@@ -56,7 +56,7 @@ public class TilePlacer : Singleton<TilePlacer>
             if (player.CharacterInteractionManager.GetInteractables().Contains(interactionManager) && player.CharacterInventory.items[itemBarManager.selectedSlot].durability > 0)
             {
                 tilesDirt.SetTile(location, wateredDirtTile);
-                player.CharacterInventory.UpdateDurability(itemBarManager.GetItemSelected(), -10);
+                player.CharacterInventory.UpdateDurability(itemBarManager.GetItemSelected(), -1);
             }
         }
     }
