@@ -34,7 +34,7 @@ public abstract class TileInteractionManager<T> : Singleton<T> where T : MonoBeh
 
                 //Checks if the crops you are hovering is in the interactable list
                 InteractionManager interactionManager = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
-                return player.CharacterInteractionManager.GetInteractables().Contains(interactionManager);
+                return player.CharacterInteractionManager.Interactables.Contains(interactionManager);
             }
         }
         return false;

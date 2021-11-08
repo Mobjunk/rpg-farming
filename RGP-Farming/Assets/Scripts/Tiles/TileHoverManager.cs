@@ -14,7 +14,7 @@ public class TileHoverManager : TileInteractionManager<TileHoverManager>
 
         bool canInteract = CanInteract(ToolType.HOE, tileMaps[2], null) || 
                            CanInteract(ToolType.PICKAXE, tileMaps[2], tiles[2]) && player.CharacterPlaceObject.CurrentGameObjectHoverd == null || 
-                           CanInteract(ToolType.WATERING_CAN, tileMaps[2], tiles[2], true) && player.CharacterPlaceObject.CurrentGameObjectHoverd != null && player.CharacterInventory.items[itemBarManager.selectedSlot].durability > 0;
+                           CanInteract(ToolType.WATERING_CAN, tileMaps[2], tiles[2], true) && player.CharacterPlaceObject.CurrentGameObjectHoverd != null && player.CharacterInventory.Items[itemBarManager.selectedSlot].durability > 0;
         
         tileMaps[0].SetTile(tileLocation, canInteract ? tiles[0] : tiles[1]);
     }

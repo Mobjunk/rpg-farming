@@ -23,7 +23,7 @@ public class UIShopContainment<T> : UIContainerbase<T>
     
     public override void ClearContainment()
     {
-        containment = default;
+        Containment = default;
         mainUISprite.enabled = false;
         Icon.enabled = false;
         itemName.text = "";

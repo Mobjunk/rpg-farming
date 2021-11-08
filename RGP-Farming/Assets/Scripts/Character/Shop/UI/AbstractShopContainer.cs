@@ -5,9 +5,9 @@ using UnityEngine;
 public class AbstractShopContainer : UIShopContainment<Item>
 {
     
-    public override void SetContainment(Item containment)
+    public override void SetContainment(Item pContainment)
     {
-        base.SetContainment(containment);
+        base.SetContainment(pContainment);
         UpdateItemContainer();
     }
 

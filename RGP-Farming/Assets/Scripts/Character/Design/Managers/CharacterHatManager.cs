@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CharacterHatManager : CharacterBodyPartManager
 {
-    [SerializeField] private Hat characterHat;
+    [SerializeField] private Hat _characterHat;
 
     public override void Awake()
     {
-        CurrentBodyPart = characterHat;
+        CurrentBodyPart = _characterHat;
         base.Awake();
     }
 }

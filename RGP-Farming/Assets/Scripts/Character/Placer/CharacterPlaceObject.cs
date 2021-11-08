@@ -31,8 +31,12 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
         player = GetComponent<Player>();
     }
 
+    public bool IsDisabled = true;
+    
     private void Update()
     {
+        if (IsDisabled) return;
+        
         if (player.CharacterUIManager.CurrentUIOpened != null)
         {
             tileMaps[0].ClearAllTiles();
@@ -75,7 +79,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             //Handles removing the item from the inventory
             player.CharacterInventory.RemoveItem(placeableItem);
             //Checks if the player still has the item it has to remove
-            if (player.CharacterInventory.items[ItemBarManager.Instance().selectedSlot].item == null)
+            if (player.CharacterInventory.Items[ItemBarManager.Instance().selectedSlot].item == null)
             {
                 player.CharacterStateManager.SetAnimator("wieldingItem", false);
                 player.ItemAboveHeadRenderer.sprite = null;

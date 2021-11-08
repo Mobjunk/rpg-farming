@@ -3,21 +3,15 @@ using UnityEngine;
 [System.Serializable]
 public abstract class CharacterAction : ICharacterAction
 {
-    private CharacterManager characterManager;
-    private CharacterStateManager characterStateManager;
-
-    public CharacterManager CharacterManager
-    {
-        get => characterManager;
-        set => characterManager = value;
-    }
+    public CharacterManager CharacterManager;
+    public CharacterStateManager CharacterStateManager;
 
     public abstract CharacterStates GetCharacterState();
 
-    public CharacterAction(CharacterManager characterManager)
+    public CharacterAction(CharacterManager pCharacterManager)
     {
-        CharacterManager = characterManager;
-        characterStateManager = characterManager.GetComponent<CharacterStateManager>();
+        CharacterManager = pCharacterManager;
+        CharacterStateManager = CharacterManager.GetComponent<CharacterStateManager>();
     }
     
     public virtual void Update()
@@ -25,7 +19,7 @@ public abstract class CharacterAction : ICharacterAction
         if (!GetCharacterState().Equals(CharacterStates.NONE))
         {
             Debug.LogError("dafuq");
-            characterStateManager.SetCharacterState(GetCharacterState());
+            CharacterStateManager.SetCharacterState(GetCharacterState());
         }
     }
 

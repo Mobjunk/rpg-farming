@@ -3,27 +3,22 @@ using UnityEngine;
 
 public abstract class CharacterBodyPartManager : MonoBehaviour
 {
-    private CharacterStateManager characterStateManager;
-    private SpriteRenderer spriteRenderer;
-    private BodyPart currentBodyPart;
+    private CharacterStateManager _characterStateManager;
+    private SpriteRenderer _spriteRenderer;
+    public BodyPart CurrentBodyPart;
 
-    public BodyPart CurrentBodyPart
-    {
-        get => currentBodyPart;
-        set => currentBodyPart = value;
-    }
 
     public virtual void Awake()
     {
-        characterStateManager = GetComponentInParent<CharacterStateManager>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (currentBodyPart != null)
+        _characterStateManager = GetComponentInParent<CharacterStateManager>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (CurrentBodyPart != null)
         {
-            spriteRenderer.sprite = currentBodyPart.bSprites.sprites[0].sprite[1];
-            spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = CurrentBodyPart.bSprites.sprites[0].sprite[1];
+            _spriteRenderer.enabled = true;
         }
 
-        characterStateManager.OnStateChanged += OnStateChange;
+        _characterStateManager.OnStateChanged += OnStateChange;
     }
 
     /// <summary>
@@ -36,7 +31,7 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         {
             Debug.Log("characterStateManager: " + characterStateManager.GetCharacterState());
         }*/
-        UpdateBodyPart(currentBodyPart, characterStateManager.GetDirection());
+        UpdateBodyPart(CurrentBodyPart, _characterStateManager.GetDirection());
     }
 
     /// <summary>
@@ -47,24 +42,24 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     /// <param name="darkSkin">Does the character have dark skin color</param>
     public void UpdateBodyPart(BodyPart bodyPart, int rotation, bool darkSkin = false)
     {
-        currentBodyPart = bodyPart;
+        CurrentBodyPart = bodyPart;
 
         SpriteLayout bodySprites = GetSprites(rotation);
 
         if (bodySprites == null)
         {
-            spriteRenderer.enabled = false;
+            _spriteRenderer.enabled = false;
             return;
         }
 
         int currentIndex = 1;
-        if (characterStateManager.GetCharacterState().ToString().Contains("WALKING_HOLD"))
-            currentIndex = 3 + int.Parse(characterStateManager.GetCharacterState().ToString().Replace("WALKING_HOLD_", ""));
-        else if (characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
-            currentIndex = int.Parse(characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
-        else if(characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
-            currentIndex = 6 + (int.Parse(characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
-        else if (characterStateManager.GetCharacterState().ToString().Equals("IDLE_HOLD"))
+        if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_HOLD"))
+            currentIndex = 3 + int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_HOLD_", ""));
+        else if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
+        else if(_characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
+            currentIndex = 6 + (int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
+        else if (_characterStateManager.GetCharacterState().ToString().Equals("IDLE_HOLD"))
             currentIndex = 4;
         
         if (bodySprites.sprites[0].sprite.Length != 0)
@@ -77,9 +72,9 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
                 return;
             }
             
-            spriteRenderer.sprite = bodySprites.sprites[darkSkin ? 1 : 0].sprite[currentIndex];
-            spriteRenderer.enabled = true;
-        } else spriteRenderer.enabled = false;
+            _spriteRenderer.sprite = bodySprites.sprites[darkSkin ? 1 : 0].sprite[currentIndex];
+            _spriteRenderer.enabled = true;
+        } else _spriteRenderer.enabled = false;
     }
 
     /// <summary>
@@ -89,17 +84,17 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     /// <returns></returns>
     private SpriteLayout GetSprites(int rotation)
     {
-        if (currentBodyPart == null) return null;
+        if (CurrentBodyPart == null) return null;
         switch (rotation)
         {
             case 0:
-                return currentBodyPart.bSprites;
+                return CurrentBodyPart.bSprites;
             case 1:
-                return currentBodyPart.lSprites;
+                return CurrentBodyPart.lSprites;
             case 2:
-                return currentBodyPart.rSprites;
+                return CurrentBodyPart.rSprites;
             case 3:
-                return currentBodyPart.tSprites;
+                return CurrentBodyPart.tSprites;
         }
 
         return null;

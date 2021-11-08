@@ -23,27 +23,20 @@ public class ItemBarManager : MenuManager<ItemBarManager>
 
     public void Update()
     {
-        if (player.ControllerConnected)
-        {
-            
-        }
-        else
-        {
-            //TODO: Clean this mess
-            if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) UpdateSlot(0);
-            else if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) UpdateSlot(1);
-            else if(Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) UpdateSlot(2);
-            else if(Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) UpdateSlot(3);
-            else if(Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) UpdateSlot(4);
-            else if(Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6)) UpdateSlot(5);
-            else if(Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) UpdateSlot(6);
-            else if(Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8)) UpdateSlot(7);
-            else if(Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) UpdateSlot(8);
-            else if(Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0)) UpdateSlot(9);
-            else if(Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus)) UpdateSlot(10);
-            else if(Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.KeypadEquals)) UpdateSlot(11);
-            else UpdateSlot(Input.mouseScrollDelta.y);
-        }
+        //TODO: Clean this mess
+        /* if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) UpdateSlot(0);
+         else if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) UpdateSlot(1);
+         else if(Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) UpdateSlot(2);
+         else if(Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) UpdateSlot(3);
+         else if(Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) UpdateSlot(4);
+         else if(Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6)) UpdateSlot(5);
+         else if(Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) UpdateSlot(6);
+         else if(Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8)) UpdateSlot(7);
+         else if(Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) UpdateSlot(8);
+         else if(Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0)) UpdateSlot(9);
+         else if(Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus)) UpdateSlot(10);
+         else if(Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.KeypadEquals)) UpdateSlot(11);
+         else UpdateSlot(Input.mouseScrollDelta.y);*/
     }
 
     void UpdateSlot(float value)
@@ -62,23 +55,23 @@ public class ItemBarManager : MenuManager<ItemBarManager>
     {
         CharacterInventory characterInventory = player.CharacterInventory;
 
-        if (characterInventory.items[nextSlot].item == null) return;
+        if (characterInventory.Items[nextSlot].item == null) return;
         
         inventoryUIManager.containers[0][selectedSlot].SetHighlighted(false);
         selectedSlot = nextSlot;
         inventoryUIManager.containers[0][selectedSlot].SetHighlighted(true);
 
         //Checks if the item is a placeable item
-        if (characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlantData))
+        if (characterInventory.Items[nextSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.Items[nextSlot].item.GetType() == typeof(AbstractPlantData))
         {
             //Sets the animator
             player.CharacterStateManager.SetAnimator("wieldingItem", true);
             //Sets item above head
-            player.ItemAboveHead = characterInventory.items[nextSlot];
+            player.ItemAboveHead = characterInventory.Items[nextSlot];
             //Sets the sprite above the head
-            player.ItemAboveHeadRenderer.sprite = characterInventory.items[nextSlot].item.uiSprite;
+            player.ItemAboveHeadRenderer.sprite = characterInventory.Items[nextSlot].item.uiSprite;
             //Update the item containment
-            if (itemDisplayer.Containment != characterInventory.items[nextSlot]) itemDisplayer.SetContainment(characterInventory.items[nextSlot]);
+            if (itemDisplayer.Containment != characterInventory.Items[nextSlot]) itemDisplayer.SetContainment(characterInventory.Items[nextSlot]);
             //Checks if there is currently a item snapped
             if (!itemSnapper.isSnapped)
             {
@@ -102,19 +95,19 @@ public class ItemBarManager : MenuManager<ItemBarManager>
     {
         CharacterInventory characterInventory = player.CharacterInventory;
         
-        if(characterInventory.items[selectedSlot].item == null) return;
+        if(characterInventory.Items[selectedSlot].item == null) return;
         
         //Checks if the item is a placeable item
-        if (characterInventory.items[selectedSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.items[selectedSlot].item.GetType() == typeof(AbstractPlantData))
+        if (characterInventory.Items[selectedSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.Items[selectedSlot].item.GetType() == typeof(AbstractPlantData))
         {
             //Sets the animator
             player.CharacterStateManager.SetAnimator("wieldingItem", true);
             //Sets item above head
-            player.ItemAboveHead = characterInventory.items[selectedSlot];
+            player.ItemAboveHead = characterInventory.Items[selectedSlot];
             //Sets the sprite above the head
-            player.ItemAboveHeadRenderer.sprite = characterInventory.items[selectedSlot].item.uiSprite;
+            player.ItemAboveHeadRenderer.sprite = characterInventory.Items[selectedSlot].item.uiSprite;
             //Update the item containment
-            if (itemDisplayer.Containment != characterInventory.items[selectedSlot]) itemDisplayer.SetContainment(characterInventory.items[selectedSlot]);
+            if (itemDisplayer.Containment != characterInventory.Items[selectedSlot]) itemDisplayer.SetContainment(characterInventory.Items[selectedSlot]);
             //Checks if there is currently a item snapped
             if (!itemSnapper.isSnapped)
             {
@@ -136,16 +129,16 @@ public class ItemBarManager : MenuManager<ItemBarManager>
 
     public AbstractItemData GetItemSelected()
     {
-        return player.CharacterInventory.items[selectedSlot].item;
+        return player.CharacterInventory.Items[selectedSlot].item;
     }
     
     public bool IsWearingCorrectTool(ToolType tooltype)
     {
-        if (player.CharacterInventory.items[selectedSlot].item == null) return false;
+        if (player.CharacterInventory.Items[selectedSlot].item == null) return false;
         
-        if (player.CharacterInventory.items[selectedSlot].item.GetType() == typeof(AbstractToolItem))
+        if (player.CharacterInventory.Items[selectedSlot].item.GetType() == typeof(AbstractToolItem))
         {
-            AbstractToolItem tool = (AbstractToolItem) player.CharacterInventory.items[selectedSlot].item;
+            AbstractToolItem tool = (AbstractToolItem) player.CharacterInventory.Items[selectedSlot].item;
             if (tool.tooltype.Equals(tooltype)) return true;
         }
         return false;

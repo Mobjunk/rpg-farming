@@ -12,40 +12,35 @@ public abstract class AbstractItemInventory : MonoBehaviour
     public delegate void OnInventoryChanged(List<int> slotsUpdated);
     public OnInventoryChanged onInventoryChanged = delegate {  };
 
-    void InventoryChanged(List<int> slotsUpdated)
+    void InventoryChanged(List<int> pSlotsUpdated)
     {
-        onInventoryChanged.Invoke(slotsUpdated);
-        slotsUpdated.Clear();
+        onInventoryChanged.Invoke(pSlotsUpdated);
+        pSlotsUpdated.Clear();
     }
 
-    private List<int> slotsUpdated = new List<int>();
+    private List<int> SlotsUpdated = new List<int>();
     
     /// <summary>
     /// Debugging the inventory
     /// </summary>
-    public bool debugInventory = true;
+    public bool DebugInventory = true;
     /// <summary>
     /// Debugging the inventory
     /// </summary>
-    private bool allowShifting = false;
-
-    public bool AllowShifting
-    {
-        set => allowShifting = value;
-    }
+    public bool AllowShifting = false;
 
     /// <summary>
     /// Max amount of slots within this inventory
     /// </summary>
-    public int maxInventorySize;
+    public int MaxInventorySize;
     /// <summary>
     /// Stack type of the inventory
     /// </summary>
-    public StackType stackType = StackType.STANDARD;
+    public StackType StackType = StackType.STANDARD;
     /// <summary>
     /// Array of all the items
     /// </summary>
-    public Item[] items;
+    public Item[] Items;
 
     public virtual void Awake()
     {
@@ -59,10 +54,10 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// </summary>
     public void Setup()
     {
-        items = new Item[maxInventorySize];
+        Items = new Item[MaxInventorySize];
         
-        for (int index = 0; index < maxInventorySize; index++)
-            items[index] = new Item();
+        for (int index = 0; index < MaxInventorySize; index++)
+            Items[index] = new Item();
     }
     
     /// <summary>
@@ -71,15 +66,15 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// <param name="slot">The slot being set</param>
     /// <param name="item">The item being set on the slot</param>
     /// <param name="update">Should it update the inventory ui</param>
-    public void Set(int slot, Item item, bool update = true)
+    public void Set(int pSlot, Item pItem, bool pUpdate = true)
     {
-        items[slot] = item.amount == 0 ? new Item() : item;
+        Items[pSlot] = pItem.amount == 0 ? new Item() : pItem;
         
-        if (update)
+        if (pUpdate)
         {
             ItemBarManager.Instance().UpdateSlot();
-            slotsUpdated.Add(slot);
-            InventoryChanged(slotsUpdated);
+            SlotsUpdated.Add(pSlot);
+            InventoryChanged(SlotsUpdated);
         }
     }
 
@@ -89,155 +84,155 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// <param name="from">The from slot</param>
     /// <param name="to">The to slot</param>
     /// <param name="update">Should it update the inventory ui</param>
-    public void Swap(int from, int to, bool update = true)
+    public void Swap(int pFrom, int pTo, bool pUpdate = true)
     {
         //Creates an copy of the item
-        var temp = items[from];
+        var temp = Items[pFrom];
         
         //Spawns around the 2 items
-        items[from] = items[to];
-        items[to] = temp;
+        Items[pFrom] = Items[pTo];
+        Items[pTo] = temp;
 
-        if (update)
+        if (pUpdate)
         {
-            slotsUpdated.Add(from);
-            slotsUpdated.Add(to);
+            SlotsUpdated.Add(pFrom);
+            SlotsUpdated.Add(pTo);
 
-            InventoryChanged(slotsUpdated);
+            InventoryChanged(SlotsUpdated);
         }
     }
 
     /// <summary>
     /// Handles adding a item to a inventory
     /// </summary>
-    /// <param name="item">The item being added</param>
-    /// <param name="itemAmount">The amount of this item being added</param>
-    protected void AddItem(AbstractItemData item, int itemAmount = 1)
+    /// <param name="pItem">The item being added</param>
+    /// <param name="pItemAmount">The amount of this item being added</param>
+    protected void AddItem(AbstractItemData pItem, int pItemAmount = 1)
     {
         if (!ItemFitsInventory())
         {
-            if(debugInventory) Debug.LogError($"There is no room for the item[{item.name}].");
+            if(DebugInventory) Debug.LogError($"There is no room for the item[{pItem.name}].");
             return;
         }
         var newSlot = GetFreeSlot();
-        if ((item.stackable || stackType.Equals(StackType.ALWAYS_STACK)) && HasItem(item, 0)) newSlot = GetSlot(item);
+        if ((pItem.stackable || StackType.Equals(StackType.ALWAYS_STACK)) && HasItem(pItem, 0)) newSlot = GetSlot(pItem);
 
         if (newSlot == -1)
         {
-            if(debugInventory) Debug.LogError($"No slot to add the item[{item.name}].");
+            if(DebugInventory) Debug.LogError($"No slot to add the item[{pItem.name}].");
             return;
         }
         
-        if (item.stackable || stackType.Equals(StackType.ALWAYS_STACK))
+        if (pItem.stackable || StackType.Equals(StackType.ALWAYS_STACK))
         {
-            Item currentItem = items[newSlot];
-            if (currentItem.item == null) currentItem.item = item;
+            Item currentItem = Items[newSlot];
+            if (currentItem.item == null) currentItem.item = pItem;
             
-            var totalAmount = currentItem.amount + itemAmount;
+            var totalAmount = currentItem.amount + pItemAmount;
             if (totalAmount >= int.MaxValue || totalAmount < 1)
             {
-                if(debugInventory) Debug.LogError($"Total amount is higher then max int or amount is 0.");
+                if(DebugInventory) Debug.LogError($"Total amount is higher then max int or amount is 0.");
                 return;
             }
             
             currentItem.amount = totalAmount;
-            slotsUpdated.Add(newSlot);
+            SlotsUpdated.Add(newSlot);
         }
         else
         {
-            for (int index = 0; index < itemAmount; index++)
+            for (int index = 0; index < pItemAmount; index++)
             {
                 int freeSlot = GetFreeSlot();
                 if (freeSlot == -1)
                 {
-                    if(debugInventory) Debug.LogError("No free slots were found.");
+                    if(DebugInventory) Debug.LogError("No free slots were found.");
                     return;
                 }
-                items[freeSlot] = new Item(item);
-                slotsUpdated.Add(freeSlot);
+                Items[freeSlot] = new Item(pItem);
+                SlotsUpdated.Add(freeSlot);
             }
         }
-        InventoryChanged(slotsUpdated);
+        InventoryChanged(SlotsUpdated);
     }
 
     /// <summary>
     /// Handles removing a item from a inventory
     /// </summary>
-    /// <param name="item">The item being removed</param>
-    /// <param name="itemAmount">The amount of that item being removed</param>
-    /// <param name="allowZero">Checks if the containment is allowed to be zero</param>
-    public void RemoveItem(AbstractItemData item, int itemAmount = 1, bool allowZero = false)
+    /// <param name="pItem">The item being removed</param>
+    /// <param name="pItemAmount">The amount of that item being removed</param>
+    /// <param name="pAllowZero">Checks if the containment is allowed to be zero</param>
+    public void RemoveItem(AbstractItemData pItem, int pItemAmount = 1, bool pAllowZero = false)
     {
-        int slot = GetSlot(item);
+        int slot = GetSlot(pItem);
         if (slot == -1)
         {
-            if(debugInventory) Debug.LogError($"There is no slot found with this item[{item.name}].");
+            if(DebugInventory) Debug.LogError($"There is no slot found with this item[{pItem.name}].");
             return;
         }
 
-        Item currentItem = items[slot];
+        Item currentItem = Items[slot];
         bool shiftContainer = false;
         if (currentItem == null)
         {
-            if(debugInventory) Debug.Log($"There is currently no item in slot[{slot}].");
+            if(DebugInventory) Debug.Log($"There is currently no item in slot[{slot}].");
             return;
         }
 
-        if (item.stackable || stackType.Equals(StackType.ALWAYS_STACK))
+        if (pItem.stackable || StackType.Equals(StackType.ALWAYS_STACK))
         {
-            if (currentItem.amount > itemAmount) currentItem.amount -= itemAmount;
+            if (currentItem.amount > pItemAmount) currentItem.amount -= pItemAmount;
             else
             {
-                if(!allowZero) currentItem.item = null;
+                if(!pAllowZero) currentItem.item = null;
                 currentItem.amount = 0;
                 shiftContainer = true;
             }
-            slotsUpdated.Add(slot);
+            SlotsUpdated.Add(slot);
         }
         else
         {
-            for (int index = 0; index < itemAmount; index++)
+            for (int index = 0; index < pItemAmount; index++)
             {
-                slot = GetSlot(item);
+                slot = GetSlot(pItem);
                 if (slot != -1)
                 {
-                    currentItem = items[slot];
+                    currentItem = Items[slot];
                     currentItem.item = null;
                     currentItem.amount = 0;
                     
-                    slotsUpdated.Add(slot);
-                } else if(debugInventory) Debug.LogError($"There is no item[{item.name}] to remove.");
+                    SlotsUpdated.Add(slot);
+                } else if(DebugInventory) Debug.LogError($"There is no item[{pItem.name}] to remove.");
             }
         }
 
-        if(allowShifting && shiftContainer) Shift();
+        if(AllowShifting && shiftContainer) Shift();
         
-        InventoryChanged(slotsUpdated);
+        InventoryChanged(SlotsUpdated);
     }
 
     /// <summary>
     /// Handles updating the durability of a item
     /// </summary>
-    /// <param name="item">The item that is being updated</param>
-    /// <param name="durability">The amount of durability that gets added or removed</param>
-    public void UpdateDurability(AbstractItemData item, int durability)
+    /// <param name="pItem">The item that is being updated</param>
+    /// <param name="pDurability">The amount of durability that gets added or removed</param>
+    public void UpdateDurability(AbstractItemData pItem, int pDurability)
     {
-        int slot = GetSlot(item);
+        int slot = GetSlot(pItem);
         if (slot == -1)
         {
-            if(debugInventory) Debug.LogError($"There is no slot found with this item[{item.name}].");
+            if(DebugInventory) Debug.LogError($"There is no slot found with this item[{pItem.name}].");
             return;
         }
 
-        Item currentItem = items[slot];
+        Item currentItem = Items[slot];
 
         if (currentItem.durability == -1 || currentItem.maxDurability == -1)
         {
-            if(debugInventory) Debug.LogError($"There is no durability found with this item[{item.name}].");
+            if(DebugInventory) Debug.LogError($"There is no durability found with this item[{pItem.name}].");
             return;
         }
 
-        currentItem.durability += durability;
+        currentItem.durability += pDurability;
         if (currentItem.durability <= 0)
         {
             currentItem.durability = 0;
@@ -249,21 +244,21 @@ public abstract class AbstractItemInventory : MonoBehaviour
         } else if (currentItem.durability > currentItem.maxDurability)
             currentItem.durability = currentItem.maxDurability;
         
-        slotsUpdated.Add(slot);
+        SlotsUpdated.Add(slot);
         
-        InventoryChanged(slotsUpdated);
+        InventoryChanged(SlotsUpdated);
     }
 
     /// <summary>
     /// Gets the next occupied slot in the inventory
     /// </summary>
-    /// <param name="currentSlot">The current slot the player is on</param>
-    /// <param name="increase">Should it start counting up</param>
+    /// <param name="pCurrentSlot">The current slot the player is on</param>
+    /// <param name="pIncrease">Should it start counting up</param>
     /// <returns></returns>
-    public int GetNextOccupiedSlot(int currentSlot, bool increase = true)
+    public int GetNextOccupiedSlot(int pCurrentSlot, bool pIncrease = true)
     {
-        currentSlot += increase ? 1 : -1;
-        for (int index = currentSlot, tries = 0; index < 12; tries++)
+        pCurrentSlot += pIncrease ? 1 : -1;
+        for (int index = pCurrentSlot, tries = 0; index < 12; tries++)
         {
             //Make sure it only has 12 tries, else it creates a inf loop
             if (tries > 12) break;
@@ -271,9 +266,9 @@ public abstract class AbstractItemInventory : MonoBehaviour
             if (index < 0) index = 11;
             else if (index > 10) index = 0;
             
-            if (items[index].item != null) return index;
+            if (Items[index].item != null) return index;
             
-            if (increase) index++;
+            if (pIncrease) index++;
             else index--;
         }
         return -1;
@@ -282,22 +277,22 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// <summary>
     /// Checks if the player has a certain item
     /// </summary>
-    /// <param name="item"></param>
-    /// <param name="itemAmount"></param>
+    /// <param name="pItem"></param>
+    /// <param name="pItemAmount"></param>
     /// <returns></returns>
-    public bool HasItem(AbstractItemData item, int itemAmount = 1)
+    public bool HasItem(AbstractItemData pItem, int pItemAmount = 1)
     {
-        return items.Any(data => data.item == item && data.amount >= itemAmount);
+        return Items.Any(data => data.item == pItem && data.amount >= pItemAmount);
     }
 
     /// <summary>
     /// Checks if the player has all the items
     /// </summary>
-    /// <param name="items">A list of items</param>
+    /// <param name="pItems">A list of items</param>
     /// <returns></returns>
-    public bool HasItems(List<Item> items)
+    public bool HasItems(List<Item> pItems)
     {
-        return items.All(item => HasItem(item.item, item.amount));
+        return pItems.All(item => HasItem(item.item, item.amount));
     }
 
     /// <summary>
@@ -306,18 +301,18 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// <returns></returns>
     public bool ItemFitsInventory()
     {
-        return items.Any(data => data.item == null);
+        return Items.Any(data => data.item == null);
     }
 
     /// <summary>
     /// Get the slot for a certain item
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="pItem"></param>
     /// <returns></returns>
-    int GetSlot(AbstractItemData item)
+    int GetSlot(AbstractItemData pItem)
     {
-        for (int index = 0; index < maxInventorySize; index++)
-            if (items[index].item == item) return index;
+        for (int index = 0; index < MaxInventorySize; index++)
+            if (Items[index].item == pItem) return index;
         return -1;
     }
 
@@ -327,8 +322,8 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// <returns></returns>
     int GetFreeSlot()
     {
-        for (int index = 0; index < maxInventorySize; index++)
-            if (items[index].item == null) return index;
+        for (int index = 0; index < MaxInventorySize; index++)
+            if (Items[index].item == null) return index;
         return -1;
     }
 
@@ -339,9 +334,9 @@ public abstract class AbstractItemInventory : MonoBehaviour
     public int SlotsOccupied()
     {
         int amount = 0;
-        for (int index = 0; index < maxInventorySize; index++)
+        for (int index = 0; index < MaxInventorySize; index++)
         {
-            if (items[index].item != null)
+            if (Items[index].item != null)
                 amount++;
         }
 
@@ -353,17 +348,17 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// Currently not being used tho
     /// </summary>
     public void Shift() {
-        Item[] old = items;
-        items = new Item[maxInventorySize];
+        Item[] old = Items;
+        Items = new Item[MaxInventorySize];
         int newIndex = 0;
-        for (int i = 0; i < items.Length; i++) {
+        for (int i = 0; i < Items.Length; i++) {
             if (old[i].item != null) {
-                items[newIndex] = old[i];
+                Items[newIndex] = old[i];
                 newIndex++;
             }
         }
         //TODO: Update slot list
-        InventoryChanged(slotsUpdated);
+        InventoryChanged(SlotsUpdated);
     }
 }
 

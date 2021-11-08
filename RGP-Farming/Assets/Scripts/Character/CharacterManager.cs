@@ -7,32 +7,15 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     /// <summary>
-    /// Input manager of the character
-    /// </summary>
-    protected ICharacterInput characterInputManager;
-    
-    /// <summary>
     /// Statemachine of the character
     /// </summary>
-    private CharacterStateManager characterStateManager;
+    public CharacterStateManager CharacterStateManager;
 
-    public CharacterStateManager CharacterStateManager
-    {
-        get => characterStateManager;
-        set => characterStateManager = value;
-    }
-    
     /// <summary>
     /// Movement of the character
     /// </summary>
-    private CharacterMovementMananger characterMovementMananger;
+    public CharacterMovementMananger CharacterMovementMananger;
 
-    public CharacterMovementMananger CharacterMovementMananger
-    {
-        get => characterMovementMananger;
-        set => characterMovementMananger = value;
-    }
-    
     /// <summary>
     /// Action a character can perform
     /// </summary>
@@ -60,7 +43,7 @@ public class CharacterManager : MonoBehaviour
     
     public virtual void Start()
     {
-        characterStateManager = GetComponent<CharacterStateManager>();
+        CharacterStateManager = GetComponent<CharacterStateManager>();
     }
 
     public virtual void Update()
@@ -72,16 +55,16 @@ public class CharacterManager : MonoBehaviour
     /// Handles setting a character action
     /// </summary>
     /// <param name="action">A action a character can perform</param>
-    public void SetAction(CharacterAction action)
+    public void SetAction(CharacterAction pAction)
     {
         if (characterAction != null)
         {
             if (!characterAction.Interruptable()) return;
-            characterStateManager.SetCharacterState(CharacterStates.IDLE);
+            CharacterStateManager.SetCharacterState(CharacterStates.IDLE);
             characterAction.OnStop();
         }
 
-        characterAction = action;
+        characterAction = pAction;
         characterAction?.OnStart();
     }
 }

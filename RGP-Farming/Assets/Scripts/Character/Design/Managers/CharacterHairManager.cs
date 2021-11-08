@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CharacterHairManager : CharacterBodyPartManager
 {
-    [SerializeField] private Hair characterHair;
+    [SerializeField] private Hair _characterHair;
 
     public override void Awake()
     {
-        CurrentBodyPart = characterHair;
+        CurrentBodyPart = _characterHair;
         base.Awake();
     }
 }

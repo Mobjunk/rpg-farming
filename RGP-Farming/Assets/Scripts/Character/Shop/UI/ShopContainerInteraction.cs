@@ -43,7 +43,7 @@ public class ShopContainerInteraction : MonoBehaviour, IPointerEnterHandler, IPo
                 //Checks if the player has room for the item
                 if (player.CharacterInventory.ItemFitsInventory())
                 {
-                    if (shopInventory.HasStock(shopContainerGrid.slotIndex))
+                    if (shopInventory.HasStock(shopContainerGrid.SlotIndex))
                     {
                         if (player.CharacterInventory.HasEnoughGold(item.itemPrice))
                         {

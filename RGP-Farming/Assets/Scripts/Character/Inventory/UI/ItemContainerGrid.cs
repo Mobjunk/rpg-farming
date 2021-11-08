@@ -14,7 +14,7 @@ public class ItemContainerGrid : AbstractItemContainer<Item>
         Icon.sprite = Containment.item.uiSprite;
         Icon.enabled = true;
 
-        if(ItemBarManager.Instance().selectedSlot == slotIndex && !AllowMoving) SetHighlighted(true);
+        if(ItemBarManager.Instance().selectedSlot == SlotIndex && !AllowMoving) SetHighlighted(true);
 
         Amount.text = $"{(Containment.amount > 1 ? Containment.amount.ToString() : "")}";
         Amount.enabled = Containment.amount > 1;

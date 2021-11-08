@@ -55,7 +55,7 @@ public class ShopInventory : AbstractItemInventory
     /// <returns></returns>
     public bool HasStock(int slot)
     {
-        return items[slot].amount > 0;
+        return Items[slot].amount > 0;
     }
 
     /// <summary>

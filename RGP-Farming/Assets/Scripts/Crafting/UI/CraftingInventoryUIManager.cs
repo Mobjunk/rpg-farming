@@ -14,7 +14,7 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
     }
     public override void Open()
     {
-        if(InventoryContainers[0].maxSlots == 0) InventoryContainers[0].maxSlots = craftingInventory.maxInventorySize;
+        if(InventoryContainers[0].maxSlots == 0) InventoryContainers[0].maxSlots = craftingInventory.MaxInventorySize;
         base.Open();
         
         Initialize(craftingInventory);

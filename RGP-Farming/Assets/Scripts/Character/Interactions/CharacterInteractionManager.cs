@@ -3,48 +3,37 @@ using UnityEngine;
 
 public class CharacterInteractionManager : MonoBehaviour
 {
-    private CursorManager cursorManager => CursorManager.Instance();
+    private CursorManager _cursorManager => CursorManager.Instance();
     
-    [SerializeField] private List<InteractionManager> interactables;
+    public List<InteractionManager> Interactables;
 
-    public List<InteractionManager> GetInteractables()
+    public InteractionManager Interactable;
+
+    public void OnCharacterInteraction(CharacterManager pCharacterManager)
     {
-        return interactables;
-    }
-
-    [SerializeField] private InteractionManager interactable;
-
-    public InteractionManager Interactable
-    {
-        get => interactable;
-        set => interactable = value;
-    }
-
-    public void OnCharacterInteraction(CharacterManager characterManager)
-    {
-        if (cursorManager.IsPointerOverUIElement() || Interactable == null) return;
+        if (_cursorManager.IsPointerOverUIElement() || Interactable == null) return;
 
         //Set the interactble to null if its no logner in the list
-        if (!interactables.Contains(Interactable))
+        if (!Interactables.Contains(Interactable))
         {
             Interactable = null;
             return;
         }
         
-        Interactable.OnInteraction(characterManager);
+        Interactable.OnInteraction(pCharacterManager);
     }
 
-    public void OnCharacterSecondaryInteraction(CharacterManager characterManager)
+    public void OnCharacterSecondaryInteraction(CharacterManager pCharacterManager)
     {
-        if (cursorManager.IsPointerOverUIElement() || Interactable == null) return;
+        if (_cursorManager.IsPointerOverUIElement() || Interactable == null) return;
 
         //Set the interactble to null if its no logner in the list
-        if (!interactables.Contains(Interactable))
+        if (!Interactables.Contains(Interactable))
         {
             Interactable = null;
             return;
         }
         
-        Interactable.OnSecondaryInteraction(characterManager);
+        Interactable.OnSecondaryInteraction(pCharacterManager);
     }
 }

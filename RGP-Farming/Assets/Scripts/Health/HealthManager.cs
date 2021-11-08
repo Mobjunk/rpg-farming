@@ -7,13 +7,8 @@ public class HealthManager : MonoBehaviour
     public delegate void OnHealthChanged();
     public OnHealthChanged onHealthChanged = delegate {  };
     
-    [SerializeField] private int currentHealth;
+    public int CurrentHealth;
 
-    public int CurrentHealth
-    {
-        get => currentHealth;
-        set => currentHealth = value;
-    }
     
     private int maxHealth;
     
@@ -28,7 +23,7 @@ public class HealthManager : MonoBehaviour
     /// </summary>
     public void Awake()
     {
-        MaxHealth = currentHealth;
+        MaxHealth = CurrentHealth;
     }
 
     /// <summary>

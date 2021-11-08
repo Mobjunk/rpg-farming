@@ -10,60 +10,42 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// <summary>
     /// The containment
     /// </summary>
-    [SerializeReference] protected T containment;
-
-    public T Containment => containment;
+    public T Containment;
 
     /// <summary>
     /// The index of the slot
     /// </summary>
-    [HideInInspector] public int slotIndex;
+    [HideInInspector] public int SlotIndex;
     
     //References
     #region References
 
-    private AbstractItemInventory container;
-
-    public AbstractItemInventory Container
-    {
-        get => container;
-        set => container = value;
-    }
+    public AbstractItemInventory Container;
     
     /// <summary>
     /// Slot text of the containment
     /// </summary>
-    [SerializeField] private TextMeshProUGUI slot;
-
-    public TextMeshProUGUI Slot => slot;
+    public TextMeshProUGUI Slot;
 
     /// <summary>
     /// Amount text of the containment
     /// </summary>
-    [SerializeField] private TextMeshProUGUI amount;
-
-    public TextMeshProUGUI Amount => amount;
+    public TextMeshProUGUI Amount;
 
     /// <summary>
     /// Icon of the containment
     /// </summary>
-    [SerializeField] private Image icon;
-
-    public Image Icon => icon;
+    public Image Icon;
 
     /// <summary>
     /// Highlight of the containment
     /// </summary>
-    [SerializeField] private Image highlight;
-
-    public Image Highlight => highlight;
+    public Image Highlight;
 
     /// <summary>
     /// Slider of the containment
     /// </summary>
-    [SerializeField] private Slider slider;
-
-    public Slider Slider => slider;
+    public Slider Slider;
 
     #endregion
 
@@ -75,9 +57,9 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     private bool isHighlighted;
 
-    public void SetHighlighted(bool set)
+    public void SetHighlighted(bool pSet)
     {
-        isHighlighted = set;
+        isHighlighted = pSet;
         Highlight.enabled = isHighlighted;
     }
 
@@ -88,31 +70,25 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
 
     public bool ShowIndicator => showIndicator;
 
-    public void SetIndicator(bool set)
+    public void SetIndicator(bool pSet)
     {
-        showIndicator = set;
-        if (slotIndex < slotIcon.Length && ShowIndicator) slot.text = slotIcon[slotIndex];
-        else slot.text = "";
+        showIndicator = pSet;
+        if (SlotIndex < slotIcon.Length && ShowIndicator) Slot.text = slotIcon[SlotIndex];
+        else Slot.text = "";
     }
     
     /// <summary>
     /// To check if the slot is allowed to be moved
     /// </summary>
-    private bool allowMoving;
-
-    public bool AllowMoving
-    {
-        get => allowMoving;
-        set => allowMoving = value;
-    }
+    public bool AllowMoving;
 
     #endregion
     
-    private bool hoveringContainment;
+    private bool _hoveringContainment;
 
     private void Update()
     {
-        if (hoveringContainment)
+        if (_hoveringContainment)
         {
             var iconTransform = Icon.transform;
             bool increase = iconTransform.localScale.x < 1.1f;
@@ -127,10 +103,10 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// <summary>
     /// Handles setting the containment
     /// </summary>
-    /// <param name="containment"></param>
-    public virtual void SetContainment(T containment)
+    /// <param name="pContainment"></param>
+    public virtual void SetContainment(T pContainment)
     {
-        this.containment = containment;
+        this.Containment = pContainment;
     }
 
     /// <summary>
@@ -138,26 +114,26 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     public virtual void ClearContainment()
     {
-        containment = default;
-        amount.text = "";
-        icon.enabled = false;
-        if(highlight != null) highlight.enabled = false;
-        if(slider != null) slider.gameObject.SetActive(false);
+        Containment = default;
+        Amount.text = "";
+        Icon.enabled = false;
+        if(Highlight != null) Highlight.enabled = false;
+        if(Slider != null) Slider.gameObject.SetActive(false);
     }
 
     string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
     private void Start()
     {
         //slotIndex = ;
-        if (!int.TryParse(gameObject.name, out slotIndex))
+        if (!int.TryParse(gameObject.name, out SlotIndex))
         {
             Debug.Log($"Cannot try parse {gameObject.name} to int...");
         }
         
-        if (slotIndex < slotIcon.Length && ShowIndicator) slot.text = slotIcon[slotIndex];
-        else slot.text = "";
+        if (SlotIndex < slotIcon.Length && ShowIndicator) Slot.text = slotIcon[SlotIndex];
+        else Slot.text = "";
         
-        if (isHighlighted) highlight.enabled = true;
+        if (isHighlighted) Highlight.enabled = true;
     }
 
     /// <summary>
@@ -165,7 +141,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     void SwitchContainment()
     {
-        ItemBarManager.Instance().UpdateSlot(slotIndex);
+        ItemBarManager.Instance().UpdateSlot(SlotIndex);
     }
 
     /// <summary>
@@ -180,22 +156,22 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         {
             UIContainerbase<Item> currentSnap = snapperManager.currentItemSnapped;
             //Handles resetting snapping
-            if (currentSnap == this as UIContainerbase<Item> || containment == null) snapperManager.ResetSnappedItem();
+            if (currentSnap == this as UIContainerbase<Item> || Containment == null) snapperManager.ResetSnappedItem();
 
             //Creates a placeholder of the current item
-            Item placeHolder = new Item(Container.items[slotIndex].item, Container.items[slotIndex].amount);
-            Item currentItem = currentSnap.Container.items[currentSnap.slotIndex];
+            Item placeHolder = new Item(Container.Items[SlotIndex].item, Container.Items[SlotIndex].amount);
+            Item currentItem = currentSnap.Container.Items[currentSnap.SlotIndex];
 
-            if (placeHolder.item == currentItem.item && slotIndex != currentSnap.slotIndex) //
+            if (placeHolder.item == currentItem.item && SlotIndex != currentSnap.SlotIndex) //
             {
                 Item updatedItem = new Item(currentItem.item, currentItem.amount + placeHolder.amount);
-                Container.Set(slotIndex, updatedItem); 
-                currentSnap.Container.Set(currentSnap.slotIndex, null);
+                Container.Set(SlotIndex, updatedItem); 
+                currentSnap.Container.Set(currentSnap.SlotIndex, null);
                 snapperManager.ResetSnappedItem(false);
             } else {
                 //Handles updating the containers
-                Container.Set(slotIndex, currentItem);
-                currentSnap.Container.Set(currentSnap.slotIndex, placeHolder);
+                Container.Set(SlotIndex, currentItem);
+                currentSnap.Container.Set(currentSnap.SlotIndex, placeHolder);
             }
         }
     }
@@ -210,13 +186,13 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
             Debug.Log("Cannot do this function on the same item you got snapped...");
             return;
         }
-        Item currentItem = currentSnap.Container.items[currentSnap.slotIndex];
-        Item clickedItem = Container.items[slotIndex];
-        if (containment == null || currentItem.item == clickedItem.item)
+        Item currentItem = currentSnap.Container.Items[currentSnap.SlotIndex];
+        Item clickedItem = Container.Items[SlotIndex];
+        if (Containment == null || currentItem.item == clickedItem.item)
         {
             currentItem.SetAmount(currentItem.amount - 1);
-            currentSnap.Container.Set(currentSnap.slotIndex, currentItem);
-            Container.Set(slotIndex, new Item(currentItem.item, clickedItem.amount + 1));
+            currentSnap.Container.Set(currentSnap.SlotIndex, currentItem);
+            Container.Set(SlotIndex, new Item(currentItem.item, clickedItem.amount + 1));
             if (currentItem.amount <= 0) snapperManager.ResetSnappedItem(false);
         }
     }
@@ -241,9 +217,9 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     {
         if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Middle)
         {
-            if (allowMoving) SnapContainment();
+            if (AllowMoving) SnapContainment();
             else SwitchContainment();
-        } else if (eventData.button == PointerEventData.InputButton.Right && allowMoving)
+        } else if (eventData.button == PointerEventData.InputButton.Right && AllowMoving)
         {
             ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
             if (snapperManager.isSnapped) PlaceSingleItem();
@@ -253,12 +229,12 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        hoveringContainment = true;
+        _hoveringContainment = true;
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
-        hoveringContainment = false;
+        _hoveringContainment = false;
         Icon.transform.localScale = new Vector3(1, 1, 1);
     }
 }
