@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 {
-    private TilePlacer tilePlacer => TilePlacer.Instance();
+    private TileClickManager tileClickManager => TileClickManager.Instance();
     
     private Player player;
     private GameObject currentGameObjectHoverd;
@@ -70,7 +70,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
         if (Input.GetMouseButtonDown(0) && canPlaceObject && placeableItem != null)
         {
             //Checks if you are trying to plant a crop on anything other then dirt
-            if (placeableItem.GetType() == typeof(AbstractPlantData) && !tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
+            if (placeableItem.GetType() == typeof(AbstractPlantData) && !tileClickManager.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
             
             //Handles removing the item from the inventory
             player.CharacterInventory.RemoveItem(placeableItem);

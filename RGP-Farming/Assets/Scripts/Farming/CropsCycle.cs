@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CropsInteraction))]
 public class CropsCycle : MonoBehaviour
 {
-    private TilePlacer tilePlacer => TilePlacer.Instance();
+    private TileClickManager tileClickManager => TileClickManager.Instance();
     
     public Crops crops;
 
@@ -40,7 +40,7 @@ public class CropsCycle : MonoBehaviour
 
     public void CropsUpdater()
     {
-        isWatered = tilePlacer.CheckTileUnderObject(transform.position, TileType.WATER);
+        isWatered = tileClickManager.CheckTileUnderObject(transform.position, TileType.WATER);
         updateTimer -= Time.deltaTime;
         if (updateTimer <= 0)
         {
@@ -57,7 +57,7 @@ public class CropsCycle : MonoBehaviour
                     readyToHarvest = true;
                 }
             }
-            tilePlacer.UpdateTile(gameObject, TileType.WATER);
+            tileClickManager.UpdateTile(gameObject, TileType.WATER);
         }
     }
     
