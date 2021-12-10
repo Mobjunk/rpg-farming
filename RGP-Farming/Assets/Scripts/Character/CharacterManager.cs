@@ -19,13 +19,7 @@ public class CharacterManager : MonoBehaviour
     /// <summary>
     /// Action a character can perform
     /// </summary>
-    private CharacterAction characterAction;
-    
-    public CharacterAction CharacterAction
-    {
-        get => characterAction;
-        set => characterAction = value;
-    }
+    public CharacterAction CharacterAction;
 
     public virtual void Awake()
     {
@@ -48,7 +42,7 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void Update()
     {
-        characterAction?.Update();
+        CharacterAction?.Update();
     }
 
     /// <summary>
@@ -57,14 +51,14 @@ public class CharacterManager : MonoBehaviour
     /// <param name="action">A action a character can perform</param>
     public void SetAction(CharacterAction pAction)
     {
-        if (characterAction != null)
+        if (CharacterAction != null)
         {
-            if (!characterAction.Interruptable()) return;
+            if (!CharacterAction.Interruptable()) return;
             CharacterStateManager.SetCharacterState(CharacterStates.IDLE);
-            characterAction.OnStop();
+            CharacterAction.OnStop();
         }
 
-        characterAction = pAction;
-        characterAction?.OnStart();
+        CharacterAction = pAction;
+        CharacterAction?.OnStart();
     }
 }

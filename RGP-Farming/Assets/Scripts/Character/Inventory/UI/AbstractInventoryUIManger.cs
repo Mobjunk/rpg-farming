@@ -134,6 +134,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
                 container.Container = pInventory;
                 container.SetIndicator(parent.showIdicator);
                 container.AllowMoving = parent.allowSnapping;
+
                 container.SetContainment(ContainmentContainer.Items[index]);
                 
                 containers[parentIndex].Add(container);

@@ -66,15 +66,17 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// <summary>
     /// Indicator of what key is used to select the slot
     /// </summary>
-    private bool showIndicator;
-
-    public bool ShowIndicator => showIndicator;
+    public bool ShowIndicator;
 
     public void SetIndicator(bool pSet)
     {
-        showIndicator = pSet;
+        ShowIndicator = pSet;
         if (SlotIndex < slotIcon.Length && ShowIndicator) Slot.text = slotIcon[SlotIndex];
-        else Slot.text = "";
+        else
+        {
+            if(Slot == null) Debug.Log($"Slot is null for {gameObject.name}");
+            Slot.text = "";
+        }
     }
     
     /// <summary>

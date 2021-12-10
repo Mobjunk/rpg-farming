@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class CraftingInventory : AbstractItemInventory
 {
-    private ItemManager itemManager => ItemManager.Instance();
+    private ItemManager _itemManager => ItemManager.Instance();
 
     public override void Start()
     {
-        MaxInventorySize = itemManager.craftingRecipes.Count;
+        MaxInventorySize = _itemManager.craftingRecipes.Count;
         Setup();
 
         for (int slot = 0; slot < MaxInventorySize; slot++)
         {
-            CraftingRecipeData recipe = itemManager.craftingRecipes[slot];
+            CraftingRecipeData recipe = _itemManager.craftingRecipes[slot];
             Items[slot] = new Item(recipe.craftedItem);
         }
     }

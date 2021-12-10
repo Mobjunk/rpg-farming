@@ -4,36 +4,36 @@ using UnityEngine;
 
 public class ShopUIManager : AbstractInventoryUIManger
 {
-    private ShopUI shopUI => ShopUI.Instance();
-    private Player player => Player.Instance();
-    private ShopInventory shopInventory;
-    private PlayerInvenotryUIManager inventoryUIManager;
+    private ShopUI _shopUI => ShopUI.Instance();
+    private Player _player => Player.Instance();
+    private ShopInventory _shopInventory;
+    private PlayerInvenotryUIManager _inventoryUIManager;
     
     public override void Awake()
     {
         base.Awake();
-        shopInventory = GetComponent<ShopInventory>();
+        _shopInventory = GetComponent<ShopInventory>();
         if (InventoryUI == null && InventoryContainers[0].inventoryContainer == null && UiTabs[0] == null && UiTabs[1] == null)
         {
-            InventoryUI = shopUI.Contents;
-            InventoryContainers[0].inventoryContainer = shopUI.ItemContainer.transform;
-            UiTabs = shopUI.UiTabs;
+            InventoryUI = _shopUI.Contents;
+            InventoryContainers[0].inventoryContainer = _shopUI.ItemContainer.transform;
+            UiTabs = _shopUI.UiTabs;
         }
     }
 
     public void Start()
     {
-        inventoryUIManager = player.GetComponent<PlayerInvenotryUIManager>();
-        InventoryContainers[0].maxSlots = shopInventory.MaxInventorySize;
+        _inventoryUIManager = _player.GetComponent<PlayerInvenotryUIManager>();
+        InventoryContainers[0].maxSlots = _shopInventory.MaxInventorySize;
     }
 
     public override void Open()
     {
         base.Open();
         
-        if (shopInventory != null)
+        if (_shopInventory != null)
         {
-            Initialize(shopInventory);
+            Initialize(_shopInventory);
 
             UpdatePrices();
             
@@ -65,14 +65,14 @@ public class ShopUIManager : AbstractInventoryUIManger
         for (int slot = 0; slot < containers[0].Count; slot++)
         {
             if (ContainmentContainer.Items[slot].item == null) continue;
-            ((ShopContainerGrid)containers[0][slot]).UpdateItemPrice(shopInventory.GetBuyPrice(ContainmentContainer.Items[slot].item));
+            ((ShopContainerGrid)containers[0][slot]).UpdateItemPrice(_shopInventory.GetBuyPrice(ContainmentContainer.Items[slot].item));
         }
         
         //Handles updating the player his inventory sell price
-        for (int slot = 0; slot < player.CharacterInventory.Items.Length; slot++)
+        for (int slot = 0; slot < _player.CharacterInventory.Items.Length; slot++)
         {
-            if (player.CharacterInventory.Items[slot].item == null) continue;
-            ((ShopContainerGrid)inventoryUIManager.containers[2][slot]).UpdateItemPrice(shopInventory.GetSellPrice(player.CharacterInventory.Items[slot].item));
+            if (_player.CharacterInventory.Items[slot].item == null) continue;
+            ((ShopContainerGrid)_inventoryUIManager.containers[2][slot]).UpdateItemPrice(_shopInventory.GetSellPrice(_player.CharacterInventory.Items[slot].item));
         }
     }
 

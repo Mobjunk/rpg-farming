@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterInventory : AbstractItemInventory
 {
-    public int goldCoins;
+    public int GoldCoins;
 
     public void PurchaseItem(AbstractItemData item, int itemPrice, int amount = 1)
     {
@@ -18,13 +18,13 @@ public class CharacterInventory : AbstractItemInventory
 
     public bool HasEnoughGold(int price)
     {
-        return goldCoins > price;
+        return GoldCoins > price;
     }
 
     public void UpdateCoins(int amount)
     {
-        goldCoins += amount;
-        GoldIndicatorManager.Instance().UpdateCoins(goldCoins);
+        GoldCoins += amount;
+        GoldIndicatorManager.Instance().UpdateCoins(GoldCoins);
     }
 
     public void AddItem(AbstractItemData item, int itemAmount = 1, bool show = false)
