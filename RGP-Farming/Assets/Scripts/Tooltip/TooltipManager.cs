@@ -21,12 +21,8 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
         mainBackground.gameObject.SetActive(false);
     }
 
-    public bool IsDisabled = true;
-
     private void Update()
     {
-        if (IsDisabled) return;
-        
         SetPosition(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
     }
 

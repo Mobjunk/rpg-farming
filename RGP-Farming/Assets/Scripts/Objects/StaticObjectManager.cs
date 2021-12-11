@@ -21,12 +21,12 @@ public class StaticObjectManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Player characterManager = other.GetComponent<Player>();
-        if (characterManager != null) characterManager.CharacterInteractionManager.Interactables.Add(interactionManager);
+        if (characterManager != null) characterManager.CharacterInteractionManager.GetInteractables().Add(interactionManager);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         Player characterManager = other.GetComponent<Player>();
-        if (characterManager != null) characterManager.CharacterInteractionManager.Interactables.Remove(interactionManager);
+        if (characterManager != null) characterManager.CharacterInteractionManager.GetInteractables().Remove(interactionManager);
     }
 }

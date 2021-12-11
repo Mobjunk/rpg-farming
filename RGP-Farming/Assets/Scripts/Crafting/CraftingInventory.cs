@@ -7,13 +7,13 @@ public class CraftingInventory : AbstractItemInventory
 
     public override void Start()
     {
-        MaxInventorySize = itemManager.craftingRecipes.Count;
+        maxInventorySize = itemManager.craftingRecipes.Count;
         Setup();
 
-        for (int slot = 0; slot < MaxInventorySize; slot++)
+        for (int slot = 0; slot < maxInventorySize; slot++)
         {
             CraftingRecipeData recipe = itemManager.craftingRecipes[slot];
-            Items[slot] = new Item(recipe.craftedItem);
+            items[slot] = new Item(recipe.craftedItem);
         }
     }
 }

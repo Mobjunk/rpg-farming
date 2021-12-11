@@ -20,7 +20,7 @@ public class FurnaceUIManager : AbstractInventoryUIManger
             ItemContainerGrid grid = slots[slot];
             grid.AllowMoving = true;
             grid.Container = ContainmentContainer;
-            grid.SetContainment(ContainmentContainer.Items[slot]);
+            grid.SetContainment(ContainmentContainer.items[slot]);
             
             containers[0].Add(grid);
         }

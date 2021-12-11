@@ -69,7 +69,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Escape)) Close();
+        if(Input.GetKeyDown(KeyCode.Escape)) Close();
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
                 container.Container = pInventory;
                 container.SetIndicator(parent.showIdicator);
                 container.AllowMoving = parent.allowSnapping;
-                container.SetContainment(ContainmentContainer.Items[index]);
+                container.SetContainment(ContainmentContainer.items[index]);
                 
                 containers[parentIndex].Add(container);
             }
@@ -145,14 +145,14 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// Handles the updating of a containment
     /// </summary>
     /// <param name="slotsUpdated"></param>
-    public virtual void OnInventoryChanged(List<int> pSlotsUpdated)
+    public virtual void OnInventoryChanged(List<int> slotsUpdated)
     {
-        foreach (int slot in pSlotsUpdated)
+        foreach (int slot in slotsUpdated)
         {
             for (int index = 0; index < containers.Length; index++)
             {
                 if (slot >= containers[index].Count) continue;
-                containers[index][slot].SetContainment(ContainmentContainer.Items[slot]);
+                containers[index][slot].SetContainment(ContainmentContainer.items[slot]);
             }
         }
     }

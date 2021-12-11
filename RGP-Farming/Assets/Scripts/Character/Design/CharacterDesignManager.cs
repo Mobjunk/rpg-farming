@@ -3,9 +3,9 @@ using UnityEngine;
 public class CharacterDesignManager : MonoBehaviour
 {
 
-    [SerializeField] private CharacterGender _currentGender;
+    [SerializeField] private CharacterGender currentGender;
 
-    [SerializeField] private CharacterSkinColor _currentSkinColor;
+    [SerializeField] private CharacterSkinColor currentSkinColor;
 }
 
 public enum CharacterGender

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CharacterEyesManager : CharacterBodyPartManager
 {
-    [SerializeField] private Eyes _characterEyes;
+    [SerializeField] private Eyes characterEyes;
 
     public override void Awake()
     {
-        CurrentBodyPart = _characterEyes;
+        CurrentBodyPart = characterEyes;
         base.Awake();
     }
 }

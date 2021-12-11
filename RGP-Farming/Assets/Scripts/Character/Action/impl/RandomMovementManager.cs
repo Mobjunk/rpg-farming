@@ -5,59 +5,59 @@ public class RandomMovementManager : CharacterAction
     /// <summary>
     /// How long the npc needs to walk into the same direction
     /// </summary>
-    private float _movementTime = 0;
+    private float movementTime = 0;
     /// <summary>
     /// Start position of the npc
     /// </summary>
-    private Vector3 _startPosition;
+    private Vector3 startPosition;
     /// <summary>
     /// The current direction the npc is walking int
     /// </summary>
-    private Vector2 _walkingDirection;
+    private Vector2 walkingDirection;
     /// <summary>
     /// The npc attached to the random walking
     /// </summary>
-    private Npc _npc;
+    private Npc npc;
     /// <summary>
     /// Debug the positions and distance
     /// </summary>
-    bool _debug = false;
+    bool debug = false;
 
-    public RandomMovementManager(CharacterManager pCharacterManager) : base(pCharacterManager)
+    public RandomMovementManager(CharacterManager characterManager) : base(characterManager)
     {
-        _npc = (Npc) pCharacterManager;
-        _startPosition = _npc.transform.position;
+        npc = (Npc) characterManager;
+        startPosition = npc.transform.position;
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (_movementTime > 0)
+        if (movementTime > 0)
         {
             
-            Vector3 currentPosition = _npc.transform.position;
-            Vector2 newPosition = new Vector2(currentPosition.x + _walkingDirection.x, currentPosition.y + _walkingDirection.y);
-            float distance = Vector2.Distance(_startPosition, newPosition);
-            bool outsideWalkingRadius = distance > _npc.NpcData.walkingRandius;
+            Vector3 currentPosition = npc.transform.position;
+            Vector2 newPosition = new Vector2(currentPosition.x + walkingDirection.x, currentPosition.y + walkingDirection.y);
+            float distance = Vector2.Distance(startPosition, newPosition);
+            bool outsideWalkingRadius = distance > npc.NpcData.walkingRandius;
 
-            if (_debug)
+            if (debug)
             {
-                Debug.Log("startPosition: " + _startPosition);
+                Debug.Log("startPosition: " + startPosition);
                 Debug.Log("newPos: " + newPosition);
                 Debug.LogError(outsideWalkingRadius + ", " + distance);
             }
 
-            Vector2 dir = _walkingDirection;
+            Vector2 dir = walkingDirection;
             
             if (outsideWalkingRadius) dir = Vector2.zero;
             
             CharacterManager.CharacterMovementMananger.Move(dir);
-            _movementTime -= Time.deltaTime;
-        } else if (_movementTime <= 0)
+            movementTime -= Time.deltaTime;
+        } else if (movementTime <= 0)
         {
-            _walkingDirection = GetRandomDirection();
-            _movementTime = 1;
+            walkingDirection = GetRandomDirection();
+            movementTime = 1;
         }
     }
 

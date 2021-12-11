@@ -25,7 +25,7 @@ public class GameUIManager : MonoBehaviour
     public virtual void Open()
     {
         player.CharacterUIManager.CurrentUIOpened = this;
-        if (player.CharacterControllerManager.InputEnabled) player.CharacterControllerManager.ToggleInput();
+        if (player.InputEnabled) player.ToggleInput();
     }
 
     public virtual void Close()
@@ -33,7 +33,7 @@ public class GameUIManager : MonoBehaviour
         ItemTooltipManager.Instance().SetTooltip(null);
         CraftingTooltipManager.Instance().SetTooltip(null);
         player.CharacterUIManager.CurrentUIOpened = null;
-        if (!player.CharacterControllerManager.InputEnabled) player.CharacterControllerManager.ToggleInput();
+        if (!player.InputEnabled) player.ToggleInput();
     }
 
     public virtual void Set()

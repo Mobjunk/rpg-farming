@@ -5,12 +5,12 @@ using UnityEngine;
 public class ChestInvenotryUIManager : AbstractInventoryUIManger
 {
     
-    [SerializeField] private ChestInventory _chestInventory;
+    [SerializeField] private ChestInventory chestInventory;
     
     public void Start()
     {
-        _chestInventory = GetComponent<ChestInventory>();
-        Initialize(_chestInventory);
+        chestInventory = GetComponent<ChestInventory>();
+        Initialize(chestInventory);
     }
 
     public override void Open()

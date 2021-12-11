@@ -3,37 +3,48 @@ using UnityEngine;
 
 public class CharacterInteractionManager : MonoBehaviour
 {
-    private CursorManager _cursorManager => CursorManager.Instance();
+    private CursorManager cursorManager => CursorManager.Instance();
     
-    public List<InteractionManager> Interactables;
+    [SerializeField] private List<InteractionManager> interactables;
 
-    public InteractionManager Interactable;
-
-    public void OnCharacterInteraction(CharacterManager pCharacterManager)
+    public List<InteractionManager> GetInteractables()
     {
-        if (_cursorManager.IsPointerOverUIElement() || Interactable == null) return;
-
-        //Set the interactble to null if its no logner in the list
-        if (!Interactables.Contains(Interactable))
-        {
-            Interactable = null;
-            return;
-        }
-        
-        Interactable.OnInteraction(pCharacterManager);
+        return interactables;
     }
 
-    public void OnCharacterSecondaryInteraction(CharacterManager pCharacterManager)
+    [SerializeField] private InteractionManager interactable;
+
+    public InteractionManager Interactable
     {
-        if (_cursorManager.IsPointerOverUIElement() || Interactable == null) return;
+        get => interactable;
+        set => interactable = value;
+    }
+
+    public void OnCharacterInteraction(CharacterManager characterManager)
+    {
+        if (cursorManager.IsPointerOverUIElement() || Interactable == null) return;
 
         //Set the interactble to null if its no logner in the list
-        if (!Interactables.Contains(Interactable))
+        if (!interactables.Contains(Interactable))
         {
             Interactable = null;
             return;
         }
         
-        Interactable.OnSecondaryInteraction(pCharacterManager);
+        Interactable.OnInteraction(characterManager);
+    }
+
+    public void OnCharacterSecondaryInteraction(CharacterManager characterManager)
+    {
+        if (cursorManager.IsPointerOverUIElement() || Interactable == null) return;
+
+        //Set the interactble to null if its no logner in the list
+        if (!interactables.Contains(Interactable))
+        {
+            Interactable = null;
+            return;
+        }
+        
+        Interactable.OnSecondaryInteraction(characterManager);
     }
 }

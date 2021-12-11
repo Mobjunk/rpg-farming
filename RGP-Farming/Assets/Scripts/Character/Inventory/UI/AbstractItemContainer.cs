@@ -3,9 +3,9 @@ using UnityEngine;
 public abstract class AbstractItemContainer<T> : UIContainerbase<T>
 {
     
-    public override void SetContainment(T pContainment)
+    public override void SetContainment(T containment)
     {
-        base.SetContainment(pContainment);
+        base.SetContainment(containment);
         UpdateItemContainer();
     }
 

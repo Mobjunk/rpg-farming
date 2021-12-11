@@ -21,7 +21,7 @@ public abstract class InteractionManager : MonoBehaviour, IInteraction
         }
         
         player.CharacterPlaceObject.CurrentGameObjectHoverd = gameObject;
-        if (player.CharacterInteractionManager.Interactables.Contains(this))
+        if (player.CharacterInteractionManager.GetInteractables().Contains(this))
         {
             cursor.SetUsableInteractionCursor();
             player.CharacterInteractionManager.Interactable = this;
