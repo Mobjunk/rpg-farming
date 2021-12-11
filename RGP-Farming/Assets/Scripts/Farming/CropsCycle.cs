@@ -90,8 +90,8 @@ public class CropsCycle : MonoBehaviour
         
         if (harvestAmount <= 0)
         {
-            Vector3Int tileLocation = CharacterPlaceObject.Instance().TileMaps[1].WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            CharacterPlaceObject.Instance().TileMaps[1].SetTile(tileLocation, null);
+            Vector3Int tileLocation = CharacterPlaceObject.Instance().GetTilemaps()[1].WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            CharacterPlaceObject.Instance().GetTilemaps()[1].SetTile(tileLocation, null);
             Destroy(gameObject);
             CursorManager.Instance().SetDefaultCursor();
         }

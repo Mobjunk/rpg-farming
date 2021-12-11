@@ -5,40 +5,40 @@ using UnityEngine.Serialization;
 
 public class CharacterStateManager : MonoBehaviour
 {
-    private Animator _characterAnimator;
-    [SerializeField] CharacterStates _characterState = CharacterStates.IDLE;
+    Animator animator;
+    [SerializeField] CharacterStates characterState = CharacterStates.IDLE;
 
     public event CharacterInputAction OnStateChanged = delegate {  };
     
     public void SetCharacterState(CharacterStates state)
     {
-        _characterState = state;
+        characterState = state;
         OnStateChanged();
     }
 
     public CharacterStates GetCharacterState()
     {
-        return _characterState;
+        return characterState;
     }
 
     private void Awake()
     {
-        _characterAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
-    public void SetAnimator(string pName, bool pSet)
+    public void SetAnimator(string name, bool set)
     {
-        _characterAnimator.SetBool(pName, pSet);
+        animator.SetBool(name, set);
     }
 
-    public void SetAnimator(string pName, float pSet)
+    public void SetAnimator(string name, float set)
     {
-        _characterAnimator.SetFloat(pName, pSet);
+        animator.SetFloat(name, set);
     }
 
-    public void SetAnimator(string pName, int pSet)
+    public void SetAnimator(string name, int set)
     {
-        _characterAnimator.SetInteger(pName, pSet);
+        animator.SetInteger(name, set);
     }
 
     /// <summary>
@@ -47,8 +47,8 @@ public class CharacterStateManager : MonoBehaviour
     /// <returns></returns>
     public int GetDirection()
     {
-        int moveX = (int) (Mathf.Round(_characterAnimator.GetFloat("moveX")));
-        int moveY = (int) (Mathf.Round(_characterAnimator.GetFloat("moveY")));
+        int moveX = (int) (Mathf.Round(animator.GetFloat("moveX")));
+        int moveY = (int) (Mathf.Round(animator.GetFloat("moveY")));
         
         if ((moveX == -1 && moveY == 0) || (moveX == -1 && moveY == 1) || (moveX == -1 && moveY == -1)) //Left
         {

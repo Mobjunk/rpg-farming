@@ -3,15 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(ShopUIManager), typeof(ShopInteraction))]
 public class ShopInventory : AbstractItemInventory
 {
-    public ShopStock ShopStock;
+    public ShopStock shopStock;
 
     public override void Awake()
     {
         base.Awake();
 
-        if (ShopStock == null) return;
+        if (shopStock == null) return;
 
-        foreach (Item item in ShopStock.items)
+        foreach (Item item in shopStock.items)
             AddItem(item.item, item.amount);
     }
 
@@ -42,7 +42,7 @@ public class ShopInventory : AbstractItemInventory
     /// <returns></returns>
     public bool CanPurchase(AbstractItemData item)
     {
-        if (!ShopStock.isGeneralStore)
+        if (!shopStock.isGeneralStore)
             if (!HasItem(item, 0)) return false;
         if (!ItemFitsInventory()) return false;
         return true;
@@ -65,7 +65,7 @@ public class ShopInventory : AbstractItemInventory
     /// <returns></returns>
     public int GetSellPrice(AbstractItemData item)
     {
-        return Mathf.FloorToInt(item.itemPrice * ShopStock.sellRatio);
+        return Mathf.FloorToInt(item.itemPrice * shopStock.sellRatio);
     }
 
     /// <summary>
@@ -75,6 +75,6 @@ public class ShopInventory : AbstractItemInventory
     /// <returns></returns>
     public int GetBuyPrice(AbstractItemData item)
     {
-        return Mathf.FloorToInt(item.itemPrice * ShopStock.buyRatio);
+        return Mathf.FloorToInt(item.itemPrice * shopStock.buyRatio);
     }
 }

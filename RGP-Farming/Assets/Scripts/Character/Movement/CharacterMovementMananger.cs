@@ -4,17 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D)), DisallowMultipleComponent()]
 public class CharacterMovementMananger : MonoBehaviour
 {
-    [SerializeField] private float _movementSpeed = 0.65f;
-    private Rigidbody2D _rigidbody;
-    private Animator _characterAnimator;
-    private HeightBasedSorting _characterSorting;
+    [SerializeField] private float speed = 0.65f;
+    private Rigidbody2D rigidBody2D;
+    private Animator animator;
+    private HeightBasedSorting sorting;
     private CharacterControllerManager _characterControllerManager;
     
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _characterAnimator = GetComponent<Animator>();
-        _characterSorting = GetComponent<HeightBasedSorting>();
+        rigidBody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        sorting = GetComponent<HeightBasedSorting>();
         _characterControllerManager = GetComponent<CharacterControllerManager>();
     }
 
@@ -23,18 +23,18 @@ public class CharacterMovementMananger : MonoBehaviour
         
         _characterControllerManager.CurrentDirection.Normalize();
 
-        _rigidbody.MovePosition((Vector2)transform.position + (_characterControllerManager.CurrentDirection * _movementSpeed));
+        rigidBody2D.MovePosition((Vector2)transform.position + (_characterControllerManager.CurrentDirection * speed));
 
         if (!_characterControllerManager.CurrentDirection.Equals(Vector2.zero))
         {
-            _characterAnimator.SetFloat("moveX", Mathf.Round(_characterControllerManager.CurrentDirection.x));
-            _characterAnimator.SetFloat("moveY", Mathf.Round(_characterControllerManager.CurrentDirection.y));
+            animator.SetFloat("moveX", Mathf.Round(_characterControllerManager.CurrentDirection.x));
+            animator.SetFloat("moveY", Mathf.Round(_characterControllerManager.CurrentDirection.y));
         }
 
-        _characterAnimator.SetBool("moving", !_characterControllerManager.CurrentDirection.Equals(Vector2.zero));
+        animator.SetBool("moving", !_characterControllerManager.CurrentDirection.Equals(Vector2.zero));
         
-        _characterSorting.UpdateOrder();
+        sorting.UpdateOrder();
     }
     
-    public void Move(Vector2 pDirection) { }
+    public void Move(Vector2 direction) { }
 }

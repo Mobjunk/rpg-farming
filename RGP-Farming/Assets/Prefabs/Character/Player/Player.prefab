@@ -208,18 +208,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterStateManager: {fileID: 0}
   CharacterMovementMananger: {fileID: 0}
-  TileChecker: []
-  ItemAboveHead:
+  tileChecker:
+  - {fileID: 7175613189052391787}
+  - {fileID: 4864515225408918063}
+  itemAboveHead:
     item: {fileID: 0}
     amount: 0
     durability: -1
     maxDurability: -1
-  ItemAboveHeadRenderer: {fileID: 0}
-  CharacterInteractionManager: {fileID: 0}
-  CharacterInventory: {fileID: 0}
-  PlayerInventoryUIManager: {fileID: 0}
-  CharacterPlaceObject: {fileID: 0}
-  CharacterUIManager: {fileID: 0}
+  itemAboveHeadRenderer: {fileID: 1366394884135307302}
   CharacterControllerManager: {fileID: 0}
 --- !u!114 &4985750740829715719
 MonoBehaviour:
@@ -249,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b05ff58d6a4e94abe5af5510979c63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterState: 0
+  characterState: 0
 --- !u!114 &8149774648384929234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99efc67abc1a589468e27b62805e2b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interactables: []
-  Interactable: {fileID: 0}
+  interactables: []
+  interactable: {fileID: 0}
 --- !u!114 &4990165636136102975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,12 +287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df0788d2011c114f90f5cae796ec34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugInventory: 1
-  AllowShifting: 0
-  MaxInventorySize: 36
-  StackType: 0
-  Items: []
-  GoldCoins: 0
+  debugInventory: 1
+  maxInventorySize: 36
+  stackType: 0
+  items: []
+  goldCoins: 500
 --- !u!114 &2124916917677514975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2fbc2420e682e41b2b11f374461305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 0.025
+  speed: 0.015
 --- !u!114 &3769904240916278307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,12 +353,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6693ac2f1e6ec34cb8e226fdfbac36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentGameObjectHoverd: {fileID: 0}
-  _tileChecker: []
-  _grid: {fileID: 0}
-  TileMaps: []
-  _canPlace: {fileID: 0}
-  _cannotPlace: {fileID: 0}
+  tileChecker:
+  - {fileID: 7175613189052391787}
+  - {fileID: 4864515225408918063}
+  grid: {fileID: 0}
+  tileMaps:
+  - {fileID: 0}
+  - {fileID: 0}
+  canPlace: {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
+  cannotPlace: {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
   IsDisabled: 1
 --- !u!114 &2482437820657588259
 MonoBehaviour:
@@ -376,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef55daa4c15a67e4189b0edc506507c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentUIOpened: {fileID: 0}
+  currentUIOpened: {fileID: 0}
 --- !u!114 &1295267173746240204
 MonoBehaviour:
   m_ObjectHideFlags: 0

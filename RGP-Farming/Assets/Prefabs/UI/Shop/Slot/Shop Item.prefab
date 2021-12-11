@@ -68,7 +68,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3019499798928330607}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -143,7 +143,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3019499798928330607}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -280,9 +280,9 @@ RectTransform:
   m_Children:
   - {fileID: 3019499798154370712}
   - {fileID: 1514361626581278905}
+  - {fileID: 3019499798576196036}
   - {fileID: 3019499799028123114}
   - {fileID: 3019499798335833921}
-  - {fileID: 3019499798576196036}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -341,25 +341,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215dfc7e2d5f69840aa1fe258c2f1070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Containment:
-    item: {fileID: 0}
-    amount: 0
-    durability: -1
-    maxDurability: -1
-  SlotIndex: 0
-  Container: {fileID: 0}
-  Slot: {fileID: 8701960951730531461}
-  Amount: {fileID: 7799666396259808304}
-  Icon: {fileID: 3019499799772445991}
-  Highlight: {fileID: 0}
-  Slider: {fileID: 0}
-  ShowIndicator: 0
-  AllowMoving: 0
-  MainUISprite: {fileID: 3019499799772445991}
-  ItemName: {fileID: 3019499798576196037}
-  ItemNameShadow: {fileID: 7147460504472378434}
-  ItemPrice: {fileID: 3019499799028123115}
-  GoldCoin: {fileID: 3019499798335833918}
+  containment:
+    id: 0
+  slotIndex: 0
+  slot: {fileID: 8701960951730531461}
+  amount: {fileID: 7799666396259808304}
+  icon: {fileID: 3019499799772445991}
+  highlight: {fileID: 0}
+  slider: {fileID: 0}
+  mainUISprite: {fileID: 3019499798928330604}
+  itemName: {fileID: 3019499798576196037}
+  itemNameShadow: {fileID: 7147460504472378434}
+  itemPrice: {fileID: 3019499799028123115}
+  goldCoin: {fileID: 3019499798335833918}
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }
 --- !u!114 &2693446040151392680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,8 +370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1020854bd373b4c897996145bc9c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  _hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  image: {fileID: 3019499798928330604}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
 --- !u!1 &3019499799028123117
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +403,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3019499798928330607}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}

@@ -2,5 +2,13 @@ using UnityEngine;
 
 public class CharacterUIManager : MonoBehaviour
 {
-    public GameUIManager CurrentUIOpened;
+    [SerializeField] private GameUIManager currentUIOpened;
+
+    public GameUIManager CurrentUIOpened
+    {
+        get => currentUIOpened;
+        set => currentUIOpened = value;
+    }
+    
+    
 }
