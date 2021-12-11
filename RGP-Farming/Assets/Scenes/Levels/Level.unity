@@ -1561,7 +1561,6 @@ GameObject:
   - component: {fileID: 443561285}
   - component: {fileID: 443561286}
   - component: {fileID: 443561287}
-  - component: {fileID: 443561289}
   - component: {fileID: 443561288}
   m_Layer: 0
   m_Name: Grid
@@ -1617,8 +1616,6 @@ MonoBehaviour:
   dirtTile: {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
   wateredDirtTile: {fileID: 11400000, guid: de142ec513921c8428f0aed28c504fc2, type: 2}
   grid: {fileID: 443561286}
-  location: {x: 0, y: 0, z: 0}
-  mp: {x: 0, y: 0, z: 0}
 --- !u!114 &443561288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1628,7 +1625,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 443561284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d826defc269925446bda1d4ed71989fa, type: 3}
+  m_Script: {fileID: 11500000, guid: df5fa2073708b834bbc87c526a3b37c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 443561286}
@@ -1640,33 +1637,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
   - {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
   - {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
-  - {fileID: 11400000, guid: de142ec513921c8428f0aed28c504fc2, type: 2}
-  mousePosition: {x: 0, y: 0, z: 0}
-  tileLocation: {x: 0, y: 0, z: 0}
---- !u!114 &443561289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443561284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33fce90fe9555cc42b430b3573d790eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 443561286}
-  tileMaps:
-  - {fileID: 1233953296}
-  - {fileID: 2032565694}
-  - {fileID: 183147726}
-  tiles:
-  - {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
-  - {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
-  - {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
-  - {fileID: 11400000, guid: de142ec513921c8428f0aed28c504fc2, type: 2}
-  mousePosition: {x: 0, y: 0, z: 0}
-  tileLocation: {x: 0, y: 0, z: 0}
 --- !u!1 &538061350
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,8 +2692,6 @@ MonoBehaviour:
   dirtTile: {fileID: 11400000, guid: e521b25364905564ca1c6d9d76956c1e, type: 2}
   wateredDirtTile: {fileID: 11400000, guid: 4df2c5ec548ba684fa0b407070356c11, type: 2}
   grid: {fileID: 443561286}
-  location: {x: 0, y: 0, z: 0}
-  mp: {x: 0, y: 0, z: 0}
 --- !u!4 &1905801416
 Transform:
   m_ObjectHideFlags: 0
