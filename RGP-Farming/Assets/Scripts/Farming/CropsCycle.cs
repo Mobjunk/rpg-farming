@@ -4,72 +4,72 @@ using UnityEngine;
 [RequireComponent(typeof(CropsInteraction))]
 public class CropsCycle : MonoBehaviour
 {
-    private TilePlacer tilePlacer => TilePlacer.Instance();
+    private TilePlacer _tilePlacer => TilePlacer.Instance();
     
-    public Crops crops;
+    public Crops Crops;
 
-    private float updateTimer;
+    private float _updateTimer;
     
-    private int spriteCount;
+    private int _spriteCount;
     
-    private SpriteRenderer sr;
+    private SpriteRenderer _spriteRenderer;
     
-    private bool readyToHarvest;
+    private bool _readyToHarvest;
     
-    private int harvestAmount;
+    private int _harvestAmount;
     
-    private bool isWatered;
+    private bool _isWatered;
 
-    private GameObject diseasedObject;
+    private GameObject _diseasedObject;
 
 
 
     private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        diseasedObject = transform.GetChild(0).gameObject;
-        sr.sprite = crops.spriteStages[0];
-        updateTimer = crops.timeBetweenGrowthStage;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _diseasedObject = transform.GetChild(0).gameObject;
+        _spriteRenderer.sprite = Crops.spriteStages[0];
+        _updateTimer = Crops.timeBetweenGrowthStage;
     }
 
     private void Update()
     {
-        if (readyToHarvest) return;
+        if (_readyToHarvest) return;
         CropsUpdater();
     }
 
     public void CropsUpdater()
     {
-        isWatered = tilePlacer.CheckTileUnderObject(transform.position, TileType.WATER);
-        updateTimer -= Time.deltaTime;
-        if (updateTimer <= 0)
+        _isWatered = _tilePlacer.CheckTileUnderObject(transform.position, TileType.WATER);
+        _updateTimer -= Time.deltaTime;
+        if (_updateTimer <= 0)
         {
-            updateTimer = crops.timeBetweenGrowthStage;
+            _updateTimer = Crops.timeBetweenGrowthStage;
             if (!PlantHasDied())
             {
-                if (spriteCount < crops.spriteStages.Length)
+                if (_spriteCount < Crops.spriteStages.Length)
                 {
-                    sr.sprite = crops.spriteStages[++spriteCount];
+                    _spriteRenderer.sprite = Crops.spriteStages[++_spriteCount];
                 }
-                if (spriteCount == crops.spriteStages.Length - 1 && !readyToHarvest)
+                if (_spriteCount == Crops.spriteStages.Length - 1 && !_readyToHarvest)
                 {
-                    harvestAmount = Random.Range(crops.harvestAmount - crops.harvestModifier, crops.harvestAmount + crops.harvestModifier);
-                    readyToHarvest = true;
+                    _harvestAmount = Random.Range(Crops.harvestAmount - Crops.harvestModifier, Crops.harvestAmount + Crops.harvestModifier);
+                    _readyToHarvest = true;
                 }
             }
-            tilePlacer.UpdateTile(gameObject, TileType.WATER);
+            _tilePlacer.UpdateTile(gameObject, TileType.WATER);
         }
     }
     
     public bool PlantHasDied()
     {
         // Set the sprite of the plant to dead.
-        if (!isWatered && crops.useOfWater)
+        if (!_isWatered && Crops.useOfWater)
         {
             //SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
             //spriteRenderer.enabled = true;
-            diseasedObject.SetActive(true);
-            readyToHarvest = true;
+            _diseasedObject.SetActive(true);
+            _readyToHarvest = true;
             return true;
 
         }
@@ -77,18 +77,18 @@ public class CropsCycle : MonoBehaviour
     }
     public void GivePlayerHarvestedItem()
     {
-        if (!readyToHarvest) return;
+        if (!_readyToHarvest) return;
         
-        if (harvestAmount <= 0)
+        if (_harvestAmount <= 0)
         {
             Destroy(gameObject);
             return;
         }
             
-        harvestAmount--;
-        Player.Instance().CharacterInventory.AddItem(crops.harvestedItem,show:true);
+        _harvestAmount--;
+        Player.Instance().CharacterInventory.AddItem(Crops.harvestedItem,pShow:true);
         
-        if (harvestAmount <= 0)
+        if (_harvestAmount <= 0)
         {
             Vector3Int tileLocation = CharacterPlaceObject.Instance().GetTilemaps()[1].WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             CharacterPlaceObject.Instance().GetTilemaps()[1].SetTile(tileLocation, null);
@@ -99,6 +99,6 @@ public class CropsCycle : MonoBehaviour
 
     public bool HasFinishedGrowing()
     {
-        return readyToHarvest;
+        return _readyToHarvest;
     }
 }

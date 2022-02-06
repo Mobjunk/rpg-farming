@@ -4,46 +4,46 @@ using UnityEngine;
 public class SpriteFader : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer _spriteRenderer;
 
     [SerializeField]
-    private float transitionTime = 0.5f;
+    private float _transitionTime = 0.5f;
 
-    private Coroutine fadeCoroutine;
+    private Coroutine _fadeCoroutine;
 
     private void OnValidate()
     {
-        if (spriteRenderer == null)
+        if (_spriteRenderer == null)
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
     }
 
     public void SetAlpha(float alpha)
     {
-        if (fadeCoroutine != null)
+        if (_fadeCoroutine != null)
         {
-            StopCoroutine(fadeCoroutine);
+            StopCoroutine(_fadeCoroutine);
         }
 
-        fadeCoroutine = StartCoroutine(TransitionColor(new Color(1, 1, 1, alpha)));
+        _fadeCoroutine = StartCoroutine(TransitionColor(new Color(1, 1, 1, alpha)));
     }
 
-    public void SetAlphaInstant(float alpha)
+    public void SetAlphaInstant(float pAlpha)
     {
         StopAllCoroutines();
-        spriteRenderer.color = new Color(1, 1, 1, alpha);
+        _spriteRenderer.color = new Color(1, 1, 1, pAlpha);
     }
 
-    IEnumerator TransitionColor(Color targetColor)
+    IEnumerator TransitionColor(Color pTargetColor)
     {
         float t = 0;
 
-        Color currentColor = spriteRenderer.color;
+        Color currentColor = _spriteRenderer.color;
 
-        while (t != transitionTime)
+        while (t != _transitionTime)
         {
-            spriteRenderer.color = Color.Lerp(currentColor, targetColor, t / transitionTime);
+            _spriteRenderer.color = Color.Lerp(currentColor, pTargetColor, t / _transitionTime);
             t += Time.deltaTime;
             yield return null;
         }

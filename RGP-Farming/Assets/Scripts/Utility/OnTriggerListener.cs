@@ -5,36 +5,36 @@ using UnityEngine.Events;
 public class OnTriggerListener : MonoBehaviour
 {
     [SerializeField]
-    private string[] allowedTags;
+    private string[] _allowedTags;
 
     [SerializeField]
-    private UnityEvent OnTriggerEnter;
+    private UnityEvent _OnTriggerEnter;
 
     [SerializeField]
-    private UnityEvent OnTriggerExit;
+    private UnityEvent _OnTriggerExit;
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D pCollision)
     {
-        if (HasAllowedTag(collision.gameObject))
+        if (HasAllowedTag(pCollision.gameObject))
         {
-            OnTriggerEnter.Invoke();
+            _OnTriggerEnter.Invoke();
 
         }
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerExit2D(Collider2D pCollision)
     {
-        if (HasAllowedTag(collision.gameObject))
+        if (HasAllowedTag(pCollision.gameObject))
         {
-            OnTriggerExit.Invoke();
+            _OnTriggerExit.Invoke();
         }
     }
 
-    private bool HasAllowedTag(GameObject gameObject)
+    private bool HasAllowedTag(GameObject pGameObject)
     {
-        for (int i = 0; i < allowedTags.Length; i++)
+        for (int i = 0; i < _allowedTags.Length; i++)
         {
-            if (gameObject.CompareTag(allowedTags[i]))
+            if (pGameObject.CompareTag(_allowedTags[i]))
             {
                 return true;
             }

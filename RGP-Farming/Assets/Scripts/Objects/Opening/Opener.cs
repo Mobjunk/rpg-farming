@@ -3,31 +3,31 @@ using UnityEngine;
 
 public abstract class Opener : MonoBehaviour, IOpener
 {
-    private AbstractInventoryUIManger inventoryUIManager;
+    private AbstractInventoryUIManger _inventoryUIManager;
 
     public virtual void Awake()
     {
-        inventoryUIManager = GetComponent<AbstractInventoryUIManger>();
+        _inventoryUIManager = GetComponent<AbstractInventoryUIManger>();
     }
 
-    public virtual void Interact(CharacterManager characterManager)
+    public virtual void Interact(CharacterManager pCharacterManager)
     {
-        if (!inventoryUIManager.isOpened) Open(characterManager);
-        else Close(characterManager);
+        if (!_inventoryUIManager.IsOpened) Open(pCharacterManager);
+        else Close(pCharacterManager);
     }
 
-    public virtual void Open(CharacterManager characterManager)
+    public virtual void Open(CharacterManager pCharacterManager)
     {
-        inventoryUIManager.Open();
+        _inventoryUIManager.Open();
         //((Player)characterManager).ToggleInput();
-        inventoryUIManager.onInventoryUIClosing += OnInventoryUIClosing;
+        _inventoryUIManager.onInventoryUIClosing += OnInventoryUIClosing;
     }
 
-    public virtual void Close(CharacterManager characterManager)
+    public virtual void Close(CharacterManager pCharacterManager)
     {
-        inventoryUIManager.Close();
+        _inventoryUIManager.Close();
         //((Player)characterManager).ToggleInput();
-        inventoryUIManager.onInventoryUIClosing -= OnInventoryUIClosing;
+        _inventoryUIManager.onInventoryUIClosing -= OnInventoryUIClosing;
     }
 
     public virtual void OnInventoryUIClosing()

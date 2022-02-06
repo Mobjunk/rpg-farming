@@ -4,58 +4,58 @@ using UnityEngine.UI;
 
 public abstract class ItemReceivedContainment<T> : MonoBehaviour
 {
-    [SerializeReference] protected T containment;
+    [SerializeReference] protected T _containment;
     
     public T Containment
     {
-        get => containment;
+        get => _containment;
     }
     
-    [SerializeField] private Image[] backgrounds;
+    [SerializeField] private Image[] _backgrounds;
 
     public Image[] Backgrounds
     {
-        get => backgrounds;
+        get => _backgrounds;
     }
 
-    [SerializeField] private TextMeshProUGUI[] texts;
+    [SerializeField] private TextMeshProUGUI[] _texts;
 
     public TextMeshProUGUI[] Texts
     {
-        get => texts;
+        get => _texts;
     }
 
-    [SerializeField] private Image icon;
+    [SerializeField] private Image _icon;
 
     public Image Icon
     {
-        get => icon;
+        get => _icon;
     }
 
-    [SerializeField] private TextMeshProUGUI amount;
+    [SerializeField] private TextMeshProUGUI _amount;
     
     public TextMeshProUGUI Amount
     {
-        get => amount;
+        get => _amount;
     }
 
-    [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private TextMeshProUGUI _itemName;
 
     public TextMeshProUGUI ItemName
     {
-        get => itemName;
+        get => _itemName;
     }
     
-    public virtual void SetContainment(T containment)
+    public virtual void SetContainment(T pContainment)
     {
-        this.containment = containment;
+        this._containment = pContainment;
     }
     
     public virtual void ClearContainment()
     {
-        containment = default;
-        amount.text = "";
-        icon.enabled = false;
-        itemName.text = "";
+        _containment = default;
+        _amount.text = "";
+        _icon.enabled = false;
+        _itemName.text = "";
     }
 }

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CharacterChestManager : CharacterBodyPartManager
 {
-    [SerializeField] private Chest characterChest;
+    [SerializeField] private Chest _characterChest;
 
     public override void Awake()
     {
-        CurrentBodyPart = characterChest;
+        CurrentBodyPart = _characterChest;
         base.Awake();
     }
 }

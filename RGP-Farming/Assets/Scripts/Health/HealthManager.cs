@@ -7,20 +7,20 @@ public class HealthManager : MonoBehaviour
     public delegate void OnHealthChanged();
     public OnHealthChanged onHealthChanged = delegate {  };
     
-    [SerializeField] private int currentHealth;
+    [SerializeField] private int _currentHealth;
 
     public int CurrentHealth
     {
-        get => currentHealth;
-        set => currentHealth = value;
+        get => _currentHealth;
+        set => _currentHealth = value;
     }
     
-    private int maxHealth;
+    private int _maxHealth;
     
     public int MaxHealth
     {
-        get => maxHealth;
-        set => maxHealth = value;
+        get => _maxHealth;
+        set => _maxHealth = value;
     }
 
     /// <summary>
@@ -28,17 +28,17 @@ public class HealthManager : MonoBehaviour
     /// </summary>
     public void Awake()
     {
-        MaxHealth = currentHealth;
+        MaxHealth = _currentHealth;
     }
 
     /// <summary>
     /// Handles taking damage
     /// </summary>
-    /// <param name="damage"></param>
-    public virtual void TakeDamage(int damage)
+    /// <param name="pDamage"></param>
+    public virtual void TakeDamage(int pDamage)
     {
-        if (damage > CurrentHealth) damage = CurrentHealth;
-        CurrentHealth -= damage;
+        if (pDamage > CurrentHealth) pDamage = CurrentHealth;
+        CurrentHealth -= pDamage;
         if(CurrentHealth <= 0) HandleDeath();
         onHealthChanged.Invoke();
     }
@@ -46,10 +46,10 @@ public class HealthManager : MonoBehaviour
     /// <summary>
     /// Handles healing
     /// </summary>
-    /// <param name="heal"></param>
-    public virtual void Heal(int heal)
+    /// <param name="pHeal"></param>
+    public virtual void Heal(int pHeal)
     {
-        CurrentHealth += heal;
+        CurrentHealth += pHeal;
         if (CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
         onHealthChanged.Invoke();
     }

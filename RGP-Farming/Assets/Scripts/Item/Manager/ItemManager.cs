@@ -6,33 +6,33 @@ using UnityEngine;
 public class ItemManager : Singleton<ItemManager>
 {
 
-    public List<AbstractItemData> items = new List<AbstractItemData>();
+    public List<AbstractItemData> Items = new List<AbstractItemData>();
     
-    public List<CraftingRecipeData> craftingRecipes = new List<CraftingRecipeData>();
+    public List<CraftingRecipeData> CraftingRecipes = new List<CraftingRecipeData>();
     
-    public AbstractItemData ForName(string itemName)
+    public AbstractItemData ForName(string pItemName)
     {
-        return items.FirstOrDefault(itemData => itemData.name.ToLower().Equals(itemName.ToLower()));
+        return Items.FirstOrDefault(itemData => itemData.name.ToLower().Equals(pItemName.ToLower()));
     }
 
     private void Awake()
     {
-        foreach (AbstractItemData item in items)
+        foreach (AbstractItemData item in Items)
         {
             if (item.craftingRecipe == null) continue;
-            craftingRecipes.Add(new CraftingRecipeData(item, item.craftingRecipe));
+            CraftingRecipes.Add(new CraftingRecipeData(item, item.craftingRecipe));
         }
     }
 }
 
 public class CraftingRecipeData
 {
-    public AbstractItemData craftedItem;
-    public AbstractCraftingRecipe craftingRecipe;
+    public AbstractItemData CraftedItem;
+    public AbstractCraftingRecipe CraftingRecipe;
 
-    public CraftingRecipeData(AbstractItemData craftedItem, AbstractCraftingRecipe craftingRecipe)
+    public CraftingRecipeData(AbstractItemData pCraftedItem, AbstractCraftingRecipe pCraftingRecipe)
     {
-        this.craftedItem = craftedItem;
-        this.craftingRecipe = craftingRecipe;
+        this.CraftedItem = pCraftedItem;
+        this.CraftingRecipe = pCraftingRecipe;
     }
 }

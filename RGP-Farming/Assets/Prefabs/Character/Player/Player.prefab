@@ -175,13 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c886c9f744c7c984d91ba2efa7119f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileChecker:
-  - {fileID: 7175613189052391787}
-  - {fileID: 4864515225408918063}
-  itemAboveHead:
+  _tileChecker: []
+  _itemAboveHead:
     item: {fileID: 0}
     amount: 0
-  itemAboveHeadRenderer: {fileID: 1366394884135307302}
+    durability: -1
+    maxDurability: -1
+  _itemAboveHeadRenderer: {fileID: 0}
 --- !u!114 &4985750740829715719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b05ff58d6a4e94abe5af5510979c63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterState: 0
+  _characterState: 0
 --- !u!114 &8149774648384929234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99efc67abc1a589468e27b62805e2b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactables: []
-  interactable: {fileID: 0}
+  _interactables: []
+  _interactable: {fileID: 0}
 --- !u!114 &4990165636136102975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,8 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15bbd0200c36a094099977aec985d760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGender: 0
-  currentSkinColor: 0
+  _currentGender: 0
+  _currentSkinColor: 0
 --- !u!114 &4374187241684769131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
   maxInventorySize: 36
   stackType: 0
   items: []
-  goldCoins: 500
+  GoldCoins: 0
 --- !u!114 &2124916917677514975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2fbc2420e682e41b2b11f374461305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.015
+  _movementSpeed: 0.015
 --- !u!114 &2368994498836970983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,15 +329,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6693ac2f1e6ec34cb8e226fdfbac36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileChecker:
-  - {fileID: 7175613189052391787}
-  - {fileID: 4864515225408918063}
-  grid: {fileID: 0}
-  tileMaps:
-  - {fileID: 0}
-  - {fileID: 0}
-  canPlace: {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
-  cannotPlace: {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
+  _tileChecker: []
+  _grid: {fileID: 0}
+  _tileMaps: []
+  _canPlace: {fileID: 0}
+  _cannotPlace: {fileID: 0}
 --- !u!114 &2482437820657588259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef55daa4c15a67e4189b0edc506507c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentUIOpened: {fileID: 0}
+  _currentUIOpened: {fileID: 0}
 --- !u!114 &1295267173746240204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850dc69e34ab85142b38f33bc1149b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 100
+  _currentHealth: 100
 --- !u!1 &4990165636548847576
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661edf8f433cb2e4183373f5a07c25ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterChest: {fileID: 11400000, guid: 4a098a12ffaa1c04eadac4e2ed8bde9c, type: 2}
+  _characterChest: {fileID: 11400000, guid: 4a098a12ffaa1c04eadac4e2ed8bde9c, type: 2}
 --- !u!1 &4990165636610962420
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e5d6c1ebf416441a15edc26acd14f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterFeet: {fileID: 0}
+  _characterFeet: {fileID: 11400000, guid: 6749b4f598aac9f4bba788af43f6b2d3, type: 2}
 --- !u!1 &4990165636754290792
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a07b2bc775b4b742a4d8b1f55759e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterBody: {fileID: 11400000, guid: c657f36e2f2f04f4dbc569415db79535, type: 2}
+  _characterBody: {fileID: 11400000, guid: c657f36e2f2f04f4dbc569415db79535, type: 2}
 --- !u!1 &4990165637120341891
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,7 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c95292cc8c340b48b8d937ff162d596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterHat: {fileID: 11400000, guid: 09f146a129472264d861865acf47b154, type: 2}
+  _characterHat: {fileID: 11400000, guid: 09f146a129472264d861865acf47b154, type: 2}
 --- !u!1 &4990165637336804436
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a390c247894d04c91b286645ded180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterLegs: {fileID: 11400000, guid: db97f717195bc5545a402457c9b07ef8, type: 2}
+  _characterLegs: {fileID: 11400000, guid: db97f717195bc5545a402457c9b07ef8, type: 2}
 --- !u!1 &4990165637635886291
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,7 +935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd728b4b03c3b045a87d11b8672802a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterHair: {fileID: 11400000, guid: f901c5f0f31583c4fbffcf92558b27c9, type: 2}
+  _characterHair: {fileID: 11400000, guid: f901c5f0f31583c4fbffcf92558b27c9, type: 2}
 --- !u!1 &4990165637646983393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,7 +1031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0401cac6b43a0ec448c8f5b08ae38395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterEyes: {fileID: 11400000, guid: b7499ba9740217f4eb89d1db05965087, type: 2}
+  _characterEyes: {fileID: 11400000, guid: b7499ba9740217f4eb89d1db05965087, type: 2}
 --- !u!1 &5760169097359189574
 GameObject:
   m_ObjectHideFlags: 0

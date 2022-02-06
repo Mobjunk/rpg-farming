@@ -5,34 +5,34 @@ using UnityEngine;
 
 public abstract class InteractionManager : MonoBehaviour, IInteraction
 {
-    private Player player => Player.Instance();
-    private CursorManager cursor => CursorManager.Instance();
+    private Player _player => Player.Instance();
+    private CursorManager _cursor => CursorManager.Instance();
     
-    public virtual void OnInteraction(CharacterManager characterManager) { }
+    public virtual void OnInteraction(CharacterManager pCharacterManager) { }
 
-    public virtual void OnSecondaryInteraction(CharacterManager characterManager) { }
+    public virtual void OnSecondaryInteraction(CharacterManager pCharacterManager) { }
 
     private void OnMouseOver()
     {
-        if (cursor.IsPointerOverUIElement())
+        if (_cursor.IsPointerOverUIElement())
         {
-            cursor.SetDefaultCursor();
+            _cursor.SetDefaultCursor();
             return;
         }
         
-        player.CharacterPlaceObject.CurrentGameObjectHoverd = gameObject;
-        if (player.CharacterInteractionManager.GetInteractables().Contains(this))
+        _player.CharacterPlaceObject.CurrentGameObjectHoverd = gameObject;
+        if (_player.CharacterInteractionManager.GetInteractables().Contains(this))
         {
-            cursor.SetUsableInteractionCursor();
-            player.CharacterInteractionManager.Interactable = this;
+            _cursor.SetUsableInteractionCursor();
+            _player.CharacterInteractionManager.Interactable = this;
         }
-        else cursor.SetNonUsableInteractionCursor();
+        else _cursor.SetNonUsableInteractionCursor();
     }
 
     private void OnMouseExit()
     {
-        cursor.SetDefaultCursor();
-        player.CharacterPlaceObject.CurrentGameObjectHoverd = null;
-        player.CharacterInteractionManager.Interactable = null;
+        _cursor.SetDefaultCursor();
+        _player.CharacterPlaceObject.CurrentGameObjectHoverd = null;
+        _player.CharacterInteractionManager.Interactable = null;
     }
 }

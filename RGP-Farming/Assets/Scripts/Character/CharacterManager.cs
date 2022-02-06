@@ -9,39 +9,39 @@ public class CharacterManager : MonoBehaviour
     /// <summary>
     /// Input manager of the character
     /// </summary>
-    protected ICharacterInput characterInputManager;
+    protected ICharacterInput _characterInputManager;
     
     /// <summary>
     /// Statemachine of the character
     /// </summary>
-    private CharacterStateManager characterStateManager;
+    private CharacterStateManager _characterStateManager;
 
     public CharacterStateManager CharacterStateManager
     {
-        get => characterStateManager;
-        set => characterStateManager = value;
+        get => _characterStateManager;
+        set => _characterStateManager = value;
     }
     
     /// <summary>
     /// Movement of the character
     /// </summary>
-    private CharacterMovementMananger characterMovementMananger;
+    private CharacterMovementMananger _characterMovementMananger;
 
     public CharacterMovementMananger CharacterMovementMananger
     {
-        get => characterMovementMananger;
-        set => characterMovementMananger = value;
+        get => _characterMovementMananger;
+        set => _characterMovementMananger = value;
     }
     
     /// <summary>
     /// Action a character can perform
     /// </summary>
-    private CharacterAction characterAction;
+    private CharacterAction _characterAction;
     
     public CharacterAction CharacterAction
     {
-        get => characterAction;
-        set => characterAction = value;
+        get => _characterAction;
+        set => _characterAction = value;
     }
 
     public virtual void Awake()
@@ -60,28 +60,28 @@ public class CharacterManager : MonoBehaviour
     
     public virtual void Start()
     {
-        characterStateManager = GetComponent<CharacterStateManager>();
+        _characterStateManager = GetComponent<CharacterStateManager>();
     }
 
     public virtual void Update()
     {
-        characterAction?.Update();
+        _characterAction?.Update();
     }
 
     /// <summary>
     /// Handles setting a character action
     /// </summary>
-    /// <param name="action">A action a character can perform</param>
-    public void SetAction(CharacterAction action)
+    /// <param name="pAction">A action a character can perform</param>
+    public void SetAction(CharacterAction pAction)
     {
-        if (characterAction != null)
+        if (_characterAction != null)
         {
-            if (!characterAction.Interruptable()) return;
-            characterStateManager.SetCharacterState(CharacterStates.IDLE);
-            characterAction.OnStop();
+            if (!_characterAction.Interruptable()) return;
+            _characterStateManager.SetCharacterState(CharacterStates.IDLE);
+            _characterAction.OnStop();
         }
 
-        characterAction = action;
-        characterAction?.OnStart();
+        _characterAction = pAction;
+        _characterAction?.OnStart();
     }
 }

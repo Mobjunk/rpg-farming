@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbstractShopContainer : UIShopContainment<Item>
+public class AbstractShopContainer : UIShopContainment<GameItem>
 {
     
-    public override void SetContainment(Item containment)
+    public override void SetContainment(GameItem pContainment)
     {
-        base.SetContainment(containment);
+        base.SetContainment(pContainment);
         UpdateItemContainer();
     }
 
     protected virtual void UpdateItemContainer()
     {
-        if (Containment == null || Containment.item == null)
+        if (Containment == null || Containment.Item == null)
         {
             gameObject.SetActive(false);
             base.ClearContainment();
@@ -22,22 +22,22 @@ public class AbstractShopContainer : UIShopContainment<Item>
 
         gameObject.SetActive(true);
         MainUISprite.enabled = true;
-        Icon.sprite = Containment.item.uiSprite;
+        Icon.sprite = Containment.Item.uiSprite;
         Icon.enabled = true;
 
-        ItemName.text = $"{Containment.item.itemName}";
-        ItemNameShadow.text = $"{Containment.item.itemName}";
+        ItemName.text = $"{Containment.Item.itemName}";
+        ItemNameShadow.text = $"{Containment.Item.itemName}";
         
         ItemPrice.text = $"0";
         
-        Amount.text = $"{Containment.amount.ToString()}";
+        Amount.text = $"{Containment.Amount.ToString()}";
         Amount.enabled = true;
 
         GoldCoin.enabled = true;
     }
 
-    public virtual void UpdateItemPrice(int price)
+    public virtual void UpdateItemPrice(int pPrice)
     {
-        ItemPrice.text = $"{price}";
+        ItemPrice.text = $"{pPrice}";
     }
 }

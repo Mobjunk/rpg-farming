@@ -3,22 +3,22 @@ using UnityEngine;
 public class Npc : CharacterManager
 {
 
-    [SerializeField] private NpcData npcData;
+    [SerializeField] private NpcData _npcData;
 
     public NpcData NpcData
     {
-        get => npcData;
-        set => npcData = value;
+        get => _npcData;
+        set => _npcData = value;
     }
 
     public override void Awake()
     {
         base.Awake();
 
-        if (npcData != null)
+        if (_npcData != null)
         {
 
-            if (npcData.randomWalking)
+            if (_npcData.randomWalking)
             {
                 SetAction(new RandomMovementManager(this));
             }

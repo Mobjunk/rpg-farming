@@ -4,29 +4,29 @@ using UnityEngine;
 [Serializable]
 public class GroundItem
 {
-    public float defaultTime = 30;
-    public Item item;
-    public GameObject gameObject;
-    public bool respawn;
-    public float currentTime;
-    public State state;
+    public float DefaultTime = 30;
+    public GameItem gameItem;
+    public GameObject GameObject;
+    public bool Respawn;
+    public float CurrentTime;
+    public State State;
     
-    public GroundItem(Item item, GameObject gameObject, bool respawn = false)
+    public GroundItem(GameItem pGameItem, GameObject pGameObject, bool pRespawn = false)
     {
-        this.item = item;
-        this.gameObject = gameObject;
-        this.respawn = respawn;
-        if (!respawn) currentTime = defaultTime;
-        state = State.PUBLIC;
+        this.gameItem = pGameItem;
+        this.GameObject = pGameObject;
+        this.Respawn = pRespawn;
+        if (!pRespawn) CurrentTime = DefaultTime;
+        State = State.PUBLIC;
     }
 
-    public GroundItem(Item item, GameObject gameObject, State state, bool respawn = false)
+    public GroundItem(GameItem pGameItem, GameObject pGameObject, State pState, bool pRespawn = false)
     {
-        this.item = item;
-        this.gameObject = gameObject;
-        this.respawn = respawn;
-        if (!respawn) currentTime = defaultTime;
-        this.state = state;
+        this.gameItem = pGameItem;
+        this.GameObject = pGameObject;
+        this.Respawn = pRespawn;
+        if (!pRespawn) CurrentTime = DefaultTime;
+        this.State = pState;
     }
 }
 

@@ -18,7 +18,7 @@ public class Test : MonoBehaviour
 
     public void TestAdding()
     {
-        ItemReceiverManager.Instance().Add(new Item(ItemManager.Instance().ForName("Hoe"), 5));
+        ItemReceiverManager.Instance().Add(new GameItem(ItemManager.Instance().ForName("Hoe"), 5));
     }
 
     public CraftingInventoryUIManager craftingUIManager;

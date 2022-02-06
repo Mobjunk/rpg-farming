@@ -3,24 +3,25 @@ using UnityEngine;
 
 public class CraftingInventoryUIManager : AbstractInventoryUIManger
 {
-    private InventoryMenuManager inventoryMenuManager => InventoryMenuManager.Instance();
-    private ItemBarManager itemBarManager => ItemBarManager.Instance();
+    private InventoryMenuManager _inventoryMenuManager => InventoryMenuManager.Instance();
+    private ItemBarManager _itemBarManager => ItemBarManager.Instance();
     
-    [SerializeField] private CraftingInventory craftingInventory;
+    [SerializeField] private CraftingInventory _craftingInventory;
+
     public override void Awake()
     {
-        craftingInventory = GetComponent<CraftingInventory>();
+        _craftingInventory = GetComponent<CraftingInventory>();
         base.Awake();
     }
     public override void Open()
     {
-        if(InventoryContainers[0].maxSlots == 0) InventoryContainers[0].maxSlots = craftingInventory.maxInventorySize;
+        if(InventoryContainers[0].MaxSlots == 0) InventoryContainers[0].MaxSlots = _craftingInventory._maxInventorySize;
         base.Open();
         
-        Initialize(craftingInventory);
+        Initialize(_craftingInventory);
         
-        inventoryMenuManager.SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 189.5f));
-        inventoryMenuManager.Unhide(true);
+        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 189.5f));
+        _inventoryMenuManager.Unhide(true);
         
         //itemBarManager.Hide();
     }
@@ -29,15 +30,15 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
     {
         base.Close();
 
-        inventoryMenuManager.Hide(true);
-        inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
+        _inventoryMenuManager.Hide(true);
+        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
         
-        itemBarManager.Unhide();
+        _itemBarManager.Unhide();
         
         for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
         {
             ParentData parent = InventoryContainers[parentIndex];
-            foreach(Transform childParent in parent.inventoryContainer)
+            foreach(Transform childParent in parent.InventoryContainer)
                 Destroy(childParent.gameObject);
         }
     }
@@ -48,22 +49,22 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
         
         Player.Instance().PlayerInventoryUIManager.Open();
         
-        inventoryMenuManager.SetButtons(true);
-        inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
+        _inventoryMenuManager.SetButtons(true);
+        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
         
         //itemBarManager.Unhide();
         
         for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
         {
             ParentData parent = InventoryContainers[parentIndex];
-            foreach(Transform childParent in parent.inventoryContainer)
+            foreach(Transform childParent in parent.InventoryContainer)
                 Destroy(childParent.gameObject);
         }
     }
 
     public override void Interact()
     {
-        if (isOpened) Close();
+        if (IsOpened) Close();
         else Open();
     }
 }

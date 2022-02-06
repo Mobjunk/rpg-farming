@@ -4,20 +4,20 @@ using UnityEngine.Rendering;
 public class HeightBasedSorting : MonoBehaviour
 {
     [SerializeField]
-    private SortingGroup sortingGroup;
+    private SortingGroup _sortingGroup;
 
     [SerializeField]
-    private float positionScaling = -100;
+    private float _positionScaling = -100;
 
-    [SerializeField] private int offset;
+    [SerializeField] private int _offset;
 
-    [SerializeField] private bool skip;
+    [SerializeField] private bool _skip;
 
     private void OnValidate()
     {
-        if (sortingGroup == null)
+        if (_sortingGroup == null)
         {
-            sortingGroup = GetComponent<SortingGroup>();
+            _sortingGroup = GetComponent<SortingGroup>();
         }
 
         UpdateOrder();
@@ -30,10 +30,10 @@ public class HeightBasedSorting : MonoBehaviour
 
     public void UpdateOrder()
     {
-        if (skip) return;
-        if (sortingGroup != null)
+        if (_skip) return;
+        if (_sortingGroup != null)
         {
-            sortingGroup.sortingOrder = (int)(transform.position.y * positionScaling - offset);
+            _sortingGroup.sortingOrder = (int)(transform.position.y * _positionScaling - _offset);
         }
     }
 }

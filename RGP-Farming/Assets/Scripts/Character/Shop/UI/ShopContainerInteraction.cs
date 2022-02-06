@@ -7,63 +7,63 @@ using UnityEngine.UI;
 
 public class ShopContainerInteraction : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    private Player player = Player.Instance();
+    private Player _player = Player.Instance();
     
-    private ShopContainerGrid shopContainerGrid;
-    private Image image;
-    [SerializeField] private Color defaultColor;
-    [SerializeField] private Color hoverColor;
+    private ShopContainerGrid _shopContainerGrid;
+    private Image _image;
+    [SerializeField] private Color _defaultColor;
+    [SerializeField] private Color _hoverColor;
 
     private void Awake()
     {
-        shopContainerGrid = GetComponent<ShopContainerGrid>();
-        image = GetComponent<Image>();
+        _shopContainerGrid = GetComponent<ShopContainerGrid>();
+        _image = GetComponent<Image>();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData pEventData)
     {
-        image.color = hoverColor;
+        _image.color = _hoverColor;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData pEventData)
     {
-        image.color = defaultColor;
+        _image.color = _defaultColor;
     }
 
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData pEventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (pEventData.button == PointerEventData.InputButton.Left)
         {
-            AbstractItemData item = shopContainerGrid.Containment.item;
+            AbstractItemData item = _shopContainerGrid.Containment.Item;
             //Checks if the container you clicked is a shop
-            if (shopContainerGrid.Container.GetType() == typeof(ShopInventory))
+            if (_shopContainerGrid.Container.GetType() == typeof(ShopInventory))
             {
-                ShopInventory shopInventory = ((ShopInventory) shopContainerGrid.Container);
+                ShopInventory shopInventory = ((ShopInventory) _shopContainerGrid.Container);
                 //Checks if the player has room for the item
-                if (player.CharacterInventory.ItemFitsInventory())
+                if (_player.CharacterInventory.ItemFitsInventory())
                 {
-                    if (shopInventory.HasStock(shopContainerGrid.slotIndex))
+                    if (shopInventory.HasStock(_shopContainerGrid.SlotIndex))
                     {
-                        if (player.CharacterInventory.HasEnoughGold(item.itemPrice))
+                        if (_player.CharacterInventory.HasEnoughGold(item.itemPrice))
                         {
-                            player.CharacterInventory.PurchaseItem(item, shopInventory.GetBuyPrice(item));
+                            _player.CharacterInventory.PurchaseItem(item, shopInventory.GetBuyPrice(item));
                             shopInventory.SellItem(item);
                         } else Debug.LogError("Has not enough gold for this item...");
                     } else Debug.LogError("Shop has no stock...");
                 } else Debug.LogError("Has no room for this item...");
             }
             //Checks if the container that was clicked was a character inventory
-            else if (shopContainerGrid.Container.GetType() == typeof(CharacterInventory))
+            else if (_shopContainerGrid.Container.GetType() == typeof(CharacterInventory))
             {
                 //Grabs the shop inventory from the current ui being opened
-                ShopInventory shopInventory = player.CharacterUIManager.CurrentUIOpened.GetComponent<ShopInventory>();
+                ShopInventory shopInventory = _player.CharacterUIManager.CurrentUIOpened.GetComponent<ShopInventory>();
                 if (shopInventory != null)
                 {
                     //Checks if the shop can purchase this item
                     if (shopInventory.CanPurchase(item))
                     {
-                        ((CharacterInventory) shopContainerGrid.Container).SellItem(item, shopInventory.GetSellPrice(item));
+                        ((CharacterInventory) _shopContainerGrid.Container).SellItem(item, shopInventory.GetSellPrice(item));
                         shopInventory.PurchaseItem(item);
                     } else Debug.LogError("Cannot purchase does not belong in current stock...");
                 }

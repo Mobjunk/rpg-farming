@@ -3,47 +3,47 @@ using UnityEngine;
 [RequireComponent(typeof(ShopUIManager), typeof(ShopInteraction))]
 public class ShopInventory : AbstractItemInventory
 {
-    public ShopStock shopStock;
+    public ShopStock ShopStock;
 
     public override void Awake()
     {
         base.Awake();
 
-        if (shopStock == null) return;
+        if (ShopStock == null) return;
 
-        foreach (Item item in shopStock.items)
-            AddItem(item.item, item.amount);
+        foreach (GameItem item in ShopStock.items)
+            AddItem(item.Item, item.Amount);
     }
 
     /// <summary>
     /// Handles purchasing a item from a player
     /// </summary>
-    /// <param name="item"></param>
-    /// <param name="amount"></param>
-    public void PurchaseItem(AbstractItemData item, int amount = 1)
+    /// <param name="pItem"></param>
+    /// <param name="pAmount"></param>
+    public void PurchaseItem(AbstractItemData pItem, int pAmount = 1)
     {
-        AddItem(item, amount);
+        AddItem(pItem, pAmount);
     }
 
     /// <summary>
     /// Handles selling a item to a player
     /// </summary>
-    /// <param name="item"></param>
-    /// <param name="amount"></param>
-    public void SellItem(AbstractItemData item, int amount = 1)
+    /// <param name="pItem"></param>
+    /// <param name="pImount"></param>
+    public void SellItem(AbstractItemData pItem, int pImount = 1)
     {
-        RemoveItem(item, amount, true);
+        RemoveItem(pItem, pImount, true);
     }
 
     /// <summary>
     /// Checks if the shop can purchase a item
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="pItem"></param>
     /// <returns></returns>
-    public bool CanPurchase(AbstractItemData item)
+    public bool CanPurchase(AbstractItemData pItem)
     {
-        if (!shopStock.isGeneralStore)
-            if (!HasItem(item, 0)) return false;
+        if (!ShopStock.isGeneralStore)
+            if (!HasItem(pItem, 0)) return false;
         if (!ItemFitsInventory()) return false;
         return true;
     }
@@ -51,30 +51,30 @@ public class ShopInventory : AbstractItemInventory
     /// <summary>
     /// Checks if the store has stock in a specific slot
     /// </summary>
-    /// <param name="slot"></param>
+    /// <param name="pSlot"></param>
     /// <returns></returns>
-    public bool HasStock(int slot)
+    public bool HasStock(int pSlot)
     {
-        return items[slot].amount > 0;
+        return Items[pSlot].Amount > 0;
     }
 
     /// <summary>
     /// Calculates the buy price of a item to a store
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="pItem"></param>
     /// <returns></returns>
-    public int GetSellPrice(AbstractItemData item)
+    public int GetSellPrice(AbstractItemData pItem)
     {
-        return Mathf.FloorToInt(item.itemPrice * shopStock.sellRatio);
+        return Mathf.FloorToInt(pItem.itemPrice * ShopStock.sellRatio);
     }
 
     /// <summary>
     /// Calculates the sell price of a item to a store
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="pItem"></param>
     /// <returns></returns>
-    public int GetBuyPrice(AbstractItemData item)
+    public int GetBuyPrice(AbstractItemData pItem)
     {
-        return Mathf.FloorToInt(item.itemPrice * shopStock.buyRatio);
+        return Mathf.FloorToInt(pItem.itemPrice * ShopStock.buyRatio);
     }
 }

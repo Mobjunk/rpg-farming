@@ -5,54 +5,54 @@ using UnityEngine.SceneManagement;
 
 public static class Utility
 {
-    public static void AddSceneIfNotLoaded(string sceneName)
+    public static void AddSceneIfNotLoaded(string pSceneName)
     {
-        Scene playerScene = SceneManager.GetSceneByName(sceneName);
+        Scene playerScene = SceneManager.GetSceneByName(pSceneName);
         if (!playerScene.IsValid())
         {
-            SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+            SceneManager.LoadScene(pSceneName, LoadSceneMode.Additive);
         }
     }
 
-    public static void UnloadScene(string sceneName)
+    public static void UnloadScene(string pSceneName)
     {
-        SceneManager.UnloadSceneAsync(sceneName);
+        SceneManager.UnloadSceneAsync(pSceneName);
     }
 
-    public static void SwitchScenes(string oldSceneName, string newSceneName)
+    public static void SwitchScenes(string pOldSceneName, string pNewSceneName)
     {
-        SceneManager.UnloadSceneAsync(oldSceneName);
-        AddSceneIfNotLoaded(newSceneName);
+        SceneManager.UnloadSceneAsync(pOldSceneName);
+        AddSceneIfNotLoaded(pNewSceneName);
     }
 
     //TODO: Find a better name for this
     /// <summary>
     /// Handles changing a int based on the parameter
     /// </summary>
-    /// <param name="increase">Increase the integer</param>
-    /// <param name="currentInt">Reference to the int your changing</param>
-    /// <param name="maxInteger">The max of the int your changing</param>
-    public static void HandleChange(bool increase, ref int currentInt, int maxInteger)
+    /// <param name="pIncrease">Increase the integer</param>
+    /// <param name="pCurrentInt">Reference to the int your changing</param>
+    /// <param name="pMaxInteger">The max of the int your changing</param>
+    public static void HandleChange(bool pIncrease, ref int pCurrentInt, int pMaxInteger)
     {
-        currentInt += increase ? 1 : -1;
-        if (currentInt < 0) currentInt = maxInteger;
-        if (currentInt >= maxInteger) currentInt = 0;
+        pCurrentInt += pIncrease ? 1 : -1;
+        if (pCurrentInt < 0) pCurrentInt = pMaxInteger;
+        if (pCurrentInt >= pMaxInteger) pCurrentInt = 0;
     }
     
-    public static GameObject FindObject(this GameObject parent, string name)
+    public static GameObject FindObject(this GameObject pParent, string pName)
     {
-        Transform[] trs= parent.GetComponentsInChildren<Transform>(true);
+        Transform[] trs= pParent.GetComponentsInChildren<Transform>(true);
         foreach(Transform t in trs){
-            if(t.name == name){
+            if(t.name == pName){
                 return t.gameObject;
             }
         }
         return null;
     }
     
-    public static Vector2 GetAnchor(AnchorsPresets anchor)
+    public static Vector2 GetAnchor(AnchorsPresets pAnchor)
     {
-        switch (anchor)
+        switch (pAnchor)
         {
             case AnchorsPresets.TOP_LEFT:
                 return new Vector2(0, 1);
@@ -73,16 +73,16 @@ public static class Utility
             case AnchorsPresets.CENTER:
                 return new Vector2(0.5f, 0.5f);
             default:
-                throw new ArgumentOutOfRangeException(nameof(anchor), anchor, null);
+                throw new ArgumentOutOfRangeException(nameof(pAnchor), pAnchor, null);
         }
     }
 
-    public static bool CanInteractWithTile(Grid grid, Vector3Int tilePosition, GameObject[] tileChecker)
+    public static bool CanInteractWithTile(Grid pGrid, Vector3Int pTilePosition, GameObject[] pTileChecker)
     {
-        for (int index = 0; index < tileChecker.Length; index++)
+        for (int index = 0; index < pTileChecker.Length; index++)
         {
-            Vector3Int pos = grid.WorldToCell(tileChecker[index].transform.position);
-            int distance = Mathf.FloorToInt(Vector2.Distance(new Vector2(tilePosition.x, tilePosition.y), new Vector2(pos.x, pos.y)));
+            Vector3Int pos = pGrid.WorldToCell(pTileChecker[index].transform.position);
+            int distance = Mathf.FloorToInt(Vector2.Distance(new Vector2(pTilePosition.x, pTilePosition.y), new Vector2(pos.x, pos.y)));
 
             if (distance <= 1) return true;
         }
@@ -91,9 +91,9 @@ public static class Utility
     }
     
     
-    public static string UppercaseFirst(string input)
+    public static string UppercaseFirst(string pInput)
     {
-        return input.First().ToString().ToUpper() + input.Substring(1);
+        return pInput.First().ToString().ToUpper() + pInput.Substring(1);
     }
 }
 

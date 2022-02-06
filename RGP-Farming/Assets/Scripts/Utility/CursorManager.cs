@@ -6,9 +6,9 @@ using UnityEngine.PlayerLoop;
 
 public class CursorManager : Singleton<CursorManager>
 {
-    [SerializeField] private Texture2D regularCursor;
-    [SerializeField] private Texture2D useableInteractionCursor;
-    [SerializeField] private Texture2D nonUseableInteractionCursor;
+    [SerializeField] private Texture2D _regularCursor;
+    [SerializeField] private Texture2D _useableInteractionCursor;
+    [SerializeField] private Texture2D _nonUseableInteractionCursor;
     
     private int UILayer;
 
@@ -20,17 +20,17 @@ public class CursorManager : Singleton<CursorManager>
 
     public void SetDefaultCursor()
     {
-        Cursor.SetCursor(regularCursor, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(_regularCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
     
     public void SetUsableInteractionCursor()
     {
-        Cursor.SetCursor(useableInteractionCursor, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(_useableInteractionCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
     
     public void SetNonUsableInteractionCursor()
     {
-        Cursor.SetCursor(nonUseableInteractionCursor, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(_nonUseableInteractionCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
     
     public bool IsPointerOverUIElement()
@@ -38,11 +38,11 @@ public class CursorManager : Singleton<CursorManager>
         return IsPointerOverUIElement(GetEventSystemRaycastResults());
     }
     
-    private bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaysastResults)
+    private bool IsPointerOverUIElement(List<RaycastResult> pEventSystemRaysastResults)
     {
-        for (int index = 0; index < eventSystemRaysastResults.Count; index++)
+        for (int index = 0; index < pEventSystemRaysastResults.Count; index++)
         {
-            RaycastResult curRaysastResult = eventSystemRaysastResults[index];
+            RaycastResult curRaysastResult = pEventSystemRaysastResults[index];
             if (curRaysastResult.gameObject.layer == UILayer)
                 return true;
         }

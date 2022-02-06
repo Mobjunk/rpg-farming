@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class FurnaceManager : MonoBehaviour
 {
-    private ItemManager itemManager => ItemManager.Instance();
-    private SmeltingManager smeltingManager => SmeltingManager.Instance();
+    private ItemManager _itemManager => ItemManager.Instance();
+    private SmeltingManager _smeltingManager => SmeltingManager.Instance();
     
-    [SerializeField] private ItemContainerGrid fuel;
-    [SerializeField] private ItemContainerGrid ore;
-    [SerializeField] private ItemContainerGrid bar;
-    [SerializeField] private float currentOreTimer, currentCoalTimer;
-    private AbstractSmeltingData smeltingData = null;
-    private FurnaceInventory furnaceInventory;
+    [SerializeField] private ItemContainerGrid _fuelContainer;
+    [SerializeField] private ItemContainerGrid _oreContainer;
+    [SerializeField] private ItemContainerGrid _barContainer;
+    [SerializeField] private float _currentOreTimer, currentCoalTimer;
+    private AbstractSmeltingData _smeltingData = null;
+    private FurnaceInventory _furnaceInventory;
     
     private void Awake()
     {
-        furnaceInventory = GetComponent<FurnaceInventory>();
+        _furnaceInventory = GetComponent<FurnaceInventory>();
     }
 
     private void Update()
@@ -23,57 +23,57 @@ public class FurnaceManager : MonoBehaviour
 
         if (currentCoalTimer <= 0 && HasFuelAndOre())
         {
-            fuel.Containment.amount--;
-            fuel.UpdateItemContainer();
+            _fuelContainer.Containment.Amount--;
+            _fuelContainer.UpdateItemContainer();
             currentCoalTimer = 10.25f;
-        } else if (currentCoalTimer <= 0 && !HasFuelAndOre() && currentOreTimer != 0)
+        } else if (currentCoalTimer <= 0 && !HasFuelAndOre() && _currentOreTimer != 0)
         {
             currentCoalTimer = 0;
-            currentOreTimer = 0;
+            _currentOreTimer = 0;
         }
         if (currentCoalTimer > 0) currentCoalTimer -= Time.deltaTime;
         
         if (!CanSmeltOre()) return;
 
-        currentOreTimer += Time.deltaTime;
-        if (currentOreTimer >= smeltingData.smeltTime)
+        _currentOreTimer += Time.deltaTime;
+        if (_currentOreTimer >= _smeltingData.smeltTime)
         {
-            ore.Containment.amount--;
-            if (bar.Containment == null)
-                furnaceInventory.Set(2, new Item(smeltingData.completedItem));
-            else bar.Containment.amount++;
+            _oreContainer.Containment.Amount--;
+            if (_barContainer.Containment == null)
+                _furnaceInventory.Set(2, new GameItem(_smeltingData.completedItem));
+            else _barContainer.Containment.Amount++;
             
-            ore.UpdateItemContainer();
-            bar.UpdateItemContainer();
+            _oreContainer.UpdateItemContainer();
+            _barContainer.UpdateItemContainer();
             
-            currentOreTimer = 0;
+            _currentOreTimer = 0;
         }
     }
 
     private bool HasFuelAndOre()
     {
-        return fuel.Containment != null && fuel.Containment.item != null && fuel.Containment.item == itemManager.ForName("Coal") && ore.Containment != null && ore.Containment.item != null;
+        return _fuelContainer.Containment != null && _fuelContainer.Containment.Item != null && _fuelContainer.Containment.Item == _itemManager.ForName("Coal") && _oreContainer.Containment != null && _oreContainer.Containment.Item != null;
     }
 
     private bool CanSmeltOre()
     {
-        if (fuel == null || ore == null | bar == null) return false;
+        if (_fuelContainer == null || _oreContainer == null | _barContainer == null) return false;
         
         //Has a item in the fuel slot
         if (currentCoalTimer > 0)
         {
-            if (ore.Containment != null && ore.Containment.item != null)
+            if (_oreContainer.Containment != null && _oreContainer.Containment.Item != null)
             {
-                smeltingData = smeltingManager.GetSmeltingData(ore.Containment.item);
-                if (smeltingData == null)
+                _smeltingData = _smeltingManager.GetSmeltingData(_oreContainer.Containment.Item);
+                if (_smeltingData == null)
                 {
-                    Debug.Log("smelting data null: " + ore.Containment.item);
+                    Debug.Log("smelting data null: " + _oreContainer.Containment.Item);
                     return false;
                 }
 
                 //Checks if there is nothing in the bar containment or the completed item matches the item in the bar slot
-                if (bar.Containment == null || bar.Containment.item == null ||
-                    bar.Containment.item == smeltingData.completedItem)
+                if (_barContainer.Containment == null || _barContainer.Containment.Item == null ||
+                    _barContainer.Containment.Item == _smeltingData.completedItem)
                 {
                     return true;
                 }

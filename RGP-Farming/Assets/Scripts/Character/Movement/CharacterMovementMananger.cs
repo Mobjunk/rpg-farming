@@ -1,35 +1,36 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D)), DisallowMultipleComponent()]
 public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 {
-    [SerializeField] private float speed = 0.65f;
-    private Rigidbody2D rigidBody2D;
-    private Animator animator;
-    private HeightBasedSorting sorting;
+    [FormerlySerializedAs("speed")] [SerializeField] private float _movementSpeed = 0.65f;
+    private Rigidbody2D _rigidBody2D;
+    private Animator _animator;
+    private HeightBasedSorting _sorting;
     
     private void Awake()
     {
-        rigidBody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        sorting = GetComponent<HeightBasedSorting>();
+        _rigidBody2D = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _sorting = GetComponent<HeightBasedSorting>();
     }
 
-    public void Move(Vector2 direction)
+    public void Move(Vector2 pDirection)
     {
-        direction.Normalize();
+        pDirection.Normalize();
 
-        rigidBody2D.MovePosition((Vector2)transform.position + (direction * speed));
+        _rigidBody2D.MovePosition((Vector2)transform.position + (pDirection * _movementSpeed));
 
-        if (!direction.Equals(Vector2.zero))
+        if (!pDirection.Equals(Vector2.zero))
         {
-            animator.SetFloat("moveX", Mathf.Round(direction.x));
-            animator.SetFloat("moveY", Mathf.Round(direction.y));
+            _animator.SetFloat("moveX", Mathf.Round(pDirection.x));
+            _animator.SetFloat("moveY", Mathf.Round(pDirection.y));
         }
 
-        animator.SetBool("moving", !direction.Equals(Vector2.zero));
+        _animator.SetBool("moving", !pDirection.Equals(Vector2.zero));
         
-        sorting.UpdateOrder();
+        _sorting.UpdateOrder();
     }
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SmeltingManager : Singleton<SmeltingManager>
 {
-    [SerializeField] private List<AbstractSmeltingData> smeltingRecipes = new List<AbstractSmeltingData>();
+    [SerializeField] private List<AbstractSmeltingData> _smeltingRecipes = new List<AbstractSmeltingData>();
 
-    public List<AbstractSmeltingData> GetSmeltingRecipes() => smeltingRecipes;
+    public List<AbstractSmeltingData> GetSmeltingRecipes() => _smeltingRecipes;
 
-    public AbstractSmeltingData GetSmeltingData(AbstractItemData ore)
+    public AbstractSmeltingData GetSmeltingData(AbstractItemData pOre)
     {
-        return smeltingRecipes.FirstOrDefault(data => data.baseItem == ore);
+        return _smeltingRecipes.FirstOrDefault(data => data.baseItem == pOre);
     }
 }

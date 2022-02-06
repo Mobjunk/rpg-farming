@@ -4,36 +4,36 @@ using UnityEngine;
 
 public class ShopUIManager : AbstractInventoryUIManger
 {
-    private ShopUI shopUI => ShopUI.Instance();
-    private Player player => Player.Instance();
-    private ShopInventory shopInventory;
-    private PlayerInvenotryUIManager inventoryUIManager;
+    private ShopUI _shopUI => ShopUI.Instance();
+    private Player _player => Player.Instance();
+    private ShopInventory _shopInventory;
+    private PlayerInvenotryUIManager _inventoryUIManager;
     
     public override void Awake()
     {
         base.Awake();
-        shopInventory = GetComponent<ShopInventory>();
-        if (InventoryUI == null && InventoryContainers[0].inventoryContainer == null && UiTabs[0] == null && UiTabs[1] == null)
+        _shopInventory = GetComponent<ShopInventory>();
+        if (InventoryUI == null && InventoryContainers[0].InventoryContainer == null && UiTabs[0] == null && UiTabs[1] == null)
         {
-            InventoryUI = shopUI.Contents;
-            InventoryContainers[0].inventoryContainer = shopUI.ItemContainer.transform;
-            UiTabs = shopUI.UiTabs;
+            InventoryUI = _shopUI.Contents;
+            InventoryContainers[0].InventoryContainer = _shopUI.ItemContainer.transform;
+            UiTabs = _shopUI.UiTabs;
         }
     }
 
     public void Start()
     {
-        inventoryUIManager = player.GetComponent<PlayerInvenotryUIManager>();
-        InventoryContainers[0].maxSlots = shopInventory.maxInventorySize;
+        _inventoryUIManager = _player.GetComponent<PlayerInvenotryUIManager>();
+        InventoryContainers[0].MaxSlots = _shopInventory._maxInventorySize;
     }
 
     public override void Open()
     {
         base.Open();
         
-        if (shopInventory != null)
+        if (_shopInventory != null)
         {
-            Initialize(shopInventory);
+            Initialize(_shopInventory);
 
             UpdatePrices();
             
@@ -51,7 +51,7 @@ public class ShopUIManager : AbstractInventoryUIManger
         for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
         {
             ParentData parent = InventoryContainers[parentIndex];
-            foreach(Transform childParent in parent.inventoryContainer)
+            foreach(Transform childParent in parent.InventoryContainer)
                 Destroy(childParent.gameObject);
         }
     }
@@ -62,23 +62,23 @@ public class ShopUIManager : AbstractInventoryUIManger
     private void UpdatePrices()
     {
         //Handles updating the shops sell price
-        for (int slot = 0; slot < containers[0].Count; slot++)
+        for (int slot = 0; slot < _containers[0].Count; slot++)
         {
-            if (ContainmentContainer.items[slot].item == null) continue;
-            ((ShopContainerGrid)containers[0][slot]).UpdateItemPrice(shopInventory.GetBuyPrice(ContainmentContainer.items[slot].item));
+            if (ContainmentContainer.Items[slot].Item == null) continue;
+            ((ShopContainerGrid)_containers[0][slot]).UpdateItemPrice(_shopInventory.GetBuyPrice(ContainmentContainer.Items[slot].Item));
         }
         
         //Handles updating the player his inventory sell price
-        for (int slot = 0; slot < player.CharacterInventory.items.Length; slot++)
+        for (int slot = 0; slot < _player.CharacterInventory.Items.Length; slot++)
         {
-            if (player.CharacterInventory.items[slot].item == null) continue;
-            ((ShopContainerGrid)inventoryUIManager.containers[2][slot]).UpdateItemPrice(shopInventory.GetSellPrice(player.CharacterInventory.items[slot].item));
+            if (_player.CharacterInventory.Items[slot].Item == null) continue;
+            ((ShopContainerGrid)_inventoryUIManager._containers[2][slot]).UpdateItemPrice(_shopInventory.GetSellPrice(_player.CharacterInventory.Items[slot].Item));
         }
     }
 
-    public override void OnInventoryChanged(List<int> slots)
+    public override void OnInventoryChanged(List<int> pSlots)
     {
-        base.OnInventoryChanged(slots);
+        base.OnInventoryChanged(pSlots);
         UpdatePrices();
     }
 }

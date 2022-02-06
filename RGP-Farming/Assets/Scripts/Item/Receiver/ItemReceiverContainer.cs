@@ -1,41 +1,41 @@
 using UnityEngine;
 
-public class ItemReceiverContainer : ItemReceivedContainment<Item>
+public class ItemReceiverContainer : ItemReceivedContainment<GameItem>
 {
-    public override void SetContainment(Item containment)
+    public override void SetContainment(GameItem pContainment)
     {
-        base.SetContainment(containment);
+        base.SetContainment(pContainment);
         UpdateItemContainer();
     }
 
     private void UpdateItemContainer()
     {
-        if (Containment == null || Containment.item == null)
+        if (Containment == null || Containment.Item == null)
         {
             base.ClearContainment();
             return;
         }
 
-        Icon.sprite = Containment.item.uiSprite;
+        Icon.sprite = Containment.Item.uiSprite;
         Icon.enabled = true;
 
-        ItemName.text = $"{Containment.item.itemName}";
+        ItemName.text = $"{Containment.Item.itemName}";
         
-        Amount.text = $"{Containment.amount}";
+        Amount.text = $"{Containment.Amount}";
         Amount.enabled = true;
 
-        scaleUpdater = 0.5f;
+        _scaleUpdater = 0.5f;
     }
 
-    private float scaleUpdater;
+    private float _scaleUpdater;
     private void Update()
     {
-        if (scaleUpdater > 0) scaleUpdater -= Time.deltaTime;
+        if (_scaleUpdater > 0) _scaleUpdater -= Time.deltaTime;
         
-        if (scaleUpdater > 0.25f)
+        if (_scaleUpdater > 0.25f)
         {
             UpdateScale(0.002f);
-        } else if (scaleUpdater > 0)
+        } else if (_scaleUpdater > 0)
         {
             UpdateScale(-0.002f);
         }
@@ -45,11 +45,11 @@ public class ItemReceiverContainer : ItemReceivedContainment<Item>
         }
     }
 
-    private void UpdateScale(float adjuster)
+    private void UpdateScale(float pDdjuster)
     {
         var icon = Icon.transform;
         var localScale = icon.localScale;
-        localScale = new Vector3(localScale.x + adjuster, localScale.y + adjuster, localScale.y);
+        localScale = new Vector3(localScale.x + pDdjuster, localScale.y + pDdjuster, localScale.y);
         icon.localScale = localScale;
     }
 }

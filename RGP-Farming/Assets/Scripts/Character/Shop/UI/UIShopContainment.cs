@@ -6,31 +6,31 @@ public class UIShopContainment<T> : UIContainerbase<T>
 {
 
     [Header("Shop UI elements")]
-    [SerializeField] private Image mainUISprite;
-    public Image MainUISprite => mainUISprite;
+    [SerializeField] private Image _mainUISprite;
+    public Image MainUISprite => _mainUISprite;
     
-    [SerializeField] private TextMeshProUGUI itemName;
-    public TextMeshProUGUI ItemName => itemName;
+    [SerializeField] private TextMeshProUGUI _itemName;
+    public TextMeshProUGUI ItemName => _itemName;
     
-    [SerializeField] private TextMeshProUGUI itemNameShadow;
-    public TextMeshProUGUI ItemNameShadow => itemNameShadow;
+    [SerializeField] private TextMeshProUGUI _itemNameShadow;
+    public TextMeshProUGUI ItemNameShadow => _itemNameShadow;
     
-    [SerializeField] private TextMeshProUGUI itemPrice;
-    public TextMeshProUGUI ItemPrice => itemPrice;
+    [SerializeField] private TextMeshProUGUI _itemPrice;
+    public TextMeshProUGUI ItemPrice => _itemPrice;
     
-    [SerializeField] private Image goldCoin;
-    public Image GoldCoin => goldCoin;
+    [SerializeField] private Image _goldCoin;
+    public Image GoldCoin => _goldCoin;
     
     public override void ClearContainment()
     {
-        containment = default;
-        mainUISprite.enabled = false;
+        _containment = default;
+        _mainUISprite.enabled = false;
         Icon.enabled = false;
-        itemName.text = "";
-        itemName.text = "";
-        itemPrice.text = "";
+        _itemName.text = "";
+        _itemName.text = "";
+        _itemPrice.text = "";
         Amount.text = "";
-        goldCoin.enabled = false;
+        _goldCoin.enabled = false;
     }
 
 }

@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class CharacterInventory : AbstractItemInventory
 {
-    public int goldCoins;
+    public int GoldCoins;
 
-    public void PurchaseItem(AbstractItemData item, int itemPrice, int amount = 1)
+    public void PurchaseItem(AbstractItemData pItem, int pItemPrice, int pAmount = 1)
     {
-        UpdateCoins(-itemPrice);
-        AddItem(item, amount);
+        UpdateCoins(-pItemPrice);
+        AddItem(pItem, pAmount);
     }
 
-    public void SellItem(AbstractItemData item, int itemPrice, int amount = 1)
+    public void SellItem(AbstractItemData pItem, int pItemPrice, int pAmount = 1)
     {
-        UpdateCoins(itemPrice);
-        RemoveItem(item, amount);
+        UpdateCoins(pItemPrice);
+        RemoveItem(pItem, pAmount);
     }
 
-    public bool HasEnoughGold(int price)
+    public bool HasEnoughGold(int pPrice)
     {
-        return goldCoins > price;
+        return GoldCoins > pPrice;
     }
 
-    public void UpdateCoins(int amount)
+    public void UpdateCoins(int pAmount)
     {
-        goldCoins += amount;
-        GoldIndicatorManager.Instance().UpdateCoins(goldCoins);
+        GoldCoins += pAmount;
+        GoldIndicatorManager.Instance().UpdateCoins(GoldCoins);
     }
 
-    public void AddItem(AbstractItemData item, int itemAmount = 1, bool show = false)
+    public void AddItem(AbstractItemData pItem, int pItemAmount = 1, bool pShow = false)
     {
-        if (show) ItemReceiverManager.Instance().Add(new Item(item, itemAmount));
-        base.AddItem(item, itemAmount);
+        if (pShow) ItemReceiverManager.Instance().Add(new GameItem(pItem, pItemAmount));
+        base.AddItem(pItem, pItemAmount);
     }
 }

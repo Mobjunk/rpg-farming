@@ -1,41 +1,41 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemContainerGrid : AbstractItemContainer<Item>
+public class ItemContainerGrid : AbstractItemContainer<GameItem>
 {
     public override void UpdateItemContainer()
     {
-        if (Containment == null || Containment.item == null)
+        if (Containment == null || Containment.Item == null)
         {
             base.ClearContainment();
             return;
         }
 
-        Icon.sprite = Containment.item.uiSprite;
+        Icon.sprite = Containment.Item.uiSprite;
         Icon.enabled = true;
 
-        if(ItemBarManager.Instance().selectedSlot == slotIndex && !AllowMoving) SetHighlighted(true);
+        if(ItemBarManager.Instance().SelectedSlot == SlotIndex && !AllowMoving) SetHighlighted(true);
 
-        Amount.text = $"{(Containment.amount > 1 ? Containment.amount.ToString() : "")}";
-        Amount.enabled = Containment.amount > 1;
+        Amount.text = $"{(Containment.Amount > 1 ? Containment.Amount.ToString() : "")}";
+        Amount.enabled = Containment.Amount > 1;
 
-        if (Containment.maxDurability != -1 && Containment.durability < Containment.maxDurability)
+        if (Containment.MaxDurability != -1 && Containment.Durability < Containment.MaxDurability)
         {
-            Slider.value = (Containment.durability / (Containment.maxDurability / 100f)) * (1 / 100f);
+            Slider.value = (Containment.Durability / (Containment.MaxDurability / 100f)) * (1 / 100f);
             Slider.gameObject.SetActive(true);
         }
     }
 
-    public override void OnPointerEnter(PointerEventData eventData)
+    public override void OnPointerEnter(PointerEventData pEventData)
     {
-        base.OnPointerEnter(eventData);
+        base.OnPointerEnter(pEventData);
         if (Containment == null) return;
-        ItemTooltipManager.Instance().SetTooltip(Containment.item);        
+        ItemTooltipManager.Instance().SetTooltip(Containment.Item);        
     }
 
-    public override void OnPointerExit(PointerEventData eventData)
+    public override void OnPointerExit(PointerEventData pEventData)
     {
-        base.OnPointerExit(eventData);
+        base.OnPointerExit(pEventData);
         ItemTooltipManager.Instance().SetTooltip(null);
     }
 }

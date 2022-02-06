@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
 {
-    private CharacterManager characterManager;
+    private CharacterManager _characterManager;
     
     public event CharacterInputAction OnCharacterAttack = delegate {  };
     public event CharacterInputActionMove OnCharacterMovement = delegate {  };
@@ -12,22 +12,22 @@ public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
 
     private void Awake()
     {
-        characterManager = GetComponent<CharacterManager>();
+        _characterManager = GetComponent<CharacterManager>();
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0)) OnCharacterInteraction(characterManager);
-        if(Input.GetMouseButtonDown(1)) OnCharacterSecondaryInteraction(characterManager);
+        if(Input.GetMouseButtonDown(0)) OnCharacterInteraction(_characterManager);
+        if(Input.GetMouseButtonDown(1)) OnCharacterSecondaryInteraction(_characterManager);
         //if(Input.GetMouseButtonDown(0)) OnCharacterAttack();
         //if (Input.GetKeyDown(KeyCode.F)) OnCharacterInteraction(characterManager);
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Player player = (Player) characterManager;
+            Player player = (Player) _characterManager;
             
-            if (player.PlayerInventoryUIManager.isOpened && player.CharacterUIManager.CurrentUIOpened.GetType() == typeof(PlayerInvenotryUIManager))
+            if (player.PlayerInventoryUIManager.IsOpened && player.CharacterUIManager.CurrentUIOpened.GetType() == typeof(PlayerInvenotryUIManager))
                 player.PlayerInventoryUIManager.Close();
-            else if (!player.PlayerInventoryUIManager.isOpened)
+            else if (!player.PlayerInventoryUIManager.IsOpened)
             {
                 if (player.CharacterUIManager.CurrentUIOpened != null && !player.CharacterUIManager.CurrentUIOpened.AllowedToOpenInvnetory) return;
                 player.PlayerInventoryUIManager.Open();

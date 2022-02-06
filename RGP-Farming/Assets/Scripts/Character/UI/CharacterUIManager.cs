@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class CharacterUIManager : MonoBehaviour
 {
-    [SerializeField] private GameUIManager currentUIOpened;
+    [SerializeField] private GameUIManager _currentUIOpened;
 
     public GameUIManager CurrentUIOpened
     {
-        get => currentUIOpened;
-        set => currentUIOpened = value;
+        get => _currentUIOpened;
+        set => _currentUIOpened = value;
     }
     
     

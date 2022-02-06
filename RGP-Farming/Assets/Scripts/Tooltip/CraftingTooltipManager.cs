@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager>
 {
 
-    [SerializeField] private RectTransform itemRequiredParent;
-    [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private RectTransform _itemRequiredParent;
+    [SerializeField] private GameObject _itemPrefab;
 
-    [SerializeField] private RectTransform deviderRect;
-    [SerializeField] private RectTransform descriptionRect;
+    [SerializeField] private RectTransform _deviderRect;
+    [SerializeField] private RectTransform _descriptionRect;
     
     public override Vector2 MinSize()
     {
@@ -21,44 +21,44 @@ public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager>
         return new Vector2(45, 95);
     }
 
-    public override void SetTooltip(AbstractItemData hoveredItem)
+    public override void SetTooltip(AbstractItemData pHoveredItem)
     {
-        base.SetTooltip(hoveredItem);
+        base.SetTooltip(pHoveredItem);
 
-        if (hoveredItem == null)
+        if (pHoveredItem == null)
         {
             ResetTooltip();
             return;
         }
 
-        increasedY = hoveredItem.craftingRecipe.requiredItems.Count * 20;
-        itemRequiredParent.sizeDelta = new Vector2(itemRequiredParent.sizeDelta.x, increasedY);
+        _increasedY = pHoveredItem.craftingRecipe.requiredItems.Count * 20;
+        _itemRequiredParent.sizeDelta = new Vector2(_itemRequiredParent.sizeDelta.x, _increasedY);
         
-        foreach (Item item in hoveredItem.craftingRecipe.requiredItems)
+        foreach (GameItem item in pHoveredItem.craftingRecipe.requiredItems)
         {
-            GameObject containment = Instantiate(itemPrefab, itemRequiredParent, true);
+            GameObject containment = Instantiate(_itemPrefab, _itemRequiredParent, true);
             containment.transform.localScale = new Vector3(1, 1, 1);
 
             Image icon = containment.GetComponentInChildren<Image>();
-            icon.sprite = item.item.uiSprite;
+            icon.sprite = item.Item.uiSprite;
 
             TextMeshProUGUI amount = icon.GetComponentInChildren<TextMeshProUGUI>();
-            amount.text = $"{item.amount}";
+            amount.text = $"{item.Amount}";
 
             TextMeshProUGUI itemName = containment.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-            itemName.text = $"{item.item.itemName}";
+            itemName.text = $"{item.Item.itemName}";
         }
         
-        deviderRect.anchoredPosition = new Vector2(deviderRect.anchoredPosition.x, -21 - increasedY);
-        descriptionRect.offsetMax = new Vector2(descriptionRect.offsetMax.x, -22 - increasedY);
+        _deviderRect.anchoredPosition = new Vector2(_deviderRect.anchoredPosition.x, -21 - _increasedY);
+        _descriptionRect.offsetMax = new Vector2(_descriptionRect.offsetMax.x, -22 - _increasedY);
     }
 
     public override void ResetTooltip()
     {
         base.ResetTooltip();
-        deviderRect.anchoredPosition = new Vector2(deviderRect.anchoredPosition.x, -21);
-        descriptionRect.offsetMax  = new Vector2(descriptionRect.offsetMax.x, -22);
-        foreach(Transform childParent in itemRequiredParent)
+        _deviderRect.anchoredPosition = new Vector2(_deviderRect.anchoredPosition.x, -21);
+        _descriptionRect.offsetMax  = new Vector2(_descriptionRect.offsetMax.x, -22);
+        foreach(Transform childParent in _itemRequiredParent)
             Destroy(childParent.gameObject);
     }
 }

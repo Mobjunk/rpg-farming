@@ -6,24 +6,24 @@ using UnityEngine;
 
 public class ItemBarManager : MenuManager<ItemBarManager>
 {
-    private ItemSnapperManager itemSnapper => ItemSnapperManager.Instance();
-    private Player player => Player.Instance();
+    private ItemSnapperManager _itemSnapper => ItemSnapperManager.Instance();
+    private Player _player => Player.Instance();
     
-    [HideInInspector] public int selectedSlot = 0;
-    [SerializeField] private ItemContainerGrid itemDisplayer;
+    [HideInInspector] public int SelectedSlot = 0;
+    [SerializeField] private ItemContainerGrid _itemDisplayer;
 
-    public ItemContainerGrid ItemDisplayer => itemDisplayer;
+    public ItemContainerGrid ItemDisplayer => _itemDisplayer;
     
-    private PlayerInvenotryUIManager inventoryUIManager;
+    private PlayerInvenotryUIManager _inventoryUIManager;
 
     public void Start()
     {
-        inventoryUIManager = player.GetComponent<PlayerInvenotryUIManager>();
+        _inventoryUIManager = _player.GetComponent<PlayerInvenotryUIManager>();
     }
 
     public void Update()
     {
-        if (player.ControllerConnected)
+        if (_player.ControllerConnected)
         {
             
         }
@@ -46,113 +46,113 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
     }
 
-    void UpdateSlot(float value)
+    void UpdateSlot(float pValue)
     {
         //TODO: Add a check to see if the player has a UI element open (Like shops/inventory)
-        if (Input.mouseScrollDelta.y == 0 || player.CharacterUIManager.CurrentUIOpened != null) return;
+        if (Input.mouseScrollDelta.y == 0 || _player.CharacterUIManager.CurrentUIOpened != null) return;
 
-        CharacterInventory characterInventory = player.CharacterInventory;
-        int nextSlot = characterInventory.GetNextOccupiedSlot(selectedSlot, value > 0);
+        CharacterInventory characterInventory = _player.CharacterInventory;
+        int nextSlot = characterInventory.GetNextOccupiedSlot(SelectedSlot, pValue > 0);
         if (nextSlot == -1) return;
 
         UpdateSlot(nextSlot);
     }
 
-    public void UpdateSlot(int nextSlot)
+    public void UpdateSlot(int pNextSlot)
     {
-        CharacterInventory characterInventory = player.CharacterInventory;
+        CharacterInventory characterInventory = _player.CharacterInventory;
 
-        if (characterInventory.items[nextSlot].item == null) return;
+        if (characterInventory.Items[pNextSlot].Item == null) return;
         
-        inventoryUIManager.containers[0][selectedSlot].SetHighlighted(false);
-        selectedSlot = nextSlot;
-        inventoryUIManager.containers[0][selectedSlot].SetHighlighted(true);
+        _inventoryUIManager._containers[0][SelectedSlot].SetHighlighted(false);
+        SelectedSlot = pNextSlot;
+        _inventoryUIManager._containers[0][SelectedSlot].SetHighlighted(true);
 
         //Checks if the item is a placeable item
-        if (characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.items[nextSlot].item.GetType() == typeof(AbstractPlantData))
+        if (characterInventory.Items[pNextSlot].Item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.Items[pNextSlot].Item.GetType() == typeof(AbstractPlantData))
         {
             //Sets the animator
-            player.CharacterStateManager.SetAnimator("wieldingItem", true);
+            _player.CharacterStateManager.SetAnimator("wieldingItem", true);
             //Sets item above head
-            player.ItemAboveHead = characterInventory.items[nextSlot];
+            _player.ItemAboveHead = characterInventory.Items[pNextSlot];
             //Sets the sprite above the head
-            player.ItemAboveHeadRenderer.sprite = characterInventory.items[nextSlot].item.uiSprite;
+            _player.ItemAboveHeadRenderer.sprite = characterInventory.Items[pNextSlot].Item.uiSprite;
             //Update the item containment
-            if (itemDisplayer.Containment != characterInventory.items[nextSlot]) itemDisplayer.SetContainment(characterInventory.items[nextSlot]);
+            if (_itemDisplayer.Containment != characterInventory.Items[pNextSlot]) _itemDisplayer.SetContainment(characterInventory.Items[pNextSlot]);
             //Checks if there is currently a item snapped
-            if (!itemSnapper.isSnapped)
+            if (!_itemSnapper.IsSnapped)
             {
-                itemSnapper.SetSnappedItem(itemDisplayer);
+                _itemSnapper.SetSnappedItem(_itemDisplayer);
                 //itemDisplayer.Icon.enabled = true;
-                itemDisplayer.gameObject.SetActive(true);
+                _itemDisplayer.gameObject.SetActive(true);
             }
         }
         else
         { //Reset everything
-            player.CharacterStateManager.SetAnimator("wieldingItem", false);
-            player.ItemAboveHead = null;
-            player.ItemAboveHeadRenderer.sprite = null;
+            _player.CharacterStateManager.SetAnimator("wieldingItem", false);
+            _player.ItemAboveHead = null;
+            _player.ItemAboveHeadRenderer.sprite = null;
             //itemDisplayer.Icon.enabled = false;
-            itemDisplayer.gameObject.SetActive(false);
-            itemSnapper.ResetSnappedItem();
+            _itemDisplayer.gameObject.SetActive(false);
+            _itemSnapper.ResetSnappedItem();
         }
     }
 
     public void UpdateSlot()
     {
-        CharacterInventory characterInventory = player.CharacterInventory;
+        CharacterInventory characterInventory = _player.CharacterInventory;
         
-        if(characterInventory.items[selectedSlot].item == null) return;
+        if(characterInventory.Items[SelectedSlot].Item == null) return;
         
         //Checks if the item is a placeable item
-        if (characterInventory.items[selectedSlot].item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.items[selectedSlot].item.GetType() == typeof(AbstractPlantData))
+        if (characterInventory.Items[SelectedSlot].Item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.Items[SelectedSlot].Item.GetType() == typeof(AbstractPlantData))
         {
             //Sets the animator
-            player.CharacterStateManager.SetAnimator("wieldingItem", true);
+            _player.CharacterStateManager.SetAnimator("wieldingItem", true);
             //Sets item above head
-            player.ItemAboveHead = characterInventory.items[selectedSlot];
+            _player.ItemAboveHead = characterInventory.Items[SelectedSlot];
             //Sets the sprite above the head
-            player.ItemAboveHeadRenderer.sprite = characterInventory.items[selectedSlot].item.uiSprite;
+            _player.ItemAboveHeadRenderer.sprite = characterInventory.Items[SelectedSlot].Item.uiSprite;
             //Update the item containment
-            if (itemDisplayer.Containment != characterInventory.items[selectedSlot]) itemDisplayer.SetContainment(characterInventory.items[selectedSlot]);
+            if (_itemDisplayer.Containment != characterInventory.Items[SelectedSlot]) _itemDisplayer.SetContainment(characterInventory.Items[SelectedSlot]);
             //Checks if there is currently a item snapped
-            if (!itemSnapper.isSnapped)
+            if (!_itemSnapper.IsSnapped)
             {
-                itemSnapper.SetSnappedItem(itemDisplayer);
+                _itemSnapper.SetSnappedItem(_itemDisplayer);
                 //itemDisplayer.Icon.enabled = true;
-                itemDisplayer.gameObject.SetActive(true);
+                _itemDisplayer.gameObject.SetActive(true);
             }
         }
         else
         { //Reset everything
-            player.CharacterStateManager.SetAnimator("wieldingItem", false);
-            player.ItemAboveHead = null;
-            player.ItemAboveHeadRenderer.sprite = null;
+            _player.CharacterStateManager.SetAnimator("wieldingItem", false);
+            _player.ItemAboveHead = null;
+            _player.ItemAboveHeadRenderer.sprite = null;
             //itemDisplayer.Icon.enabled = false;
-            itemDisplayer.gameObject.SetActive(false);
-            itemSnapper.ResetSnappedItem();
+            _itemDisplayer.gameObject.SetActive(false);
+            _itemSnapper.ResetSnappedItem();
         }
     }
 
     public AbstractItemData GetItemSelected()
     {
-        return player.CharacterInventory.items[selectedSlot].item;
+        return _player.CharacterInventory.Items[SelectedSlot].Item;
     }
     
-    public bool IsWearingCorrectTool(ToolType tooltype)
+    public bool IsWearingCorrectTool(ToolType pTooltype)
     {
-        if (player.CharacterInventory.items[selectedSlot].item == null) return false;
+        if (_player.CharacterInventory.Items[SelectedSlot].Item == null) return false;
         
-        if (player.CharacterInventory.items[selectedSlot].item.GetType() == typeof(AbstractToolItem))
+        if (_player.CharacterInventory.Items[SelectedSlot].Item.GetType() == typeof(AbstractToolItem))
         {
-            AbstractToolItem tool = (AbstractToolItem) player.CharacterInventory.items[selectedSlot].item;
-            if (tool.tooltype.Equals(tooltype)) return true;
+            AbstractToolItem tool = (AbstractToolItem) _player.CharacterInventory.Items[SelectedSlot].Item;
+            if (tool.tooltype.Equals(pTooltype)) return true;
         }
         return false;
     }
 
-    public bool IsWearingCorrectTools(ToolType[] tooltypes)
+    public bool IsWearingCorrectTools(ToolType[] pTooltypes)
     {
-        return tooltypes.Any(type => IsWearingCorrectTool(type));
+        return pTooltypes.Any(type => IsWearingCorrectTool(type));
     }
 }

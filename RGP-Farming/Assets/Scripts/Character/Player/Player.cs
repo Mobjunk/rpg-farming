@@ -4,91 +4,91 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterPlaceObject), typeof(CharacterUIManager))]
 public class Player : CharacterManager
 {
-    private ItemManager itemManager => ItemManager.Instance();
-    private static Player intsance;
+    private ItemManager _itemManager => ItemManager.Instance();
+    private static Player _intsance;
 
     public static Player Instance()
     {
-        return intsance;
+        return _intsance;
     }
 
-    [SerializeField] private GameObject[] tileChecker;
+    [SerializeField] private GameObject[] _tileChecker;
     public GameObject[] TileChecker
     {
-        get => tileChecker;
-        set => tileChecker = value;
+        get => _tileChecker;
+        set => _tileChecker = value;
     }
 
-    [SerializeField] private Item itemAboveHead;
-    public Item ItemAboveHead
+    [SerializeField] private GameItem _itemAboveHead;
+    public GameItem ItemAboveHead
     {
-        get => itemAboveHead;
-        set => itemAboveHead = value;
+        get => _itemAboveHead;
+        set => _itemAboveHead = value;
     }
 
-    [SerializeField] private SpriteRenderer itemAboveHeadRenderer;
+    [SerializeField] private SpriteRenderer _itemAboveHeadRenderer;
     public SpriteRenderer ItemAboveHeadRenderer
     {
-        get => itemAboveHeadRenderer;
-        set => itemAboveHeadRenderer = value;
+        get => _itemAboveHeadRenderer;
+        set => _itemAboveHeadRenderer = value;
     }
 
     /// <summary>
     /// Character interaction
     /// </summary>
-    private CharacterInteractionManager characterInteractionManager;
-    public CharacterInteractionManager CharacterInteractionManager => characterInteractionManager;
+    private CharacterInteractionManager _characterInteractionManager;
+    public CharacterInteractionManager CharacterInteractionManager => _characterInteractionManager;
     
     /// <summary>
     /// Players inventory
     /// </summary>
-    private CharacterInventory characterInventory;
-    public CharacterInventory CharacterInventory => characterInventory;
+    private CharacterInventory _characterInventory;
+    public CharacterInventory CharacterInventory => _characterInventory;
 
     /// <summary>
     /// The ui linked to the player's inventory
     /// </summary>
-    private PlayerInvenotryUIManager playerInventoryUIManager;
+    private PlayerInvenotryUIManager _playerInventoryUIManager;
 
     public PlayerInvenotryUIManager PlayerInventoryUIManager
     {
-        get => playerInventoryUIManager;
+        get => _playerInventoryUIManager;
     }
 
-    private CharacterPlaceObject characterPlaceObject;
+    private CharacterPlaceObject _characterPlaceObject;
 
     public CharacterPlaceObject CharacterPlaceObject
     {
-        get => characterPlaceObject;
-        set => characterPlaceObject = value;
+        get => _characterPlaceObject;
+        set => _characterPlaceObject = value;
     }
 
-    private CharacterUIManager characterUIManager;
+    private CharacterUIManager _characterUIManager;
 
     public CharacterUIManager CharacterUIManager
     {
-        get => characterUIManager;
-        set => characterUIManager = value;
+        get => _characterUIManager;
+        set => _characterUIManager = value;
     }
 
     /// <summary>
     /// Checks if a player has a controller connected
     /// </summary>
-    private bool controllerConnected;
-    public bool ControllerConnected => controllerConnected;
+    private bool _controllerConnected;
+    public bool ControllerConnected => _controllerConnected;
     
     public override void Awake()
     {
         base.Awake();
 
-        intsance = this;
+        _intsance = this;
 
-        characterInteractionManager = GetComponent<CharacterInteractionManager>();
-        characterInputManager = GetComponent<ICharacterInput>();
-        characterInventory = GetComponent<CharacterInventory>();
-        playerInventoryUIManager = GetComponent<PlayerInvenotryUIManager>();
-        characterPlaceObject = GetComponent<CharacterPlaceObject>();
-        characterUIManager = GetComponent<CharacterUIManager>();
+        _characterInteractionManager = GetComponent<CharacterInteractionManager>();
+        _characterInputManager = GetComponent<ICharacterInput>();
+        _characterInventory = GetComponent<CharacterInventory>();
+        _playerInventoryUIManager = GetComponent<PlayerInvenotryUIManager>();
+        _characterPlaceObject = GetComponent<CharacterPlaceObject>();
+        _characterUIManager = GetComponent<CharacterUIManager>();
     }
 
     public override void Start()
@@ -97,14 +97,14 @@ public class Player : CharacterManager
 
         SubscribeToInput();
         
-        playerInventoryUIManager.Initialize(characterInventory);
+        _playerInventoryUIManager.Initialize(_characterInventory);
     }
 
     public override void Update()
     {
         base.Update();
 
-        controllerConnected = false;
+        _controllerConnected = false;
         foreach(string name in Input.GetJoystickNames())
         {
             //Debug.Log("Controllername: " + name);
@@ -112,68 +112,68 @@ public class Player : CharacterManager
             switch (name)
             {
                 case "Controller (Xbox 360 Wireless Receiver for Windows)":
-                    controllerConnected = true;
+                    _controllerConnected = true;
                     break;
             }
         }
 
-        if (controllerConnected && characterInputManager.GetType() != typeof(CharacterControllerManager)) UpdateInput<CharacterKeyboardManager, CharacterControllerManager>();
-        else if (!controllerConnected && characterInputManager.GetType() != typeof(CharacterKeyboardManager)) UpdateInput<CharacterControllerManager, CharacterKeyboardManager>();
+        if (_controllerConnected && _characterInputManager.GetType() != typeof(CharacterControllerManager)) UpdateInput<CharacterKeyboardManager, CharacterControllerManager>();
+        else if (!_controllerConnected && _characterInputManager.GetType() != typeof(CharacterKeyboardManager)) UpdateInput<CharacterControllerManager, CharacterKeyboardManager>();
     }
 
     public void UpdateInput<T, Y>() where T : MonoBehaviour, ICharacterInput where Y : MonoBehaviour, ICharacterInput
     {
         Destroy(GetComponent<T>());
-        characterInputManager = gameObject.AddComponent<Y>();
+        _characterInputManager = gameObject.AddComponent<Y>();
 
         SubscribeToInput();
     }
 
-    private bool inputEnabled;
+    private bool _inputEnabled;
     public bool InputEnabled
     {
-        get => inputEnabled;
-        set => inputEnabled = value;
+        get => _inputEnabled;
+        set => _inputEnabled = value;
     }
 
     void SubscribeToInput()
     {
-        characterInputManager.OnCharacterMovement += CharacterMovementMananger.Move;
-        characterInputManager.OnCharacterInteraction += characterInteractionManager.OnCharacterInteraction;
-        characterInputManager.OnCharacterSecondaryInteraction += characterInteractionManager.OnCharacterSecondaryInteraction;
-        inputEnabled = true;
+        _characterInputManager.OnCharacterMovement += CharacterMovementMananger.Move;
+        _characterInputManager.OnCharacterInteraction += _characterInteractionManager.OnCharacterInteraction;
+        _characterInputManager.OnCharacterSecondaryInteraction += _characterInteractionManager.OnCharacterSecondaryInteraction;
+        _inputEnabled = true;
     }
 
     public void ToggleInput()
     {
-        if (inputEnabled)
+        if (_inputEnabled)
         {
-            characterInputManager.OnCharacterMovement -= CharacterMovementMananger.Move;
-            characterInputManager.OnCharacterInteraction -= characterInteractionManager.OnCharacterInteraction;
-            characterInputManager.OnCharacterSecondaryInteraction -= characterInteractionManager.OnCharacterSecondaryInteraction;
-            inputEnabled = false;
+            _characterInputManager.OnCharacterMovement -= CharacterMovementMananger.Move;
+            _characterInputManager.OnCharacterInteraction -= _characterInteractionManager.OnCharacterInteraction;
+            _characterInputManager.OnCharacterSecondaryInteraction -= _characterInteractionManager.OnCharacterSecondaryInteraction;
+            _inputEnabled = false;
         } else SubscribeToInput();
     }
     
     public void AddStarterItems()
     {
-        characterInventory.AddItem(itemManager.ForName("Pickaxe"), show: true);
-        characterInventory.AddItem(itemManager.ForName("Axe"), show: true);
-        characterInventory.AddItem(itemManager.ForName("Hoe"), show: true);
-        characterInventory.AddItem(itemManager.ForName("Scythe"), show: true);
-        characterInventory.AddItem(itemManager.ForName("Watering can"), show: true);
+        _characterInventory.AddItem(_itemManager.ForName("Pickaxe"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Axe"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
         /*characterInventory.AddItem(itemManager.ForName("Coal"), 100);
         characterInventory.AddItem(itemManager.ForName("Iron ore"), 100);*/
-        characterInventory.AddItem(itemManager.ForName("Chest"));
-        characterInventory.AddItem(itemManager.ForName("Furnace"));
-        characterInventory.AddItem(itemManager.ForName("Carrot seed"), 10, true);
-        characterInventory.AddItem(itemManager.ForName("Cabbage seed"), 10);
-        characterInventory.AddItem(itemManager.ForName("Eggplant seed"), 10);
-        characterInventory.AddItem(itemManager.ForName("Lemon seed"), 10);
-        characterInventory.AddItem(itemManager.ForName("Onion seed"), 10);
-        characterInventory.AddItem(itemManager.ForName("Pineapple seed"), 10);
-        characterInventory.AddItem(itemManager.ForName("Tomato seed"), 10);
-        characterInventory.AddItem(itemManager.ForName("Watermelon seed"), 10);
+        _characterInventory.AddItem(_itemManager.ForName("Chest"));
+        _characterInventory.AddItem(_itemManager.ForName("Furnace"));
+        _characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
+        _characterInventory.AddItem(_itemManager.ForName("Cabbage seed"), 10);
+        _characterInventory.AddItem(_itemManager.ForName("Eggplant seed"), 10);
+        _characterInventory.AddItem(_itemManager.ForName("Lemon seed"), 10);
+        _characterInventory.AddItem(_itemManager.ForName("Onion seed"), 10);
+        _characterInventory.AddItem(_itemManager.ForName("Pineapple seed"), 10);
+        _characterInventory.AddItem(_itemManager.ForName("Tomato seed"), 10);
+        _characterInventory.AddItem(_itemManager.ForName("Watermelon seed"), 10);
         /*characterInventory.AddItem(itemManager.ForName("Wood"), 50);
         characterInventory.AddItem(itemManager.ForName("Stone"), 50);*/
 

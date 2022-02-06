@@ -10,60 +10,60 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// <summary>
     /// The containment
     /// </summary>
-    [SerializeReference] protected T containment;
+    [SerializeReference] protected T _containment;
 
-    public T Containment => containment;
+    public T Containment => _containment;
 
     /// <summary>
     /// The index of the slot
     /// </summary>
-    [HideInInspector] public int slotIndex;
+    [HideInInspector] public int SlotIndex;
     
     //References
     #region References
 
-    private AbstractItemInventory container;
+    private AbstractItemInventory _container;
 
     public AbstractItemInventory Container
     {
-        get => container;
-        set => container = value;
+        get => _container;
+        set => _container = value;
     }
     
     /// <summary>
     /// Slot text of the containment
     /// </summary>
-    [SerializeField] private TextMeshProUGUI slot;
+    [SerializeField] private TextMeshProUGUI _slot;
 
-    public TextMeshProUGUI Slot => slot;
+    public TextMeshProUGUI Slot => _slot;
 
     /// <summary>
     /// Amount text of the containment
     /// </summary>
-    [SerializeField] private TextMeshProUGUI amount;
+    [SerializeField] private TextMeshProUGUI _amount;
 
-    public TextMeshProUGUI Amount => amount;
+    public TextMeshProUGUI Amount => _amount;
 
     /// <summary>
     /// Icon of the containment
     /// </summary>
-    [SerializeField] private Image icon;
+    [SerializeField] private Image _icon;
 
-    public Image Icon => icon;
+    public Image Icon => _icon;
 
     /// <summary>
     /// Highlight of the containment
     /// </summary>
-    [SerializeField] private Image highlight;
+    [SerializeField] private Image _highlight;
 
-    public Image Highlight => highlight;
+    public Image Highlight => _highlight;
 
     /// <summary>
     /// Slider of the containment
     /// </summary>
-    [SerializeField] private Slider slider;
+    [SerializeField] private Slider _slider;
 
-    public Slider Slider => slider;
+    public Slider Slider => _slider;
 
     #endregion
 
@@ -73,46 +73,46 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// <summary>
     /// Handles the highlight of a slot in use
     /// </summary>
-    private bool isHighlighted;
+    private bool _isHighlighted;
 
-    public void SetHighlighted(bool set)
+    public void SetHighlighted(bool pSet)
     {
-        isHighlighted = set;
-        Highlight.enabled = isHighlighted;
+        _isHighlighted = pSet;
+        Highlight.enabled = _isHighlighted;
     }
 
     /// <summary>
     /// Indicator of what key is used to select the slot
     /// </summary>
-    private bool showIndicator;
+    private bool _showIndicator;
 
-    public bool ShowIndicator => showIndicator;
+    public bool ShowIndicator => _showIndicator;
 
-    public void SetIndicator(bool set)
+    public void SetIndicator(bool pSet)
     {
-        showIndicator = set;
-        if (slotIndex < slotIcon.Length && ShowIndicator) slot.text = slotIcon[slotIndex];
-        else slot.text = "";
+        _showIndicator = pSet;
+        if (SlotIndex < slotIcon.Length && ShowIndicator) _slot.text = slotIcon[SlotIndex];
+        else _slot.text = "";
     }
     
     /// <summary>
     /// To check if the slot is allowed to be moved
     /// </summary>
-    private bool allowMoving;
+    private bool _allowMoving;
 
     public bool AllowMoving
     {
-        get => allowMoving;
-        set => allowMoving = value;
+        get => _allowMoving;
+        set => _allowMoving = value;
     }
 
     #endregion
     
-    private bool hoveringContainment;
+    private bool _hoveringContainment;
 
     private void Update()
     {
-        if (hoveringContainment)
+        if (_hoveringContainment)
         {
             var iconTransform = Icon.transform;
             bool increase = iconTransform.localScale.x < 1.1f;
@@ -127,10 +127,10 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// <summary>
     /// Handles setting the containment
     /// </summary>
-    /// <param name="containment"></param>
-    public virtual void SetContainment(T containment)
+    /// <param name="pContainment"></param>
+    public virtual void SetContainment(T pContainment)
     {
-        this.containment = containment;
+        this._containment = pContainment;
     }
 
     /// <summary>
@@ -138,26 +138,26 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     public virtual void ClearContainment()
     {
-        containment = default;
-        amount.text = "";
-        icon.enabled = false;
-        if(highlight != null) highlight.enabled = false;
-        if(slider != null) slider.gameObject.SetActive(false);
+        _containment = default;
+        _amount.text = "";
+        _icon.enabled = false;
+        if(_highlight != null) _highlight.enabled = false;
+        if(_slider != null) _slider.gameObject.SetActive(false);
     }
 
     string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
     private void Start()
     {
         //slotIndex = ;
-        if (!int.TryParse(gameObject.name, out slotIndex))
+        if (!int.TryParse(gameObject.name, out SlotIndex))
         {
             Debug.Log($"Cannot try parse {gameObject.name} to int...");
         }
         
-        if (slotIndex < slotIcon.Length && ShowIndicator) slot.text = slotIcon[slotIndex];
-        else slot.text = "";
+        if (SlotIndex < slotIcon.Length && ShowIndicator) _slot.text = slotIcon[SlotIndex];
+        else _slot.text = "";
         
-        if (isHighlighted) highlight.enabled = true;
+        if (_isHighlighted) _highlight.enabled = true;
     }
 
     /// <summary>
@@ -165,7 +165,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     void SwitchContainment()
     {
-        ItemBarManager.Instance().UpdateSlot(slotIndex);
+        ItemBarManager.Instance().UpdateSlot(SlotIndex);
     }
 
     /// <summary>
@@ -175,27 +175,27 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     {
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
 
-        if (!snapperManager.isSnapped) snapperManager.SetSnappedItem(this as UIContainerbase<Item>);
+        if (!snapperManager.IsSnapped) snapperManager.SetSnappedItem(this as UIContainerbase<GameItem>);
         else
         {
-            UIContainerbase<Item> currentSnap = snapperManager.currentItemSnapped;
+            UIContainerbase<GameItem> currentSnap = snapperManager.CurrentItemSnapped;
             //Handles resetting snapping
-            if (currentSnap == this as UIContainerbase<Item> || containment == null) snapperManager.ResetSnappedItem();
+            if (currentSnap == this as UIContainerbase<GameItem> || _containment == null) snapperManager.ResetSnappedItem();
 
             //Creates a placeholder of the current item
-            Item placeHolder = new Item(Container.items[slotIndex].item, Container.items[slotIndex].amount);
-            Item currentItem = currentSnap.Container.items[currentSnap.slotIndex];
+            GameItem placeHolder = new GameItem(Container.Items[SlotIndex].Item, Container.Items[SlotIndex].Amount);
+            GameItem currentItem = currentSnap.Container.Items[currentSnap.SlotIndex];
 
-            if (placeHolder.item == currentItem.item && slotIndex != currentSnap.slotIndex) //
+            if (placeHolder.Item == currentItem.Item && SlotIndex != currentSnap.SlotIndex) //
             {
-                Item updatedItem = new Item(currentItem.item, currentItem.amount + placeHolder.amount);
-                Container.Set(slotIndex, updatedItem); 
-                currentSnap.Container.Set(currentSnap.slotIndex, null);
+                GameItem updatedItem = new GameItem(currentItem.Item, currentItem.Amount + placeHolder.Amount);
+                Container.Set(SlotIndex, updatedItem); 
+                currentSnap.Container.Set(currentSnap.SlotIndex, null);
                 snapperManager.ResetSnappedItem(false);
             } else {
                 //Handles updating the containers
-                Container.Set(slotIndex, currentItem);
-                currentSnap.Container.Set(currentSnap.slotIndex, placeHolder);
+                Container.Set(SlotIndex, currentItem);
+                currentSnap.Container.Set(currentSnap.SlotIndex, placeHolder);
             }
         }
     }
@@ -204,20 +204,20 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     {
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
         
-        UIContainerbase<Item> currentSnap = snapperManager.currentItemSnapped;
-        if (currentSnap == this as UIContainerbase<Item>)
+        UIContainerbase<GameItem> currentSnap = snapperManager.CurrentItemSnapped;
+        if (currentSnap == this as UIContainerbase<GameItem>)
         {
             Debug.Log("Cannot do this function on the same item you got snapped...");
             return;
         }
-        Item currentItem = currentSnap.Container.items[currentSnap.slotIndex];
-        Item clickedItem = Container.items[slotIndex];
-        if (containment == null || currentItem.item == clickedItem.item)
+        GameItem currentItem = currentSnap.Container.Items[currentSnap.SlotIndex];
+        GameItem clickedItem = Container.Items[SlotIndex];
+        if (_containment == null || currentItem.Item == clickedItem.Item)
         {
-            currentItem.SetAmount(currentItem.amount - 1);
-            currentSnap.Container.Set(currentSnap.slotIndex, currentItem);
-            Container.Set(slotIndex, new Item(currentItem.item, clickedItem.amount + 1));
-            if (currentItem.amount <= 0) snapperManager.ResetSnappedItem(false);
+            currentItem.SetAmount(currentItem.Amount - 1);
+            currentSnap.Container.Set(currentSnap.SlotIndex, currentItem);
+            Container.Set(SlotIndex, new GameItem(currentItem.Item, clickedItem.Amount + 1));
+            if (currentItem.Amount <= 0) snapperManager.ResetSnappedItem(false);
         }
     }
 
@@ -225,7 +225,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     {
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
         
-        UIContainerbase<Item> clickedItem = this as UIContainerbase<Item>;
+        UIContainerbase<GameItem> clickedItem = this as UIContainerbase<GameItem>;
         Debug.Log("clickedItem: " + clickedItem.Containment);
         
         /*Item currentItem = Container.items[slotIndex];
@@ -237,28 +237,28 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         Debug.Log("half: " + half);*/
     }
     
-    public virtual void OnPointerDown(PointerEventData eventData)
+    public virtual void OnPointerDown(PointerEventData pEventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Middle)
+        if (pEventData.button == PointerEventData.InputButton.Left || pEventData.button == PointerEventData.InputButton.Middle)
         {
-            if (allowMoving) SnapContainment();
+            if (_allowMoving) SnapContainment();
             else SwitchContainment();
-        } else if (eventData.button == PointerEventData.InputButton.Right && allowMoving)
+        } else if (pEventData.button == PointerEventData.InputButton.Right && _allowMoving)
         {
             ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
-            if (snapperManager.isSnapped) PlaceSingleItem();
+            if (snapperManager.IsSnapped) PlaceSingleItem();
             else SplitItemStack();
         }
     }
 
-    public virtual void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData pEventData)
     {
-        hoveringContainment = true;
+        _hoveringContainment = true;
     }
 
-    public virtual void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData pEventData)
     {
-        hoveringContainment = false;
+        _hoveringContainment = false;
         Icon.transform.localScale = new Vector3(1, 1, 1);
     }
 }

@@ -2,47 +2,47 @@ using UnityEngine;
 
 public class ChestOpener : Opener
 {
-    private Animator animator;
-    private float openingTimer;
-    private bool animationRunning, isOpened;
+    private Animator _animator;
+    private float _openingTimer;
+    private bool _animationRunning, _isOpened;
     
     //TODO: Find a better way to do this
-    private CharacterManager characterManager;
+    private CharacterManager _characterManager;
 
     public override void Awake()
     {
         base.Awake();
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     public void Update()
     {
-        if (openingTimer > 0)
+        if (_openingTimer > 0)
         {
-            openingTimer -= Time.deltaTime;
+            _openingTimer -= Time.deltaTime;
         }
-        else if(!isOpened && animationRunning)
+        else if(!_isOpened && _animationRunning)
         {
-            base.Open(characterManager);
-            characterManager = null;
-            isOpened = true;
-            animationRunning = false;
-            animator.SetBool("opening", false);
+            base.Open(_characterManager);
+            _characterManager = null;
+            _isOpened = true;
+            _animationRunning = false;
+            _animator.SetBool("opening", false);
         }
     }
 
-    public override void Open(CharacterManager characterManager)
+    public override void Open(CharacterManager pCharacterManager)
     {
-        this.characterManager = characterManager;
-        isOpened = false;
-        animationRunning = true;
-        animator.SetBool("opening", true);
-        openingTimer = 0.4f;
+        this._characterManager = pCharacterManager;
+        _isOpened = false;
+        _animationRunning = true;
+        _animator.SetBool("opening", true);
+        _openingTimer = 0.4f;
     }
 
-    public override void Close(CharacterManager characterManager)
+    public override void Close(CharacterManager pCharacterManager)
     {
-        base.Close(characterManager);
-        animator.SetBool("opening", false);
+        base.Close(pCharacterManager);
+        _animator.SetBool("opening", false);
     }
 }

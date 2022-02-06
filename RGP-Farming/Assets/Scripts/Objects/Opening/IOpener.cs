@@ -1,6 +1,6 @@
 public interface IOpener
 {
-    void Interact(CharacterManager characterManager);
-    void Open(CharacterManager characterManager);
-    void Close(CharacterManager characterManager);
+    void Interact(CharacterManager pCharacterManager);
+    void Open(CharacterManager pCharacterManager);
+    void Close(CharacterManager pCharacterManager);
 }

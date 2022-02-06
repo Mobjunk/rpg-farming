@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public delegate void CharacterInputAction();
-public delegate void CharacterInputActionMove(Vector2 direction);
-public delegate void CharacterInteraction(CharacterManager characterManager);
-public delegate void CharacterSecondaryInteraction(CharacterManager characterManager);
+public delegate void CharacterInputActionMove(Vector2 pDirection);
+public delegate void CharacterInteraction(CharacterManager pCharacterManager);
+public delegate void CharacterSecondaryInteraction(CharacterManager pCharacterManager);
 
 public interface ICharacterInput {
     event CharacterInputAction OnCharacterAttack;

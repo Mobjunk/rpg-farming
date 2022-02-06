@@ -2,27 +2,27 @@ using UnityEngine;
 
 public class ShopUI : Singleton<ShopUI>
 {
-    [SerializeField] private GameObject contents;
+    [SerializeField] private GameObject _contents;
 
     public GameObject Contents
     {
-        get => contents;
-        set => contents = value;
+        get => _contents;
+        set => _contents = value;
     }
 
-    [SerializeField] private GameObject itemContainer;
+    [SerializeField] private GameObject _itemContainer;
 
     public GameObject ItemContainer
     {
-        get => itemContainer;
-        set => itemContainer = value;
+        get => _itemContainer;
+        set => _itemContainer = value;
     }
 
-    [SerializeField] private GameObject[] uiTabs;
+    [SerializeField] private GameObject[] _uiTabs;
 
     public GameObject[] UiTabs
     {
-        get => uiTabs;
-        set => uiTabs = value;
+        get => _uiTabs;
+        set => _uiTabs = value;
     }
 }

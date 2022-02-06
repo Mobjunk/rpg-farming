@@ -13,7 +13,7 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
 
     public GroundItem ForGameObject(GameObject gObject)
     {
-        return groundItems.FirstOrDefault(groundItem => groundItem.gameObject.Equals(gObject));
+        return groundItems.FirstOrDefault(groundItem => groundItem.GameObject.Equals(gObject));
     }
     
     private void Update()
@@ -26,27 +26,27 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
             {
                 if (groundItem == null) continue;
 
-                if (groundItem.currentTime > 0) groundItem.currentTime -= Time.deltaTime;
+                if (groundItem.CurrentTime > 0) groundItem.CurrentTime -= Time.deltaTime;
 
-                if (!(groundItem.currentTime <= 0)) continue;
+                if (!(groundItem.CurrentTime <= 0)) continue;
                 
-                switch (groundItem.state)
+                switch (groundItem.State)
                 {
                     case State.HIDDEN:
-                        groundItem.state = State.PUBLIC;
-                        groundItem.currentTime = groundItem.defaultTime;
-                        groundItem.gameObject.SetActive(true);
+                        groundItem.State = State.PUBLIC;
+                        groundItem.CurrentTime = groundItem.DefaultTime;
+                        groundItem.GameObject.SetActive(true);
                         break;
                     case State.PUBLIC:
                         //Don't do anything if the item is a public respawnable item
-                        if (!groundItem.respawn) toRemove.Add(groundItem);
+                        if (!groundItem.Respawn) toRemove.Add(groundItem);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
 
-            foreach (GroundItem groundItem in toRemove) Remove(groundItem.gameObject);
+            foreach (GroundItem groundItem in toRemove) Remove(groundItem.GameObject);
         }
         catch (Exception e)
         {
@@ -59,10 +59,10 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
     /// </summary>
     /// <param name="groundItem"></param>
     /// <param name="position"></param>
-    public void Add(Item groundItem, Vector2 position)
+    public void Add(GameItem groundItem, Vector2 position)
     {
         GameObject gObject = Instantiate(groundItemPrefab, position, Quaternion.identity);
-        gObject.GetComponent<GroundItemManager>().SetSprite(groundItem.item.uiSprite);
+        gObject.GetComponent<GroundItemManager>().SetSprite(groundItem.Item.uiSprite);
         
         groundItems.Add(new GroundItem(groundItem, gObject));
     }
@@ -88,17 +88,17 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
             return;
         }
         
-        if (groundItem.state == State.PUBLIC && groundItem.respawn)
+        if (groundItem.State == State.PUBLIC && groundItem.Respawn)
         {
-            groundItem.state = State.HIDDEN;
-            groundItem.currentTime = groundItem.defaultTime;
-            groundItem.gameObject.SetActive(false);
+            groundItem.State = State.HIDDEN;
+            groundItem.CurrentTime = groundItem.DefaultTime;
+            groundItem.GameObject.SetActive(false);
         }
         else
         {
-            if(addToInventory) player.CharacterInventory.AddItem(groundItem.item.item, groundItem.item.amount, true);
+            if(addToInventory) player.CharacterInventory.AddItem(groundItem.gameItem.Item, groundItem.gameItem.Amount, true);
             groundItems.Remove(groundItem);
-            Destroy(groundItem.gameObject);
+            Destroy(groundItem.GameObject);
         }
     }
     

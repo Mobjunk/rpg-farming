@@ -8,5 +8,5 @@ public class ShopStock : ScriptableObject
     public float buyRatio;
     public float sellRatio;
     public NpcData linkedNpc;
-    public List<Item> items = new List<Item>();
+    public List<GameItem> items = new List<GameItem>();
 }

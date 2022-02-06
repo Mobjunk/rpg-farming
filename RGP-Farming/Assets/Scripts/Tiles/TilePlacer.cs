@@ -5,24 +5,24 @@ using UnityEngine.Tilemaps;
 
 public class TilePlacer : Singleton<TilePlacer>
 {
-    private ItemBarManager itemBarManager => ItemBarManager.Instance();
-    private Player player => Player.Instance();
+    private ItemBarManager _itemBarManager => ItemBarManager.Instance();
+    private Player _player => Player.Instance();
 
-    public Tilemap tilesGrass;
-    public Tilemap tilesDirt;
-    public Tile dirtTile;
-    public Tile wateredDirtTile;
-    public Grid grid;
+    public Tilemap TilesGrass;
+    public Tilemap TilesDirt;
+    public Tile DirtTile;
+    public Tile WateredDirtTile;
+    public Grid Grid;
 
-    private Vector3Int location;
-    private Vector3 mp;
+    private Vector3Int _location;
+    private Vector3 _mp;
 
     private void Update()
     {
-        mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        _mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //If Holding ....
-        location = tilesGrass.WorldToCell(mp);
-        if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(grid, location, player.TileChecker))
+        _location = TilesGrass.WorldToCell(_mp);
+        if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(Grid, _location, _player.TileChecker))
         {
             PlaceWaterTile();
             PlaceDirtTile();
@@ -31,59 +31,59 @@ public class TilePlacer : Singleton<TilePlacer>
     }
     public void PlaceDirtTile()
     {
-        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == null && itemBarManager.IsWearingCorrectTool(ToolType.HOE))
-            tilesDirt.SetTile(location, dirtTile);
+        if (TilesDirt.GetTile(TilesDirt.WorldToCell(_mp)) == null && _itemBarManager.IsWearingCorrectTool(ToolType.HOE))
+            TilesDirt.SetTile(_location, DirtTile);
     }
 
     public void RemoveDirtTile()
     {
-        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
-            tilesDirt.SetTile(location, null);
+        if (TilesDirt.GetTile(TilesDirt.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
+            TilesDirt.SetTile(_location, null);
     }
     
     public void PlaceWaterTile()
     {
-        if (tilesDirt.GetTile(tilesDirt.WorldToCell(mp)) == dirtTile && itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
+        if (TilesDirt.GetTile(TilesDirt.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
         {
-            if (player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
+            if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
 
             //Checks if the crops the player is clicking is finished growing
-            CropsCycle cropsCycle = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsCycle>();
+            CropsCycle cropsCycle = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsCycle>();
             if (cropsCycle != null && cropsCycle.HasFinishedGrowing()) return;
 
             //Checks if the crops you are hovering is in the interactable list
-            InteractionManager interactionManager = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
-            if (player.CharacterInteractionManager.GetInteractables().Contains(interactionManager) && player.CharacterInventory.items[itemBarManager.selectedSlot].durability > 0)
+            InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
+            if (_player.CharacterInteractionManager.GetInteractables().Contains(interactionManager) && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0)
             {
-                tilesDirt.SetTile(location, wateredDirtTile);
-                player.CharacterInventory.UpdateDurability(itemBarManager.GetItemSelected(), -1);
+                TilesDirt.SetTile(_location, WateredDirtTile);
+                _player.CharacterInventory.UpdateDurability(_itemBarManager.GetItemSelected(), -1);
             }
         }
     }
-    public bool CheckTileUnderObject(Vector3 position, TileType tileType)
+    public bool CheckTileUnderObject(Vector3 pPosition, TileType pTileType)
     {
-        Tile checkTile = wateredDirtTile;
-        if (tileType == TileType.DIRT)
-            checkTile = dirtTile;
+        Tile checkTile = WateredDirtTile;
+        if (pTileType == TileType.DIRT)
+            checkTile = DirtTile;
         
-        return tilesDirt.GetTile(grid.WorldToCell(position)) == checkTile;
+        return TilesDirt.GetTile(Grid.WorldToCell(pPosition)) == checkTile;
     }
     
-    public void UpdateTile(GameObject crop, TileType tileType)
+    public void UpdateTile(GameObject pCrop, TileType pTileType)
     {
-        Tile setTile = dirtTile;
-        Tile checkTile = wateredDirtTile;
-        if (tileType == TileType.DIRT)
+        Tile setTile = DirtTile;
+        Tile checkTile = WateredDirtTile;
+        if (pTileType == TileType.DIRT)
         {
-            setTile = wateredDirtTile;
-            checkTile = dirtTile;
+            setTile = WateredDirtTile;
+            checkTile = DirtTile;
         }
 
         //Checks position on the grid
-        Vector3Int pos = grid.WorldToCell(crop.transform.position);
+        Vector3Int pos = Grid.WorldToCell(pCrop.transform.position);
 
-        if (tilesDirt.GetTile(pos) == checkTile)
-            tilesDirt.SetTile(pos, setTile);
+        if (TilesDirt.GetTile(pos) == checkTile)
+            TilesDirt.SetTile(pos, setTile);
     }
 }
 public enum TileType

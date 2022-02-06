@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class AbstractInventoryUIManger : GameUIManager
 {
-    private ItemSnapperManager itemSnapper => ItemSnapperManager.Instance();
+    private ItemSnapperManager _itemSnapper => ItemSnapperManager.Instance();
     
     public delegate void OnInventoryUIClosing();
     public OnInventoryUIClosing onInventoryUIClosing = delegate {  };
@@ -14,57 +14,57 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// The different containers with slots
     /// This is needed for the double inventory ui to work
     /// </summary>
-    public List<UIContainerbase<Item>>[] containers = new List<UIContainerbase<Item>>[3];
+    public List<UIContainerbase<GameItem>>[] _containers = new List<UIContainerbase<GameItem>>[3];
 
     /// <summary>
     /// The character inventory linked to the UI
     /// </summary>
-    private AbstractItemInventory containmentContainer;
+    private AbstractItemInventory _containmentContainer;
     public AbstractItemInventory ContainmentContainer
     {
-        get => containmentContainer;
-        set => containmentContainer = value;
+        get => _containmentContainer;
+        set => _containmentContainer = value;
     }
 
     /// <summary>
     /// The slot prefab
     /// </summary>
     [Header("Abstract Inventory UI Settings")]
-    [SerializeField] private GameObject[] containmentPrefab;
+    [SerializeField] private GameObject[] _containmentPrefab;
 
     public GameObject[] ContainmentPrefab
     {
-        get => containmentPrefab;
+        get => _containmentPrefab;
     }
     
     /// <summary>
     /// The main ui that gets activated and hidden
     /// </summary>
-    [SerializeField] private GameObject inventoryUI;
+    [SerializeField] private GameObject _inventoryUI;
 
     public GameObject InventoryUI
     {
-        get => inventoryUI;
-        set => inventoryUI = value;
+        get => _inventoryUI;
+        set => _inventoryUI = value;
     }
     
     /// <summary>
     /// The different parents that the slots are placed in
     /// </summary>
-    [SerializeField] private ParentData[] inventoryContainers;
+    [SerializeField] private ParentData[] _inventoryContainers;
 
     public ParentData[] InventoryContainers
     {
-        get => inventoryContainers;
+        get => _inventoryContainers;
     }
     
-    public bool isOpened;
+    public bool IsOpened;
 
     public virtual void Awake()
     {
         //Handles setting up the array of lists
-        for (int index = 0; index < containers.Length; index++)
-            containers[index] = new List<UIContainerbase<Item>>();
+        for (int index = 0; index < _containers.Length; index++)
+            _containers[index] = new List<UIContainerbase<GameItem>>();
     }
 
     private void Update()
@@ -77,7 +77,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// </summary>
     public virtual void Interact()
     {
-        if (!isOpened) Open();
+        if (!IsOpened) Open();
         else Close();
     }
     
@@ -87,9 +87,9 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     public override void Open()
     {
         base.Open();
-        if(itemSnapper.isSnapped) itemSnapper.ResetSnappedItem();
-        isOpened = true;
-        InventoryUI.SetActive(isOpened);
+        if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem();
+        IsOpened = true;
+        InventoryUI.SetActive(IsOpened);
     }
 
     /// <summary>
@@ -97,11 +97,11 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// </summary>
     public override void Close()
     {
-        if (!isOpened) return;
+        if (!IsOpened) return;
         base.Close();
-        if(itemSnapper.isSnapped) itemSnapper.ResetSnappedItem();
-        isOpened = false;
-        InventoryUI.SetActive(isOpened);
+        if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem();
+        IsOpened = false;
+        InventoryUI.SetActive(IsOpened);
         onInventoryUIClosing.Invoke();
     }
 
@@ -117,26 +117,26 @@ public abstract class AbstractInventoryUIManger : GameUIManager
         //Handles setting up the container
         for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
         {
-            containers[parentIndex].Clear();
+            _containers[parentIndex].Clear();
             
             ParentData parent = InventoryContainers[parentIndex];
-            for (int index = 0; index < parent.maxSlots; index++)
+            for (int index = 0; index < parent.MaxSlots; index++)
             {
-                GameObject containment = Instantiate(ContainmentPrefab[parent.useSecondSlotPrefab ? 1 : 0], parent.inventoryContainer, true);
+                GameObject containment = Instantiate(ContainmentPrefab[parent.UseSecondSlotPrefab ? 1 : 0], parent.InventoryContainer, true);
                 containment.name = $"{index}";
                 containment.transform.localScale = new Vector3(1, 1, 1);
 
                 //TODO: ALSO CLEAN THIS SHIT
-                UIContainerbase<Item> container = containment.GetComponent<UIContainerbase<Item>>();
+                UIContainerbase<GameItem> container = containment.GetComponent<UIContainerbase<GameItem>>();
                 if (container == null) container = containment.GetComponent<AbstractShopContainer>();
                 
                 //TODO: CLEAN THIS SHIT
                 container.Container = pInventory;
-                container.SetIndicator(parent.showIdicator);
-                container.AllowMoving = parent.allowSnapping;
-                container.SetContainment(ContainmentContainer.items[index]);
+                container.SetIndicator(parent.ShowIdicator);
+                container.AllowMoving = parent.AllowSnapping;
+                container.SetContainment(ContainmentContainer.Items[index]);
                 
-                containers[parentIndex].Add(container);
+                _containers[parentIndex].Add(container);
             }
         }
     }
@@ -144,15 +144,15 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// <summary>
     /// Handles the updating of a containment
     /// </summary>
-    /// <param name="slotsUpdated"></param>
-    public virtual void OnInventoryChanged(List<int> slotsUpdated)
+    /// <param name="pSlotsUpdated"></param>
+    public virtual void OnInventoryChanged(List<int> pSlotsUpdated)
     {
-        foreach (int slot in slotsUpdated)
+        foreach (int slot in pSlotsUpdated)
         {
-            for (int index = 0; index < containers.Length; index++)
+            for (int index = 0; index < _containers.Length; index++)
             {
-                if (slot >= containers[index].Count) continue;
-                containers[index][slot].SetContainment(ContainmentContainer.items[slot]);
+                if (slot >= _containers[index].Count) continue;
+                _containers[index][slot].SetContainment(ContainmentContainer.Items[slot]);
             }
         }
     }
@@ -161,9 +161,9 @@ public abstract class AbstractInventoryUIManger : GameUIManager
 [System.Serializable]
 public class ParentData
 {
-    public Transform inventoryContainer;
-    public int maxSlots;
-    public bool showIdicator;
-    public bool useSecondSlotPrefab;
-    public bool allowSnapping = true;
+    public Transform InventoryContainer;
+    public int MaxSlots;
+    public bool ShowIdicator;
+    public bool UseSecondSlotPrefab;
+    public bool AllowSnapping = true;
 }

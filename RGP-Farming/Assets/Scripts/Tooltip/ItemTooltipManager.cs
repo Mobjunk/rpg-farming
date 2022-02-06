@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemTooltipManager : TooltipManager<ItemTooltipManager>
 {
-    [SerializeField] private TextMeshProUGUI itemType;
+    [SerializeField] private TextMeshProUGUI _itemType;
     
     public override Vector2 MinSize()
     {
@@ -15,15 +15,15 @@ public class ItemTooltipManager : TooltipManager<ItemTooltipManager>
         return new Vector2(45, 80);
     }
 
-    public override void SetTooltip(AbstractItemData hoveredItem)
+    public override void SetTooltip(AbstractItemData pHoveredItem)
     {
-        base.SetTooltip(hoveredItem);
-        if(hoveredItem == null)
+        base.SetTooltip(pHoveredItem);
+        if(pHoveredItem == null)
         {
             ResetTooltip();
             return;
         }
         
-        itemType.text = $"{Utility.UppercaseFirst(hoveredItem.itemType.ToString().ToLower().Replace("_", " "))}";
+        _itemType.text = $"{Utility.UppercaseFirst(pHoveredItem.itemType.ToString().ToLower().Replace("_", " "))}";
     }
 }

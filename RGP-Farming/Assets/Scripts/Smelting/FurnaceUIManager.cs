@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class FurnaceUIManager : AbstractInventoryUIManger
 {
-    private InventoryMenuManager inventoryMenuManager => InventoryMenuManager.Instance();
-    private ItemBarManager itemBarManager => ItemBarManager.Instance();
+    private InventoryMenuManager _inventoryMenuManager => InventoryMenuManager.Instance();
+    private ItemBarManager _itemBarManager => ItemBarManager.Instance();
     
-    [SerializeField] private List<ItemContainerGrid> slots = new List<ItemContainerGrid>();
+    [SerializeField] private List<ItemContainerGrid> _slots = new List<ItemContainerGrid>();
 
     public override void Awake()
     {
@@ -15,14 +15,14 @@ public class FurnaceUIManager : AbstractInventoryUIManger
         ContainmentContainer = GetComponent<FurnaceInventory>();
         ContainmentContainer.onInventoryChanged += OnInventoryChanged;
         
-        for (int slot = 0; slot < slots.Count; slot++)
+        for (int slot = 0; slot < _slots.Count; slot++)
         {
-            ItemContainerGrid grid = slots[slot];
+            ItemContainerGrid grid = _slots[slot];
             grid.AllowMoving = true;
             grid.Container = ContainmentContainer;
-            grid.SetContainment(ContainmentContainer.items[slot]);
+            grid.SetContainment(ContainmentContainer.Items[slot]);
             
-            containers[0].Add(grid);
+            _containers[0].Add(grid);
         }
     }
 
@@ -30,25 +30,25 @@ public class FurnaceUIManager : AbstractInventoryUIManger
     {
         base.Open();
         
-        inventoryMenuManager.SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 200f));
-        inventoryMenuManager.Unhide(true);
+        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 200f));
+        _inventoryMenuManager.Unhide(true);
         
-        itemBarManager.Hide();
+        _itemBarManager.Hide();
     }
 
     public override void Close()
     {
         base.Close();
 
-        inventoryMenuManager.Hide(true);
-        inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
+        _inventoryMenuManager.Hide(true);
+        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
         
-        itemBarManager.Unhide();
+        _itemBarManager.Unhide();
     }
 
     public override void Interact()
     {
-        if (isOpened) Close();
+        if (IsOpened) Close();
         else Open();
     }
 }

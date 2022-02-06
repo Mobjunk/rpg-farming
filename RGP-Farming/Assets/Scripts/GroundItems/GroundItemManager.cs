@@ -4,22 +4,22 @@ using UnityEngine;
 public class GroundItemManager : MonoBehaviour
 {
     //[SerializeField] private Rigidbody2D rigidbody2D;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
         //rigidbody2D = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D pOther)
     {
-        Player characterManager = other.GetComponent<Player>();
+        Player characterManager = pOther.GetComponent<Player>();
         if (characterManager != null) GroundItemsManager.Instance().Remove(gameObject, true);
     }
 
-    public void SetSprite(Sprite sprite)
+    public void SetSprite(Sprite pSprite)
     {
-        spriteRenderer.sprite = sprite;
+        _spriteRenderer.sprite = pSprite;
     }
 }

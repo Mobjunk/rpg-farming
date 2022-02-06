@@ -2,47 +2,47 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AbstractCraftingContainer : AbstractItemContainer<Item>
+public class AbstractCraftingContainer : AbstractItemContainer<GameItem>
 {
     
-    public override void SetContainment(Item containment)
+    public override void SetContainment(GameItem pContainment)
     {
-        base.SetContainment(containment);
+        base.SetContainment(pContainment);
         UpdateItemContainer();
     }
 
     public override void UpdateItemContainer()
     {
-        if (Containment == null || Containment.item == null)
+        if (Containment == null || Containment.Item == null)
         {
             base.ClearContainment();
             return;
         }
 
-        Icon.sprite = Containment.item.uiSprite;
+        Icon.sprite = Containment.Item.uiSprite;
         Icon.enabled = true;
 
-        if (!Player.Instance().CharacterInventory.HasItems(Containment.item.craftingRecipe.requiredItems))
+        if (!Player.Instance().CharacterInventory.HasItems(Containment.Item.craftingRecipe.requiredItems))
         {
             Color currentColor = Icon.color;
             Icon.color = new Color(currentColor.r, currentColor.g, currentColor.b, 0.5f);
         }
     }
 
-    public override void OnPointerDown(PointerEventData eventData)
+    public override void OnPointerDown(PointerEventData pEventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Middle)
+        if (pEventData.button == PointerEventData.InputButton.Left || pEventData.button == PointerEventData.InputButton.Middle)
         {
             Debug.Log("Crafting debug...");
-            if (Containment.item.craftingRecipe == null) return;
+            if (Containment.Item.craftingRecipe == null) return;
             
             Player player = Player.Instance();
 
-            if (player.CharacterInventory.HasItems(Containment.item.craftingRecipe.requiredItems))
+            if (player.CharacterInventory.HasItems(Containment.Item.craftingRecipe.requiredItems))
             {
-                foreach(Item item in Containment.item.craftingRecipe.requiredItems)
-                    player.CharacterInventory.RemoveItem(item.item, item.amount);
-                player.CharacterInventory.AddItem(Containment.item);
+                foreach(GameItem item in Containment.Item.craftingRecipe.requiredItems)
+                    player.CharacterInventory.RemoveItem(item.Item, item.Amount);
+                player.CharacterInventory.AddItem(Containment.Item);
 
                 UpdateItemContainer();
 
@@ -50,15 +50,15 @@ public class AbstractCraftingContainer : AbstractItemContainer<Item>
         }
     }
 
-    public override void OnPointerEnter(PointerEventData eventData)
+    public override void OnPointerEnter(PointerEventData pEventData)
     {
-        base.OnPointerEnter(eventData);
-        CraftingTooltipManager.Instance().SetTooltip(Containment.item);
+        base.OnPointerEnter(pEventData);
+        CraftingTooltipManager.Instance().SetTooltip(Containment.Item);
     }
 
-    public override void OnPointerExit(PointerEventData eventData)
+    public override void OnPointerExit(PointerEventData pEventData)
     {
-        base.OnPointerExit(eventData);
+        base.OnPointerExit(pEventData);
         CraftingTooltipManager.Instance().SetTooltip(null);
     }
 }

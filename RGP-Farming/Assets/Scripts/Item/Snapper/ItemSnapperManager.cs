@@ -2,46 +2,46 @@ using UnityEngine;
 
 public class ItemSnapperManager : Singleton<ItemSnapperManager>
 {
-    public bool isSnapped;
+    public bool IsSnapped;
 
-    public UIContainerbase<Item> currentItemSnapped;
+    public UIContainerbase<GameItem> CurrentItemSnapped;
 
-    public void SetSnappedItem(UIContainerbase<Item> currentItemSnapped)
+    public void SetSnappedItem(UIContainerbase<GameItem> pCurrentItemSnapped)
     {
-        if (currentItemSnapped.GetType() == typeof(ShopContainerGrid)) return;
+        if (pCurrentItemSnapped.GetType() == typeof(ShopContainerGrid)) return;
         
-        this.currentItemSnapped = currentItemSnapped;
+        this.CurrentItemSnapped = pCurrentItemSnapped;
         
-        this.currentItemSnapped.transform.localScale = new Vector3(1, 1, 1);
+        this.CurrentItemSnapped.transform.localScale = new Vector3(1, 1, 1);
 
-        Canvas canvas = this.currentItemSnapped.Icon.gameObject.AddComponent<Canvas>();
+        Canvas canvas = this.CurrentItemSnapped.Icon.gameObject.AddComponent<Canvas>();
         canvas.overrideSorting = true;
         canvas.sortingOrder = 10;
         
-        isSnapped = true;
+        IsSnapped = true;
     }
 
-    public void ResetSnappedItem(bool iconEnabled = true)
+    public void ResetSnappedItem(bool pIconEnabled = true)
     {
-        if (currentItemSnapped == null) return;
+        if (CurrentItemSnapped == null) return;
         
-        Destroy(currentItemSnapped.Icon.gameObject.GetComponent<Canvas>());
-        currentItemSnapped.Icon.enabled = iconEnabled;
-        currentItemSnapped.Icon.transform.localPosition = Vector3.zero;
-        currentItemSnapped.Amount.transform.localPosition = Vector3.zero;
-        isSnapped = false;
+        Destroy(CurrentItemSnapped.Icon.gameObject.GetComponent<Canvas>());
+        CurrentItemSnapped.Icon.enabled = pIconEnabled;
+        CurrentItemSnapped.Icon.transform.localPosition = Vector3.zero;
+        CurrentItemSnapped.Amount.transform.localPosition = Vector3.zero;
+        IsSnapped = false;
     }
 
     private void Update()
     {
-        if (isSnapped)
+        if (IsSnapped)
         {
             Vector3 movePoint = Input.mousePosition;
             
             Vector3 position = new Vector3(movePoint.x + 65, movePoint.y - 65);
             
-            currentItemSnapped.Icon.transform.position = position;
-            currentItemSnapped.Amount.transform.position = position;
+            CurrentItemSnapped.Icon.transform.position = position;
+            CurrentItemSnapped.Amount.transform.position = position;
         }
     }
 }

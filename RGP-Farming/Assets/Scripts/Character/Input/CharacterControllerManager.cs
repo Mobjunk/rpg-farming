@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterControllerManager : MonoBehaviour, ICharacterInput
 {
-    private CharacterManager characterManager;
+    private CharacterManager _characterManager;
     
     public event CharacterInputAction OnCharacterAttack = delegate {  };
     public event CharacterInputActionMove OnCharacterMovement = delegate {  };
@@ -11,14 +11,14 @@ public class CharacterControllerManager : MonoBehaviour, ICharacterInput
 
     private void Awake()
     {
-        characterManager = GetComponent<CharacterManager>();
+        _characterManager = GetComponent<CharacterManager>();
     }
 
     private void Update()
     {
         if(Input.GetButtonDown("Fire1")) OnCharacterAttack();
-        if (Input.GetButtonDown("Fire2")) OnCharacterInteraction(characterManager);
-        if (Input.GetButtonDown("Fire3")) OnCharacterSecondaryInteraction(characterManager);
+        if (Input.GetButtonDown("Fire2")) OnCharacterInteraction(_characterManager);
+        if (Input.GetButtonDown("Fire3")) OnCharacterSecondaryInteraction(_characterManager);
         
         Vector2 direction = Vector2.zero;
          

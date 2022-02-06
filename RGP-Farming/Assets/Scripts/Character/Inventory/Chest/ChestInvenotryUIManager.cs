@@ -4,38 +4,40 @@ using UnityEngine;
 
 public class ChestInvenotryUIManager : AbstractInventoryUIManger
 {
-    
-    [SerializeField] private ChestInventory chestInventory;
+    private InventoryMenuManager _inventoryMenuManager => InventoryMenuManager.Instance();
+    private ItemBarManager _itemBarManager => ItemBarManager.Instance();
+
+    [SerializeField] private ChestInventory _chestInventory;
     
     public void Start()
     {
-        chestInventory = GetComponent<ChestInventory>();
-        Initialize(chestInventory);
+        _chestInventory = GetComponent<ChestInventory>();
+        Initialize(_chestInventory);
     }
 
     public override void Open()
     {
         base.Open();
-        
-        InventoryMenuManager.Instance().SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 169.7f));
-        InventoryMenuManager.Instance().Unhide(true);
-        
-        ItemBarManager.Instance().Hide();
+
+        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 169.7f));
+        _inventoryMenuManager.Unhide(true);
+
+        _itemBarManager.Hide();
     }
 
     public override void Close()
     {
         base.Close();
 
-        InventoryMenuManager.Instance().Hide(true);
-        InventoryMenuManager.Instance().SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
-        
-        ItemBarManager.Instance().Unhide();
+        _inventoryMenuManager.Hide(true);
+        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
+
+        _itemBarManager.Unhide();
     }
 
     public override void Interact()
     {
-        if (isOpened) Close();
+        if (IsOpened) Close();
         else Open();
     }
 }

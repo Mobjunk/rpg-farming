@@ -3,50 +3,50 @@ using UnityEngine.Tilemaps;
 
 public class TileHover : Singleton<TileHover>
 {
-    private ItemBarManager itemBarManager => ItemBarManager.Instance();
-    private Player player => Player.Instance();
+    private ItemBarManager _itemBarManager => ItemBarManager.Instance();
+    private Player _player => Player.Instance();
 
-    [SerializeField] private Grid grid;
-    [SerializeField] private Tilemap[] tileMaps;
-    [SerializeField] private Tile[] tiles;
+    [SerializeField] private Grid _grid;
+    [SerializeField] private Tilemap[] _tileMaps;
+    [SerializeField] private Tile[] _tiles;
 
     private Vector3 mousePosition;
     private Vector3Int tileLocation;
     
     private void Update()
     {
-        tileMaps[0].ClearAllTiles();
+        _tileMaps[0].ClearAllTiles();
        
-        bool wearingCorrectTool = itemBarManager.IsWearingCorrectTools(new[] {ToolType.HOE, ToolType.PICKAXE, ToolType.WATERING_CAN});
+        bool wearingCorrectTool = _itemBarManager.IsWearingCorrectTools(new[] {ToolType.HOE, ToolType.PICKAXE, ToolType.WATERING_CAN});
         if (CursorManager.Instance().IsPointerOverUIElement() || !wearingCorrectTool) return;
         
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        tileLocation = tileMaps[0].WorldToCell(mousePosition);
+        tileLocation = _tileMaps[0].WorldToCell(mousePosition);
 
-        bool canInteract = CanInteract(ToolType.HOE, tileMaps[2], null) || 
-                           CanInteract(ToolType.PICKAXE, tileMaps[2], tiles[2]) && player.CharacterPlaceObject.CurrentGameObjectHoverd == null || 
-                           CanInteract(ToolType.WATERING_CAN, tileMaps[2], tiles[2], true) && player.CharacterPlaceObject.CurrentGameObjectHoverd != null && player.CharacterInventory.items[itemBarManager.selectedSlot].durability > 0;
+        bool canInteract = CanInteract(ToolType.HOE, _tileMaps[2], null) || 
+                           CanInteract(ToolType.PICKAXE, _tileMaps[2], _tiles[2]) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null || 
+                           CanInteract(ToolType.WATERING_CAN, _tileMaps[2], _tiles[2], true) && _player.CharacterPlaceObject.CurrentGameObjectHoverd != null && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0;
         
-        tileMaps[0].SetTile(tileLocation, canInteract ? tiles[0] : tiles[1]);
+        _tileMaps[0].SetTile(tileLocation, canInteract ? _tiles[0] : _tiles[1]);
     }
 
-    private bool CanInteract(ToolType toolType, Tilemap tilemap, Tile tile, bool wateringCan = false)
+    private bool CanInteract(ToolType pToolType, Tilemap pTilemap, Tile pTile, bool pWateringCan = false)
     {
-        if (itemBarManager.IsWearingCorrectTool(toolType) && Utility.CanInteractWithTile(grid, tileLocation, player.TileChecker))
+        if (_itemBarManager.IsWearingCorrectTool(pToolType) && Utility.CanInteractWithTile(_grid, tileLocation, _player.TileChecker))
         {
-            if (tilemap.GetTile(tilemap.WorldToCell(mousePosition)) == tile)
+            if (pTilemap.GetTile(pTilemap.WorldToCell(mousePosition)) == pTile)
             {
-                if (!wateringCan) return true;
+                if (!pWateringCan) return true;
 
-                if (player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return false;
+                if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return false;
                 
                 //Checks if the crops the player is clicking is finished growing
-                CropsCycle cropsCycle = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsCycle>();
+                CropsCycle cropsCycle = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsCycle>();
                 if (cropsCycle != null && cropsCycle.HasFinishedGrowing()) return false;
 
                 //Checks if the crops you are hovering is in the interactable list
-                InteractionManager interactionManager = player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
-                return player.CharacterInteractionManager.GetInteractables().Contains(interactionManager);
+                InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
+                return _player.CharacterInteractionManager.GetInteractables().Contains(interactionManager);
             }
         }
         return false;

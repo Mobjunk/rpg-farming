@@ -9,7 +9,7 @@ public class GoldIndicatorManager : Singleton<GoldIndicatorManager>
 
     public void Start()
     {
-        goldAmount = Player.Instance().CharacterInventory.goldCoins;
+        goldAmount = Player.Instance().CharacterInventory.GoldCoins;
         goldText.text = $"{goldAmount}";
     }
 

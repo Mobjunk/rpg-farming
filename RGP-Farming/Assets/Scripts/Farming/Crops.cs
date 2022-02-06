@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Crop", menuName = "New Crop")]
 public class Crops : ScriptableObject
 {
-
     [Header("Text")]
     public new string name;
     public string discription;

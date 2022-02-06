@@ -3,27 +3,27 @@ using UnityEngine;
 
 public abstract class CharacterBodyPartManager : MonoBehaviour
 {
-    private CharacterStateManager characterStateManager;
-    private SpriteRenderer spriteRenderer;
-    private BodyPart currentBodyPart;
+    private CharacterStateManager _characterStateManager;
+    private SpriteRenderer _spriteRenderer;
+    private BodyPart _currentBodyPart;
 
     public BodyPart CurrentBodyPart
     {
-        get => currentBodyPart;
-        set => currentBodyPart = value;
+        get => _currentBodyPart;
+        set => _currentBodyPart = value;
     }
 
     public virtual void Awake()
     {
-        characterStateManager = GetComponentInParent<CharacterStateManager>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (currentBodyPart != null)
+        _characterStateManager = GetComponentInParent<CharacterStateManager>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (_currentBodyPart != null)
         {
-            spriteRenderer.sprite = currentBodyPart.bSprites.sprites[0].sprite[1];
-            spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = _currentBodyPart.bSprites.sprites[0].sprite[1];
+            _spriteRenderer.enabled = true;
         }
 
-        characterStateManager.OnStateChanged += OnStateChange;
+        _characterStateManager.OnStateChanged += OnStateChange;
     }
 
     /// <summary>
@@ -36,40 +36,40 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         {
             Debug.Log("characterStateManager: " + characterStateManager.GetCharacterState());
         }*/
-        UpdateBodyPart(currentBodyPart, characterStateManager.GetDirection());
+        UpdateBodyPart(_currentBodyPart, _characterStateManager.GetDirection());
     }
 
     /// <summary>
     /// Handles updating the visual of a body part
     /// </summary>
-    /// <param name="bodyPart">The body part scriptable object</param>
-    /// <param name="rotation">The rotation of the character</param>
-    /// <param name="darkSkin">Does the character have dark skin color</param>
-    public void UpdateBodyPart(BodyPart bodyPart, int rotation, bool darkSkin = false)
+    /// <param name="pBodyPart">The body part scriptable object</param>
+    /// <param name="pRotation">The rotation of the character</param>
+    /// <param name="pDarkSkin">Does the character have dark skin color</param>
+    private void UpdateBodyPart(BodyPart pBodyPart, int pRotation, bool pDarkSkin = false)
     {
-        currentBodyPart = bodyPart;
+        _currentBodyPart = pBodyPart;
 
-        SpriteLayout bodySprites = GetSprites(rotation);
+        SpriteLayout bodySprites = GetSprites(pRotation);
 
         if (bodySprites == null)
         {
-            spriteRenderer.enabled = false;
+            _spriteRenderer.enabled = false;
             return;
         }
 
         int currentIndex = 1;
-        if (characterStateManager.GetCharacterState().ToString().Contains("WALKING_HOLD"))
-            currentIndex = 3 + int.Parse(characterStateManager.GetCharacterState().ToString().Replace("WALKING_HOLD_", ""));
-        else if (characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
-            currentIndex = int.Parse(characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
-        else if(characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
-            currentIndex = 6 + (int.Parse(characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
-        else if (characterStateManager.GetCharacterState().ToString().Equals("IDLE_HOLD"))
+        if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_HOLD"))
+            currentIndex = 3 + int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_HOLD_", ""));
+        else if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
+        else if(_characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
+            currentIndex = 6 + (int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
+        else if (_characterStateManager.GetCharacterState().ToString().Equals("IDLE_HOLD"))
             currentIndex = 4;
         
         if (bodySprites.sprites[0].sprite.Length != 0)
         {
-            if (currentIndex >= bodySprites.sprites[darkSkin ? 1 : 0].sprite.Length)
+            if (currentIndex >= bodySprites.sprites[pDarkSkin ? 1 : 0].sprite.Length)
             {
                 //Debug.Log("bodySprites: " + gameObject.name);
                 //Debug.Log("currentIndex: " + currentIndex);
@@ -77,29 +77,29 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
                 return;
             }
             
-            spriteRenderer.sprite = bodySprites.sprites[darkSkin ? 1 : 0].sprite[currentIndex];
-            spriteRenderer.enabled = true;
-        } else spriteRenderer.enabled = false;
+            _spriteRenderer.sprite = bodySprites.sprites[pDarkSkin ? 1 : 0].sprite[currentIndex];
+            _spriteRenderer.enabled = true;
+        } else _spriteRenderer.enabled = false;
     }
 
     /// <summary>
     /// Handles grabbign the right array of sprites based on the characters rotation
     /// </summary>
-    /// <param name="rotation"></param>
+    /// <param name="pRotation"></param>
     /// <returns></returns>
-    private SpriteLayout GetSprites(int rotation)
+    private SpriteLayout GetSprites(int pRotation)
     {
-        if (currentBodyPart == null) return null;
-        switch (rotation)
+        if (_currentBodyPart == null) return null;
+        switch (pRotation)
         {
             case 0:
-                return currentBodyPart.bSprites;
+                return _currentBodyPart.bSprites;
             case 1:
-                return currentBodyPart.lSprites;
+                return _currentBodyPart.lSprites;
             case 2:
-                return currentBodyPart.rSprites;
+                return _currentBodyPart.rSprites;
             case 3:
-                return currentBodyPart.tSprites;
+                return _currentBodyPart.tSprites;
         }
 
         return null;

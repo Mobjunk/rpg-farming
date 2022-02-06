@@ -4,15 +4,15 @@ using UnityEngine.Video;
 public class IntroManager : MonoBehaviour
 {
 
-    [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private VideoPlayer _videoPlayer;
 
     private void Awake()
     {
-        videoPlayer = GetComponent<VideoPlayer>();
-        videoPlayer.loopPointReached += EndReached;
+        _videoPlayer = GetComponent<VideoPlayer>();
+        _videoPlayer.loopPointReached += EndReached;
     }
 
-    private void EndReached(VideoPlayer source)
+    private void EndReached(VideoPlayer pSource)
     {
         Utility.AddSceneIfNotLoaded("Main");
         gameObject.SetActive(false);
