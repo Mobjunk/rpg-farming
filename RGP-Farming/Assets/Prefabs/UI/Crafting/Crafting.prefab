@@ -783,10 +783,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb83e739a3ec20647be6ed52ab55d37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugInventory: 1
-  maxInventorySize: 0
-  stackType: 0
-  items: []
+  DebugInventory: 1
+  _maxInventorySize: 0
+  StackType: 0
+  Items: []
 --- !u!114 &2989143365867991816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,19 +799,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7cc770338e3b0438195d660b77e20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedToOpenInvnetory: 0
-  uiTabs: []
-  containmentPrefab:
+  _allowedToOpenInvnetory: 0
+  _uiTabs: []
+  _containmentPrefab:
   - {fileID: 3327382381837659215, guid: 47e1c07d117668f4e8842d856b33ee48, type: 3}
-  inventoryUI: {fileID: 5374910275958275400}
-  inventoryContainers:
-  - inventoryContainer: {fileID: 501732335051226245}
-    maxSlots: 0
-    showIdicator: 0
-    useSecondSlotPrefab: 0
-    allowSnapping: 0
-  isOpened: 0
-  craftingInventory: {fileID: 0}
+  _inventoryUI: {fileID: 5374910275958275400}
+  _inventoryContainers:
+  - InventoryContainer: {fileID: 501732335051226245}
+    MaxSlots: 0
+    ShowIdicator: 0
+    UseSecondSlotPrefab: 0
+    AllowSnapping: 0
+  IsOpened: 0
+  _craftingInventory: {fileID: 0}
 --- !u!1 &2845225136376987552
 GameObject:
   m_ObjectHideFlags: 0

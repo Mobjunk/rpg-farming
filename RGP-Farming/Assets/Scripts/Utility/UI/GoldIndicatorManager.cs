@@ -3,32 +3,32 @@ using UnityEngine;
 
 public class GoldIndicatorManager : Singleton<GoldIndicatorManager>
 {
-    [SerializeField] private int goldAmount;
-    [SerializeField] private int placeHolderAmount;
-    [SerializeField] private TextMeshProUGUI goldText;
+    [SerializeField] private int _goldAmount;
+    [SerializeField] private int _placeHolderAmount;
+    [SerializeField] private TextMeshProUGUI _goldText;
 
     public void Start()
     {
-        goldAmount = Player.Instance().CharacterInventory.GoldCoins;
-        goldText.text = $"{goldAmount}";
+        _goldAmount = Player.Instance().CharacterInventory.GoldCoins;
+        _goldText.text = $"{_goldAmount}";
     }
 
     public void Update()
     {
-        if (placeHolderAmount < goldAmount)
+        if (_placeHolderAmount < _goldAmount)
         {
-            placeHolderAmount++;
-            goldText.text = $"{placeHolderAmount}";
-        } else if (placeHolderAmount > goldAmount)
+            _placeHolderAmount++;
+            _goldText.text = $"{_placeHolderAmount}";
+        } else if (_placeHolderAmount > _goldAmount)
         {
-            placeHolderAmount--;
-            goldText.text = $"{placeHolderAmount}";
+            _placeHolderAmount--;
+            _goldText.text = $"{_placeHolderAmount}";
         }
     }
 
-    public void UpdateCoins(int newAmount)
+    public void UpdateCoins(int pNewAmount)
     {
-        placeHolderAmount = goldAmount;
-        goldAmount = newAmount;
+        _placeHolderAmount = _goldAmount;
+        _goldAmount = pNewAmount;
     }
 }

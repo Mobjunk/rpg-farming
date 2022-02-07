@@ -18,6 +18,7 @@ public class TileHover : Singleton<TileHover>
         _tileMaps[0].ClearAllTiles();
        
         bool wearingCorrectTool = _itemBarManager.IsWearingCorrectTools(new[] {ToolType.HOE, ToolType.PICKAXE, ToolType.WATERING_CAN});
+        
         if (CursorManager.Instance().IsPointerOverUIElement() || !wearingCorrectTool) return;
         
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -26,7 +27,7 @@ public class TileHover : Singleton<TileHover>
         bool canInteract = CanInteract(ToolType.HOE, _tileMaps[2], null) || 
                            CanInteract(ToolType.PICKAXE, _tileMaps[2], _tiles[2]) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null || 
                            CanInteract(ToolType.WATERING_CAN, _tileMaps[2], _tiles[2], true) && _player.CharacterPlaceObject.CurrentGameObjectHoverd != null && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0;
-        
+
         _tileMaps[0].SetTile(tileLocation, canInteract ? _tiles[0] : _tiles[1]);
     }
 

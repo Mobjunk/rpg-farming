@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Opener : MonoBehaviour, IOpener
 {
-    private AbstractInventoryUIManger _inventoryUIManager;
+    [SerializeField] private AbstractInventoryUIManger _inventoryUIManager;
 
     public virtual void Awake()
     {

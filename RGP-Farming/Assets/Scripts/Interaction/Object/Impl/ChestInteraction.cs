@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ChestInteraction : ObjectInteractionManager
 {
-    public override void OnInteraction(CharacterManager characterManager)
+    public override void OnInteraction(CharacterManager pCharacterManager)
     {
-        base.OnInteraction(characterManager);
+        base.OnInteraction(pCharacterManager);
 
         ChestInventory chestInventory = GetComponent<ChestInventory>();
         if (chestInventory.SlotsOccupied() > 0) return;
@@ -17,9 +17,9 @@ public class ChestInteraction : ObjectInteractionManager
         }
     }
 
-    public override void OnSecondaryInteraction(CharacterManager characterManager)
+    public override void OnSecondaryInteraction(CharacterManager pCharacterManager)
     {
-        base.OnSecondaryInteraction(characterManager);
+        base.OnSecondaryInteraction(pCharacterManager);
         
         ChestOpener chestOpener = GetComponent<ChestOpener>();
 
@@ -29,6 +29,6 @@ public class ChestInteraction : ObjectInteractionManager
             return;
         }
         
-        chestOpener.Interact(characterManager);
+        chestOpener.Interact(pCharacterManager);
     }
 }

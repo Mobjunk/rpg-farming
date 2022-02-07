@@ -9,7 +9,7 @@ public class FurnaceInteraction : ObjectInteractionManager
         furnaceUIManager = GetComponent<FurnaceUIManager>();
     }
 
-    public override void OnInteraction(CharacterManager characterManager)
+    public override void OnInteraction(CharacterManager pCharacterManager)
     {
         furnaceUIManager.Interact();
     }

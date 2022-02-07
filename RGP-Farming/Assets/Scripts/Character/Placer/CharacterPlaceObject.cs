@@ -61,6 +61,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
                     
                     bool hasTile = _tileMaps[1].GetTile(currentTile) != null;
+                    
                     _tileMaps[0].SetTile(currentTile, hasTile || !canPlaceObject ? _cannotPlace : _canPlace);
                     
                     if (hasTile) canPlaceObject = false;

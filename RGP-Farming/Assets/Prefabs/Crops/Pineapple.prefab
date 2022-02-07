@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f01709383053e46908e0ec8b6b51b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionManager: {fileID: 0}
+  _interactionManager: {fileID: 0}
 --- !u!114 &6574398156113470539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237798765dd540946804729fbf7a7ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crops: {fileID: 11400000, guid: d0774067373fe4b42a63ef608b65d053, type: 2}
+  Crops: {fileID: 11400000, guid: d0774067373fe4b42a63ef608b65d053, type: 2}
 --- !u!114 &4744724444479951088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,10 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4bf6691b597b648929ee18389adb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingGroup: {fileID: 6574398156113470583}
-  positionScaling: -100
-  offset: 0
-  skip: 0
+  _sortingGroup: {fileID: 6574398156113470583}
+  _positionScaling: -100
+  _offset: 0
+  _skip: 0
 --- !u!1 &9054955153475252984
 GameObject:
   m_ObjectHideFlags: 0

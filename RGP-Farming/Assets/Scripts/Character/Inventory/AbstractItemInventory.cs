@@ -73,7 +73,8 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// <param name="pUpdate">Should it update the inventory ui</param>
     public void Set(int pSlot, GameItem pGameItem, bool pUpdate = true)
     {
-        Items[pSlot] = pGameItem.Amount == 0 ? new GameItem() : pGameItem;
+        //Debug.Log("pSlot: " + pSlot + ", pGameItem: " + pGameItem + ", pUpdate: " + pUpdate);
+        Items[pSlot] = pGameItem.Amount == 0 || pGameItem == null ? new GameItem() : pGameItem;
         
         if (pUpdate)
         {

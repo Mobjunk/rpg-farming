@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 
+[Serializable]
 public abstract class AbstractItemContainer<T> : UIContainerbase<T>
 {
     

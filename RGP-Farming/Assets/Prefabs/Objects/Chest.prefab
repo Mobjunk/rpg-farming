@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f01709383053e46908e0ec8b6b51b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionManager: {fileID: 0}
+  _interactionManager: {fileID: 0}
 --- !u!61 &5807500060518409157
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -222,10 +222,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4bf6691b597b648929ee18389adb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingGroup: {fileID: 652923553878110901}
-  positionScaling: -100
-  offset: 0
-  skip: 0
+  _sortingGroup: {fileID: 652923553878110901}
+  _positionScaling: -100
+  _offset: 0
+  _skip: 0
 --- !u!114 &652923553878110903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,10 +238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa0c938b3312d94f867107d64ec680f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugInventory: 1
-  maxInventorySize: 36
-  stackType: 1
-  items: []
+  DebugInventory: 1
+  _maxInventorySize: 36
+  StackType: 1
+  Items: []
 --- !u!114 &652923553878110896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,19 +254,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523e33d178d3002459f2879e79c7b73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedToOpenInvnetory: 0
-  uiTabs: []
-  containmentPrefab:
+  _allowedToOpenInvnetory: 0
+  _uiTabs: []
+  _containmentPrefab:
   - {fileID: 3327382381837659215, guid: cb654d975588e79469fd85be399acb6a, type: 3}
-  inventoryUI: {fileID: 1279998536392074535}
-  inventoryContainers:
-  - inventoryContainer: {fileID: 5500259967849097386}
-    maxSlots: 36
-    showIdicator: 0
-    useSecondSlotPrefab: 0
-    allowSnapping: 1
-  isOpened: 0
-  chestInventory: {fileID: 0}
+  _inventoryUI: {fileID: 1279998536392074535}
+  _inventoryContainers:
+  - InventoryContainer: {fileID: 5500259967849097386}
+    MaxSlots: 36
+    ShowIdicator: 0
+    UseSecondSlotPrefab: 0
+    AllowSnapping: 1
+  IsOpened: 0
+  _chestInventory: {fileID: 0}
 --- !u!114 &652923553878110909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8a579dbe88b514e8586642fadc8cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventoryUIManager: {fileID: 0}
 --- !u!1001 &652923553591113786
 PrefabInstance:
   m_ObjectHideFlags: 0

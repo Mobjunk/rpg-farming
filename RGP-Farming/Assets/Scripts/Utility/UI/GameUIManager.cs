@@ -2,59 +2,59 @@ using UnityEngine;
 
 public class GameUIManager : MonoBehaviour
 {
-    private Player player => Player.Instance();
+    private Player _player => Player.Instance();
 
     [Header("Allow to open inventory")]
-    [SerializeField] private bool allowedToOpenInvnetory;
+    [SerializeField] private bool _allowedToOpenInvnetory;
 
     public bool AllowedToOpenInvnetory
     {
-        get => allowedToOpenInvnetory;
+        get => _allowedToOpenInvnetory;
     }
     
     [Header("GameUI Settings")]
-    [SerializeField] private GameObject[] uiTabs;
-    private int currentTabId;
+    [SerializeField] private GameObject[] _uiTabs;
+    private int _currentTabId;
     
     public GameObject[] UiTabs
     {
-        get => uiTabs;
-        set => uiTabs = value;
+        get => _uiTabs;
+        set => _uiTabs = value;
     }
 
     public virtual void Open()
     {
-        player.CharacterUIManager.CurrentUIOpened = this;
-        if (player.InputEnabled) player.ToggleInput();
+        _player.CharacterUIManager.CurrentUIOpened = this;
+        if (_player.InputEnabled) _player.ToggleInput();
     }
 
     public virtual void Close()
     {
         ItemTooltipManager.Instance().SetTooltip(null);
         CraftingTooltipManager.Instance().SetTooltip(null);
-        player.CharacterUIManager.CurrentUIOpened = null;
-        if (!player.InputEnabled) player.ToggleInput();
+        _player.CharacterUIManager.CurrentUIOpened = null;
+        if (!_player.InputEnabled) _player.ToggleInput();
     }
 
     public virtual void Set()
     {
-        player.CharacterUIManager.CurrentUIOpened = this;
+        _player.CharacterUIManager.CurrentUIOpened = this;
     }
 
-    public void SwitchToTab(int index)
+    public void SwitchToTab(int pIndex)
     {
-        if (currentTabId == index)
+        if (_currentTabId == pIndex)
         {
             Debug.LogError("Cannot switch to the same tab.");
             return;
         }
-        if (index > UiTabs.Length)
+        if (pIndex > UiTabs.Length)
         {
-            Debug.LogError($"Cannot switch to tab {index} because max is {uiTabs.Length}!");
+            Debug.LogError($"Cannot switch to tab {pIndex} because max is {_uiTabs.Length}!");
             return;
         }
-        uiTabs[currentTabId].SetActive(false);
-        currentTabId = index;
-        uiTabs[currentTabId].SetActive(true);
+        _uiTabs[_currentTabId].SetActive(false);
+        _currentTabId = pIndex;
+        _uiTabs[_currentTabId].SetActive(true);
     }
 }

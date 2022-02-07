@@ -341,19 +341,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215dfc7e2d5f69840aa1fe258c2f1070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  containment:
+  _containment:
     id: 0
-  slotIndex: 0
-  slot: {fileID: 8701960951730531461}
-  amount: {fileID: 7799666396259808304}
-  icon: {fileID: 3019499799772445991}
-  highlight: {fileID: 0}
-  slider: {fileID: 0}
-  mainUISprite: {fileID: 3019499798928330604}
-  itemName: {fileID: 3019499798576196037}
-  itemNameShadow: {fileID: 7147460504472378434}
-  itemPrice: {fileID: 3019499799028123115}
-  goldCoin: {fileID: 3019499798335833918}
+  SlotIndex: 0
+  _slot: {fileID: 8701960951730531461}
+  _amount: {fileID: 7799666396259808304}
+  _icon: {fileID: 3019499799772445991}
+  _highlight: {fileID: 0}
+  _slider: {fileID: 0}
+  _mainUISprite: {fileID: 3019499798928330604}
+  _itemName: {fileID: 3019499798576196037}
+  _itemNameShadow: {fileID: 7147460504472378434}
+  _itemPrice: {fileID: 3019499799028123115}
+  _goldCoin: {fileID: 3019499798335833918}
   references:
     version: 1
     00000000:
@@ -370,9 +370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1020854bd373b4c897996145bc9c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 3019499798928330604}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  hoverColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  _hoverColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
 --- !u!1 &3019499799028123117
 GameObject:
   m_ObjectHideFlags: 0

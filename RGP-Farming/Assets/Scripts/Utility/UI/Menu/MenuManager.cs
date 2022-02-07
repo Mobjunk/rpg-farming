@@ -4,40 +4,40 @@ using UnityEngine;
 
 public abstract class MenuManager<T> : Singleton<T> where T : MonoBehaviour
 {
-    [SerializeField] private GameObject content;
-    [SerializeField] private RectTransform contents;
-    [SerializeField] private GameObject[] buttons;
+    [SerializeField] private GameObject _content;
+    [SerializeField] private RectTransform _contents;
+    [SerializeField] private GameObject[] _buttons;
     
-    public void SetAnchorPoint(AnchorsPresets anchor, Vector2 offset)
+    public void SetAnchorPoint(AnchorsPresets pAnchor, Vector2 pOffset)
     {
-        Vector2 anchorPoint = Utility.GetAnchor(anchor);
-        contents.pivot = anchorPoint;
-        contents.anchorMin = anchorPoint;
-        contents.anchorMax = anchorPoint;
+        Vector2 anchorPoint = Utility.GetAnchor(pAnchor);
+        _contents.pivot = anchorPoint;
+        _contents.anchorMin = anchorPoint;
+        _contents.anchorMax = anchorPoint;
 
-        contents.anchoredPosition = new Vector2(offset.x, offset.y);
+        _contents.anchoredPosition = new Vector2(pOffset.x, pOffset.y);
         
     }
     
-    public void Unhide(bool hideButtons = false)
+    public void Unhide(bool pHideButtons = false)
     {
-        if(hideButtons)
-            foreach(GameObject o in buttons)
+        if(pHideButtons)
+            foreach(GameObject o in _buttons)
                 o.SetActive(false);
-        content.SetActive(true);
+        _content.SetActive(true);
     }
 
-    public void Hide(bool unhideButtons = false)
+    public void Hide(bool pUnhideButtons = false)
     {
-        if(unhideButtons)
-            foreach(GameObject o in buttons)
+        if(pUnhideButtons)
+            foreach(GameObject o in _buttons)
                 o.SetActive(true);
-        content.SetActive(false);
+        _content.SetActive(false);
     }
 
-    public void SetButtons(bool unhideButtons = false)
+    public void SetButtons(bool pUnhideButtons = false)
     {
-        foreach(GameObject o in buttons)
-            o.SetActive(unhideButtons);
+        foreach(GameObject o in _buttons)
+            o.SetActive(pUnhideButtons);
     }
 }

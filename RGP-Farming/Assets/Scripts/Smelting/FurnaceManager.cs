@@ -36,12 +36,16 @@ public class FurnaceManager : MonoBehaviour
         if (!CanSmeltOre()) return;
 
         _currentOreTimer += Time.deltaTime;
-        if (_currentOreTimer >= _smeltingData.smeltTime)
+        if (_currentOreTimer >= _smeltingData.smeltTime && _oreContainer.Containment.Amount > 0)
         {
             _oreContainer.Containment.Amount--;
+            if (_oreContainer.Containment.Amount <= 0)
+                _oreContainer.SetContainment(null);
+            
             if (_barContainer.Containment == null)
                 _furnaceInventory.Set(2, new GameItem(_smeltingData.completedItem));
             else _barContainer.Containment.Amount++;
+            
             
             _oreContainer.UpdateItemContainer();
             _barContainer.UpdateItemContainer();

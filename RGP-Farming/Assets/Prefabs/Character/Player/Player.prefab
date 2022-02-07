@@ -96,7 +96,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 0
 --- !u!50 &4990165636136102978
 Rigidbody2D:
   serializedVersion: 4
@@ -175,13 +175,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c886c9f744c7c984d91ba2efa7119f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tileChecker: []
+  _tileChecker:
+  - {fileID: 7175613189052391787}
+  - {fileID: 4864515225408918063}
   _itemAboveHead:
-    item: {fileID: 0}
-    amount: 0
-    durability: -1
-    maxDurability: -1
-  _itemAboveHeadRenderer: {fileID: 0}
+    Item: {fileID: 0}
+    Amount: 0
+    Durability: -1
+    MaxDurability: -1
+  _itemAboveHeadRenderer: {fileID: 1366394884135307302}
 --- !u!114 &4985750740829715719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,10 +196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4bf6691b597b648929ee18389adb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingGroup: {fileID: 2803016351203578844}
-  positionScaling: -100
-  offset: -11
-  skip: 0
+  _sortingGroup: {fileID: 2803016351203578844}
+  _positionScaling: -100
+  _offset: 0
+  _skip: 0
 --- !u!114 &4990165636136102976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,11 +253,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df0788d2011c114f90f5cae796ec34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugInventory: 1
-  maxInventorySize: 36
-  stackType: 0
-  items: []
-  GoldCoins: 0
+  DebugInventory: 1
+  _maxInventorySize: 36
+  StackType: 0
+  Items: []
+  GoldCoins: 500
 --- !u!114 &2124916917677514975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,30 +270,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f109bc0841add3140a8ce9839545fd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedToOpenInvnetory: 0
-  uiTabs: []
-  containmentPrefab:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  inventoryUI: {fileID: 0}
-  inventoryContainers:
-  - inventoryContainer: {fileID: 0}
-    maxSlots: 12
-    showIdicator: 1
-    useSecondSlotPrefab: 0
-    allowSnapping: 0
-  - inventoryContainer: {fileID: 0}
-    maxSlots: 36
-    showIdicator: 1
-    useSecondSlotPrefab: 0
-    allowSnapping: 1
-  - inventoryContainer: {fileID: 0}
-    maxSlots: 36
-    showIdicator: 0
-    useSecondSlotPrefab: 1
-    allowSnapping: 1
-  isOpened: 0
+  _allowedToOpenInvnetory: 0
+  _uiTabs: []
+  _containmentPrefab:
+  - {fileID: 3327382381837659215, guid: cb654d975588e79469fd85be399acb6a, type: 3}
+  - {fileID: 3019499798928330606, guid: 052dff4c088ed314aabeeff04342b06c, type: 3}
+  _inventoryUI: {fileID: 0}
+  _inventoryContainers:
+  - InventoryContainer: {fileID: 0}
+    MaxSlots: 12
+    ShowIdicator: 1
+    UseSecondSlotPrefab: 0
+    AllowSnapping: 0
+  - InventoryContainer: {fileID: 0}
+    MaxSlots: 36
+    ShowIdicator: 1
+    UseSecondSlotPrefab: 0
+    AllowSnapping: 1
+  - InventoryContainer: {fileID: 0}
+    MaxSlots: 36
+    ShowIdicator: 0
+    UseSecondSlotPrefab: 1
+    AllowSnapping: 1
+  IsOpened: 0
 --- !u!114 &4990165636136102980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,11 +330,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6693ac2f1e6ec34cb8e226fdfbac36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tileChecker: []
+  _tileChecker:
+  - {fileID: 7175613189052391787}
+  - {fileID: 4864515225408918063}
   _grid: {fileID: 0}
-  _tileMaps: []
-  _canPlace: {fileID: 0}
-  _cannotPlace: {fileID: 0}
+  _tileMaps:
+  - {fileID: 0}
+  - {fileID: 0}
+  _canPlace: {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
+  _cannotPlace: {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
 --- !u!114 &2482437820657588259
 MonoBehaviour:
   m_ObjectHideFlags: 0

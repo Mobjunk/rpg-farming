@@ -3,25 +3,25 @@ using UnityEngine.UI;
 
 public class CoinAnimation : MonoBehaviour
 {
-    [SerializeField] private int spriteIndex;
-    [SerializeField] private Sprite[] coinSprites;
-    [SerializeField] private Image image;
-    private float spriteDelay;
+    [SerializeField] private int _spriteIndex;
+    [SerializeField] private Sprite[] _coinSprites;
+    [SerializeField] private Image _image;
+    private float _spriteDelay;
     
     private void Awake()
     {
-        image = GetComponent<Image>();
+        _image = GetComponent<Image>();
     }
 
     void Update()
     {
-        if (spriteDelay > 0)
+        if (_spriteDelay > 0)
         {
-            spriteDelay -= Time.deltaTime;
+            _spriteDelay -= Time.deltaTime;
             return;
         }
-        if (spriteIndex >= coinSprites.Length) spriteIndex = 0;
-        image.sprite = coinSprites[spriteIndex++];
-        spriteDelay = 0.1f;
+        if (_spriteIndex >= _coinSprites.Length) _spriteIndex = 0;
+        _image.sprite = _coinSprites[_spriteIndex++];
+        _spriteDelay = 0.1f;
     }
 }

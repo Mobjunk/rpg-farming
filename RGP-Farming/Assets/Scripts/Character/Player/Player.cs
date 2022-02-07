@@ -162,8 +162,8 @@ public class Player : CharacterManager
         _characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
-        /*characterInventory.AddItem(itemManager.ForName("Coal"), 100);
-        characterInventory.AddItem(itemManager.ForName("Iron ore"), 100);*/
+        _characterInventory.AddItem(_itemManager.ForName("Coal"), 100);
+        _characterInventory.AddItem(_itemManager.ForName("Iron ore"), 100);
         _characterInventory.AddItem(_itemManager.ForName("Chest"));
         _characterInventory.AddItem(_itemManager.ForName("Furnace"));
         _characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);

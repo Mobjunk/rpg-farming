@@ -1611,11 +1611,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2d0bf0e1ea69047bb8babccc946d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesGrass: {fileID: 2032565694}
-  tilesDirt: {fileID: 183147726}
-  dirtTile: {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
-  wateredDirtTile: {fileID: 11400000, guid: de142ec513921c8428f0aed28c504fc2, type: 2}
-  grid: {fileID: 443561286}
+  TilesGrass: {fileID: 2032565694}
+  TilesDirt: {fileID: 183147726}
+  DirtTile: {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
+  WateredDirtTile: {fileID: 11400000, guid: de142ec513921c8428f0aed28c504fc2, type: 2}
+  Grid: {fileID: 443561286}
 --- !u!114 &443561288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1628,12 +1628,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5fa2073708b834bbc87c526a3b37c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 443561286}
-  tileMaps:
+  _grid: {fileID: 443561286}
+  _tileMaps:
   - {fileID: 1233953296}
   - {fileID: 2032565694}
   - {fileID: 183147726}
-  tiles:
+  _tiles:
   - {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
   - {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
   - {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
@@ -2108,7 +2108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3496901473670824409, guid: 03452aaa8cf64e3498909bc5a7e3a3e4, type: 3}
       propertyPath: m_SortingOrder
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6675756735277046014, guid: 03452aaa8cf64e3498909bc5a7e3a3e4, type: 3}
       propertyPath: characterChest
@@ -2687,11 +2687,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2d0bf0e1ea69047bb8babccc946d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesGrass: {fileID: 2032565694}
-  tilesDirt: {fileID: 183147726}
-  dirtTile: {fileID: 11400000, guid: e521b25364905564ca1c6d9d76956c1e, type: 2}
-  wateredDirtTile: {fileID: 11400000, guid: 4df2c5ec548ba684fa0b407070356c11, type: 2}
-  grid: {fileID: 443561286}
+  TilesGrass: {fileID: 0}
+  TilesDirt: {fileID: 0}
+  DirtTile: {fileID: 0}
+  WateredDirtTile: {fileID: 0}
+  Grid: {fileID: 0}
 --- !u!4 &1905801416
 Transform:
   m_ObjectHideFlags: 0

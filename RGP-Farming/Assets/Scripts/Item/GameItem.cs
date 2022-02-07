@@ -18,8 +18,8 @@ public class GameItem
     
     public GameItem(AbstractItemData pItem)
     {
-        this.Item = pItem;
-        this.Amount = 1;
+        Item = pItem;
+        Amount = 1;
         if (pItem.durability != -1)
         {
             Durability = pItem.durability;
@@ -29,8 +29,8 @@ public class GameItem
 
     public GameItem(AbstractItemData pItem, int pAmount)
     {
-        this.Item = pItem;
-        this.Amount = pAmount;
+        Item = pItem;
+        Amount = pAmount;
         if (pItem != null && pItem.durability != -1)
         {
             Durability = pItem.durability;
@@ -40,12 +40,12 @@ public class GameItem
 
     public void SetAmount(int pAmount)
     {
-        this.Amount = pAmount;
+        Amount = pAmount;
     }
 
     public void SetDurability(int pDurability)
     {
-        this.Durability = pDurability;
+        Durability = pDurability;
     }
 
     public override string ToString()

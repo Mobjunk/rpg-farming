@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
 {
-    public ShopUIManager shopUIManager;
+    public ShopUIManager _shopUIManager;
     
     public void StartGame()
     {
@@ -20,11 +20,11 @@ public class ButtonManager : MonoBehaviour
 
     public void Interact()
     {
-        shopUIManager.Interact();
+        _shopUIManager.Interact();
     }
 
-    public void SwitchTab(int index)
+    public void SwitchTab(int pIndex)
     {
-        Player.Instance().CharacterUIManager.CurrentUIOpened.SwitchToTab(index);
+        Player.Instance().CharacterUIManager.CurrentUIOpened.SwitchToTab(pIndex);
     }
 }

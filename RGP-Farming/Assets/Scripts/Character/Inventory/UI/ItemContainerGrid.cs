@@ -1,6 +1,7 @@
-using UnityEngine;
+using System;
 using UnityEngine.EventSystems;
 
+[Serializable]
 public class ItemContainerGrid : AbstractItemContainer<GameItem>
 {
     public override void UpdateItemContainer()

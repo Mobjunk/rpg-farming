@@ -148,11 +148,8 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     string[] slotIcon = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
     private void Start()
     {
-        //slotIndex = ;
         if (!int.TryParse(gameObject.name, out SlotIndex))
-        {
             Debug.Log($"Cannot try parse {gameObject.name} to int...");
-        }
         
         if (SlotIndex < slotIcon.Length && ShowIndicator) _slot.text = slotIcon[SlotIndex];
         else _slot.text = "";
@@ -190,7 +187,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
             {
                 GameItem updatedItem = new GameItem(currentItem.Item, currentItem.Amount + placeHolder.Amount);
                 Container.Set(SlotIndex, updatedItem); 
-                currentSnap.Container.Set(currentSnap.SlotIndex, null);
+                currentSnap.Container.Set(currentSnap.SlotIndex, new GameItem());//null
                 snapperManager.ResetSnappedItem(false);
             } else {
                 //Handles updating the containers
@@ -216,6 +213,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         {
             currentItem.SetAmount(currentItem.Amount - 1);
             currentSnap.Container.Set(currentSnap.SlotIndex, currentItem);
+            
             Container.Set(SlotIndex, new GameItem(currentItem.Item, clickedItem.Amount + 1));
             if (currentItem.Amount <= 0) snapperManager.ResetSnappedItem(false);
         }

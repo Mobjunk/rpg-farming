@@ -6,7 +6,8 @@ public class FurnaceUIManager : AbstractInventoryUIManger
     private InventoryMenuManager _inventoryMenuManager => InventoryMenuManager.Instance();
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
     
-    [SerializeField] private List<ItemContainerGrid> _slots = new List<ItemContainerGrid>();
+    //[SerializeField] private List<ItemContainerGrid> _slots = new List<ItemContainerGrid>();
+    private ItemContainerGrid[] _slots;
 
     public override void Awake()
     {
@@ -15,13 +16,14 @@ public class FurnaceUIManager : AbstractInventoryUIManger
         ContainmentContainer = GetComponent<FurnaceInventory>();
         ContainmentContainer.onInventoryChanged += OnInventoryChanged;
         
-        for (int slot = 0; slot < _slots.Count; slot++)
+        _slots = GetComponentsInChildren<ItemContainerGrid>(true);
+        
+        for (int slot = 0; slot < _slots.Length; slot++)
         {
             ItemContainerGrid grid = _slots[slot];
             grid.AllowMoving = true;
             grid.Container = ContainmentContainer;
             grid.SetContainment(ContainmentContainer.Items[slot]);
-            
             _containers[0].Add(grid);
         }
     }

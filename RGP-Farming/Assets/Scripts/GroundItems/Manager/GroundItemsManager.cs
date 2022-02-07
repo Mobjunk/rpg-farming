@@ -7,7 +7,7 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
 {
     private Player player => Player.Instance();
     
-    [SerializeField] private GameObject groundItemPrefab;
+    [SerializeField] private GameObject _groundItemPrefab;
     
     private List<GroundItem> groundItems = new List<GroundItem>();
 
@@ -57,48 +57,48 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
     /// <summary>
     /// Handles adding a ground item
     /// </summary>
-    /// <param name="groundItem"></param>
-    /// <param name="position"></param>
-    public void Add(GameItem groundItem, Vector2 position)
+    /// <param name="pGroundItem"></param>
+    /// <param name="pPosition"></param>
+    public void Add(GameItem pGroundItem, Vector2 pPosition)
     {
-        GameObject gObject = Instantiate(groundItemPrefab, position, Quaternion.identity);
-        gObject.GetComponent<GroundItemManager>().SetSprite(groundItem.Item.uiSprite);
+        GameObject gObject = Instantiate(_groundItemPrefab, pPosition, Quaternion.identity);
+        gObject.GetComponent<GroundItemManager>().SetSprite(pGroundItem.Item.uiSprite);
         
-        groundItems.Add(new GroundItem(groundItem, gObject));
+        groundItems.Add(new GroundItem(pGroundItem, gObject));
     }
     
     /// <summary>
     /// Handles removing a ground item from a game object
     /// </summary>
-    /// <param name="gameObject">The game object a player walked over</param>
-    public void Remove(GameObject gameObject, bool addToInventory = false)
+    /// <param name="pGameObject">The game object a player walked over</param>
+    public void Remove(GameObject pGameObject, bool pAddToInventory = false)
     {
-        Remove(ForGameObject(gameObject), addToInventory);
+        Remove(ForGameObject(pGameObject), pAddToInventory);
     }
 
     /// <summary>
     /// Handles removing a ground item
     /// </summary>
-    /// <param name="groundItem">The ground item being removed</param>
-    public void Remove(GroundItem groundItem, bool addToInventory = false)
+    /// <param name="pGroundItem">The ground item being removed</param>
+    public void Remove(GroundItem pGroundItem, bool pAddToInventory = false)
     {
-        if (groundItem == null)
+        if (pGroundItem == null)
         {
             Debug.LogError("Ground item is null");
             return;
         }
         
-        if (groundItem.State == State.PUBLIC && groundItem.Respawn)
+        if (pGroundItem.State == State.PUBLIC && pGroundItem.Respawn)
         {
-            groundItem.State = State.HIDDEN;
-            groundItem.CurrentTime = groundItem.DefaultTime;
-            groundItem.GameObject.SetActive(false);
+            pGroundItem.State = State.HIDDEN;
+            pGroundItem.CurrentTime = pGroundItem.DefaultTime;
+            pGroundItem.GameObject.SetActive(false);
         }
         else
         {
-            if(addToInventory) player.CharacterInventory.AddItem(groundItem.gameItem.Item, groundItem.gameItem.Amount, true);
-            groundItems.Remove(groundItem);
-            Destroy(groundItem.GameObject);
+            if(pAddToInventory) player.CharacterInventory.AddItem(pGroundItem.gameItem.Item, pGroundItem.gameItem.Amount, true);
+            groundItems.Remove(pGroundItem);
+            Destroy(pGroundItem.GameObject);
         }
     }
     
