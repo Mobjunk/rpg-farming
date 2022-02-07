@@ -9,7 +9,7 @@ public class GroundItemManager : MonoBehaviour
     private void Awake()
     {
         //rigidbody2D = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnTriggerEnter2D(Collider2D pOther)

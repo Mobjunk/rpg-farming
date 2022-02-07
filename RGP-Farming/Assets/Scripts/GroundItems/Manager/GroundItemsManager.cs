@@ -59,12 +59,14 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
     /// </summary>
     /// <param name="pGroundItem"></param>
     /// <param name="pPosition"></param>
-    public void Add(GameItem pGroundItem, Vector2 pPosition)
+    public GameObject Add(GameItem pGroundItem, Vector2 pPosition)
     {
         GameObject gObject = Instantiate(_groundItemPrefab, pPosition, Quaternion.identity);
         gObject.GetComponent<GroundItemManager>().SetSprite(pGroundItem.Item.uiSprite);
         
         groundItems.Add(new GroundItem(pGroundItem, gObject));
+
+        return gObject;
     }
     
     /// <summary>
