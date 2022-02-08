@@ -9,6 +9,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
     private Rigidbody2D _rigidBody2D;
     private Animator _animator;
     private HeightBasedSorting _sorting;
+    public Vector2 CurrentDirection;
     
     private void Awake()
     {
@@ -20,6 +21,8 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
     public void Move(Vector2 pDirection)
     {
         pDirection.Normalize();
+
+        CurrentDirection = pDirection;
 
         _rigidBody2D.MovePosition((Vector2)transform.position + (pDirection * _movementSpeed));
 

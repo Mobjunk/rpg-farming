@@ -74,7 +74,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
     public void Set(int pSlot, GameItem pGameItem, bool pUpdate = true)
     {
         //Debug.Log("pSlot: " + pSlot + ", pGameItem: " + pGameItem + ", pUpdate: " + pUpdate);
-        Items[pSlot] = pGameItem.Amount == 0 || pGameItem == null ? new GameItem() : pGameItem;
+        Items[pSlot] = pGameItem.Amount == 0 ? new GameItem() : pGameItem;
         
         if (pUpdate)
         {
@@ -326,7 +326,7 @@ public abstract class AbstractItemInventory : MonoBehaviour
     /// Get the next free available slot
     /// </summary>
     /// <returns></returns>
-    int GetFreeSlot()
+    public int GetFreeSlot()
     {
         for (int index = 0; index < _maxInventorySize; index++)
             if (Items[index].Item == null) return index;

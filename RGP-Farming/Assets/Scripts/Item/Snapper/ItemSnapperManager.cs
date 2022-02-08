@@ -10,11 +10,11 @@ public class ItemSnapperManager : Singleton<ItemSnapperManager>
     {
         if (pCurrentItemSnapped.GetType() == typeof(ShopContainerGrid)) return;
         
-        this.CurrentItemSnapped = pCurrentItemSnapped;
+        CurrentItemSnapped = pCurrentItemSnapped;
         
-        this.CurrentItemSnapped.transform.localScale = new Vector3(1, 1, 1);
+        CurrentItemSnapped.transform.localScale = new Vector3(1, 1, 1);
 
-        Canvas canvas = this.CurrentItemSnapped.Icon.gameObject.AddComponent<Canvas>();
+        Canvas canvas = CurrentItemSnapped.Icon.gameObject.AddComponent<Canvas>();
         canvas.overrideSorting = true;
         canvas.sortingOrder = 10;
         

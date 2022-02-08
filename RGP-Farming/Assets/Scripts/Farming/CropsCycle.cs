@@ -1,9 +1,13 @@
 
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(CropsInteraction))]
 public class CropsCycle : MonoBehaviour
 {
+    private Animator _animator;
+    
     private TilePlacer _tilePlacer => TilePlacer.Instance();
     
     public Crops Crops;
@@ -21,11 +25,10 @@ public class CropsCycle : MonoBehaviour
     private bool _isWatered;
 
     private GameObject _diseasedObject;
-
-
-
+    
     private void Awake()
     {
+        _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _diseasedObject = transform.GetChild(0).gameObject;
         _spriteRenderer.sprite = Crops.spriteStages[0];
@@ -40,7 +43,7 @@ public class CropsCycle : MonoBehaviour
 
     public void CropsUpdater()
     {
-        _isWatered = _tilePlacer.CheckTileUnderObject(transform.position, TileType.WATER);
+        _isWatered = false; //_tilePlacer.CheckTileUnderObject(transform.position, TileType.WATER);
         _updateTimer -= Time.deltaTime;
         if (_updateTimer <= 0)
         {
@@ -63,11 +66,9 @@ public class CropsCycle : MonoBehaviour
     
     public bool PlantHasDied()
     {
-        // Set the sprite of the plant to dead.
+        //Set the sprite of the plant to dead.
         if (!_isWatered && Crops.useOfWater)
         {
-            //SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
-            //spriteRenderer.enabled = true;
             _diseasedObject.SetActive(true);
             _readyToHarvest = true;
             return true;
@@ -100,5 +101,22 @@ public class CropsCycle : MonoBehaviour
     public bool HasFinishedGrowing()
     {
         return _readyToHarvest;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(_spriteCount > 0) _animator.SetBool("shake", true);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.name.Equals("Player"))
+        {
+            CharacterMovementMananger characterMovementMananger = other.gameObject.GetComponent<CharacterMovementMananger>();
+            if (!characterMovementMananger.CurrentDirection.Equals(Vector2.zero) && !_animator.GetBool("shake"))
+            {
+                if(_spriteCount > 0) _animator.SetBool("shake", true);
+            }
+        }
     }
 }

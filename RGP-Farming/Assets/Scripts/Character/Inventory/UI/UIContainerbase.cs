@@ -1,12 +1,20 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [Serializable]
 public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    /// <summary>
+    /// Handles the references of the containers from before run time
+    /// </summary>
+    private static List<UIContainerbase<T>> ContainerInstances = new List<UIContainerbase<T>>();
+    
     /// <summary>
     /// The containment
     /// </summary>
@@ -110,6 +118,11 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     
     private bool _hoveringContainment;
 
+    private void Awake()
+    {
+        ContainerInstances.Add(this);
+    }
+
     private void Update()
     {
         if (_hoveringContainment)
@@ -183,7 +196,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
             GameItem placeHolder = new GameItem(Container.Items[SlotIndex].Item, Container.Items[SlotIndex].Amount);
             GameItem currentItem = currentSnap.Container.Items[currentSnap.SlotIndex];
 
-            if (placeHolder.Item == currentItem.Item && SlotIndex != currentSnap.SlotIndex) //
+            if (placeHolder.Item == currentItem.Item && SlotIndex != currentSnap.SlotIndex)
             {
                 GameItem updatedItem = new GameItem(currentItem.Item, currentItem.Amount + placeHolder.Amount);
                 Container.Set(SlotIndex, updatedItem); 
@@ -197,6 +210,9 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         }
     }
 
+    /// <summary>
+    /// Handles placing a single item from a stack to a new slot
+    /// </summary>
     public virtual void PlaceSingleItem()
     {
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
@@ -207,6 +223,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
             Debug.Log("Cannot do this function on the same item you got snapped...");
             return;
         }
+        
         GameItem currentItem = currentSnap.Container.Items[currentSnap.SlotIndex];
         GameItem clickedItem = Container.Items[SlotIndex];
         if (_containment == null || currentItem.Item == clickedItem.Item)
@@ -219,22 +236,34 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         }
     }
 
+    /// <summary>
+    /// Handles splitting item stacks into 
+    /// </summary>
     public virtual void SplitItemStack()
     {
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
         
-        UIContainerbase<GameItem> clickedItem = this as UIContainerbase<GameItem>;
-        Debug.Log("clickedItem: " + clickedItem.Containment);
+        GameItem currentItem = Container.Items[SlotIndex];
+        if (currentItem == null || (currentItem.Item != null && !currentItem.Item.stackable)) return;
         
-        /*Item currentItem = Container.items[slotIndex];
-        int half = Mathf.FloorToInt(currentItem.amount / 2);
-        
-        currentItem.SetAmount(currentItem.amount - half);
-        Container.Set(slotIndex, currentItem);
-        
-        Debug.Log("half: " + half);*/
+        int half = Mathf.FloorToInt(currentItem.Amount / 2);
+        if (half <= 0) return;
+
+        currentItem.SetAmount(currentItem.Amount - half);
+        Container.Set(SlotIndex, currentItem);
+
+        int nextFreeSlot = Container.GetFreeSlot();
+        GameItem createdItem = new GameItem(currentItem.Item, half);
+        Container.Set(nextFreeSlot, createdItem);
+
+        snapperManager.SetSnappedItem(GetCorrectUIContainerbase(createdItem) as UIContainerbase<GameItem>);
     }
-    
+
+    public UIContainerbase<T> GetCorrectUIContainerbase(GameItem pCreatedItem)
+    {
+        return (from uiContainerbase in ContainerInstances let currentItem = uiContainerbase.Containment as GameItem where currentItem != null && currentItem.Equals(pCreatedItem) select uiContainerbase).FirstOrDefault();
+    }
+
     public virtual void OnPointerDown(PointerEventData pEventData)
     {
         if (pEventData.button == PointerEventData.InputButton.Left || pEventData.button == PointerEventData.InputButton.Middle)

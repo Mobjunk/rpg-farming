@@ -59,14 +59,32 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
     /// </summary>
     /// <param name="pGroundItem"></param>
     /// <param name="pPosition"></param>
-    public GameObject Add(GameItem pGroundItem, Vector2 pPosition)
+    public void Add(GameItem pGroundItem, Vector2 pPosition, bool pRemoveAfterwards = false)
     {
-        GameObject gObject = Instantiate(_groundItemPrefab, pPosition, Quaternion.identity);
-        gObject.GetComponent<GroundItemManager>().SetSprite(pGroundItem.Item.uiSprite);
+        if (pGroundItem.Amount > 1)
+        {
+            for (int index = 0; index < pGroundItem.Amount; index++)
+            {
+                GameObject gObject = Instantiate(_groundItemPrefab, pPosition, Quaternion.identity);
         
-        groundItems.Add(new GroundItem(pGroundItem, gObject));
-
-        return gObject;
+                GroundItemManager groundItemManager = gObject.GetComponent<GroundItemManager>();
+                groundItemManager?.SetSprite(pGroundItem.Item.uiSprite);
+                
+                SpreadGroundItem spreadGroundItem = gObject.GetComponent<SpreadGroundItem>();
+                if(pGroundItem.Amount > 0) spreadGroundItem?.SetSpread(gObject, 10, pRemoveAfterwards);
+        
+                groundItems.Add(new GroundItem(new GameItem(pGroundItem.Item), gObject));
+            }
+        }
+        else
+        {
+            GameObject gObject = Instantiate(_groundItemPrefab, pPosition, Quaternion.identity);
+        
+            GroundItemManager groundItemManager = gObject.GetComponent<GroundItemManager>();
+            groundItemManager?.SetSprite(pGroundItem.Item.uiSprite);
+        
+            groundItems.Add(new GroundItem(pGroundItem, gObject));
+        }
     }
     
     /// <summary>
