@@ -2,8 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(SortingGroup))]
-[RequireComponent(typeof(HeightBasedSorting))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class StaticObjectManager : MonoBehaviour
 {
     [SerializeField] private InteractionManager _interactionManager;

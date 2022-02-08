@@ -96,7 +96,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
 --- !u!50 &4990165636136102978
 Rigidbody2D:
   serializedVersion: 4
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sortingGroup: {fileID: 2803016351203578844}
   _positionScaling: -100
-  _offset: 0
+  _offset: -11
   _skip: 0
 --- !u!114 &4990165636136102976
 MonoBehaviour:
@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 0.015
+  CurrentDirection: {x: 0, y: 0}
 --- !u!114 &2368994498836970983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e5d6c1ebf416441a15edc26acd14f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterFeet: {fileID: 11400000, guid: 6749b4f598aac9f4bba788af43f6b2d3, type: 2}
+  _characterFeet: {fileID: 0}
 --- !u!1 &4990165636754290792
 GameObject:
   m_ObjectHideFlags: 0

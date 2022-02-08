@@ -7,12 +7,16 @@ public class TreeInteraction : ObjectInteractionManager
     
     [SerializeField] private GameObject _treeTop;
 
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator[] _animators = new Animator[2];
 
     public void Awake()
     {
         healthManager = GetComponent<HealthManager>();
-        if (_treeTop != null) _animator = _treeTop.GetComponent<Animator>();
+        _animators[0] = GetComponentInChildren<Animator>();
+        if (_treeTop != null)
+        {
+            _animators[1] = _treeTop.GetComponent<Animator>();
+        }
     }
 
     public override void OnInteraction(CharacterManager characterManager)
@@ -21,16 +25,12 @@ public class TreeInteraction : ObjectInteractionManager
         {
             AbstractToolItem tool = (AbstractToolItem) itemBarManager.GetItemSelected();
             healthManager.TakeDamage(tool.toolDamage);
-            if (_animator != null)
+            if (_animators != null)
             {
-                _animator.SetBool("treeHit", true);
+                if (_treeTop != null) _animators[1].SetBool("treeHit", true);
+                else _animators[0].SetBool("hit", true);
             }
-            if (healthManager.CurrentHealth < (healthManager.MaxHealth / 2) && _treeTop != null)
-            {
-                _animator.SetBool("treeFalling", true);
-                //Destroy(_treeTop);
-                //_treeTop = null;
-            }
+            if (healthManager.CurrentHealth < (healthManager.MaxHealth / 2) && _treeTop != null) _animators[1].SetBool("treeFalling", true);
             Debug.Log($"Tree stump took {tool.toolDamage} damage!");
         } else Debug.LogError("Not the correct tool.");
     }
