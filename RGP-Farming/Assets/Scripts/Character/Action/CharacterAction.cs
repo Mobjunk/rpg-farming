@@ -3,30 +3,27 @@ using UnityEngine;
 [System.Serializable]
 public abstract class CharacterAction : ICharacterAction
 {
-    private CharacterManager pCharacterManager;
+    private CharacterManager characterManager;
     private CharacterStateManager _characterStateManager;
 
-    public CharacterManager PCharacterManager
+    public CharacterManager CharacterManager
     {
-        get => pCharacterManager;
-        set => pCharacterManager = value;
+        get => characterManager;
+        set => characterManager = value;
     }
 
     public abstract CharacterStates GetCharacterState();
 
     public CharacterAction(CharacterManager pCharacterManager)
     {
-        PCharacterManager = pCharacterManager;
+        CharacterManager = pCharacterManager;
         _characterStateManager = pCharacterManager.GetComponent<CharacterStateManager>();
     }
     
     public virtual void Update()
     {
         if (!GetCharacterState().Equals(CharacterStates.NONE))
-        {
-            Debug.LogError("dafuq");
             _characterStateManager.SetCharacterState(GetCharacterState());
-        }
     }
 
     public virtual void OnStart()
