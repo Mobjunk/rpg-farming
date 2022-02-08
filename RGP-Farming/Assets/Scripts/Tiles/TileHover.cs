@@ -42,8 +42,8 @@ public class TileHover : Singleton<TileHover>
                 if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return false;
                 
                 //Checks if the crops the player is clicking is finished growing
-                CropsCycle cropsCycle = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsCycle>();
-                if (cropsCycle != null && cropsCycle.HasFinishedGrowing()) return false;
+                CropsGrowManager cropsGrowManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsGrowManager>();
+                if (cropsGrowManager != null && cropsGrowManager.ReadyToHarvest) return false;
 
                 //Checks if the crops you are hovering is in the interactable list
                 InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();

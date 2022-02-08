@@ -103,7 +103,7 @@ public class Player : CharacterManager
     public override void Update()
     {
         base.Update();
-
+        
         _controllerConnected = false;
         foreach(string name in Input.GetJoystickNames())
         {

@@ -13,4 +13,5 @@ public enum CharacterStates
     IDLE_HOLD,
     USE_TOOL,
     NONE,
+    HARVESTING,
 }

@@ -52,7 +52,7 @@ public class RandomMovementManager : CharacterAction
             
             if (outsideWalkingRadius) dir = Vector2.zero;
             
-            PCharacterManager.CharacterMovementMananger.Move(dir);
+            CharacterManager.CharacterMovementMananger.Move(dir);
             _movementTime -= Time.deltaTime;
         } else if (_movementTime <= 0)
         {

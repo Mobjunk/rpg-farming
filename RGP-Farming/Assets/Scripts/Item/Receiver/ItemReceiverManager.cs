@@ -71,6 +71,19 @@ public class ItemReceiverManager : Singleton<ItemReceiverManager>
         //If it does exist update the amount
         else
         {
+            //Handles updating the opacity for the images
+            foreach (Image bg in data.Container.Backgrounds)
+            {
+                Color color = bg.color;
+                bg.color = new Color(color.r, color.g, color.b, 1);
+            }
+
+            //Handles updating the opacity for all the text
+            foreach (TextMeshProUGUI text in data.Container.Texts)
+            {
+                Color color = text.color;
+                text.color = new Color(color.r, color.g, color.b, 1);
+            }
             ItemReceiverContainer container = data.Container;
             container.SetContainment(new GameItem(container.Containment.Item, container.Containment.Amount + pGameItem.Amount));
             data.TimeRemaning = 2.5f;
