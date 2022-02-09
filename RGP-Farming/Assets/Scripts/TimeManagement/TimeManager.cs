@@ -24,6 +24,9 @@ public class TimeManager : MonoBehaviour
 
 	public void HandleTime()
 	{
+		//Time.Timespan elapsed time; Time.time in de project settings aanpassen.
+		// Crops kunnen gebruik maken van Time.unscaledTime zodat ze niet dezelfde waarde gebruiken als time.time [Nighel]
+		//Time multiplier kan nog aanpassen (Time.timescale past ook delta time aan. [kan ook project settings])
 		timeValue += Time.deltaTime * TimeSpeedMultiplier;
 		hourCount = (int)timeValue / 60;
 		minuteCount = (int)timeValue - (int)hourCount * 60;
