@@ -29,7 +29,7 @@ public class CropsGrowManager : MonoBehaviour
     /// <summary>
     /// The crops cycle time for this crop
     /// </summary>
-    private float _cropsCycleTimer;
+    [SerializeField] private float _cropsCycleTimer;
     public float CropsCycleTimer => _cropsCycleTimer;
 
     /// <summary>
