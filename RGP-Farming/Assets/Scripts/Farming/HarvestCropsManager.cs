@@ -42,7 +42,7 @@ public class HarvestCropsManager : HarvestSkillManager
         }
             
         _requiredAmount--;
-        _player.CharacterInventory.AddItem(_receivedItem, pShow:true);
+        _player.CharacterInventory.AddItem(ItemToReceive(), pShow:true);
         
         if (_requiredAmount <= 0)
         {
@@ -55,5 +55,10 @@ public class HarvestCropsManager : HarvestSkillManager
     public override bool Successful()
     {
         return true;
+    }
+
+    public override AbstractItemData ItemToReceive()
+    {
+        return _receivedItem;
     }
 }

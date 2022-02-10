@@ -36,7 +36,7 @@ public class ContractManager : Singleton<ContractManager>
         AbstractContractData givenContract = possibleContracts[Random.Range(0, possibleContracts.Count)];
         if (CanAssignContract(givenContract))
         {
-            _characterContractManager.ContractsInProgress.Add(new Contract(givenContract, 10));
+            _characterContractManager.ContractsInProgress.Add(new Contract(givenContract, 5));
         } else Debug.LogError("Contract couldn't be given...");
     }
 

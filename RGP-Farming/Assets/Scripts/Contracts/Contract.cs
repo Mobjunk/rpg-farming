@@ -36,14 +36,14 @@ public class Contract
         switch (AbstractContractData.contractDifficulty)
         {
             case ContractDifficultys.EASY:
-                return 20;
+                return 200;
             case ContractDifficultys.MEDIUM:
-                return 30;
+                return 300;
             case ContractDifficultys.HARD:
-                return 40;
+                return 400;
             case ContractDifficultys.MASTER:
-                return 50;
-            default: return 10;
+                return 500;
+            default: return 100;
         }
     }
 }

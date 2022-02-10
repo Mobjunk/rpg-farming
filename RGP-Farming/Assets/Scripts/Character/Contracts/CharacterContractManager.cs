@@ -28,6 +28,16 @@ public class CharacterContractManager : MonoBehaviour
         toRemove.Clear();
     }
 
+    public void HandleContractDevelopment(AbstractItemData pItemData)
+    {
+        foreach (var contract in _contractsInProgress.Where(contract => contract != null).Where(contract => contract.AbstractContractData.linkedItem.Equals(pItemData)))
+        {
+            contract.CompletedAmount++;
+            Debug.Log($"{contract.CompletedAmount}/{contract.RequiredAmount} progress of the {contract.AbstractContractData.name} contract");
+            break;
+        }
+    }
+
     public List<Contract> GetListForNpcData(NpcData pNpcData)
     {
         return _contractsInProgress.Where(contract => contract.AbstractContractData.linkedNpc.Equals(pNpcData) && contract.CanFinishContract()).ToList();
