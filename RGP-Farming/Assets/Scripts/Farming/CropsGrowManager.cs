@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -29,7 +30,7 @@ public class CropsGrowManager : MonoBehaviour
     /// <summary>
     /// The crops cycle time for this crop
     /// </summary>
-    private float _cropsCycleTimer;
+    [SerializeField] private float _cropsCycleTimer;
     public float CropsCycleTimer => _cropsCycleTimer;
 
     /// <summary>
@@ -45,7 +46,7 @@ public class CropsGrowManager : MonoBehaviour
     private void Awake()
     {
         _cropsManager = GetComponent<CropsManager>();
-        _cropsCycleTimer = _crops.timeBetweenGrowthStage;
+        _cropsCycleTimer = Time.unscaledTime + _crops.growthTime;
     }
 
     private void Update()
@@ -53,15 +54,13 @@ public class CropsGrowManager : MonoBehaviour
         if (_readyToHarvest) return;
         
         _cropsManager.IsWatered = _tilePlacer.CheckTileUnderObject(transform.position, TileType.WATER);
-        _cropsCycleTimer -= Time.deltaTime;
-        if (_cropsCycleTimer <= 0)
+        if (Time.unscaledTime >= _cropsCycleTimer)
         {
-            _cropsCycleTimer = _crops.timeBetweenGrowthStage;
             if (!PlantHasDied())
             {
                 if (_currentCropCycle < _crops.spriteStages.Length)
                 {
-                    _cropsManager.SpriteRenderer.sprite = _crops.spriteStages[++_currentCropCycle];
+                    _cropsManager.SpriteRenderer.sprite = _crops.growStages[++_currentCropCycle].Sprite;
                 }
                 if (_currentCropCycle == _crops.spriteStages.Length - 1 && !_readyToHarvest)
                 {
@@ -70,13 +69,14 @@ public class CropsGrowManager : MonoBehaviour
                 }
             }
             _tilePlacer.UpdateTile(gameObject, TileType.WATER);
+            _cropsCycleTimer = Time.unscaledTime + _crops.growthTime;
         }
     }
 
     public bool PlantHasDied()
     {
         //Set the sprite of the plant to dead.
-        if (!_cropsManager.IsWatered && _crops.useOfWater)
+        if (!_cropsManager.IsWatered && _crops.growStages[_currentCropCycle].NeedsWaterThisStage)
         {
             _diseasedObject.SetActive(true);
             _readyToHarvest = true;

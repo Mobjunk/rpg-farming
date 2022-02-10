@@ -20,28 +20,6 @@ public static class Utility
             SceneManager.LoadScene(pSceneName, LoadSceneMode.Additive);
         }
     }
-    
-    public static UIContainerbase<GameItem> GetUIContainerBase(GameItem pCreatedItem)
-    {
-        UIContainerbase<GameItem> uiBase = null;
-        
-        //TODO: Maybe fill this list at a different time, like when first loading the scene.
-        List<GameObject> rootObjectsInScene = new List<GameObject>();
-        Scene scene = SceneManager.GetSceneAt(1);
-        scene.GetRootGameObjects(rootObjectsInScene);
-        
-        Debug.Log("rootObjectsInScene: " + rootObjectsInScene.Count);
-        
-        foreach (UIContainerbase<GameItem> uiContainerbase in rootObjectsInScene.SelectMany(gObject => gObject.GetComponentsInChildren<UIContainerbase<GameItem>>(true)))
-        {
-            if (uiContainerbase.Containment.Equals(pCreatedItem))
-            {
-                uiBase = uiContainerbase;
-                break;
-            }
-        }
-        return uiBase;
-    }
 
     public static void UnloadScene(string pSceneName)
     {

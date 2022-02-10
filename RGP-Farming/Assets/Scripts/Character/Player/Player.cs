@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterInventory), typeof(PlayerInvenotryUIManager), typeof(CharacterInteractionManager))]
@@ -76,7 +77,7 @@ public class Player : CharacterManager
     /// </summary>
     private bool _controllerConnected;
     public bool ControllerConnected => _controllerConnected;
-    
+
     public override void Awake()
     {
         base.Awake();

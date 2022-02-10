@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "New Crop", menuName = "New Crop")]
 public class Crops : ScriptableObject
@@ -10,8 +9,7 @@ public class Crops : ScriptableObject
     public string discription;
 
     [Header("Variables")]
-    public float timeBetweenGrowthStage;
-    public bool useOfWater; 
+    [FormerlySerializedAs("timeBetweenGrowthStage")] public float growthTime; //timeBetweenGrowthStage
     public int harvestAmount;
 
     [Header("Min and max amount randomize value")]
@@ -20,4 +18,12 @@ public class Crops : ScriptableObject
     [Header("Sprites")]
     public AbstractConsumableItem harvestedItem;
     public Sprite[] spriteStages;
+    public GrowStages[] growStages;
+}
+
+[System.Serializable]
+public class GrowStages
+{
+    public Sprite Sprite;
+    public bool NeedsWaterThisStage;
 }
