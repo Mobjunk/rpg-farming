@@ -3,13 +3,17 @@ using UnityEngine;
 public class BodyPart : ScriptableObject
 {
     [Header("Type")] public BodyType bodyType;
+
+    [Header("Bottom sprites")]
+    public SpriteLayout defaultBottomSprites = new SpriteLayout(8);
     
-    [Header("Gender settings")]
-    public bool male;
-    public bool female;
+    [Header("Top sprites")]
+    public SpriteLayout defaultTopSprites = new SpriteLayout(8);
     
-    [Header("Bottom sprites")] public SpriteLayout bSprites = new SpriteLayout(2);
-    [Header("Left sprites")] public SpriteLayout lSprites = new SpriteLayout(2);
-    [Header("Right sprites")] public SpriteLayout rSprites = new SpriteLayout(2);
-    [Header("Top sprites")] public SpriteLayout tSprites = new SpriteLayout(2);
+    [Header("Right sprites")]
+    public SpriteLayout defaultRightSprites = new SpriteLayout(8);
+    
+    [Header("Left sprites")]
+    public SpriteLayout defaultLeftSprites = new SpriteLayout(8);
+    
 }
