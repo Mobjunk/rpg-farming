@@ -19,7 +19,7 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         if (_currentBodyPart != null)
         {
-            _spriteRenderer.sprite = _currentBodyPart.bSprites.sprites[0].sprite[1];
+            _spriteRenderer.sprite = _currentBodyPart.defaultBottomSprites.sprites[0].sprite[0];
             _spriteRenderer.enabled = true;
         }
 
@@ -49,7 +49,35 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     {
         _currentBodyPart = pBodyPart;
 
-        SpriteLayout bodySprites = GetSprites(pRotation);
+        Debug.Log("_currentBodyPart: " + _currentBodyPart.bodyType);
+
+        int skinColor = 7;
+        if (!_currentBodyPart.bodyType.Equals(BodyType.BODY)) skinColor = 0;
+        
+        int currentIndex = 0;
+        string action = "IDLE";
+        if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_HOLD"))
+        {
+            //currentIndex = 3 + int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_HOLD_", ""));
+            action = "WALKING_HOLD";
+        }
+        else if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
+        {
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
+            action = "WALKING";
+        }
+        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
+        {
+            //currentIndex = 6 + (int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
+            action = "PICKUP";
+        }
+        else if (_characterStateManager.GetCharacterState().ToString().Equals("IDLE_HOLD"))
+        {
+            //currentIndex = 4;
+            action = "IDLE_HOLD";
+        }
+        
+        SpriteLayout bodySprites = GetSprites(action, pRotation);
 
         if (bodySprites == null)
         {
@@ -57,19 +85,10 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
             return;
         }
 
-        int currentIndex = 1;
-        if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_HOLD"))
-            currentIndex = 3 + int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_HOLD_", ""));
-        else if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
-            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
-        else if(_characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
-            currentIndex = 6 + (int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
-        else if (_characterStateManager.GetCharacterState().ToString().Equals("IDLE_HOLD"))
-            currentIndex = 4;
-        
-        if (bodySprites.sprites[0].sprite.Length != 0)
+        if (bodySprites.sprites.Length > 0 && bodySprites.sprites[0].sprite.Length != 0)
         {
-            if (currentIndex >= bodySprites.sprites[pDarkSkin ? 1 : 0].sprite.Length)
+            //pDarkSkin ? 1 : 0
+            if (currentIndex >= bodySprites.sprites[skinColor].sprite.Length)
             {
                 //Debug.Log("bodySprites: " + gameObject.name);
                 //Debug.Log("currentIndex: " + currentIndex);
@@ -77,7 +96,7 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
                 return;
             }
             
-            _spriteRenderer.sprite = bodySprites.sprites[pDarkSkin ? 1 : 0].sprite[currentIndex];
+            _spriteRenderer.sprite = bodySprites.sprites[skinColor].sprite[currentIndex];
             _spriteRenderer.enabled = true;
         } else _spriteRenderer.enabled = false;
     }
@@ -87,19 +106,20 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     /// </summary>
     /// <param name="pRotation"></param>
     /// <returns></returns>
-    private SpriteLayout GetSprites(int pRotation)
+    private SpriteLayout GetSprites(string pAction, int pRotation)
     {
         if (_currentBodyPart == null) return null;
+
         switch (pRotation)
         {
-            case 0:
-                return _currentBodyPart.bSprites;
-            case 1:
-                return _currentBodyPart.lSprites;
-            case 2:
-                return _currentBodyPart.rSprites;
-            case 3:
-                return _currentBodyPart.tSprites;
+            case 0: //Down
+                return _currentBodyPart.defaultBottomSprites;
+            case 1: //Left
+                return _currentBodyPart.defaultLeftSprites;
+            case 2: //Right
+                return _currentBodyPart.defaultRightSprites;
+            case 3: //Up
+                return _currentBodyPart.defaultTopSprites;
         }
 
         return null;

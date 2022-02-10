@@ -9,7 +9,7 @@ public class ShopInteraction : NpcInteraction
         shopUiManager = GetComponent<ShopUIManager>();
     }
 
-    public override void OnInteraction(CharacterManager characterManager)
+    public override void HandleOthers()
     {
         shopUiManager.Interact();
     }

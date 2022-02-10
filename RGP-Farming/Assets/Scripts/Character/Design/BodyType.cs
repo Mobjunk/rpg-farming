@@ -6,5 +6,6 @@ public enum BodyType
     EYES,
     CHEST,
     LEGS,
-    FEET
+    FEET,
+    BEARD
 }

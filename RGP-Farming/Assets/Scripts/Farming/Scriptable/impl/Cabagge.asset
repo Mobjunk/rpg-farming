@@ -15,7 +15,6 @@ MonoBehaviour:
   name: Cabagge
   discription: 
   timeBetweenGrowthStage: 40
-  useOfWater: 1
   harvestAmount: 1
   harvestModifier: 0
   harvestedItem: {fileID: 11400000, guid: eb1c14d3222b95b449b7a15b1c739b08, type: 2}
@@ -25,3 +24,14 @@ MonoBehaviour:
   - {fileID: 1640555460866966840, guid: 1205d47e32755104b8ba424912d4b62a, type: 3}
   - {fileID: 2683288208970150335, guid: 1205d47e32755104b8ba424912d4b62a, type: 3}
   - {fileID: 8954413170907878631, guid: 1205d47e32755104b8ba424912d4b62a, type: 3}
+  growStages:
+  - Sprite: {fileID: -7474529693045490863, guid: 1205d47e32755104b8ba424912d4b62a, type: 3}
+    NeedsWaterThisStage: 1
+  - Sprite: {fileID: -5774877164156790999, guid: 1205d47e32755104b8ba424912d4b62a, type: 3}
+    NeedsWaterThisStage: 0
+  - Sprite: {fileID: 1640555460866966840, guid: 1205d47e32755104b8ba424912d4b62a, type: 3}
+    NeedsWaterThisStage: 0
+  - Sprite: {fileID: 2683288208970150335, guid: 1205d47e32755104b8ba424912d4b62a, type: 3}
+    NeedsWaterThisStage: 1
+  - Sprite: {fileID: 8954413170907878631, guid: 1205d47e32755104b8ba424912d4b62a, type: 3}
+    NeedsWaterThisStage: 0
