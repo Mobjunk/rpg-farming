@@ -7,72 +7,64 @@ using static Utility;
 
 public class TimeManager : MonoBehaviour
 {
-	public TextMeshProUGUI timeText;
-	private string ClockAMPM = "AM";
-	private float startTime;
+    [Header("Display")]
+    public TextMeshProUGUI timeText;
+    private string ClockAMPM = "AM";
+    private static float timeSpeedMultiplier = 5000;
+    private static float startTime;
 
-	DateTime _startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0); DateTime currentDate;
-	DateTime Date;
-
-	[Tooltip("A Normal Day is 24 minutes")]
-	public float TimeSpeedMultiplier;
-	[Tooltip("In Minutes")]
-	public float startDayTime;
-	[Tooltip("In Minutes")]
-	public float startNightTime;
-
-    private void Awake()
-	{ 
-		startTime = Time.time;
-		Debug.Log(startTime);
+    private DateTime currentDate;
+    //Voor nu op 0 anders klopt de tijd niet.
+    DateTime _startDate = new DateTime(0,0,0,0,0,0);
+    DateTime _currentTime;
+    public static TimeSpan elapsedTime => TimeSpan.FromSeconds(Time.time * timeSpeedMultiplier - startTime);
+    void Start()
+    {
+        startTime = Time.time * timeSpeedMultiplier;
     }
     void Update()
-	{
-		SetDate();
-	}
-	public void SetDate()
     {
-		int timeElapsed = (int)Time.time;
-
-		int years = timeElapsed / YEAR;
-		timeElapsed %= YEAR;
-
-		int months = timeElapsed / MONTH;
-		timeElapsed %= MONTH;
-
-		int days = timeElapsed / DAY;
-		timeElapsed %= DAY;
-
-		int hours = timeElapsed / HOUR;
-		timeElapsed %= HOUR;
-
-		int minutes = timeElapsed / MINUTE;
-		timeElapsed %= MINUTE;
-
-		int seconds = timeElapsed;
-
-		DateTime currentTime = new DateTime(_startDate.Year + years, _startDate.Month + months, _startDate.Day + days, _startDate.Hour + hours, _startDate.Minute + minutes, _startDate.Second + seconds);
-
-		TimeSpan interval = currentTime - _startDate;
-
-		Debug.Log($"maanden: {interval.TotalDays / 31}, dagen: {interval.Days}, uren: {interval.Hours}, minuten: {interval.Minutes}, secondes: {interval.Seconds}");
-
-		if (hours >= 12)
-		{
-			hours %= 12;
-			ClockAMPM = "PM";
-		}
+        DisplayTime();
+        DayChecker();
+    }
+    //In ander script
+    void DisplayTime()
+    {
+        int hours = elapsedTime.Hours;
+        if (hours >= 12)
+        {
+            hours %= 12;
+            ClockAMPM = "PM";
+        }
         else
-		{
-			ClockAMPM = "AM";
-		}
-		timeText.text = hours.ToString("00") + ":" + minutes.ToString("00") + ClockAMPM;
-		Debug.Log(hours.ToString("00") + ":" + minutes.ToString("00") + ClockAMPM);
-	}
-	//TODO:
-	//Wanneer je savonds niet meer buiten mag zijn ga je automatisch naar bed. Dan reset de tijd naar 8AM.
-	// Dan moet hij de dag onthouden of hij er 1 bij op mag tellen. 
-	// nog gekeken worden wanneer het am en pm is.
-	// Modules is de %= en die haalt er altijd 12 af wanneer hij 12 wordt bijv.
-	
+        {
+            ClockAMPM = "AM";
+        }  
+        timeText.text = hours.ToString("00") + ":" + elapsedTime.Minutes.ToString("00") + ClockAMPM;
+        _currentTime = _startDate.Add(elapsedTime);
+
+        string day = _currentTime.DayOfWeek.ToString();
+        if (day == "Monday")
+        {
+            Debug.Log("Goed voor elkaar");
+        }
+    }
+    void SetDate(DateTime pdateTime)
+    {
+        startTime = Time.time * timeSpeedMultiplier;
+        currentDate = pdateTime;
+    }
+    //Testing to check day.
+    void DayChecker()
+    {
+        int hour = _currentTime.Hour;
+        if(hour  > 7 && hour < 11)
+        {
+            Debug.Log("Goedmorgen");
+        }
+        if(hour > 12 && hour < 22)
+        {
+            Debug.Log("Goedemiddag");
+        }
+    }
 }
