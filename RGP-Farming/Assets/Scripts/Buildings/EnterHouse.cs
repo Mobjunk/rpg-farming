@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Utility;
 
 public class EnterHouse : MonoBehaviour
 {
@@ -16,10 +17,7 @@ public class EnterHouse : MonoBehaviour
     }
     private void OnTriggerEnter(Collider pother)
     {
-        if(pother == _doorcollider)
-        {
-            //Play animation of the door
-            SceneManager.LoadScene(houseName);
-        }
+        //Play animation of the door
+        Utility.AddSceneIfNotLoaded(houseName);
     }
 }
