@@ -13,38 +13,19 @@ MonoBehaviour:
   m_Name: Beard 1
   m_EditorClassIdentifier: 
   bodyType: 7
-  defaultBottomSprites:
-    sprites:
-    - sprite:
-      - {fileID: 7098989586278376013, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: -5246142207389652601, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 281515344305973814, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 232299613182611365, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: -8248350433965941225, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: -32562984956075435, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: -2758229240124504853, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 817082534233090055, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-  defaultTopSprites:
-    sprites: []
-  defaultRightSprites:
-    sprites:
-    - sprite:
-      - {fileID: -7245895330467915868, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 8912571605260146462, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 1610154411069324562, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 5350614649028748726, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: -3866643419027809845, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 5001233708611536778, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 7568264919898803464, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 4459876719629044849, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-  defaultLeftSprites:
-    sprites:
-    - sprite:
-      - {fileID: -4887079159490385053, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 1157324545043181165, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: -7780303555582780893, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 5047926175894192296, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: -1177108594905630821, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 22715180073117662, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: 6553548847240495616, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
-      - {fileID: -1929333478407693871, guid: cceddadefd053b04e8a04af7739abe3e, type: 3}
+  walkPathName:
+  - Character/walk/acc/beard_walk
+  axePathName:
+  - Character/axe/acc/beard_axe
+  pickaxePathName:
+  - Character/pickaxe/acc/beard_pickaxe
+  wateringCanPathName:
+  - Character/water/acc/beard_water
+  hoePathName:
+  - Character/hoe/acc/beard_hoe
+  carryPathName:
+  - Character/carry/acc/beard_carry
+  fishingPathName:
+  - Character/fish/acc/beard_fish
+  swordPathName:
+  - Character/sword/acc/beard_sword
