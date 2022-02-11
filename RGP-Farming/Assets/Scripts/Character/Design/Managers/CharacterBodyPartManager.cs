@@ -5,7 +5,8 @@ using Object = UnityEngine.Object;
 public abstract class CharacterBodyPartManager : MonoBehaviour
 {
     private CachedSpritesManager _cachedSpritesManager => CachedSpritesManager.Instance();
-    
+
+    private Animator _animator;
     private CharacterStateManager _characterStateManager;
     private SpriteRenderer _spriteRenderer;
     private BodyPart _currentBodyPart;
@@ -18,6 +19,7 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     
     public virtual void Awake()
     {
+        _animator = GetComponentInParent<Animator>();
         _characterStateManager = GetComponentInParent<CharacterStateManager>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -62,8 +64,8 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     private void UpdateBodyPart(BodyPart pBodyPart, int pRotation, int pSkinColor = 0)
     {
         _currentBodyPart = pBodyPart;
-
-        //Debug.Log("_currentBodyPart: " + _currentBodyPart.bodyType);
+        
+        int totalFrames = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.events.Length;
 
         int skinColor = pSkinColor;
         if (!_currentBodyPart.bodyType.Equals(BodyType.BODY)) skinColor = 0;
@@ -111,17 +113,18 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
             currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("SWORD_SWING_", ""));
             action = "SWORD_SWING";
         }
+        if (action.Equals("IDLE")) totalFrames = 8;
+        else if (action.Equals("WATERING")) totalFrames = 2;
 
         string fileName = _currentBodyPart.GetFileName(action, skinColor);
         int baseIndex = _currentBodyPart.GetSpriteIndex(action, pRotation);
+        int multiplier = GetMultiplier(pBodyPart);
+        int offset = (totalFrames * multiplier);
+        
+        
         int modifiedIndex = baseIndex + currentIndex;
+        if (_currentBodyPart.bodyType.Equals(BodyType.CHEST) || _currentBodyPart.bodyType.Equals(BodyType.LEGS) || _currentBodyPart.bodyType.Equals(BodyType.FEET)) modifiedIndex += offset;
         string realFileName = fileName + "" + modifiedIndex;
-        
-        
-        /*Debug.Log($"fileName: {fileName}, bodyType: {_currentBodyPart.bodyType}, baseIndex: {baseIndex}, modifiedIndex: {modifiedIndex}");
-        Debug.Log(action + ", " + pRotation);
-        Debug.Log(_currentBodyPart.bodyType);
-        Debug.Log(realFileName);*/
         
         Sprite sprite = _cachedSpritesManager.GetSprite(realFileName);
         if (sprite != null)
@@ -137,6 +140,23 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
             Object[] sprites = Resources.LoadAll(path, typeof(Sprite));
             foreach (Object sprite in sprites)
                 _cachedSpritesManager.CachedSprites.Add((Sprite) sprite);
+        }
+    }
+
+    private int GetMultiplier(BodyPart pBodyPart)
+    {
+        switch (pBodyPart.bodyType)
+        {
+            case BodyType.CHEST:
+                Chest chest = pBodyPart as Chest;
+                return chest.chestId;
+            case BodyType.LEGS:
+                Legs legs = pBodyPart as Legs;
+                return legs.legsId;
+            case BodyType.FEET:
+                Feet feet = pBodyPart as Feet;
+                return feet.feetId;
+            default: return 1;
         }
     }
 }
