@@ -6,12 +6,6 @@ using UnityEngine.SceneManagement;
 
 public static class Utility
 {
-    //Day N Night Cycle
-    public static int MINUTE = 60;
-    public static int HOUR = MINUTE * 60;
-    public static int DAY = 24 * HOUR;
-    public static int MONTH = DAY * 31;
-    public static int YEAR = MONTH * 12;
     public static void AddSceneIfNotLoaded(string pSceneName)
     {
         Scene playerScene = SceneManager.GetSceneByName(pSceneName);

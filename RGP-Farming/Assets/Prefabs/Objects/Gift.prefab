@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,10 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4bf6691b597b648929ee18389adb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingGroup: {fileID: 8302705860232226454}
-  positionScaling: -100
-  offset: 0
-  skip: 0
+  _sortingGroup: {fileID: 8302705860232226454}
+  _positionScaling: -100
+  _offset: 0
+  _skip: 0
 --- !u!114 &8302705860232226448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f01709383053e46908e0ec8b6b51b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionManager: {fileID: 0}
+  _interactionManager: {fileID: 0}
 --- !u!61 &8302705860232226451
 BoxCollider2D:
   m_ObjectHideFlags: 0
