@@ -12,48 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4566d7c83dda54e9c88baab83cd35e, type: 3}
   m_Name: Feetstyle 1
   m_EditorClassIdentifier: 
-  bodyType: 4
-  defaultBottomSprites:
-    sprites:
-    - sprite:
-      - {fileID: -4529178656646049649, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -4072808115215797780, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: 7372820828166841940, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -510317868413982356, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -8617800669829003311, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -3123775284534216354, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -5019179626688439526, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -1527615838976592224, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-  defaultTopSprites:
-    sprites:
-    - sprite:
-      - {fileID: -1328483973911886517, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -3852582696225241121, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -7100796960418222810, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -3041305294534959510, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -8830452128648301674, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: 1154618004755253896, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -8058119918812718201, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: 3081927592858673990, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-  defaultRightSprites:
-    sprites:
-    - sprite:
-      - {fileID: -4035386393085120672, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -4718454777313335561, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -8663707937537919478, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -1126970111654567712, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: 786693778028982081, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -703933069821015911, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -404868798935293459, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -1436678661387997057, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-  defaultLeftSprites:
-    sprites:
-    - sprite:
-      - {fileID: -1528548167842310871, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: 5721337700127834904, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -5610471559322112423, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -315614099038427329, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: 3960634222240545216, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -8268889178907592099, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: -1141798718495158519, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
-      - {fileID: 8952024232696941694, guid: d151ba553b98bbc4797404bdbd0787a6, type: 3}
+  bodyType: 6
+  walkPathName:
+  - Character/walk/clothes_walk/shoes_walk
+  axePathName:
+  - Character/axe/clothes_axe/shoes_axe
+  pickaxePathName:
+  - Character/pickaxe/clothes_pickaxe/shoes_pickaxe
+  wateringCanPathName:
+  - Character/water/clothes_water/shoes_water
+  hoePathName:
+  - Character/hoe/clothes_hoe/shoes_hoe
+  carryPathName:
+  - Character/carry/clothes_carry/shoes_carry
+  fishingPathName:
+  - Character/fish/clothes_fish/shoes_fish
+  swordPathName:
+  - Character/sword/clothes_sword/shoes_sword

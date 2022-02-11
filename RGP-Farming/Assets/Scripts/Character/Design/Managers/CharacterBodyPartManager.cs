@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public abstract class CharacterBodyPartManager : MonoBehaviour
 {
+    private CachedSpritesManager _cachedSpritesManager => CachedSpritesManager.Instance();
+    
     private CharacterStateManager _characterStateManager;
     private SpriteRenderer _spriteRenderer;
     private BodyPart _currentBodyPart;
@@ -12,16 +15,27 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         get => _currentBodyPart;
         set => _currentBodyPart = value;
     }
-
+    
     public virtual void Awake()
     {
         _characterStateManager = GetComponentInParent<CharacterStateManager>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        if (_currentBodyPart != null)
+
+
+        LoadSpritesForPath(_currentBodyPart.walkPathName);
+        LoadSpritesForPath(_currentBodyPart.axePathName);
+        LoadSpritesForPath(_currentBodyPart.pickaxePathName);
+        LoadSpritesForPath(_currentBodyPart.wateringCanPathName);
+        LoadSpritesForPath(_currentBodyPart.hoePathName);
+        LoadSpritesForPath(_currentBodyPart.carryPathName);
+        LoadSpritesForPath(_currentBodyPart.fishingPathName);
+        LoadSpritesForPath(_currentBodyPart.swordPathName);
+        
+        /*if (_currentBodyPart != null)
         {
             _spriteRenderer.sprite = _currentBodyPart.defaultBottomSprites.sprites[0].sprite[0];
             _spriteRenderer.enabled = true;
-        }
+        }*/
 
         _characterStateManager.OnStateChanged += OnStateChange;
     }
@@ -45,83 +59,84 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     /// <param name="pBodyPart">The body part scriptable object</param>
     /// <param name="pRotation">The rotation of the character</param>
     /// <param name="pDarkSkin">Does the character have dark skin color</param>
-    private void UpdateBodyPart(BodyPart pBodyPart, int pRotation, bool pDarkSkin = false)
+    private void UpdateBodyPart(BodyPart pBodyPart, int pRotation, int pSkinColor = 0)
     {
         _currentBodyPart = pBodyPart;
 
-        Debug.Log("_currentBodyPart: " + _currentBodyPart.bodyType);
+        //Debug.Log("_currentBodyPart: " + _currentBodyPart.bodyType);
 
-        int skinColor = 7;
+        int skinColor = pSkinColor;
         if (!_currentBodyPart.bodyType.Equals(BodyType.BODY)) skinColor = 0;
         
         int currentIndex = 0;
         string action = "IDLE";
-        if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_HOLD"))
-        {
-            //currentIndex = 3 + int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_HOLD_", ""));
-            action = "WALKING_HOLD";
-        }
-        else if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
+        
+        if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
         {
             currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
             action = "WALKING";
         }
-        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("PICKUP"))
+        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("AXE_SWING_"))
         {
-            //currentIndex = 6 + (int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("PICKUP_", "")));
-            action = "PICKUP";
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("AXE_SWING_", ""));
+            action = "AXE_SWING";
         }
-        else if (_characterStateManager.GetCharacterState().ToString().Equals("IDLE_HOLD"))
+        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("PICKAXE_SWING_"))
         {
-            //currentIndex = 4;
-            action = "IDLE_HOLD";
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("PICKAXE_SWING_", ""));
+            action = "PICKAXE_SWING";
         }
+        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("WATERING_"))
+        {
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WATERING_", ""));
+            action = "WATERING";
+        }
+        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("HOE_SWING_"))
+        {
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("HOE_SWING_", ""));
+            action = "HOE_SWING";
+        }
+        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("CARRY_"))
+        {
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("CARRY_", ""));
+            action = "CARRY";
+        }
+        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("FISHING_"))
+        {
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("FISHING_", ""));
+            action = "FISHING";
+        }
+        else if (_characterStateManager.GetCharacterState().ToString().StartsWith("SWORD_SWING_"))
+        {
+            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("SWORD_SWING_", ""));
+            action = "SWORD_SWING";
+        }
+
+        string fileName = _currentBodyPart.GetFileName(action, skinColor);
+        int baseIndex = _currentBodyPart.GetSpriteIndex(action, pRotation);
+        int modifiedIndex = baseIndex + currentIndex;
+        string realFileName = fileName + "" + modifiedIndex;
         
-        SpriteLayout bodySprites = GetSprites(action, pRotation);
-
-        if (bodySprites == null)
+        
+        /*Debug.Log($"fileName: {fileName}, bodyType: {_currentBodyPart.bodyType}, baseIndex: {baseIndex}, modifiedIndex: {modifiedIndex}");
+        Debug.Log(action + ", " + pRotation);
+        Debug.Log(_currentBodyPart.bodyType);
+        Debug.Log(realFileName);*/
+        
+        Sprite sprite = _cachedSpritesManager.GetSprite(realFileName);
+        if (sprite != null)
         {
-            _spriteRenderer.enabled = false;
-            return;
-        }
-
-        if (bodySprites.sprites.Length > 0 && bodySprites.sprites[0].sprite.Length != 0)
-        {
-            //pDarkSkin ? 1 : 0
-            if (currentIndex >= bodySprites.sprites[skinColor].sprite.Length)
-            {
-                //Debug.Log("bodySprites: " + gameObject.name);
-                //Debug.Log("currentIndex: " + currentIndex);
-                //Debug.Log("bodySprites.sprites[darkSkin ? 1 : 0].sprite.Length: " + bodySprites.sprites[darkSkin ? 1 : 0].sprite.Length);
-                return;
-            }
-            
-            _spriteRenderer.sprite = bodySprites.sprites[skinColor].sprite[currentIndex];
+            _spriteRenderer.sprite = sprite;
             _spriteRenderer.enabled = true;
         } else _spriteRenderer.enabled = false;
     }
-
-    /// <summary>
-    /// Handles grabbign the right array of sprites based on the characters rotation
-    /// </summary>
-    /// <param name="pRotation"></param>
-    /// <returns></returns>
-    private SpriteLayout GetSprites(string pAction, int pRotation)
+    private void LoadSpritesForPath(string[] pPath)
     {
-        if (_currentBodyPart == null) return null;
-
-        switch (pRotation)
+        foreach (string path in pPath)
         {
-            case 0: //Down
-                return _currentBodyPart.defaultBottomSprites;
-            case 1: //Left
-                return _currentBodyPart.defaultLeftSprites;
-            case 2: //Right
-                return _currentBodyPart.defaultRightSprites;
-            case 3: //Up
-                return _currentBodyPart.defaultTopSprites;
+            Object[] sprites = Resources.LoadAll(path, typeof(Sprite));
+            foreach (Object sprite in sprites)
+                _cachedSpritesManager.CachedSprites.Add((Sprite) sprite);
         }
-
-        return null;
     }
 }
