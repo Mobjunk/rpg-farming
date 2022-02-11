@@ -78,7 +78,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             //Checks if the player still has the item it has to remove
             if (_player.CharacterInventory.Items[ItemBarManager.Instance().SelectedSlot].Item == null)
             {
-                _player.CharacterStateManager.SetAnimator("wieldingItem", false);
+                _player.CharacterStateManager.SetAnimator("wielding", false);
                 _player.ItemAboveHeadRenderer.sprite = null;
                 _player.ItemAboveHead = null;
                 ItemBarManager.Instance().ItemDisplayer.gameObject.SetActive(false);

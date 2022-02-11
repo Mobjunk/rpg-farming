@@ -72,6 +72,7 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         
         int currentIndex = 0;
         string action = "IDLE";
+        bool carry_idle = _characterStateManager.GetCharacterState().Equals(CharacterStates.CARRY_IDLE);
         
         if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
         {
@@ -100,7 +101,7 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         }
         else if (_characterStateManager.GetCharacterState().ToString().StartsWith("CARRY_"))
         {
-            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("CARRY_", ""));
+            currentIndex = carry_idle ? 0 : int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("CARRY_", ""));
             action = "CARRY";
         }
         else if (_characterStateManager.GetCharacterState().ToString().StartsWith("FISHING_"))
@@ -113,8 +114,10 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
             currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("SWORD_SWING_", ""));
             action = "SWORD_SWING";
         }
-        if (action.Equals("IDLE")) totalFrames = 8;
+        if (action.Equals("IDLE") || carry_idle) totalFrames = 8;
         else if (action.Equals("WATERING")) totalFrames = 2;
+        
+        Debug.Log("action: " + action + ", totalFrames: " + totalFrames);
 
         string fileName = _currentBodyPart.GetFileName(action, skinColor);
         int baseIndex = _currentBodyPart.GetSpriteIndex(action, pRotation);
