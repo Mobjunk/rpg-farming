@@ -20,15 +20,15 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 3625899423235949242, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
-    - time: 0.083333336
-      value: {fileID: 7353481557015847715, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
+      value: {fileID: 0}
     - time: 0.16666667
-      value: {fileID: 5302412122957955039, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
-    - time: 0.25
-      value: {fileID: -4942125079275621286, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
+      value: {fileID: 0}
     - time: 0.33333334
-      value: {fileID: -8072635382020206437, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
+      value: {fileID: 0}
+    - time: 0.5
+      value: {fileID: 0}
+    - time: 0.6666667
+      value: {fileID: 0}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,17 +48,17 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 3625899423235949242, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
-    - {fileID: 7353481557015847715, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
-    - {fileID: 5302412122957955039, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
-    - {fileID: -4942125079275621286, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
-    - {fileID: -8072635382020206437, guid: d6c00b6eca1e95347bdea03909314cb2, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4166667
+    m_StopTime: 0.75
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -85,28 +85,28 @@ AnimationClip:
     floatParameter: 0
     intParameter: 9
     messageOptions: 0
-  - time: 0.083333336
+  - time: 0.16666667
     functionName: SetCharacterState
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 10
     messageOptions: 0
-  - time: 0.16666667
+  - time: 0.33333334
     functionName: SetCharacterState
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 11
     messageOptions: 0
-  - time: 0.25
+  - time: 0.5
     functionName: SetCharacterState
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 12
     messageOptions: 0
-  - time: 0.33333334
+  - time: 0.6666667
     functionName: SetCharacterState
     data: 
     objectReferenceParameter: {fileID: 0}
