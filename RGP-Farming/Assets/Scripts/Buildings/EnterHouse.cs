@@ -18,7 +18,7 @@ public class EnterHouse : MonoBehaviour
     {
         if(pother == _doorcollider)
         {
-            
+            //Play animation of the door
             SceneManager.LoadScene(houseName);
         }
     }
