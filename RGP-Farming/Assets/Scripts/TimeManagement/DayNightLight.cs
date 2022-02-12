@@ -5,9 +5,9 @@ using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 
-public class DayNightLight : TimeManager
+public class DayNightLight : MonoBehaviour
 {
-    //public bool Nighttime = false;
+    private TimeManager _timeManager => TimeManager.Instance();
     public Volume volume;
     public float volumeValue;
     private void Awake()
@@ -24,25 +24,17 @@ public class DayNightLight : TimeManager
     }
     public void SetLighting()
     {
-        float hour = elapsedTime.Minutes;
-        Debug.Log("Hour"+ hour);
-
-        // 8 uur sochtends volledig licht.
-
-        // 6 uur savonds begint het donker te worden
-        
-
-        // 12 uur moet het pikke donker zijn.
-
-        // 1 uur character nokkie.
-
-        if (hour > 18 && hour < 24)
+        float hour = _timeManager.ElapsedTime.Hours;
+        float minutes = _timeManager.ElapsedTime.Hours * 60 + _timeManager.ElapsedTime.Minutes;
+        if (hour >= 18 && hour <= 24)
         {
-            Debug.Log("Works");
-            float weightValue = (hour - 18) * (1 / 6);
+            float weightValue =  1 + ((minutes - (24 * 60)) / (6 * 60) );
             volume.weight = weightValue;
             Debug.Log("Weight"+ weightValue);
-
+        }
+        if(hour >= 8 && hour < 18)
+        {
+            volume.weight = 0;
         }
     }
 }
