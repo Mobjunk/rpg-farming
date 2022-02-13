@@ -99,6 +99,8 @@ public class Player : CharacterManager
         SubscribeToInput();
         
         _playerInventoryUIManager.Initialize(_characterInventory);
+
+        AddStarterItems();
     }
 
     public override void Update()
@@ -163,10 +165,10 @@ public class Player : CharacterManager
         _characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Coal"), 100);
-        _characterInventory.AddItem(_itemManager.ForName("Iron ore"), 100);
-        _characterInventory.AddItem(_itemManager.ForName("Chest"));
-        _characterInventory.AddItem(_itemManager.ForName("Furnace"));
+        //_characterInventory.AddItem(_itemManager.ForName("Coal"), 100);
+        //_characterInventory.AddItem(_itemManager.ForName("Iron ore"), 100);
+        //_characterInventory.AddItem(_itemManager.ForName("Chest"));
+        //_characterInventory.AddItem(_itemManager.ForName("Furnace"));
         _characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
         _characterInventory.AddItem(_itemManager.ForName("Cabbage seed"), 10);
         _characterInventory.AddItem(_itemManager.ForName("Eggplant seed"), 10);

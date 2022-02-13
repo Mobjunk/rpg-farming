@@ -264,13 +264,13 @@ public abstract class AbstractItemInventory : MonoBehaviour
     public int GetNextOccupiedSlot(int pCurrentSlot, bool pIncrease = true)
     {
         pCurrentSlot += pIncrease ? 1 : -1;
-        for (int index = pCurrentSlot, tries = 0; index < 12; tries++)
+        for (int index = pCurrentSlot, tries = 0; index < 13; tries++)
         {
             //Make sure it only has 12 tries, else it creates a inf loop
             if (tries > 12) break;
             
             if (index < 0) index = 11;
-            else if (index > 10) index = 0;
+            else if (index > 11) index = 0;
             
             if (Items[index].Item != null) return index;
             

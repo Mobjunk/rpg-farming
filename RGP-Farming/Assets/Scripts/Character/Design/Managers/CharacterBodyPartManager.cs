@@ -116,8 +116,6 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         }
         if (action.Equals("IDLE") || carry_idle) totalFrames = 8;
         else if (action.Equals("WATERING")) totalFrames = 2;
-        
-        Debug.Log("action: " + action + ", totalFrames: " + totalFrames);
 
         string fileName = _currentBodyPart.GetFileName(action, skinColor);
         int baseIndex = _currentBodyPart.GetSpriteIndex(action, pRotation);
