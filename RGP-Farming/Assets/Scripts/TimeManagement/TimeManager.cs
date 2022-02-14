@@ -28,6 +28,13 @@ public class TimeManager : Singleton<TimeManager>
         CurrentGameTime = _startDate.Add(ElapsedTime);
         Debug.Log(CurrentGameTime.DayOfWeek);
 
+        //TimeTillDate(2022,1,1,23,1,20);
+
+    }
+    void TimeTillDate(DateTime pendDate)
+    {
+        TimeSpan timeTillEndDate = CurrentGameTime - pendDate;
+        Debug.Log("tijd to go" + timeTillEndDate);
     }
 
 }
