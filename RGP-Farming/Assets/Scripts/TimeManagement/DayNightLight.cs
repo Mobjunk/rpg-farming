@@ -9,7 +9,6 @@ public class DayNightLight : MonoBehaviour
 {
     private TimeManager _timeManager => TimeManager.Instance();
     public Volume volume;
-    public float volumeValue;
     private void Awake()
     {
         volume = GetComponent<Volume>();
