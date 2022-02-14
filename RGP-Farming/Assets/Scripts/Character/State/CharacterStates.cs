@@ -51,11 +51,8 @@ public enum CharacterStates
     SWORD_SWING_2,
     SWORD_SWING_3,
     
-    PICKUP_0,
-    PICKUP_1,
-    PICKUP_2,
-    IDLE_HOLD,
-    USE_TOOL,
+    CARRY_IDLE,
+    
     NONE,
     HARVESTING,
 }

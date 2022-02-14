@@ -9,6 +9,49 @@ using Object = UnityEngine.Object;
 
 public static class Utility
 {
+    
+    public const int N = 1 << 0;
+    public const int NE = 1 << 1;
+    public const int E = 1 << 2;
+    public const int SE = 1 << 3;
+    public const int S = 1 << 4;
+    public const int SW = 1 << 5;
+    public const int W = 1 << 6;
+    public const int NW = 1 << 7;
+    
+    public const int NORTH = 0;
+    public const int NORTH_EAST = 1;
+    public const int EAST = 2;
+    public const int SOUTH_EAST = 3;
+    public const int SOUTH = 4;
+    public const int SOUTH_WEST = 5;
+    public const int WEST = 6;
+    public const int NORTH_WEST = 7;
+
+    public static string GetNameForDirection(int pDirection)
+    {
+        switch (pDirection)
+        {
+            case NORTH: //North
+                return "North";
+            case NORTH_EAST: //North East
+                return "North East";
+            case EAST: //East
+                return "East";
+            case SOUTH_EAST: //South east
+                return "South East";
+            case SOUTH: //South
+                return "South";
+            case SOUTH_WEST: //South West
+                return "South West";
+            case WEST: //West
+                return "West";
+            case NORTH_WEST: //North West
+                return "North West";
+            default: return "N/A";
+        }
+    }
+
     public static void AddSceneIfNotLoaded(string pSceneName)
     {
         Scene playerScene = SceneManager.GetSceneByName(pSceneName);
@@ -98,6 +141,42 @@ public static class Utility
     public static string UppercaseFirst(string pInput)
     {
         return pInput.First().ToString().ToUpper() + pInput.Substring(1);
+    }
+    
+    public static int[] GetPositionForDirection(int pX, int pY, int pDir)
+    {
+        switch (pDir)
+        {
+            case 0: //North
+                pY++;
+                break;
+            case 1: //North East
+                pX++;
+                pY++;
+                break;
+            case 2: //East
+                pX++;
+                break;
+            case 3: //South east
+                pX++;
+                pY--;
+                break;
+            case 4: //South
+                pY--;
+                break;
+            case 5: //South West
+                pX--;
+                pY--;
+                break;
+            case 6: //West
+                pX--;
+                break;
+            case 7: //North West
+                pX--;
+                pY++;
+                break;
+        }
+        return new int[] { pX, pY };
     }
 }
 
