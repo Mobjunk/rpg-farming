@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class StaticObjectManager : MonoBehaviour
@@ -15,6 +13,7 @@ public class StaticObjectManager : MonoBehaviour
     private void Awake()
     {
         _interactionManager = GetComponent<InteractionManager>();
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
     }
 
     private void OnTriggerEnter2D(Collider2D pOther)

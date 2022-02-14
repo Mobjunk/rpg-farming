@@ -18,23 +18,19 @@ public class TimeManager : Singleton<TimeManager>
     public TimeSpan ElapsedTime => TimeSpan.FromSeconds(Time.time * _timeSpeedMultiplier - _startTime);
 
     public DateTime CurrentGameTime;
-    void Start()
+    void Awake()
     {
         _startTime = Time.time * _timeSpeedMultiplier;
         _startDate = new DateTime(2022,1,1,0,0,0);
+        CurrentGameTime = _startDate.Add(ElapsedTime);
     }
     void Update()
     {
         CurrentGameTime = _startDate.Add(ElapsedTime);
-        Debug.Log(CurrentGameTime.DayOfWeek);
-
-        //TimeTillDate(2022,1,1,23,1,20);
-
     }
-    void TimeTillDate(DateTime pendDate)
+
+    public DateTime GetNewDate(int pAddedYears = 0, int pAddedMonths = 0, int pAddedDays = 0, int pAddedHours = 0, int pAddedMinutes = 0, int pAddedSeconds = 0)
     {
-        TimeSpan timeTillEndDate = CurrentGameTime - pendDate;
-        Debug.Log("tijd to go" + timeTillEndDate);
+        return new DateTime(CurrentGameTime.Year + pAddedYears, CurrentGameTime.Month + pAddedMonths, CurrentGameTime.Day + pAddedDays, CurrentGameTime.Hour + pAddedHours, CurrentGameTime.Minute + pAddedMinutes, CurrentGameTime.Second + pAddedSeconds);
     }
-
 }

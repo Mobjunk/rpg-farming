@@ -143,7 +143,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// <param name="pContainment"></param>
     public virtual void SetContainment(T pContainment)
     {
-        this._containment = pContainment;
+        _containment = pContainment;
     }
 
     /// <summary>
@@ -183,14 +183,27 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     void SnapContainment()
     {
+        Debug.Log("789");
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
 
-        if (!snapperManager.IsSnapped) snapperManager.SetSnappedItem(this as UIContainerbase<GameItem>);
+        if (!snapperManager.IsSnapped)
+        {
+            if (_containment == null)
+            {
+                Debug.Log("Containment is null");
+                return;
+            }
+            
+            snapperManager.SetSnappedItem(this as UIContainerbase<GameItem>);
+        }
         else
         {
             UIContainerbase<GameItem> currentSnap = snapperManager.CurrentItemSnapped;
             //Handles resetting snapping
-            if (currentSnap == this as UIContainerbase<GameItem> || _containment == null) snapperManager.ResetSnappedItem();
+            if (currentSnap == this as UIContainerbase<GameItem> || _containment == null)
+            {
+                snapperManager.ResetSnappedItem();
+            }
 
             //Creates a placeholder of the current item
             GameItem placeHolder = new GameItem(Container.Items[SlotIndex].Item, Container.Items[SlotIndex].Amount);
@@ -198,6 +211,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
 
             if (placeHolder.Item == currentItem.Item && SlotIndex != currentSnap.SlotIndex)
             {
+                Debug.Log("a");
                 GameItem updatedItem = new GameItem(currentItem.Item, currentItem.Amount + placeHolder.Amount);
                 Container.Set(SlotIndex, updatedItem); 
                 currentSnap.Container.Set(currentSnap.SlotIndex, new GameItem());//null
@@ -205,7 +219,8 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
             } else {
                 //Handles updating the containers
                 Container.Set(SlotIndex, currentItem);
-                currentSnap.Container.Set(currentSnap.SlotIndex, placeHolder);
+                currentSnap.Container.Set(currentSnap.SlotIndex, placeHolder.Item == null ? new GameItem() : placeHolder);
+                snapperManager.ResetSnappedItem();
             }
         }
     }
@@ -215,6 +230,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     public virtual void PlaceSingleItem()
     {
+        Debug.Log("456");
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
         
         UIContainerbase<GameItem> currentSnap = snapperManager.CurrentItemSnapped;
@@ -241,6 +257,7 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     public virtual void SplitItemStack()
     {
+        Debug.Log("123");
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
         
         GameItem currentItem = Container.Items[SlotIndex];

@@ -13,9 +13,10 @@ public class ItemContainerGrid : AbstractItemContainer<GameItem>
             base.ClearContainment();
             return;
         }
-
         Icon.sprite = Containment.Item.uiSprite;
         Icon.enabled = true;
+
+        Debug.Log("Icon.enabled: " + Icon.enabled);
 
         if(ItemBarManager.Instance().SelectedSlot == SlotIndex && !AllowMoving) SetHighlighted(true);
 

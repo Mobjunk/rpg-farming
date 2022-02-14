@@ -152,9 +152,11 @@ public abstract class AbstractInventoryUIManger : GameUIManager
             for (int index = 0; index < _containers.Length; index++)
             {
                 if (slot >= _containers[index].Count) continue;
-                _containers[index][slot].SetContainment(ContainmentContainer.Items[slot]);
+                if (ContainmentContainer.Items[slot].Item == null) _containers[index][slot].ClearContainment();
+                else _containers[index][slot].SetContainment(ContainmentContainer.Items[slot]);
             }
         }
+        
     }
 }
 
