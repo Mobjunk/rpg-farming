@@ -39,11 +39,24 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
             //But only do this for players, not for npcs
             if(_characterManager.GetType() == typeof(Player))
                 if (_characterStateManager.GetCharacterState() != CharacterStates.IDLE)
+                {
+                    ResetSkillingAnimations();
                     _characterManager.SetAction(null);
+                }
         }
 
         _animator.SetBool("moving", !pDirection.Equals(Vector2.zero));
         
         _sorting.UpdateOrder();
+    }
+
+    private void ResetSkillingAnimations()
+    {
+        _animator.SetBool("axe_swing", false);
+        _animator.SetBool("pickaxe_swing", false);
+        _animator.SetBool("watering", false);
+        _animator.SetBool("hoe", false);
+        _animator.SetBool("fishing", false);
+        _animator.SetBool("sword_swing", false);
     }
 }
