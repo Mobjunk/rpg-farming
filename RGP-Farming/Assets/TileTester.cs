@@ -59,7 +59,7 @@ public class TileTester : MonoBehaviour
             PlaceTile(dirtTilemap, _tileLocation, tile, TileTypes.DIRT);
 
             List<TileData> tilesToEdit = GetEditedTiles(dirtTilemap);
-            
+
             foreach (TileData editedTiles in tilesToEdit)
                 UpdateTile(dirtTilemap, editedTiles.TileLocation, GetTileForFlag(GetFlag(dirtTilemap, editedTiles)));
         }
@@ -187,22 +187,23 @@ public class TileTester : MonoBehaviour
     /// <returns></returns>
     private Tile GetTileForFlag(int pFlags)
     {
-        if ((pFlags & N) != 0 && (pFlags & NE) != 0 && (pFlags & E) != 0) return _placeableTiles[11];
-        if ((pFlags & S) != 0 && (pFlags & SE) != 0 && (pFlags & E) != 0) return _placeableTiles[9];
-        if ((pFlags & S) != 0 && (pFlags & SW) != 0 && (pFlags & W) != 0) return _placeableTiles[10];
-        if ((pFlags & N) != 0 && (pFlags & NW) != 0 && (pFlags & W) != 0) return _placeableTiles[12];
+        Tile tileBase = _placeHolderTile;
+        if ((pFlags & N) != 0 && (pFlags & NE) != 0 && (pFlags & E) != 0) tileBase = _placeableTiles[11];
+        else if ((pFlags & S) != 0 && (pFlags & SE) != 0 && (pFlags & E) != 0) tileBase = _placeableTiles[9];
+        else if ((pFlags & S) != 0 && (pFlags & SW) != 0 && (pFlags & W) != 0) tileBase = _placeableTiles[10];
+        else if ((pFlags & N) != 0 && (pFlags & NW) != 0 && (pFlags & W) != 0) tileBase = _placeableTiles[12];
                 
-        if ((pFlags & N) != 0) return _placeableTiles[1];
-        if ((pFlags & E) != 0) return _placeableTiles[4];
-        if ((pFlags & S) != 0) return _placeableTiles[2];
-        if ((pFlags & W) != 0) return _placeableTiles[3];
+        else if ((pFlags & N) != 0) tileBase = _placeableTiles[1];
+        else if ((pFlags & E) != 0) tileBase = _placeableTiles[4];
+        else if ((pFlags & S) != 0) tileBase = _placeableTiles[2];
+        else if ((pFlags & W) != 0) tileBase = _placeableTiles[3];
                 
-        if ((pFlags & NE) != 0) return _placeableTiles[7];
-        if ((pFlags & SE) != 0) return _placeableTiles[5];
-        if ((pFlags & SW) != 0) return _placeableTiles[6];
-        if ((pFlags & NW) != 0) return _placeableTiles[8];
-        
-        return _placeHolderTile;
+        else if ((pFlags & NE) != 0) tileBase = _placeableTiles[7];
+        else if ((pFlags & SE) != 0) tileBase = _placeableTiles[5];
+        else if ((pFlags & SW) != 0) tileBase = _placeableTiles[6];
+        else if ((pFlags & NW) != 0) tileBase = _placeableTiles[8];
+
+        return tileBase;
     }
 
     /// <summary>
