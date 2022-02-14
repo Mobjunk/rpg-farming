@@ -5,27 +5,36 @@ using System;
 using System.Collections;
 using static Utility;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : Singleton<TimeManager> 
 {
     [Header("Display")]
-    private static float _timeSpeedMultiplier = 2500;
+    private static float _timeSpeedMultiplier = 5000;
     private static float _startTime;
 
     //private DateTime currentDate;
     //public DateTime currentGameTime;
 
     DateTime _startDate;
-    public static TimeSpan elapsedTime => TimeSpan.FromSeconds(Time.time * _timeSpeedMultiplier - _startTime);
+    public TimeSpan ElapsedTime => TimeSpan.FromSeconds(Time.time * _timeSpeedMultiplier - _startTime);
 
-    public DateTime currentGameTime;
+    public DateTime CurrentGameTime;
     void Start()
     {
         _startTime = Time.time * _timeSpeedMultiplier;
-        _startDate = new DateTime(2012, 3, 1, 1, 1, 1);
+        _startDate = new DateTime(2022,1,1,0,0,0);
     }
     void Update()
     {
-        currentGameTime = _startDate.Add(elapsedTime);
+        CurrentGameTime = _startDate.Add(ElapsedTime);
+        Debug.Log(CurrentGameTime.DayOfWeek);
+
+        //TimeTillDate(2022,1,1,23,1,20);
+
     }
-    
+    void TimeTillDate(DateTime pendDate)
+    {
+        TimeSpan timeTillEndDate = CurrentGameTime - pendDate;
+        Debug.Log("tijd to go" + timeTillEndDate);
+    }
+
 }
