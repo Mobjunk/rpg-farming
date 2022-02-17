@@ -50,7 +50,7 @@ public class DayNightLight : MonoBehaviour
         }
         if (hour >= 8 && hour < 18)
         {
-            volume.weight = 0;
+            Light.intensity = 1;
         }
     }
 }
