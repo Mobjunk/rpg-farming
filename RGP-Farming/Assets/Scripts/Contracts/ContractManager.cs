@@ -9,8 +9,6 @@ public class ContractManager : Singleton<ContractManager>
     private Player _player => Player.Instance();
 
     private TimeManager _timeManager => TimeManager.Instance();
-
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     
     [SerializeField] private CharacterContractManager _characterContractManager;
     
@@ -18,25 +16,28 @@ public class ContractManager : Singleton<ContractManager>
 
     [SerializeField] private List<AcceptableContracts> _acceptableContracts = new List<AcceptableContracts>(5);
 
-    [SerializeField] private Sprite[] _boardSprites;
+    [SerializeField] private List<GameObject> _spawnPoints = new List<GameObject>(5);
+
+    [SerializeField] private GameObject _contractPrefab;
     
-    //[Serializable] private List
-
-    private void Awake()
-    {
-        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
-
     private void Start()
     {
         _characterContractManager = _player.GetComponent<CharacterContractManager>();
 
-        int randomAmountOfContracts = Random.Range(1, 5);
+        int randomAmountOfContracts = 5;//Random.Range(1, 5);
         Debug.Log("randomAmountOfContracts: " + randomAmountOfContracts);
         for (int index = 0; index < randomAmountOfContracts; index++)
         {
+            GameObject spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Count)];
+            _spawnPoints.Remove(spawnPoint);
+
+            GameObject contractObject = Instantiate(_contractPrefab, parent: spawnPoint.transform);
+            
             AbstractContractData abstractContractData = _possibleContracts[Random.Range(0, _possibleContracts.Count)];
-            _acceptableContracts.Add(new AcceptableContracts(abstractContractData, 1));
+            AcceptableContracts acceptableContract = new AcceptableContracts(spawnPoint, abstractContractData, 1);
+            _acceptableContracts.Add(acceptableContract);
+            
+            contractObject.GetComponent<ContractInteraction>().Setup(acceptableContract, abstractContractData);
         }
     }
 
@@ -49,11 +50,16 @@ public class ContractManager : Singleton<ContractManager>
             if (interval <= TimeSpan.Zero) toRemove.Add(acceptableContracts);
         }
 
-        foreach (AcceptableContracts remove in toRemove) _acceptableContracts.Remove(remove);
+        foreach (AcceptableContracts remove in toRemove)
+        {
+            _spawnPoints.Add(remove.SpawnPoint);
+            
+            foreach (Transform child in remove.SpawnPoint.transform)
+                Destroy(child.gameObject);
+            
+            _acceptableContracts.Remove(remove);
+        }
         toRemove.Clear();
-
-        if (_spriteRenderer.sprite != _boardSprites[_acceptableContracts.Count])
-            _spriteRenderer.sprite = _boardSprites[_acceptableContracts.Count];
     }
 
     public void Test()
@@ -160,11 +166,13 @@ public class ContractManager : Singleton<ContractManager>
 [Serializable]
 public class AcceptableContracts
 {
+    public GameObject SpawnPoint;
     public AbstractContractData Contract;
     public DateTime ExpireDate;
 
-    public AcceptableContracts(AbstractContractData pContract, int pDaysTillExpired)
+    public AcceptableContracts(GameObject pSpawnPoint, AbstractContractData pContract, int pDaysTillExpired)
     {
+        SpawnPoint = pSpawnPoint;
         Contract = pContract;
         ExpireDate = TimeManager.Instance().GetNewDate(pAddedDays: pDaysTillExpired);
     }

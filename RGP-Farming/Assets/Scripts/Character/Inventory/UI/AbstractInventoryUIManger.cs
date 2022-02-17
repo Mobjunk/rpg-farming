@@ -101,6 +101,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
         base.Close();
         if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem();
         IsOpened = false;
+        ItemBarManager.Instance().UpdateSlot();
         InventoryUI.SetActive(IsOpened);
         onInventoryUIClosing.Invoke();
     }

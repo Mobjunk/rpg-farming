@@ -16,9 +16,7 @@ public class ItemContainerGrid : AbstractItemContainer<GameItem>
         Icon.sprite = Containment.Item.uiSprite;
         Icon.enabled = true;
 
-        Debug.Log("Icon.enabled: " + Icon.enabled);
-
-        if(ItemBarManager.Instance().SelectedSlot == SlotIndex && !AllowMoving) SetHighlighted(true);
+        if (ItemBarManager.Instance().SelectedSlot == SlotIndex && !AllowMoving) SetHighlighted(true);
 
         Amount.text = $"{(Containment.Amount > 1 ? Containment.Amount.ToString() : "")}";
         Amount.enabled = Containment.Amount > 1;

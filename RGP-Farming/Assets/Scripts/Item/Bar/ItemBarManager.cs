@@ -80,10 +80,9 @@ public class ItemBarManager : MenuManager<ItemBarManager>
             //Update the item containment
             if (_itemDisplayer.Containment != characterInventory.Items[pNextSlot]) _itemDisplayer.SetContainment(characterInventory.Items[pNextSlot]);
             //Checks if there is currently a item snapped
-            if (!_itemSnapper.IsSnapped)
+            if (!_itemSnapper.IsSnapped && !_inventoryUIManager.IsOpened)
             {
                 _itemSnapper.SetSnappedItem(_itemDisplayer);
-                //itemDisplayer.Icon.enabled = true;
                 _itemDisplayer.gameObject.SetActive(true);
             }
         }
@@ -116,7 +115,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
             //Update the item containment
             if (_itemDisplayer.Containment != characterInventory.Items[SelectedSlot]) _itemDisplayer.SetContainment(characterInventory.Items[SelectedSlot]);
             //Checks if there is currently a item snapped
-            if (!_itemSnapper.IsSnapped)
+            if (!_itemSnapper.IsSnapped && !_inventoryUIManager.IsOpened)
             {
                 _itemSnapper.SetSnappedItem(_itemDisplayer);
                 //itemDisplayer.Icon.enabled = true;

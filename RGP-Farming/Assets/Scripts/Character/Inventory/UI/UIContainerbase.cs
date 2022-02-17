@@ -183,7 +183,6 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     void SnapContainment()
     {
-        Debug.Log("789");
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
 
         if (!snapperManager.IsSnapped)
@@ -218,9 +217,10 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
                 snapperManager.ResetSnappedItem(false);
             } else {
                 //Handles updating the containers
+                snapperManager.ResetSnappedItem();
                 Container.Set(SlotIndex, currentItem);
                 currentSnap.Container.Set(currentSnap.SlotIndex, placeHolder.Item == null ? new GameItem() : placeHolder);
-                snapperManager.ResetSnappedItem();
+                //snapperManager.ResetSnappedItem();
             }
         }
     }
@@ -230,7 +230,6 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     public virtual void PlaceSingleItem()
     {
-        Debug.Log("456");
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
         
         UIContainerbase<GameItem> currentSnap = snapperManager.CurrentItemSnapped;
@@ -257,7 +256,6 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     public virtual void SplitItemStack()
     {
-        Debug.Log("123");
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
         
         GameItem currentItem = Container.Items[SlotIndex];

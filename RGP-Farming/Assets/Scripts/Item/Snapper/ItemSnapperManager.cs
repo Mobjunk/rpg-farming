@@ -26,8 +26,8 @@ public class ItemSnapperManager : Singleton<ItemSnapperManager>
         if (CurrentItemSnapped == null) return;
         
         Destroy(CurrentItemSnapped.Icon.gameObject.GetComponent<Canvas>());
-        Debug.Log("?????????????????????????");
-        CurrentItemSnapped.Icon.enabled = false;
+        //TODO: might cause a issue with swapping items
+        CurrentItemSnapped.Icon.enabled = pIconEnabled;
         CurrentItemSnapped.Icon.transform.localPosition = Vector3.zero;
         CurrentItemSnapped.Amount.transform.localPosition = Vector3.zero;
         IsSnapped = false;

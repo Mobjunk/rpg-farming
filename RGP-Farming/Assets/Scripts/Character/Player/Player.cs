@@ -99,8 +99,6 @@ public class Player : CharacterManager
         SubscribeToInput();
         
         _playerInventoryUIManager.Initialize(_characterInventory);
-
-        AddStarterItems();
     }
 
     public override void Update()

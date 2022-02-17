@@ -6,10 +6,17 @@ public class CharacterInteractionManager : MonoBehaviour
     private CursorManager _cursorManager => CursorManager.Instance();
     
     [SerializeField] private List<InteractionManager> _interactables;
-
+    
     public List<InteractionManager> GetInteractables()
     {
         return _interactables;
+    }
+
+    [SerializeField] private List<GameObject> _interactableObjects;
+    
+    public List<GameObject> GetInteractableObjects()
+    {
+        return _interactableObjects;
     }
 
     [SerializeField] private InteractionManager _interactable;
