@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2441749199587268108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23, y: 1.51, z: 0}
+  m_LocalPosition: {x: -0.23, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2441749200057379523}
@@ -141,6 +141,8 @@ GameObject:
   - component: {fileID: 2441749200416327773}
   - component: {fileID: 1311816543310515775}
   - component: {fileID: 8096909667371246850}
+  - component: {fileID: 4846214195580721152}
+  - component: {fileID: 1873345638983173872}
   m_Layer: 0
   m_Name: Sprites
   m_TagString: Untagged
@@ -156,7 +158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2441749200416327746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2441749200057379523}
@@ -283,3 +285,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7522068, y: 0.69470406}
   m_EdgeRadius: 0
+--- !u!210 &4846214195580721152
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441749200416327746}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -250
+--- !u!114 &1873345638983173872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441749200416327746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4bf6691b597b648929ee18389adb97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sortingGroup: {fileID: 4846214195580721152}
+  _positionScaling: -100
+  _offset: 0
+  _skip: 0

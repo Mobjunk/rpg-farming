@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2441749200057379523}
   m_Layer: 0
-  m_Name: Tree_Pine_Autum
+  m_Name: Tree_Summer_NoLeaf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,8 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2441749200416327747}
   - component: {fileID: 2441749200416327772}
-  - component: {fileID: 2441749200416327773}
-  - component: {fileID: 8565597535375721794}
+  - component: {fileID: 7747472858384304182}
+  - component: {fileID: 100986130681444478}
+  - component: {fileID: 2905077957516055028}
   m_Layer: 0
   m_Name: Sprites
   m_TagString: Untagged
@@ -104,7 +105,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4534697202939085323, guid: 30f2ba00b68665045bb45a7b064c6e68, type: 3}
+  m_Sprite: {fileID: 143000180112451041, guid: f69f163f58fb37f498929c0da45c8872, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -115,25 +116,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2441749200416327773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2441749200416327746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72b61777fe94f3b47877be29e83e14e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: -7396659404562328812, guid: 30f2ba00b68665045bb45a7b064c6e68, type: 3}
-  - {fileID: 2447638981239418176, guid: 30f2ba00b68665045bb45a7b064c6e68, type: 3}
-  - {fileID: -3474385333744538243, guid: 30f2ba00b68665045bb45a7b064c6e68, type: 3}
-  - {fileID: -2652616067121906241, guid: 30f2ba00b68665045bb45a7b064c6e68, type: 3}
-  seasonCount: 0
---- !u!61 &8565597535375721794
+--- !u!61 &7747472858384304182
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,16 +129,43 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.001570046, y: 0}
+  m_Offset: {x: 0, y: -0.315}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 2, y: 3}
     newSize: {x: 0.64, y: 0.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8800832, y: 2}
+  m_Size: {x: 1.85, y: 0.5}
   m_EdgeRadius: 0
+--- !u!210 &100986130681444478
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441749200416327746}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -100
+--- !u!114 &2905077957516055028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441749200416327746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4bf6691b597b648929ee18389adb97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sortingGroup: {fileID: 100986130681444478}
+  _positionScaling: -100
+  _offset: 0
+  _skip: 0

@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 2441749200416327772}
   - component: {fileID: 2441749200416327773}
   - component: {fileID: 5139878431062540695}
+  - component: {fileID: 5874116120573147217}
+  - component: {fileID: 7206103306539901327}
   m_Layer: 0
   m_Name: Sprites
   m_TagString: Untagged
@@ -159,3 +161,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8760359, y: 2}
   m_EdgeRadius: 0
+--- !u!210 &5874116120573147217
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441749200416327746}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -100
+--- !u!114 &7206103306539901327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441749200416327746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4bf6691b597b648929ee18389adb97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sortingGroup: {fileID: 5874116120573147217}
+  _positionScaling: -100
+  _offset: 0
+  _skip: 0
