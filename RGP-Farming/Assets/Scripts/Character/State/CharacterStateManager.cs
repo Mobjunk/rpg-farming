@@ -64,8 +64,8 @@ public class CharacterStateManager : MonoBehaviour
     /// <returns></returns>
     public int GetDirection()
     {
-        int moveX = (int) (Mathf.Round(_animator.GetFloat("moveX")));
-        int moveY = (int) (Mathf.Round(_animator.GetFloat("moveY")));
+        int moveX = (int) (Mathf.Round(_animator == null ? 0 : _animator.GetFloat("moveX")));
+        int moveY = (int) (Mathf.Round(_animator == null ? 0 : _animator.GetFloat("moveY")));
         
         if ((moveX == -1 && moveY == 0) || (moveX == -1 && moveY == 1) || (moveX == -1 && moveY == -1)) //Left
         {

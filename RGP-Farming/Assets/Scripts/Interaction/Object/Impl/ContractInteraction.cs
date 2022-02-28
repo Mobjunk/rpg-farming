@@ -39,6 +39,10 @@ public class ContractInteraction : MonoBehaviour
             if (_selectedContract.receiveCoins) rewards += _selectedContract.minCoins != _selectedContract.maxCoins ? $"{_selectedContract.minCoins}-{_selectedContract.maxCoins} Coins," : $"{_selectedContract.maxCoins}x Coins,";
             rewards = rewards.Length > 0 ? rewards.Remove(rewards.Length - 1) : "N/A";
             
+            if(_contractDataManager == null) Debug.Log("a");
+            if(_selectedContract.linkedNpc == null) Debug.Log("b");
+            if(_acceptableContract == null) Debug.Log("c");
+            
             _contractDataManager.SetupContract(_selectedContract.linkedNpc.name, $"amount here x {_selectedContract.linkedItem.itemName}", "", rewards, "TODO", _acceptableContract.ExpireDate.ToString("ddd, dd MMM yyyy HH:mm:ss"));
         }
     }

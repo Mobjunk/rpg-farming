@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BodyPart : ScriptableObject
+public abstract class BodyPart : ScriptableObject
 {
     [Header("Type")] public BodyType bodyType;
 
@@ -215,4 +215,8 @@ public class BodyPart : ScriptableObject
         }
         return -1;
     }
+
+    public abstract bool RequiresMultiplier();
+
+    public abstract bool UseHairColor();
 }

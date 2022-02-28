@@ -28,6 +28,14 @@ public static class Utility
     public const int WEST = 6;
     public const int NORTH_WEST = 7;
 
+    public static int WrapIndex(int pIndex, int pMaxLength, int pIndexUsed)
+    {
+        int newIndex = pIndexUsed + pIndex;
+        if (newIndex < 0) newIndex = pMaxLength - 1;
+        else if (newIndex >= pMaxLength) newIndex = 0;
+        return newIndex;
+    }
+    
     public static string GetNameForDirection(int pDirection)
     {
         switch (pDirection)

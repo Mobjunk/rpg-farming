@@ -24,7 +24,7 @@ public class ContractManager : Singleton<ContractManager>
     {
         _characterContractManager = _player.GetComponent<CharacterContractManager>();
 
-        int randomAmountOfContracts = 5;//Random.Range(1, 5);
+        int randomAmountOfContracts = 0;//Random.Range(1, 5);
         Debug.Log("randomAmountOfContracts: " + randomAmountOfContracts);
         for (int index = 0; index < randomAmountOfContracts; index++)
         {

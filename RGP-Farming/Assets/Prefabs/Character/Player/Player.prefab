@@ -225,7 +225,6 @@ GameObject:
   - component: {fileID: 4985750740829715719}
   - component: {fileID: 4990165636136102976}
   - component: {fileID: 8149774648384929234}
-  - component: {fileID: 4990165636136102975}
   - component: {fileID: 4374187241684769131}
   - component: {fileID: 2124916917677514975}
   - component: {fileID: 4990165636136102980}
@@ -234,6 +233,7 @@ GameObject:
   - component: {fileID: 2482437820657588259}
   - component: {fileID: 1295267173746240204}
   - component: {fileID: 1408626447107084665}
+  - component: {fileID: 2447621203796268713}
   m_Layer: 6
   m_Name: Player
   m_TagString: Character
@@ -407,21 +407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactables: []
+  _interactableObjects: []
   _interactable: {fileID: 0}
---- !u!114 &4990165636136102975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4990165636136102972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15bbd0200c36a094099977aec985d760, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentGender: 0
-  _currentSkinColor: 0
 --- !u!114 &4374187241684769131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,6 +549,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _contractsInProgress: []
+--- !u!114 &2447621203796268713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990165636136102972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637b4ea94c284b2b89106a87e9f69aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterChestManager: {fileID: 4990165636548847581}
+  _characterLegsManager: {fileID: 4990165637336804441}
+  _characterFeetManager: {fileID: 4990165636610962425}
+  _characterHairManager: {fileID: 4990165637635886292}
+  _characterBeardManager: {fileID: 799962153703438823}
+  _characterEyesManager: {fileID: 4990165637646983394}
 --- !u!1 &4990165636548847576
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c95292cc8c340b48b8d937ff162d596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterHat: {fileID: 11400000, guid: 09f146a129472264d861865acf47b154, type: 2}
+  _characterHat: {fileID: 0}
 --- !u!1 &4990165637336804436
 GameObject:
   m_ObjectHideFlags: 0

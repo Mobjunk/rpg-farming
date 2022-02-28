@@ -26,4 +26,22 @@ public class ContractDataManager : Singleton<ContractDataManager>
         _contractInformation.text = outcome;
         _content.SetActive(true);
     }
+    
+    public void Accept()
+    {
+        //TODO: Actually accept this contract
+    }
+
+    public void Decline()
+    {
+        //TODO: Actually decline this contract
+        Close();
+    }
+
+
+    public void Close()
+    {
+        _contractInformation.text = string.Empty;
+        _content.SetActive(false);
+    }
 }
