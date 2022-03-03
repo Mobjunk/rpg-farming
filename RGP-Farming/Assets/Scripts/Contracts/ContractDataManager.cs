@@ -43,5 +43,18 @@ public class ContractDataManager : Singleton<ContractDataManager>
     {
         _contractInformation.text = string.Empty;
         _content.SetActive(false);
+        ClearText();
+    }
+
+    private void ClearText()
+    {
+        string outcome = $"Client: \n";
+        outcome += $"Task: \n";
+        //outcome += $"Difficulty: ";
+        outcome += $"Rewards: \n";
+        outcome += $"Completion date: \n";
+        outcome += $"Expire date: ";
+        
+        _contractInformation.text = outcome;
     }
 }

@@ -16,6 +16,7 @@ public class PlayerDesignManager : MonoBehaviour
     {
         if (_playerInformationManager != null)
         {
+            //Handles setting up the character's look after designing it
             _characterChestManager.SetBodyPart(_designManager.CharacterShirts[_playerInformationManager.CharacterShirtIndex]);
             _characterLegsManager.SetBodyPart(_designManager.CharacterPants[_playerInformationManager.CharacterPantsIndex]);
             _characterFeetManager.SetBodyPart(_designManager.CharacterFeets[_playerInformationManager.CharacterFeetIndex]);

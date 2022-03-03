@@ -6,25 +6,44 @@ using Random = UnityEngine.Random;
 
 public class ContractManager : Singleton<ContractManager>
 {
+    /// <summary>
+    /// Singleton references
+    /// </summary>
     private Player _player => Player.Instance();
-
     private TimeManager _timeManager => TimeManager.Instance();
+    private ContractInteraction _contractInteraction => ContractInteraction.Instance();
+    private ContractDataManager _contractDataManager => ContractDataManager.Instance();
     
+    /// <summary>
+    /// The player's contract manager
+    /// </summary>
     [SerializeField] private CharacterContractManager _characterContractManager;
     
+    /// <summary>
+    /// All possible contracts the system can pick from
+    /// </summary>
     [SerializeField] private List<AbstractContractData> _possibleContracts = new List<AbstractContractData>();
 
+    /// <summary>
+    /// A list of all the contracts the player can currently accept
+    /// </summary>
     [SerializeField] private List<AcceptableContracts> _acceptableContracts = new List<AcceptableContracts>(5);
 
+    /// <summary>
+    /// All possible spawn points of the contracts
+    /// </summary>
     [SerializeField] private List<GameObject> _spawnPoints = new List<GameObject>(5);
 
+    /// <summary>
+    /// The prafab of a contract
+    /// </summary>
     [SerializeField] private GameObject _contractPrefab;
     
     private void Start()
     {
         _characterContractManager = _player.GetComponent<CharacterContractManager>();
 
-        int randomAmountOfContracts = 0;//Random.Range(1, 5);
+        int randomAmountOfContracts = Random.Range(1, 5);
         Debug.Log("randomAmountOfContracts: " + randomAmountOfContracts);
         for (int index = 0; index < randomAmountOfContracts; index++)
         {
@@ -34,7 +53,9 @@ public class ContractManager : Singleton<ContractManager>
             GameObject contractObject = Instantiate(_contractPrefab, parent: spawnPoint.transform);
             
             AbstractContractData abstractContractData = _possibleContracts[Random.Range(0, _possibleContracts.Count)];
-            AcceptableContracts acceptableContract = new AcceptableContracts(spawnPoint, abstractContractData, 1);
+            //TODO: Add something to make the contract amount random
+            //TODO: Add something to make the days to complete based on the difficulty of the task
+            AcceptableContracts acceptableContract = new AcceptableContracts(spawnPoint, abstractContractData, 1, 5, 1);
             _acceptableContracts.Add(acceptableContract);
             
             contractObject.GetComponent<ContractInteraction>().Setup(acceptableContract, abstractContractData);
@@ -43,39 +64,37 @@ public class ContractManager : Singleton<ContractManager>
 
     private void Update()
     {
-        List<AcceptableContracts> toRemove = new List<AcceptableContracts>();
-        foreach (AcceptableContracts acceptableContracts in _acceptableContracts)
-        {
-            TimeSpan interval = acceptableContracts.ExpireDate - _timeManager.CurrentGameTime;
-            if (interval <= TimeSpan.Zero) toRemove.Add(acceptableContracts);
-        }
+        List<AcceptableContracts> toRemove = (from acceptableContracts in _acceptableContracts let interval = acceptableContracts.ExpireDate - _timeManager.CurrentGameTime where interval <= TimeSpan.Zero select acceptableContracts).ToList();
+        Remove(toRemove);
+    }
 
-        foreach (AcceptableContracts remove in toRemove)
+    public void RemoveContract(AcceptableContracts pDeclinedContract)
+    {
+        List<AcceptableContracts> toRemove = _acceptableContracts.Where(acceptableContracts => acceptableContracts.Equals(pDeclinedContract)).ToList();
+        Remove(toRemove);
+    }
+
+    public void Remove(List<AcceptableContracts> pToRemove)
+    {
+        foreach (AcceptableContracts remove in pToRemove)
         {
             _spawnPoints.Add(remove.SpawnPoint);
             
             foreach (Transform child in remove.SpawnPoint.transform)
                 Destroy(child.gameObject);
+
+            if (_contractInteraction.AcceptableContract.Equals(remove))
+            {
+                _contractDataManager.Close();
+                _contractInteraction.Clear();
+            }
             
             _acceptableContracts.Remove(remove);
         }
-        toRemove.Clear();
-    }
-
-    public void Test()
-    {
-        AssignContract(ContractTypes.CROPS);
-    }
-
-    public void CheatItems(int pIndex)
-    {
-        Contract currentContract = _characterContractManager.ContractsInProgress[pIndex];
-        if (currentContract == null) return;
-        
-        _player.CharacterInventory.AddItem(currentContract.AbstractContractData.linkedItem, currentContract.RequiredAmount);
+        pToRemove.Clear();
     }
     
-    public void AssignContract(ContractTypes pContractType)
+    /*public void AssignContract(ContractTypes pContractType)
     {
         List<AbstractContractData> possibleContracts = GetFilteredList(pContractType);
         
@@ -84,35 +103,7 @@ public class ContractManager : Singleton<ContractManager>
         {
             _characterContractManager.ContractsInProgress.Add(new Contract(givenContract, 5));
         } else Debug.LogError("Contract couldn't be given...");
-    }
-
-    public void CompleteContract(int pIndex)
-    {
-        Contract currentContract = _characterContractManager.ContractsInProgress[pIndex];
-        if (!currentContract.CanFinishContract())
-        {
-            Debug.LogWarning("Not able to finish this contract...");
-            return;
-        }
-
-        if (!_player.CharacterInventory.HasItem(currentContract.AbstractContractData.linkedItem, currentContract.RequiredAmount))
-        {
-            Debug.LogError("Does not have the required items...");
-            return;
-        }
-        
-        _player.CharacterInventory.RemoveItem(currentContract.AbstractContractData.linkedItem, currentContract.RequiredAmount);
-        _characterContractManager.ContractsInProgress.Remove(currentContract);
-
-        if (currentContract.AbstractContractData.receiveCoins)
-        {
-            int randomCoins = Random.Range(currentContract.AbstractContractData.minCoins, currentContract.AbstractContractData.maxCoins);
-            _player.CharacterInventory.UpdateCoins(randomCoins);
-        }
-
-        foreach (GameItem reward in currentContract.AbstractContractData.rewards)
-            _player.CharacterInventory.AddItem(reward.Item, reward.Amount, true);
-    }
+    }*/
 
     public void CompleteContract(Contract pCurrentContract)
     {
@@ -169,11 +160,15 @@ public class AcceptableContracts
     public GameObject SpawnPoint;
     public AbstractContractData Contract;
     public DateTime ExpireDate;
+    public int RequiredAmount;
+    public int DaysToComplete;
 
-    public AcceptableContracts(GameObject pSpawnPoint, AbstractContractData pContract, int pDaysTillExpired)
+    public AcceptableContracts(GameObject pSpawnPoint, AbstractContractData pContract, int pDaysTillExpired, int pRequiredAmount, int pDaysToComplete)
     {
         SpawnPoint = pSpawnPoint;
         Contract = pContract;
         ExpireDate = TimeManager.Instance().GetNewDate(pAddedDays: pDaysTillExpired);
+        RequiredAmount = pRequiredAmount;
+        DaysToComplete = pDaysToComplete;
     }
 }

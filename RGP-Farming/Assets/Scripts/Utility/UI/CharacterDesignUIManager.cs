@@ -186,7 +186,7 @@ public class CharacterDesignUIManager : Singleton<CharacterDesignUIManager>
 
     public void Confirm()
     {
-        _playerInformationManager.Initialize(_playerName.InputField.text, _farmName.InputField.text, _favoriteThing.InputField.text, CharacterSkinColor, CharacterSkinColor, _currentPantsIndex, _currentFeetIndex, CharacterHairColor, _currentHairIndex, _currentBeardIndex, _currentEyesIndex);
+        _playerInformationManager.Initialize(_playerName.InputField.text, _farmName.InputField.text, _favoriteThing.InputField.text, CharacterSkinColor, _currentShirtIndex, _currentPantsIndex, _currentFeetIndex, CharacterHairColor, _currentHairIndex, _currentBeardIndex, _currentEyesIndex);
         SceneManager.LoadScene("Core");
         SceneManager.UnloadSceneAsync("Character Design");
     }

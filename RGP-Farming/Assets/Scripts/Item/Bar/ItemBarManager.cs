@@ -72,7 +72,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         if (characterInventory.Items[pNextSlot].Item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.Items[pNextSlot].Item.GetType() == typeof(AbstractPlantData))
         {
             //Sets the animator
-            _player.CharacterStateManager.SetAnimator("wielding", true);
+            //_player.CharacterStateManager.SetAnimator("wielding", true);
+            Utility.SetAnimator(_player.CharacterStateManager.GetAnimator(), "wielding", true);
             //Sets item above head
             _player.ItemAboveHead = characterInventory.Items[pNextSlot];
             //Sets the sprite above the head
@@ -88,7 +89,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
         else
         { //Reset everything
-            _player.CharacterStateManager.SetAnimator("wielding", false);
+            //_player.CharacterStateManager.SetAnimator("wielding", false);
+            Utility.SetAnimator(_player.CharacterStateManager.GetAnimator(), "wielding", false);
             _player.ItemAboveHead = null;
             _player.ItemAboveHeadRenderer.sprite = null;
             //itemDisplayer.Icon.enabled = false;
@@ -107,7 +109,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         if (characterInventory.Items[SelectedSlot].Item.GetType() == typeof(AbstractPlaceableItem) || characterInventory.Items[SelectedSlot].Item.GetType() == typeof(AbstractPlantData))
         {
             //Sets the animator
-            _player.CharacterStateManager.SetAnimator("wielding", true);
+            //_player.CharacterStateManager.SetAnimator("wielding", true);
+            Utility.SetAnimator(_player.CharacterStateManager.GetAnimator(), "wielding", true);
             //Sets item above head
             _player.ItemAboveHead = characterInventory.Items[SelectedSlot];
             //Sets the sprite above the head
@@ -124,7 +127,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
         else
         { //Reset everything
-            _player.CharacterStateManager.SetAnimator("wielding", false);
+            //_player.CharacterStateManager.SetAnimator("wielding", false);
+            Utility.SetAnimator(_player.CharacterStateManager.GetAnimator(), "wielding", false);
             _player.ItemAboveHead = null;
             _player.ItemAboveHeadRenderer.sprite = null;
             //itemDisplayer.Icon.enabled = false;
