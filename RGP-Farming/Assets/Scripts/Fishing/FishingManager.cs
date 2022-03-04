@@ -1,7 +1,10 @@
 ﻿public class FishingManager : HarvestSkillManager
 {
-    public FishingManager(CharacterManager pCharacterManager) : base(pCharacterManager)
+    private AbstractFishingData _abstractFishingData;
+    
+    public FishingManager(CharacterManager pCharacterManager, AbstractFishingData pFishingData) : base(pCharacterManager)
     {
+        _abstractFishingData = pFishingData;
     }
 
     public override CharacterStates GetCharacterState()
@@ -31,6 +34,6 @@
 
     public override AbstractItemData ItemToReceive()
     {
-        throw new System.NotImplementedException();
+        return _abstractFishingData.fish;
     }
 }
