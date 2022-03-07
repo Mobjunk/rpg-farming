@@ -29,7 +29,7 @@ public class TimeManager : Singleton<TimeManager>
         Debug.Log(CurrentGameTime.DayOfWeek);
 
         //TimeTillDate(2022,1,1,23,1,20);
-
+        
     }
     void TimeTillDate(DateTime pendDate)
     {
