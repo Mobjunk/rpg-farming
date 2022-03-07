@@ -24,8 +24,7 @@ public class DisplayTime : MonoBehaviour
         {
             if (hours == 12) addition = "12";
             hours %= 12;
-            _clockAMPM = "PM";
-            
+            _clockAMPM = "PM";           
         }
         else 
         {

@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class DialogueManager : Singleton<DialogueManager>
 {
     //FIFO
     private Queue<string> _sentences;
+
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _npcNameUI;
     [SerializeField] private TextMeshProUGUI _sentencesUI;
@@ -18,7 +20,6 @@ public class DialogueManager : Singleton<DialogueManager>
     public bool DialogueIsPlaying;
     [Header("In Characters per Second")]
     public float TextSpeed;
-
 
     void Start()
     {
@@ -45,7 +46,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         DialogueIsPlaying = true;
         _sentenceBox.SetActive(true);
-        _sentencesUI.text = pSentence;
+        DisplayNextLine();
         if (!pName.Equals("")) { _npcNameUI.text = pName; _nameBox.SetActive(true); } 
     }
     public void DisplayNextLine()
@@ -60,7 +61,7 @@ public class DialogueManager : Singleton<DialogueManager>
         //Clear any running coroutines within the script.
         StopAllCoroutines();
         //Start typing dialogue
-        StartCoroutine(WriteSentence(sentence));
+        StartCoroutine(WriteSentence(sentence));      
     }
     void EndDialogue()
     {
@@ -81,5 +82,38 @@ public class DialogueManager : Singleton<DialogueManager>
             float speed = TextSpeed / (TextSpeed * TextSpeed);
             yield return new WaitForSeconds(speed);
         }
+    }
+
+    // TEST TEST TEST
+    void RestrictCharacters(string pSentence)
+    {
+        //Check if the pSentence is longer then certain amount of characters.
+        if(pSentence.Length > 100)
+        {
+            //Split up the sentence in multiple character arrays depending on the amount of characters.
+            char[] part1 = pSentence.ToCharArray().Take(100).ToArray();
+            char[] part2 = pSentence.ToCharArray().Skip(100).Take(100).ToArray();
+            char[] part3 = pSentence.ToCharArray().Skip(200).Take(100).ToArray();
+                     
+
+            Debug.Log(part1);
+            Debug.Log(part2);
+
+            //Display the first array of characters.
+            if (part2 != null)
+            {
+              
+            }          
+            if(part2 != null & Input.GetKeyDown(KeyCode.Return))
+            {
+                
+            }
+            //Display those sentences (Should display next line)(Uses Input)
+            //Check if it is the end of the final array.
+            // If yes : Go to the next sentence (Text Area)
+        }
+        return;
+        
+        // If not : Dispay the sentence as normal
     }
 }
