@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 public class DialogueManager : Singleton<DialogueManager>
 {
@@ -20,11 +22,24 @@ public class DialogueManager : Singleton<DialogueManager>
     public bool DialogueIsPlaying;
     [Header("In Characters per Second")]
     public float TextSpeed;
+    public int maxCharacters;
 
     void Start()
     {
         _sentences = new Queue<string>();
     }
+    
+    /*public void TestDialogue()
+    {
+        string[] tester = Split(text, 25, true).ToArray();
+
+        
+        foreach (string line in tester)
+        {
+            Debug.Log(line);
+        }
+    }*/
+
     //TODO %p , aanpassen naar de player naam. Dan komt overal de playernaam automatisch te staan.
     public void StartDialogue (Dialogue pDialogue)
     {
@@ -37,6 +52,17 @@ public class DialogueManager : Singleton<DialogueManager>
         //Fill up the queue with new text.
         foreach (string sentence in pDialogue.sentences)
         {
+            //Checks if not too long.
+            if (sentence.Length > maxCharacters)
+            {
+                //Split the string up in substrings.
+                string[] subSentences = Split(sentence, maxCharacters, true).ToArray();
+                foreach (string subSentence in subSentences)
+                {
+                    _sentences.Enqueue(subSentence);
+                }
+            }
+            else 
             _sentences.Enqueue(sentence);
         }
         DisplayNextLine();
@@ -83,37 +109,39 @@ public class DialogueManager : Singleton<DialogueManager>
             yield return new WaitForSeconds(speed);
         }
     }
-
-    // TEST TEST TEST
-    void RestrictCharacters(string pSentence)
+    
+    static IEnumerable<string> Split(string pOrgString, int pChunkSize, bool pWholeWords = true)
     {
-        //Check if the pSentence is longer then certain amount of characters.
-        if(pSentence.Length > 100)
+        if (pWholeWords)
         {
-            //Split up the sentence in multiple character arrays depending on the amount of characters.
-            char[] part1 = pSentence.ToCharArray().Take(100).ToArray();
-            char[] part2 = pSentence.ToCharArray().Skip(100).Take(100).ToArray();
-            char[] part3 = pSentence.ToCharArray().Skip(200).Take(100).ToArray();
-                     
+            List<string> result = new List<string>();
+            StringBuilder sb = new StringBuilder();
 
-            Debug.Log(part1);
-            Debug.Log(part2);
+            if (pOrgString.Length > pChunkSize)
+            {
+                string[] newSplit = pOrgString.Split(' ');
+                foreach (string str in newSplit)
+                {
+                    if (sb.Length != 0)
+                        sb.Append(" ");
 
-            //Display the first array of characters.
-            if (part2 != null)
-            {
-              
-            }          
-            if(part2 != null & Input.GetKeyDown(KeyCode.Return))
-            {
-                
+                    if (sb.Length + str.Length > pChunkSize)
+                    {
+                        result.Add(sb.ToString());
+                        sb.Clear();
+                    }
+
+                    sb.Append(str);
+                }
+
+                result.Add(sb.ToString());
             }
-            //Display those sentences (Should display next line)(Uses Input)
-            //Check if it is the end of the final array.
-            // If yes : Go to the next sentence (Text Area)
+            else
+                result.Add(pOrgString);
+
+            return result;
         }
-        return;
-        
-        // If not : Dispay the sentence as normal
+        else
+            return new List<string>(Regex.Split(pOrgString, @"(?<=\G.{" + pChunkSize + "})", RegexOptions.Singleline));
     }
 }
