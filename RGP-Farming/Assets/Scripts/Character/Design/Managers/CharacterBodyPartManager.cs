@@ -15,6 +15,8 @@ public abstract class CharacterBodyPartManager : BodyPartManager
     {
         base.Awake();
         
+        LoadSprites();
+        
         _animator = GetComponentInParent<Animator>();
         _characterStateManager = GetComponentInParent<CharacterStateManager>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -85,7 +87,7 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         }
         else if (_characterStateManager.GetCharacterState().ToString().StartsWith("FISHING_"))
         {
-            currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("FISHING_", ""));
+            currentIndex = _characterStateManager.GetCharacterState().ToString().Equals("FISHING_IDLE") ? 0 : int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("FISHING_", ""));
             action = "FISHING";
         }
         else if (_characterStateManager.GetCharacterState().ToString().StartsWith("SWORD_SWING_"))
@@ -96,15 +98,16 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         if (action.Equals("IDLE") || carry_idle) totalFrames = 8;
         else if (action.Equals("WATERING")) totalFrames = 2;
 
-        string fileName = CurrentBodyPart.GetFileName(action, !CurrentBodyPart.bodyType.Equals(BodyType.BODY) ? 0 : pSkinColor);
-        int baseIndex = CurrentBodyPart.GetSpriteIndex(action, pRotation);
+        
+        string fileName = pBodyPart.GetFileName(action, !pBodyPart.bodyType.Equals(BodyType.BODY) ? 0 : pSkinColor);
+        int baseIndex = pBodyPart.GetSpriteIndex(action, pRotation);
         
         int multiplier = GetMultiplier(pBodyPart);
-        if (CurrentBodyPart.UseHairColor()) multiplier = pHairColor;
+        if (pBodyPart.UseHairColor()) multiplier = pHairColor;
         
         
         int modifiedIndex = baseIndex + currentIndex;
-        if (CurrentBodyPart.RequiresMultiplier()) modifiedIndex += (totalFrames * multiplier);
+        if (pBodyPart.RequiresMultiplier()) modifiedIndex += (totalFrames * multiplier);
         
         Sprite sprite = CachedSpritesManager.GetSprite(fileName + "" + modifiedIndex);
         if (sprite != null)

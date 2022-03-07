@@ -61,7 +61,7 @@ public static class Utility
         pAnimator.SetBool(pAnimationName, false);
     }
     
-    private static float GetAnimationClipTime(Animator pAnimator, string pAnimationName)
+    public static float GetAnimationClipTime(Animator pAnimator, string pAnimationName)
     {
         AnimationClip[] clips = pAnimator.runtimeAnimatorController.animationClips;
         return (from clip in clips where clip.name.ToLower().Equals(pAnimationName.ToLower()) select clip.length).FirstOrDefault();
@@ -139,14 +139,14 @@ public static class Utility
         }
     }
 
-    public static bool CanInteractWithTile(Grid pGrid, Vector3Int pTilePosition, GameObject[] pTileChecker)
+    public static bool CanInteractWithTile(Grid pGrid, Vector3Int pTilePosition, GameObject[] pTileChecker, float pDistanceCheck = 1)
     {
         for (int index = 0; index < pTileChecker.Length; index++)
         {
             Vector3Int pos = pGrid.WorldToCell(pTileChecker[index].transform.position);
             int distance = Mathf.FloorToInt(Vector2.Distance(new Vector2(pTilePosition.x, pTilePosition.y), new Vector2(pos.x, pos.y)));
-
-            if (distance <= 1) return true;
+            
+            if (distance <= pDistanceCheck) return true;
         }
 
         return false;

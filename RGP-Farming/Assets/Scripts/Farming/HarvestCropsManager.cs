@@ -61,4 +61,11 @@ public class HarvestCropsManager : HarvestSkillManager
     {
         return _receivedItem;
     }
+
+    public override int GetMaxFailures()
+    {
+        return int.MaxValue;
+    }
+
+    public override void HandleFailure() { }
 }

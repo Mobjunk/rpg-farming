@@ -38,6 +38,7 @@ public abstract class BodyPart : ScriptableObject
             case "CARRY":
                 return carryPathName;
             case "FISHING":
+            case "FISHING_IDLE":
                 return fishingPathName;
             case "SWORD_SWING":
                 return swordPathName;

@@ -53,6 +53,8 @@ public enum CharacterStates
     
     CARRY_IDLE,
     
+    FISHING_IDLE,
+    
     NONE,
     HARVESTING,
 }
