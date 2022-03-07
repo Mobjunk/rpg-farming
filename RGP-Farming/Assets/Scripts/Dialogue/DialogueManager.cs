@@ -46,7 +46,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         DialogueIsPlaying = true;
         _sentenceBox.SetActive(true);
-        DisplayNextLine();
+        StartCoroutine(WriteSentence(pSentence));
         if (!pName.Equals("")) { _npcNameUI.text = pName; _nameBox.SetActive(true); } 
     }
     public void DisplayNextLine()
