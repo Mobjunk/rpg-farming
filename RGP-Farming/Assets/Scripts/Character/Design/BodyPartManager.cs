@@ -34,8 +34,8 @@ public class BodyPartManager : MonoBehaviour
             }
         }
     }
-    
-    private void LoadSpritesForPath(string[] pPath)
+
+    public void LoadSpritesForPath(string[] pPath)
     {
         foreach (string path in pPath)
         {

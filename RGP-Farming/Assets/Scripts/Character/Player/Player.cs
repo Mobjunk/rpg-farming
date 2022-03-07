@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +9,10 @@ public class Player : CharacterManager
     private ItemManager _itemManager => ItemManager.Instance();
     private static Player _intsance;
 
-    public static Player Instance()
-    {
-        return _intsance;
-    }
+    public static Player Instance() => _intsance;
 
     [SerializeField] private GameObject[] _tileChecker;
-    public GameObject[] TileChecker
-    {
-        get => _tileChecker;
-        set => _tileChecker = value;
-    }
+    public GameObject[] TileChecker => _tileChecker;
 
     [SerializeField] private GameItem _itemAboveHead;
     public GameItem ItemAboveHead
@@ -28,11 +22,7 @@ public class Player : CharacterManager
     }
 
     [SerializeField] private SpriteRenderer _itemAboveHeadRenderer;
-    public SpriteRenderer ItemAboveHeadRenderer
-    {
-        get => _itemAboveHeadRenderer;
-        set => _itemAboveHeadRenderer = value;
-    }
+    public SpriteRenderer ItemAboveHeadRenderer => _itemAboveHeadRenderer;
 
     /// <summary>
     /// Character interaction
@@ -51,26 +41,19 @@ public class Player : CharacterManager
     /// </summary>
     private PlayerInvenotryUIManager _playerInventoryUIManager;
 
-    public PlayerInvenotryUIManager PlayerInventoryUIManager
-    {
-        get => _playerInventoryUIManager;
-    }
+    public PlayerInvenotryUIManager PlayerInventoryUIManager => _playerInventoryUIManager;
 
     private CharacterPlaceObject _characterPlaceObject;
 
-    public CharacterPlaceObject CharacterPlaceObject
-    {
-        get => _characterPlaceObject;
-        set => _characterPlaceObject = value;
-    }
+    public CharacterPlaceObject CharacterPlaceObject => _characterPlaceObject;
 
     private CharacterUIManager _characterUIManager;
 
-    public CharacterUIManager CharacterUIManager
-    {
-        get => _characterUIManager;
-        set => _characterUIManager = value;
-    }
+    public CharacterUIManager CharacterUIManager => _characterUIManager;
+
+    private PlayerFishing _playerFishing;
+
+    public PlayerFishing PlayerFishing => _playerFishing;
 
     /// <summary>
     /// Checks if a player has a controller connected
@@ -90,6 +73,7 @@ public class Player : CharacterManager
         _playerInventoryUIManager = GetComponent<PlayerInvenotryUIManager>();
         _characterPlaceObject = GetComponent<CharacterPlaceObject>();
         _characterUIManager = GetComponent<CharacterUIManager>();
+        _playerFishing = GetComponent<PlayerFishing>();
     }
 
     public override void Start()
@@ -163,11 +147,13 @@ public class Player : CharacterManager
         _characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Fishing bait"), 10, pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Coal"), 100);
         //_characterInventory.AddItem(_itemManager.ForName("Iron ore"), 100);
         //_characterInventory.AddItem(_itemManager.ForName("Chest"));
         //_characterInventory.AddItem(_itemManager.ForName("Furnace"));
-        _characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
+        /*_characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
         _characterInventory.AddItem(_itemManager.ForName("Cabbage seed"), 10);
         _characterInventory.AddItem(_itemManager.ForName("Eggplant seed"), 10);
         _characterInventory.AddItem(_itemManager.ForName("Lemon seed"), 10);
@@ -175,7 +161,7 @@ public class Player : CharacterManager
         _characterInventory.AddItem(_itemManager.ForName("Pineapple seed"), 10);
         _characterInventory.AddItem(_itemManager.ForName("Tomato seed"), 10);
         _characterInventory.AddItem(_itemManager.ForName("Watermelon seed"), 10);
-        /*characterInventory.AddItem(itemManager.ForName("Wood"), 50);
+        characterInventory.AddItem(itemManager.ForName("Wood"), 50);
         characterInventory.AddItem(itemManager.ForName("Stone"), 50);*/
 
     }

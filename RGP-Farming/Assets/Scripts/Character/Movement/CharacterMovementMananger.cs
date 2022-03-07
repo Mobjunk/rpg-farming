@@ -41,6 +41,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
                 if (_characterStateManager.GetCharacterState() != CharacterStates.IDLE)
                 {
                     ResetSkillingAnimations();
+                    _characterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.NONE);
                     _characterManager.SetAction(null);
                 }
         }
@@ -50,7 +51,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
         _sorting.UpdateOrder();
     }
 
-    private void ResetSkillingAnimations()
+    public void ResetSkillingAnimations()
     {
         _animator.SetBool("axe_swing", false);
         _animator.SetBool("pickaxe_swing", false);
@@ -58,5 +59,6 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
         _animator.SetBool("hoe", false);
         _animator.SetBool("fishing", false);
         _animator.SetBool("sword_swing", false);
+        _animator.SetBool("fishing_idle", false);
     }
 }

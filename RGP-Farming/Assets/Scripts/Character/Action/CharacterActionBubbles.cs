@@ -31,24 +31,9 @@ public class CharacterActionBubbles : MonoBehaviour
     {
         foreach (string name in Enum.GetNames(typeof(BubbleActions)))
         {
-            if (name.Equals("none")) continue;
+            if (name.Equals("NONE")) continue;
             Utility.SetAnimator(_animator, name.ToLower(), false);
         }
-    }
-    
-    public void Test()
-    {
-        SetBubbleAction(BubbleActions.WAITING);
-    }
-
-    public void Test2()
-    {
-        SetBubbleAction(BubbleActions.READY);
-    }
-
-    public void Test3()
-    {
-        SetBubbleAction(BubbleActions.NONE);
     }
 }
 
@@ -56,5 +41,7 @@ public enum BubbleActions
 {
     NONE,
     WAITING,
-    READY
+    READY,
+    SAD,
+    HAPPY
 }
