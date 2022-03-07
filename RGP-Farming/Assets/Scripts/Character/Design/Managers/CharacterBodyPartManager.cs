@@ -1,44 +1,24 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-public abstract class CharacterBodyPartManager : MonoBehaviour
+public abstract class CharacterBodyPartManager : BodyPartManager
 {
-    private CachedSpritesManager _cachedSpritesManager => CachedSpritesManager.Instance();
-
+    private PlayerInformationManager _playerInformationManager => PlayerInformationManager.Instance();
+    
     private Animator _animator;
     private CharacterStateManager _characterStateManager;
     private SpriteRenderer _spriteRenderer;
-    private BodyPart _currentBodyPart;
-
-    public BodyPart CurrentBodyPart
-    {
-        get => _currentBodyPart;
-        set => _currentBodyPart = value;
-    }
     
     public virtual void Awake()
     {
+        base.Awake();
+        
         _animator = GetComponentInParent<Animator>();
         _characterStateManager = GetComponentInParent<CharacterStateManager>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-
-
-        LoadSpritesForPath(_currentBodyPart.walkPathName);
-        LoadSpritesForPath(_currentBodyPart.axePathName);
-        LoadSpritesForPath(_currentBodyPart.pickaxePathName);
-        LoadSpritesForPath(_currentBodyPart.wateringCanPathName);
-        LoadSpritesForPath(_currentBodyPart.hoePathName);
-        LoadSpritesForPath(_currentBodyPart.carryPathName);
-        LoadSpritesForPath(_currentBodyPart.fishingPathName);
-        LoadSpritesForPath(_currentBodyPart.swordPathName);
         
-        /*if (_currentBodyPart != null)
-        {
-            _spriteRenderer.sprite = _currentBodyPart.defaultBottomSprites.sprites[0].sprite[0];
-            _spriteRenderer.enabled = true;
-        }*/
-
         _characterStateManager.OnStateChanged += OnStateChange;
     }
 
@@ -47,12 +27,7 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     /// </summary>
     private void OnStateChange()
     {
-        /*CharacterManager cManager = GetComponentInParent<CharacterManager>();
-        if (cManager.GetType() == typeof(Npc))
-        {
-            Debug.Log("characterStateManager: " + characterStateManager.GetCharacterState());
-        }*/
-        UpdateBodyPart(_currentBodyPart, _characterStateManager.GetDirection());
+        UpdateBodyPart(CurrentBodyPart, _characterStateManager == null ? 0 : _characterStateManager.GetDirection(),_playerInformationManager == null ? 0 : _playerInformationManager.CharacterSkinColor, _playerInformationManager == null ? 0 : _playerInformationManager.CharacterHairColor);
     }
 
     /// <summary>
@@ -61,19 +36,23 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
     /// <param name="pBodyPart">The body part scriptable object</param>
     /// <param name="pRotation">The rotation of the character</param>
     /// <param name="pDarkSkin">Does the character have dark skin color</param>
-    private void UpdateBodyPart(BodyPart pBodyPart, int pRotation, int pSkinColor = 0)
+    private void UpdateBodyPart(BodyPart pBodyPart, int pRotation, int pSkinColor, int pHairColor)
     {
-        _currentBodyPart = pBodyPart;
+        CurrentBodyPart = pBodyPart;
+
+        if (CurrentBodyPart == null)
+        {
+            _spriteRenderer.enabled = false;
+            return;
+        }
         
         int totalFrames = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.events.Length;
 
-        int skinColor = pSkinColor;
-        if (!_currentBodyPart.bodyType.Equals(BodyType.BODY)) skinColor = 0;
-        
         int currentIndex = 0;
         string action = "IDLE";
         bool carry_idle = _characterStateManager.GetCharacterState().Equals(CharacterStates.CARRY_IDLE);
         
+        //TODO: Clean this mess up
         if (_characterStateManager.GetCharacterState().ToString().Contains("WALKING_"))
         {
             currentIndex = int.Parse(_characterStateManager.GetCharacterState().ToString().Replace("WALKING_", ""));
@@ -117,47 +96,28 @@ public abstract class CharacterBodyPartManager : MonoBehaviour
         if (action.Equals("IDLE") || carry_idle) totalFrames = 8;
         else if (action.Equals("WATERING")) totalFrames = 2;
 
-        string fileName = _currentBodyPart.GetFileName(action, skinColor);
-        int baseIndex = _currentBodyPart.GetSpriteIndex(action, pRotation);
+        string fileName = CurrentBodyPart.GetFileName(action, !CurrentBodyPart.bodyType.Equals(BodyType.BODY) ? 0 : pSkinColor);
+        int baseIndex = CurrentBodyPart.GetSpriteIndex(action, pRotation);
+        
         int multiplier = GetMultiplier(pBodyPart);
-        int offset = (totalFrames * multiplier);
+        if (CurrentBodyPart.UseHairColor()) multiplier = pHairColor;
         
         
         int modifiedIndex = baseIndex + currentIndex;
-        if (_currentBodyPart.bodyType.Equals(BodyType.CHEST) || _currentBodyPart.bodyType.Equals(BodyType.LEGS) || _currentBodyPart.bodyType.Equals(BodyType.FEET)) modifiedIndex += offset;
-        string realFileName = fileName + "" + modifiedIndex;
+        if (CurrentBodyPart.RequiresMultiplier()) modifiedIndex += (totalFrames * multiplier);
         
-        Sprite sprite = _cachedSpritesManager.GetSprite(realFileName);
+        Sprite sprite = CachedSpritesManager.GetSprite(fileName + "" + modifiedIndex);
         if (sprite != null)
         {
             _spriteRenderer.sprite = sprite;
             _spriteRenderer.enabled = true;
         } else _spriteRenderer.enabled = false;
     }
-    private void LoadSpritesForPath(string[] pPath)
-    {
-        foreach (string path in pPath)
-        {
-            Object[] sprites = Resources.LoadAll(path, typeof(Sprite));
-            foreach (Object sprite in sprites)
-                _cachedSpritesManager.CachedSprites.Add((Sprite) sprite);
-        }
-    }
 
-    private int GetMultiplier(BodyPart pBodyPart)
+    public void SetBodyPart(BodyPart pBodyPart)
     {
-        switch (pBodyPart.bodyType)
-        {
-            case BodyType.CHEST:
-                Chest chest = pBodyPart as Chest;
-                return chest.chestId;
-            case BodyType.LEGS:
-                Legs legs = pBodyPart as Legs;
-                return legs.legsId;
-            case BodyType.FEET:
-                Feet feet = pBodyPart as Feet;
-                return feet.feetId;
-            default: return 1;
-        }
+        CurrentBodyPart = pBodyPart;
+        LoadSprites();
+        OnStateChange();
     }
 }

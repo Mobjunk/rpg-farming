@@ -24,7 +24,7 @@ public class AbstractShopContainer : UIShopContainment<GameItem>
         MainUISprite.enabled = true;
         Icon.sprite = Containment.Item.uiSprite;
         Icon.enabled = true;
-
+        
         ItemName.text = $"{Containment.Item.itemName}";
         ItemNameShadow.text = $"{Containment.Item.itemName}";
         

@@ -8,6 +8,9 @@ using UnityEngine.Serialization;
 public class CharacterStateManager : MonoBehaviour
 {
     private Animator _animator;
+
+    public Animator GetAnimator() => _animator;
+    
     [SerializeField] private CharacterStates _characterState = CharacterStates.IDLE;
 
     public event CharacterInputAction OnStateChanged = delegate {  };
@@ -28,7 +31,7 @@ public class CharacterStateManager : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void SetAnimator(string pName, bool pSet, bool pStopAnimation = false)
+    /*public void SetAnimator(string pName, bool pSet, bool pStopAnimation = false)
     {
         _animator.SetBool(pName, pSet);
         if(pStopAnimation) StartCoroutine(ResetAnimation(pName, GetAnimationClipTime(pName)));
@@ -56,7 +59,7 @@ public class CharacterStateManager : MonoBehaviour
     {
         AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
         return (from clip in clips where clip.name.ToLower().Equals(pAnimationName.ToLower()) select clip.length).FirstOrDefault();
-    }
+    }*/
 
     /// <summary>
     /// The current direction the character is facing based on the moveX and moveY in the animator
@@ -64,8 +67,8 @@ public class CharacterStateManager : MonoBehaviour
     /// <returns></returns>
     public int GetDirection()
     {
-        int moveX = (int) (Mathf.Round(_animator.GetFloat("moveX")));
-        int moveY = (int) (Mathf.Round(_animator.GetFloat("moveY")));
+        int moveX = (int) (Mathf.Round(_animator == null ? 0 : _animator.GetFloat("moveX")));
+        int moveY = (int) (Mathf.Round(_animator == null ? 0 : _animator.GetFloat("moveY")));
         
         if ((moveX == -1 && moveY == 0) || (moveX == -1 && moveY == 1) || (moveX == -1 && moveY == -1)) //Left
         {

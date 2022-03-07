@@ -58,7 +58,7 @@ public class ItemReceiverManager : Singleton<ItemReceiverManager>
         if (data == null)
         {
             GameObject containment = Instantiate(_slotPrefab, _parent.transform, true);
-            containment.transform.localScale = new Vector3(8, 8, 8);
+            containment.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
 
             ItemReceiverContainer container = containment.GetComponent<ItemReceiverContainer>();
             container.SetContainment(pGameItem);
