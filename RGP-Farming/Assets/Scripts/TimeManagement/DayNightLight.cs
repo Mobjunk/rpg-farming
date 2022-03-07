@@ -9,7 +9,7 @@ public class DayNightLight : MonoBehaviour
 {
     private TimeManager _timeManager => TimeManager.Instance();
     public Volume volume;
-    public float volumeValue;
+    public Light2D Light;
     private void Awake()
     {
         volume = GetComponent<Volume>();
@@ -22,7 +22,7 @@ public class DayNightLight : MonoBehaviour
     {
         SetLighting();
     }
-    public void SetLighting()
+    /*public void SetLighting()
     {
         float hour = _timeManager.ElapsedTime.Hours;
         float minutes = _timeManager.ElapsedTime.Hours * 60 + _timeManager.ElapsedTime.Minutes;
@@ -35,6 +35,22 @@ public class DayNightLight : MonoBehaviour
         if(hour >= 8 && hour < 18)
         {
             volume.weight = 0;
+        }
+    }*/
+
+    public void SetLighting()
+    {
+        float hour = _timeManager.ElapsedTime.Hours;
+        float minutes = _timeManager.ElapsedTime.Hours * 60 + _timeManager.ElapsedTime.Minutes;
+        if (hour >= 18 && hour <= 24)
+        {
+            float weightValue = 1 + ((minutes - (24 * 60)) / (6 * 60));
+            Light.intensity =  1 - weightValue;
+            Debug.Log("Light.Intensity" + Light.intensity);
+        }
+        if (hour >= 8 && hour < 18)
+        {
+            Light.intensity = 1;
         }
     }
 }

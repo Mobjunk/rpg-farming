@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using static Utility;
 
-public class TimeManager : Singleton<TimeManager> 
+public class TimeManager : Singleton<TimeManager>
 {
     [Header("Display")]
     private static float _timeSpeedMultiplier = 5000;
