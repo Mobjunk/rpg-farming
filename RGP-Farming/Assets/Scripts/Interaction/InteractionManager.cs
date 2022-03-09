@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class InteractionManager : MonoBehaviour, IInteraction
 {
-    private Player _player => Player.Instance();
+    public Player Player => Player.Instance();
     private CursorManager _cursor => CursorManager.Instance();
     
     public virtual void OnInteraction(CharacterManager pCharacterManager) { }
@@ -20,11 +20,11 @@ public abstract class InteractionManager : MonoBehaviour, IInteraction
             return;
         }
         
-        _player.CharacterPlaceObject.CurrentGameObjectHoverd = gameObject;
-        if (_player.CharacterInteractionManager.GetInteractables().Contains(this))
+        Player.CharacterPlaceObject.CurrentGameObjectHoverd = gameObject;
+        if (Player.CharacterInteractionManager.GetInteractables().Contains(this))
         {
             _cursor.SetUsableInteractionCursor();
-            _player.CharacterInteractionManager.Interactable = this;
+            Player.CharacterInteractionManager.Interactable = this;
         }
         else _cursor.SetNonUsableInteractionCursor();
     }
@@ -32,7 +32,7 @@ public abstract class InteractionManager : MonoBehaviour, IInteraction
     private void OnMouseExit()
     {
         _cursor.SetDefaultCursor();
-        _player.CharacterPlaceObject.CurrentGameObjectHoverd = null;
-        _player.CharacterInteractionManager.Interactable = null;
+        Player.CharacterPlaceObject.CurrentGameObjectHoverd = null;
+        Player.CharacterInteractionManager.Interactable = null;
     }
 }

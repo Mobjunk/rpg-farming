@@ -60,7 +60,15 @@ public static class Utility
             SceneManager.LoadScene(pSceneName, LoadSceneMode.Additive);
         }
     }
-
+    public static void ToggleRootObjectsInScene(string pSceneName, bool pActive = false)
+    {
+        Scene activeScene = SceneManager.GetSceneByName(pSceneName);
+        GameObject[] allObjects = activeScene.GetRootGameObjects();
+        foreach (GameObject o in allObjects)
+        {
+            o.SetActive(pActive);
+        }
+    }
     public static void UnloadScene(string pSceneName)
     {
         SceneManager.UnloadSceneAsync(pSceneName);
