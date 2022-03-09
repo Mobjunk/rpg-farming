@@ -35,26 +35,10 @@ public class PlayerFishing : Singleton<PlayerFishing>
             return;
         }
         
-        Utility.SetAnimator(_characterManager.CharacterStateManager.GetAnimator(), "fishing", true);
-        StartCoroutine(RealStart(pFishData, pTilePosition));
+        _characterManager.SetAction(new FishingManager(_characterManager, pFishData, pTilePosition));
     }
     
-    IEnumerator RealStart(AbstractFishingData pFishData, Vector3 pTilePosition)
-    {
-        yield return new WaitForSeconds(Utility.GetAnimationClipTime(_characterManager.CharacterStateManager.GetAnimator(), "fishing"));
-        GameObject bobber = Instantiate(_bobberPrefab, new Vector3(pTilePosition.x, pTilePosition.y, pTilePosition.z), Quaternion.identity);
-
-        DrawFishingLine drawFishingLine = bobber.GetComponent<DrawFishingLine>();
-        
-        drawFishingLine.Draw(GetStartingPosition(), GetSegmentLength());
-        
-        Utility.SetAnimator(_characterManager.CharacterStateManager.GetAnimator(), "fishing_idle", true);
-        
-        _characterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.WAITING);
-        _characterManager.SetAction(new FishingManager(_characterManager, pFishData, drawFishingLine));
-    }
-
-    private Vector3 GetStartingPosition()
+    public Vector3 GetStartingPosition()
     {
         switch (_characterManager.CharacterStateManager.GetDirection())
         {
@@ -68,8 +52,7 @@ public class PlayerFishing : Singleton<PlayerFishing>
         }
     }
     
-    //_segmentLength
-    private int GetSegmentLength()
+    public int GetSegmentLength()
     {
         switch (_characterManager.CharacterStateManager.GetDirection())
         {
