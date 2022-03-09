@@ -18,5 +18,6 @@ public enum ToolType
     SCYTHE,
     HOE,
     WATERING_CAN,
-    SWORD
+    SWORD,
+    FISHING_ROD
 }

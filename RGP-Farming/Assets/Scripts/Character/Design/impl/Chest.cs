@@ -4,4 +4,12 @@ using UnityEngine;
 public class Chest : BodyPart
 {
     public int chestId;
+    public override bool RequiresMultiplier()
+    {
+        return true;
+    }
+    public override bool UseHairColor()
+    {
+        return false;
+    }
 }

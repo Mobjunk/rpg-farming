@@ -54,7 +54,8 @@ public class TileTester : MonoBehaviour
         Tilemap dirtTilemap = _tilemaps[1];
         if (dirtTilemap.GetTile(dirtTilemap.WorldToCell(_mousePosition)) != _placeableTiles[0] && _itemBarManager.IsWearingCorrectTool(ToolType.HOE))
         {
-            _player.CharacterStateManager.SetAnimator("hoe", true, true);
+            //_player.CharacterStateManager.SetAnimator("hoe", true, true);
+            SetAnimator(_player.CharacterStateManager.GetAnimator(), "hoe", true, true);
             Tile tile = _placeableTiles[0];
             PlaceTile(dirtTilemap, _tileLocation, tile, TileTypes.DIRT);
 

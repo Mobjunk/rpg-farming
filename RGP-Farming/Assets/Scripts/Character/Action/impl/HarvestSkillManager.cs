@@ -5,8 +5,9 @@ using UnityEngine;
 
 public abstract class HarvestSkillManager : CharacterAction
 {
-    [SerializeField] private CharacterContractManager _characterContractManager;
-
+    private CharacterContractManager _characterContractManager;
+    private int _failedAttempts;
+    
     public HarvestSkillManager(CharacterManager pCharacterManager) : base(pCharacterManager)
     {
         _characterContractManager = pCharacterManager.GetComponent<CharacterContractManager>();
@@ -32,6 +33,16 @@ public abstract class HarvestSkillManager : CharacterAction
             {
                 ReceiveItem();
                 _characterContractManager.HandleContractDevelopment(ItemToReceive());
+            }
+            else
+            {
+                _failedAttempts++;
+                Debug.Log("_failedAttempts: " + _failedAttempts);
+                if (_failedAttempts >= GetMaxFailures())
+                {
+                    HandleFailure();
+                    CharacterManager.SetAction(null);
+                }
             }
             timePassedBy = 0;
         }
@@ -60,10 +71,14 @@ public abstract class HarvestSkillManager : CharacterAction
     public abstract void ReceiveItem();
     public abstract bool Successful();
     public abstract AbstractItemData ItemToReceive();
+    public abstract int GetMaxFailures();
+    public abstract void HandleFailure();
 
     public virtual void Reset()
     {
         Debug.Log("Reset harvest skill manager...");
+        CharacterManager.CharacterMovementMananger.ResetSkillingAnimations();
+        CharacterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.NONE);
     }
 
 }

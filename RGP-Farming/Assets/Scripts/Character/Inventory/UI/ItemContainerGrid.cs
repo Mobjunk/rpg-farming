@@ -13,11 +13,10 @@ public class ItemContainerGrid : AbstractItemContainer<GameItem>
             base.ClearContainment();
             return;
         }
-
         Icon.sprite = Containment.Item.uiSprite;
         Icon.enabled = true;
 
-        if(ItemBarManager.Instance().SelectedSlot == SlotIndex && !AllowMoving) SetHighlighted(true);
+        if (ItemBarManager.Instance().SelectedSlot == SlotIndex && !AllowMoving) SetHighlighted(true);
 
         Amount.text = $"{(Containment.Amount > 1 ? Containment.Amount.ToString() : "")}";
         Amount.enabled = Containment.Amount > 1;

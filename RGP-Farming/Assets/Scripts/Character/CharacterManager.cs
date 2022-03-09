@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(Animator))]
-[RequireComponent(typeof(HeightBasedSorting),typeof(CharacterStateManager), typeof(CharacterDesignManager))]
+[RequireComponent(typeof(HeightBasedSorting),typeof(CharacterStateManager))]
 [RequireComponent(typeof(CharacterHealthManager))]
 public class CharacterManager : MonoBehaviour
 {
@@ -44,9 +44,14 @@ public class CharacterManager : MonoBehaviour
         set => _characterAction = value;
     }
 
+    private CharacterActionBubbles _characterActionBubbles;
+
+    public CharacterActionBubbles CharacterActionBubbles => _characterActionBubbles;
+
     public virtual void Awake()
     {
         CharacterMovementMananger = GetComponent<CharacterMovementMananger>();
+        _characterActionBubbles = GetComponent<CharacterActionBubbles>();
         
         //Makes sure the z rotation is turned off
         Rigidbody2D rb = GetComponent<Rigidbody2D>();

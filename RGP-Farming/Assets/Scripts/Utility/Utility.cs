@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -28,28 +29,42 @@ public static class Utility
     public const int WEST = 6;
     public const int NORTH_WEST = 7;
 
-    public static string GetNameForDirection(int pDirection)
+    public static int WrapIndex(int pIndex, int pMaxLength, int pIndexUsed)
     {
-        switch (pDirection)
-        {
-            case NORTH: //North
-                return "North";
-            case NORTH_EAST: //North East
-                return "North East";
-            case EAST: //East
-                return "East";
-            case SOUTH_EAST: //South east
-                return "South East";
-            case SOUTH: //South
-                return "South";
-            case SOUTH_WEST: //South West
-                return "South West";
-            case WEST: //West
-                return "West";
-            case NORTH_WEST: //North West
-                return "North West";
-            default: return "N/A";
-        }
+        int newIndex = pIndexUsed + pIndex;
+        if (newIndex < 0) newIndex = pMaxLength - 1;
+        else if (newIndex >= pMaxLength) newIndex = 0;
+        return newIndex;
+    }
+
+    public static void SetAnimator(Animator pAnimator, string pName, bool pSet, bool pStopAnimation = false)
+    {
+        pAnimator.SetBool(pName, pSet);
+        if(pStopAnimation) CoroutineManager.Instance().StartCoroutine(ResetAnimation(pAnimator, pName, GetAnimationClipTime(pAnimator, pName)));
+    }
+
+    public static void SetAnimator(Animator pAnimator, string pName, float pSet, bool pStopAnimation = false)
+    {
+        pAnimator.SetFloat(pName, pSet);
+        if(pStopAnimation) CoroutineManager.Instance().StartCoroutine(ResetAnimation(pAnimator, pName, GetAnimationClipTime(pAnimator, pName)));
+    }
+
+    public static void SetAnimator(Animator pAnimator, string pName, int pSet, bool pStopAnimation = false)
+    {
+        pAnimator.SetInteger(pName, pSet);
+        if(pStopAnimation) CoroutineManager.Instance().StartCoroutine(ResetAnimation(pAnimator, pName, GetAnimationClipTime(pAnimator, pName)));
+    }
+
+    static IEnumerator ResetAnimation(Animator pAnimator, string pAnimationName, float pAnimationTime)
+    {
+        yield return new WaitForSeconds(pAnimationTime);
+        pAnimator.SetBool(pAnimationName, false);
+    }
+    
+    public static float GetAnimationClipTime(Animator pAnimator, string pAnimationName)
+    {
+        AnimationClip[] clips = pAnimator.runtimeAnimatorController.animationClips;
+        return (from clip in clips where clip.name.ToLower().Equals(pAnimationName.ToLower()) select clip.length).FirstOrDefault();
     }
 
     public static void AddSceneIfNotLoaded(string pSceneName)
@@ -132,14 +147,14 @@ public static class Utility
         }
     }
 
-    public static bool CanInteractWithTile(Grid pGrid, Vector3Int pTilePosition, GameObject[] pTileChecker)
+    public static bool CanInteractWithTile(Grid pGrid, Vector3Int pTilePosition, GameObject[] pTileChecker, float pDistanceCheck = 1)
     {
         for (int index = 0; index < pTileChecker.Length; index++)
         {
             Vector3Int pos = pGrid.WorldToCell(pTileChecker[index].transform.position);
             int distance = Mathf.FloorToInt(Vector2.Distance(new Vector2(pTilePosition.x, pTilePosition.y), new Vector2(pos.x, pos.y)));
-
-            if (distance <= 1) return true;
+            
+            if (distance <= pDistanceCheck) return true;
         }
 
         return false;
