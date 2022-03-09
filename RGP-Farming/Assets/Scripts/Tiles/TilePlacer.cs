@@ -10,8 +10,8 @@ public class TilePlacer : Singleton<TilePlacer>
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
     private Player _player => Player.Instance();
 
+    public Tilemap PlayerDirtTiles;
     public Tilemap TilesGrass;
-    public Tilemap TilesDirt;
     public Tile DirtTile;
     public Tile WateredDirtTile;
     public Grid Grid;
@@ -23,7 +23,7 @@ public class TilePlacer : Singleton<TilePlacer>
     {
         _mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //If Holding ....
-        _location = TilesGrass.WorldToCell(_mp);
+        _location = PlayerDirtTiles.WorldToCell(_mp);
         if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(Grid, _location, _player.TileChecker))
         {
             PlaceWaterTile();
@@ -33,19 +33,22 @@ public class TilePlacer : Singleton<TilePlacer>
     }
     public void PlaceDirtTile()
     {
-        if (TilesDirt.GetTile(TilesDirt.WorldToCell(_mp)) == null && _itemBarManager.IsWearingCorrectTool(ToolType.HOE))
-            TilesDirt.SetTile(_location, DirtTile);
+        if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == null && _itemBarManager.IsWearingCorrectTool(ToolType.HOE))
+        {
+            PlayerDirtTiles.SetTile(_location, DirtTile);
+        }
     }
 
     public void RemoveDirtTile()
     {
-        if (TilesDirt.GetTile(TilesDirt.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
-            TilesDirt.SetTile(_location, null);
+        if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
+            PlayerDirtTiles.SetTile(_location, null);
     }
     
     public void PlaceWaterTile()
     {
-        if (TilesDirt.GetTile(TilesDirt.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
+        Debug.Log("PlaceableTiles.GetTile(PlaceableTiles.WorldToCell(_mp)): " + PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)));
+        if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
         {
             if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
 
@@ -57,7 +60,7 @@ public class TilePlacer : Singleton<TilePlacer>
             InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
             if (_player.CharacterInteractionManager.GetInteractables().Contains(interactionManager) && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0)
             {
-                TilesDirt.SetTile(_location, WateredDirtTile);
+                PlayerDirtTiles.SetTile(_location, WateredDirtTile);
                 _player.CharacterInventory.UpdateDurability(_itemBarManager.GetItemSelected(), -1);
             }
         }
@@ -68,7 +71,7 @@ public class TilePlacer : Singleton<TilePlacer>
         if (pTileType == TileType.DIRT)
             checkTile = DirtTile;
         
-        return TilesDirt.GetTile(Grid.WorldToCell(pPosition)) == checkTile;
+        return PlayerDirtTiles.GetTile(Grid.WorldToCell(pPosition)) == checkTile;
     }
     
     public void UpdateTile(GameObject pCrop, TileType pTileType)
@@ -84,8 +87,8 @@ public class TilePlacer : Singleton<TilePlacer>
         //Checks position on the grid
         Vector3Int pos = Grid.WorldToCell(pCrop.transform.position);
 
-        if (TilesDirt.GetTile(pos) == checkTile)
-            TilesDirt.SetTile(pos, setTile);
+        if (PlayerDirtTiles.GetTile(pos) == checkTile)
+            PlayerDirtTiles.SetTile(pos, setTile);
     }
 }
 public enum TileType

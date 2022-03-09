@@ -14,7 +14,14 @@ public class GameUIManager : MonoBehaviour
     
     [Header("GameUI Settings")]
     [SerializeField] private GameObject[] _uiTabs;
+    
     private int _currentTabId;
+
+    public int CurrentTabId
+    {
+        get => _currentTabId;
+        set => _currentTabId = value;
+    }
     
     public GameObject[] UiTabs
     {
@@ -30,6 +37,7 @@ public class GameUIManager : MonoBehaviour
 
     public virtual void Close()
     {
+        _currentTabId = 0;
         ItemTooltipManager.Instance().SetTooltip(null);
         CraftingTooltipManager.Instance().SetTooltip(null);
         _player.CharacterUIManager.CurrentUIOpened = null;
@@ -41,20 +49,21 @@ public class GameUIManager : MonoBehaviour
         _player.CharacterUIManager.CurrentUIOpened = this;
     }
 
-    public void SwitchToTab(int pIndex)
+    public virtual bool SwitchToTab(int pIndex)
     {
         if (_currentTabId == pIndex)
         {
             Debug.LogError("Cannot switch to the same tab.");
-            return;
+            return false;
         }
         if (pIndex > UiTabs.Length)
         {
             Debug.LogError($"Cannot switch to tab {pIndex} because max is {_uiTabs.Length}!");
-            return;
+            return false;
         }
         _uiTabs[_currentTabId].SetActive(false);
         _currentTabId = pIndex;
         _uiTabs[_currentTabId].SetActive(true);
+        return true;
     }
 }

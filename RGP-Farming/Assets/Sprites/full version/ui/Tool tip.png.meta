@@ -1,16 +1,31 @@
 fileFormatVersion: 2
-guid: 7b3cb3abb3a785e429c3569bc60d65b7
+guid: 49981a41b0d05524bb6c5755ebe42480
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3883143720569646571
-    second: FarmSprites_0
+      213: 6506017820622341430
+    second: TopLeft
   - first:
-      213: -1423290881440737224
-    second: FarmSprites_1
+      213: -6438039958667669083
+    second: TopRight
   - first:
-      213: -1529512327306113544
-    second: FarmSprites_2
+      213: -425072789207413330
+    second: BottomRight
+  - first:
+      213: 2317725551477715941
+    second: BottomLeft
+  - first:
+      213: 8642582644532762324
+    second: Left
+  - first:
+      213: 4587453482570377618
+    second: Right
+  - first:
+      213: -5596381744133024258
+    second: Top
+  - first:
+      213: -5583557481826299698
+    second: Bottom
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -100,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FarmSprites_0
+      name: TopLeft
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 12
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,20 +129,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: beda75cd3a2b3e530800000000000000
-      internalID: 3883143720569646571
+      spriteID: 6354e8cccb40a4a50800000000000000
+      internalID: 6506017820622341430
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FarmSprites_1
+      name: TopRight
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
+        x: 12
+        y: 12
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8381ca7fb747f3ce0800000000000000
-      internalID: -1423290881440737224
+      spriteID: 5a1d7dd84cc77a6a0800000000000000
+      internalID: -6438039958667669083
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FarmSprites_2
+      name: BottomRight
       rect:
         serializedVersion: 2
-        x: 16
+        x: 12
         y: 0
-        width: 16
-        height: 16
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,8 +171,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fd865b54a416cae0800000000000000
-      internalID: -1529512327306113544
+      spriteID: ead8b93ec86d91af0800000000000000
+      internalID: -425072789207413330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BottomLeft
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3fca6fb173a2020800000000000000
+      internalID: 2317725551477715941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d6d455ff1f90f770800000000000000
+      internalID: 8642582644532762324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Right
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 4
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2996c3413a8e9af30800000000000000
+      internalID: 4587453482570377618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 12
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef558716478a552b0800000000000000
+      internalID: -5596381744133024258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bottom
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec0d4c0ad083382b0800000000000000
+      internalID: -5583557481826299698
       vertices: []
       indices: 
       edges: []

@@ -149,6 +149,7 @@ public class Player : CharacterManager
         _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Fishing bait"), 10, pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
         //_characterInventory.AddItem(_itemManager.ForName("Coal"), 100);
         //_characterInventory.AddItem(_itemManager.ForName("Iron ore"), 100);
         //_characterInventory.AddItem(_itemManager.ForName("Chest"));
@@ -161,8 +162,8 @@ public class Player : CharacterManager
         _characterInventory.AddItem(_itemManager.ForName("Pineapple seed"), 10);
         _characterInventory.AddItem(_itemManager.ForName("Tomato seed"), 10);
         _characterInventory.AddItem(_itemManager.ForName("Watermelon seed"), 10);
-        characterInventory.AddItem(itemManager.ForName("Wood"), 50);
-        characterInventory.AddItem(itemManager.ForName("Stone"), 50);*/
+        _characterInventory.AddItem(_itemManager.ForName("Wood"), 50);
+        _characterInventory.AddItem(_itemManager.ForName("Stone"), 50);*/
 
     }
 }
