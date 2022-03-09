@@ -127,11 +127,9 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         }
         else
         { //Reset everything
-            //_player.CharacterStateManager.SetAnimator("wielding", false);
             Utility.SetAnimator(_player.CharacterStateManager.GetAnimator(), "wielding", false);
             _player.ItemAboveHead = null;
             _player.ItemAboveHeadRenderer.sprite = null;
-            //itemDisplayer.Icon.enabled = false;
             _itemDisplayer.gameObject.SetActive(false);
             _itemSnapper.ResetSnappedItem();
         }

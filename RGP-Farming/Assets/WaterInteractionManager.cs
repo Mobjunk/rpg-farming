@@ -23,12 +23,15 @@ public class WaterInteractionManager : MonoBehaviour
 
         if (!Input.GetMouseButtonDown(0)) return;
         if (CursorManager.Instance().IsPointerOverUIElement()) return;
-        if (_waterTiles.GetTile(tileLocation) == null) return;
+        TileBase tileBase = _waterTiles.GetTile(tileLocation);
+        if (tileBase == null) return;
+        Debug.Log("name: " + tileBase.name);
+        if (!tileBase.name.Equals("WaterTile")) return;
         if (!Utility.CanInteractWithTile(_grid, tileLocation, _player.TileChecker, 2)) return;
         if (!_itemBarManager.IsWearingCorrectTool(ToolType.FISHING_ROD)) return;
         
         List<AbstractFishingData> filteredFish = FilteredFish();
-        if(filteredFish.Count != 0) _player.PlayerFishing.StartFishing(filteredFish[Random.Range(0, filteredFish.Count)]);
+        if (filteredFish.Count != 0) _player.PlayerFishing.StartFishing(filteredFish[Random.Range(0, filteredFish.Count)], _waterTiles.GetCellCenterWorld(tileLocation));
         else _dialogueManager.StartDialogue("You do not have any bait to fish with.");
     }
 

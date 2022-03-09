@@ -6,13 +6,16 @@ public class FishingManager : HarvestSkillManager
     
     private AbstractFishingData _abstractFishingData;
 
+    private DrawFishingLine _drawFishingLine;
+    
     private bool _fishOnTheHook;
     private float fishOnHookTimer;
     
     
-    public FishingManager(CharacterManager pCharacterManager, AbstractFishingData pFishingData) : base(pCharacterManager)
+    public FishingManager(CharacterManager pCharacterManager, AbstractFishingData pFishingData, DrawFishingLine pDrawFishingLine) : base(pCharacterManager)
     {
         _abstractFishingData = pFishingData;
+        _drawFishingLine = pDrawFishingLine;
     }
 
     public override void Update()
@@ -29,6 +32,7 @@ public class FishingManager : HarvestSkillManager
                     player.CharacterInventory.AddItem(_abstractFishingData.fish);
                     _dialogueManager.StartDialogue($"You have caught a {_abstractFishingData.fish.itemName}.");
                 }
+                GameObject.Destroy(_drawFishingLine.gameObject);
                 CharacterManager.SetAction(null);
             } else if (fishOnHookTimer >= 5f)
             {
@@ -37,6 +41,8 @@ public class FishingManager : HarvestSkillManager
                     player.CharacterInventory.RemoveItem(_abstractFishingData.baitRequired);
                     _dialogueManager.StartDialogue("The fish has gotten away.");
                 }
+
+                GameObject.Destroy(_drawFishingLine.gameObject);
                 CharacterManager.SetAction(null);
             }
         }
@@ -61,6 +67,7 @@ public class FishingManager : HarvestSkillManager
     {
         _fishOnTheHook = true;
         CharacterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.READY);
+        _drawFishingLine.SetFishOn();
     }
 
     public override bool Successful()
@@ -85,5 +92,6 @@ public class FishingManager : HarvestSkillManager
             player.CharacterInventory.RemoveItem(_abstractFishingData.baitRequired);
             _dialogueManager.StartDialogue("The bait fell off your hook.");
         }
+        GameObject.Destroy(_drawFishingLine.gameObject);
     }
 }

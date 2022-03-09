@@ -13,58 +13,30 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
         _craftingInventory = GetComponent<CraftingInventory>();
         base.Awake();
     }
-    public override void Open()
-    {
-        if(InventoryContainers[0].MaxSlots == 0) InventoryContainers[0].MaxSlots = _craftingInventory._maxInventorySize;
-        base.Open();
-        
-        Initialize(_craftingInventory);
-        
-        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.BOTTOM, new Vector2(0, 189.5f));
-        _inventoryMenuManager.Unhide(true);
-        
-        //itemBarManager.Hide();
-    }
 
-    public override void Close()
+    public void SwitchToTabInit(int pIndex)
     {
-        base.Close();
-
-        _inventoryMenuManager.Hide(true);
-        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
-        
-        _itemBarManager.Unhide();
-        
-        for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
+        if (base.SwitchToTab(pIndex))
         {
-            ParentData parent = InventoryContainers[parentIndex];
-            foreach(Transform childParent in parent.InventoryContainer)
-                Destroy(childParent.gameObject);
+            if (InventoryContainers[0].MaxSlots == 0)
+                InventoryContainers[0].MaxSlots = _craftingInventory._maxInventorySize;
+
+            Initialize(_craftingInventory);
         }
     }
 
     public void SwitchToInventory()
     {
-        base.Close();
-        
-        Player.Instance().PlayerInventoryUIManager.Open();
-        
-        _inventoryMenuManager.SetButtons(true);
-        _inventoryMenuManager.SetAnchorPoint(AnchorsPresets.CENTER, new Vector2(0, 0));
-        
-        //itemBarManager.Unhide();
-        
+        if (base.SwitchToTab(0)) ClearCraftingChildren();
+    }
+
+    public void ClearCraftingChildren()
+    {
         for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
         {
             ParentData parent = InventoryContainers[parentIndex];
-            foreach(Transform childParent in parent.InventoryContainer)
+            foreach (Transform childParent in parent.InventoryContainer)
                 Destroy(childParent.gameObject);
         }
-    }
-
-    public override void Interact()
-    {
-        if (IsOpened) Close();
-        else Open();
     }
 }

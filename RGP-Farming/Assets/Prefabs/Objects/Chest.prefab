@@ -37,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 652923553878110856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 1358072085143508373}
   m_Father: {fileID: 0}
@@ -258,7 +258,8 @@ MonoBehaviour:
   _uiTabs: []
   _containmentPrefab:
   - {fileID: 3327382381837659215, guid: cb654d975588e79469fd85be399acb6a, type: 3}
-  _inventoryUI: {fileID: 1279998536392074535}
+  _inventoryUI:
+  - {fileID: 1279998536392074535}
   _inventoryContainers:
   - InventoryContainer: {fileID: 5500259967849097386}
     MaxSlots: 36

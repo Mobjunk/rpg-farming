@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ShopUI : Singleton<ShopUI>
 {
-    [SerializeField] private GameObject _contents;
+    [SerializeField] private GameObject[] _contents;
 
-    public GameObject Contents
+    public GameObject[] Contents
     {
         get => _contents;
         set => _contents = value;
