@@ -35,7 +35,8 @@ public class DoorInteraction : InteractionManager
     {
         Debug.Log("Coroutine played");
         _animator.enabled = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(GetAnimationClipTime(_animator,"Door_Open"));
+        
         AddSceneIfNotLoaded(houseName);
         ToggleRootObjectsInScene("TestScene");
        
