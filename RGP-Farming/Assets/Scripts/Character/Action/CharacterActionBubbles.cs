@@ -9,6 +9,7 @@ public class CharacterActionBubbles : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
+    [SerializeField] private SpriteRenderer _itemSprite;
 
     [SerializeField] private BubbleActions _currentBubbleAction;
 
@@ -16,12 +17,17 @@ public class CharacterActionBubbles : MonoBehaviour
     {
         _spriteRenderer = _bubblesGameObject.GetComponent<SpriteRenderer>();
         _animator = _bubblesGameObject.GetComponent<Animator>();
+        _itemSprite = _bubblesGameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
-    public void SetBubbleAction(BubbleActions pBubbleAction)
+    public void SetBubbleAction(BubbleActions pBubbleAction, AbstractItemData pItem = null)
     {
         _currentBubbleAction = pBubbleAction;
         _spriteRenderer.enabled = !pBubbleAction.Equals(BubbleActions.NONE);
+        
+        _itemSprite.enabled = pItem != null;
+        if (pItem != null) _itemSprite.sprite = pItem.uiSprite;
+        
         ResetAnimations();
         if (!pBubbleAction.Equals(BubbleActions.NONE))
             Utility.SetAnimator(_animator, pBubbleAction.ToString().ToLower(), true);
@@ -42,6 +48,7 @@ public enum BubbleActions
     NONE,
     WAITING,
     READY,
+    CUSTOM,
     SAD,
     HAPPY
 }

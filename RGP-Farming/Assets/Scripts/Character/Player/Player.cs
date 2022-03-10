@@ -14,6 +14,14 @@ public class Player : CharacterManager
     [SerializeField] private GameObject[] _tileChecker;
     public GameObject[] TileChecker => _tileChecker;
 
+    [SerializeField] private GameObject[] _waterPartical;
+
+    public GameObject[] WaterPartical
+    {
+        get => _waterPartical;
+        set => _waterPartical = value;
+    }
+    
     [SerializeField] private GameItem _itemAboveHead;
     public GameItem ItemAboveHead
     {

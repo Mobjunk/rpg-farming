@@ -30,10 +30,8 @@ public class FishingManager : HarvestSkillManager
         {
             if(_animationTimePassed <= 0) Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing", true);
             _animationTimePassed += Time.deltaTime;
-            //Debug.Log("_animationTimePassed: " + _animationTimePassed + ", " + Utility.GetAnimationClipTime(CharacterManager.CharacterStateManager.GetAnimator(), "fishing"));
             if (_animationTimePassed > Utility.GetAnimationClipTime(CharacterManager.CharacterStateManager.GetAnimator(), "fishing"))
             {
-                Debug.Log("TESTER");
                 GameObject bobber = GameObject.Instantiate(_playerFishing.BobberPrefab, _tilePosition, Quaternion.identity);
 
                 _drawFishingLine = bobber.GetComponent<DrawFishingLine>();

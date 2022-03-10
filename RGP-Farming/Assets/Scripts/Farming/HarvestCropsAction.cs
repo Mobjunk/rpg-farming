@@ -15,6 +15,7 @@ public class HarvestCropsManager : HarvestSkillManager
         _interactedObject = pInteractedObject;
         _receivedItem = pReceivedItem;
         _requiredAmount = pRequiredAmount;
+        pCharacterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.CUSTOM, pReceivedItem);
     }
 
     public override CharacterStates GetCharacterState()
