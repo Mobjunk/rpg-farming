@@ -22,7 +22,6 @@ public class TilePlacer : Singleton<TilePlacer>
     private void Update()
     {
         _mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //If Holding ....
         _location = PlayerDirtTiles.WorldToCell(_mp);
         if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(Grid, _location, _player.TileChecker))
         {
@@ -34,35 +33,29 @@ public class TilePlacer : Singleton<TilePlacer>
     public void PlaceDirtTile()
     {
         if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == null && _itemBarManager.IsWearingCorrectTool(ToolType.HOE))
-        {
-            PlayerDirtTiles.SetTile(_location, DirtTile);
-        }
+            _player.SetAction(new TileInteractionAction(_player, "hoe", PlayerDirtTiles, _location, DirtTile));
     }
 
     public void RemoveDirtTile()
     {
-        if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
-            PlayerDirtTiles.SetTile(_location, null);
+        if ((PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile || PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == WateredDirtTile) && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
+            _player.SetAction(new TileInteractionAction(_player, "pickaxe_swing", PlayerDirtTiles, _location, null));
     }
     
     public void PlaceWaterTile()
     {
-        Debug.Log("PlaceableTiles.GetTile(PlaceableTiles.WorldToCell(_mp)): " + PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)));
         if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
         {
-            if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
+            //if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
 
             //Checks if the crops the player is clicking is finished growing
-            CropsGrowManager cropsGrowManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsGrowManager>();
-            if (cropsGrowManager != null && cropsGrowManager.ReadyToHarvest) return;
+            //CropsGrowManager cropsGrowManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsGrowManager>();
+            //if (cropsGrowManager != null && cropsGrowManager.ReadyToHarvest) return;
 
             //Checks if the crops you are hovering is in the interactable list
-            InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
-            if (_player.CharacterInteractionManager.GetInteractables().Contains(interactionManager) && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0)
-            {
-                PlayerDirtTiles.SetTile(_location, WateredDirtTile);
-                _player.CharacterInventory.UpdateDurability(_itemBarManager.GetItemSelected(), -1);
-            }
+            //InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
+            if (_player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0)
+                _player.SetAction(new TileInteractionAction(_player, "watering", PlayerDirtTiles, _location, WateredDirtTile, true));
         }
     }
     public bool CheckTileUnderObject(Vector3 pPosition, TileType pTileType)
@@ -89,6 +82,14 @@ public class TilePlacer : Singleton<TilePlacer>
 
         if (PlayerDirtTiles.GetTile(pos) == checkTile)
             PlayerDirtTiles.SetTile(pos, setTile);
+    }
+
+    IEnumerator SetTile(string pAnimationName, Vector3Int pLocation, TileBase pTile, bool pUpdateDurability = false)
+    {
+        SetAnimator(_player.CharacterStateManager.GetAnimator(), pAnimationName, true, true);
+        yield return new WaitForSeconds(GetAnimationClipTime(_player.CharacterStateManager.GetAnimator(), pAnimationName));
+        PlayerDirtTiles.SetTile(pLocation, pTile);
+        if(pUpdateDurability) _player.CharacterInventory.UpdateDurability(_itemBarManager.GetItemSelected(), -1);
     }
 }
 public enum TileType

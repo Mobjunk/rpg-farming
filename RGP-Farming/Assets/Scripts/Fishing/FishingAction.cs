@@ -3,24 +3,48 @@
 public class FishingManager : HarvestSkillManager
 {
     private DialogueManager _dialogueManager => DialogueManager.Instance();
+
+    private PlayerFishing _playerFishing => PlayerFishing.Instance();
     
     private AbstractFishingData _abstractFishingData;
 
+    private Vector3 _tilePosition;
+    
     private DrawFishingLine _drawFishingLine;
     
     private bool _fishOnTheHook;
+    private bool _startedFishing = false;
     private float fishOnHookTimer;
+    private float _animationTimePassed;
     
     
-    public FishingManager(CharacterManager pCharacterManager, AbstractFishingData pFishingData, DrawFishingLine pDrawFishingLine) : base(pCharacterManager)
+    public FishingManager(CharacterManager pCharacterManager, AbstractFishingData pFishingData, Vector3 pTilePosition) : base(pCharacterManager)
     {
         _abstractFishingData = pFishingData;
-        _drawFishingLine = pDrawFishingLine;
+        _tilePosition = pTilePosition;
     }
 
     public override void Update()
     {
-        if(!_fishOnTheHook) base.Update();
+        if (!_startedFishing)
+        {
+            if(_animationTimePassed <= 0) Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing", true);
+            _animationTimePassed += Time.deltaTime;
+            if (_animationTimePassed > Utility.GetAnimationClipTime(CharacterManager.CharacterStateManager.GetAnimator(), "fishing"))
+            {
+                GameObject bobber = GameObject.Instantiate(_playerFishing.BobberPrefab, _tilePosition, Quaternion.identity);
+
+                _drawFishingLine = bobber.GetComponent<DrawFishingLine>();
+        
+                _drawFishingLine.Draw(_playerFishing.GetStartingPosition(), _playerFishing.GetSegmentLength());
+                
+                Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing_idle", true);
+        
+                CharacterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.WAITING);
+                _startedFishing = true;
+            }
+        }
+        else if(!_fishOnTheHook && _startedFishing) base.Update();
         else
         {
             fishOnHookTimer += Time.deltaTime;
@@ -72,7 +96,7 @@ public class FishingManager : HarvestSkillManager
 
     public override bool Successful()
     {
-        return Random.Range(0, 100) >= 75;
+        return Random.Range(0, 100) >= 95;
     }
 
     public override AbstractItemData ItemToReceive()
@@ -92,6 +116,12 @@ public class FishingManager : HarvestSkillManager
             player.CharacterInventory.RemoveItem(_abstractFishingData.baitRequired);
             _dialogueManager.StartDialogue("The bait fell off your hook.");
         }
+        GameObject.Destroy(_drawFishingLine.gameObject);
+    }
+
+    public override void OnStop()
+    {
+        base.OnStop();
         GameObject.Destroy(_drawFishingLine.gameObject);
     }
 }

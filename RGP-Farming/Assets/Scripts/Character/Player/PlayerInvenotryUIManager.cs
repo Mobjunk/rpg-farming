@@ -6,6 +6,7 @@ public class PlayerInvenotryUIManager : AbstractInventoryUIManger
     
     public override void Open()
     {
+        Debug.Log("?????");
         base.Open();
         InventoryUI[1].SetActive(true);
         _craftingInventoryUIManager.CurrentTabId = 0;
