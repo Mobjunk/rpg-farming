@@ -81,6 +81,9 @@ public static class Utility
         GameObject[] allObjects = activeScene.GetRootGameObjects();
         foreach (GameObject o in allObjects)
         {
+            if (o.name.Equals("---- Player -----")) continue;
+            if (o.name.Equals("---- Managers -----")) continue;
+            if (o.name.Equals("---- UI -----")) continue;
             o.SetActive(pActive);
         }
     }
