@@ -15,7 +15,6 @@ public class TeleportPlayer : MonoBehaviour
             _player.transform.position = _teleportLocation.position;
         }
     }
-    
     //Show line to location. [NOT WORKING?]
     private void OnDrawGizmos()
     {

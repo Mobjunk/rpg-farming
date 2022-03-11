@@ -6,11 +6,10 @@ using static Utility;
 
 public class DoorInteraction : InteractionManager
 {
-    [Header("Scene")]
+    [Header("Scenes")]
     public string houseName;
-
     private bool _doorOpen;
-    private Vector2 _tempPlayerPosition;
+    [HideInInspector] public Vector2 TempPlayerPosition;
     private Animator _animator => GetComponent<Animator>();
 
     //Linkermuisknop
@@ -19,19 +18,17 @@ public class DoorInteraction : InteractionManager
         base.OnInteraction(pCharacterManager);
         StartCoroutine(EnterDoor());
     }
-    
     //Rechtermuisknop
     public override void OnSecondaryInteraction(CharacterManager pCharacterManager)
     {
         base.OnSecondaryInteraction(pCharacterManager);
         Debug.Log("Door clicked right");
     }
-
-
     private IEnumerator EnterDoor() 
     {
         //Save the players location to be able to place him back when reloading other scene.
-        _tempPlayerPosition = Player.transform.position;
+        TempPlayerPosition = Player.transform.position;
+        Debug.Log(TempPlayerPosition);
 
         _animator.SetBool("Open", true);
 
@@ -43,18 +40,9 @@ public class DoorInteraction : InteractionManager
         Player.transform.position = new Vector3(0, 0, 0);
 
         ToggleRootObjectsInScene("TestScene");
-       
-        
-    }
-    private IEnumerator ExitDoor()
-    {
-        Player.transform.position = _tempPlayerPosition;
 
-        _animator.SetBool("Open", false);
-        _animator.SetBool("Close", true);
-        UnloadScene(houseName);
-
-        yield return new WaitForSeconds(GetAnimationClipTime(_animator, "Door_Close"));
+        Debug.Log(TempPlayerPosition);
 
     }
+
 }

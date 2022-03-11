@@ -9,7 +9,10 @@ using System.Text.RegularExpressions;
 public class DialogueManager : Singleton<DialogueManager>
 {
     //FIFO
+    private Player _player => Player.Instance();
     private Queue<string> _sentences;
+
+
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _npcNameUI;
@@ -46,6 +49,7 @@ public class DialogueManager : Singleton<DialogueManager>
         _sentenceBox.SetActive(true);
         _nameBox.SetActive(true);
         DialogueIsPlaying = true;
+        //_player.ToggleInput();
         _npcNameUI.text = pDialogue.Npc;
         //Clear last queue.
         _sentences.Clear();
@@ -71,6 +75,7 @@ public class DialogueManager : Singleton<DialogueManager>
     public void StartDialogue (string pSentence,string pName = "")
     {
         DialogueIsPlaying = true;
+        //_player.ToggleInput();
         _sentenceBox.SetActive(true);
         StartCoroutine(WriteSentence(pSentence));
         if (!pName.Equals("")) { _npcNameUI.text = pName; _nameBox.SetActive(true); } 
@@ -95,6 +100,7 @@ public class DialogueManager : Singleton<DialogueManager>
         _nameBox.SetActive(false);
         Debug.Log("Einde Gesprek");
         DialogueIsPlaying = false;
+        //_player.ToggleInput();
     }
 
     //Slowly types text instead of instantly showing.

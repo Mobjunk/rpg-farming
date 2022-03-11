@@ -9,8 +9,7 @@ using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 public static class Utility
-{
-    
+{ 
     public const int N = 1 << 0;
     public const int NE = 1 << 1;
     public const int E = 1 << 2;
