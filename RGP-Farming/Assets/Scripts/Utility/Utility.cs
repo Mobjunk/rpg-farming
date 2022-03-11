@@ -9,8 +9,7 @@ using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 public static class Utility
-{
-    
+{ 
     public const int N = 1 << 0;
     public const int NE = 1 << 1;
     public const int E = 1 << 2;
@@ -81,7 +80,18 @@ public static class Utility
             SceneManager.LoadScene(pSceneName, LoadSceneMode.Additive);
         }
     }
-
+    public static void ToggleRootObjectsInScene(string pSceneName, bool pActive = false)
+    {
+        Scene activeScene = SceneManager.GetSceneByName(pSceneName);
+        GameObject[] allObjects = activeScene.GetRootGameObjects();
+        foreach (GameObject o in allObjects)
+        {
+            if (o.name.Equals("---- Player -----")) continue;
+            if (o.name.Equals("---- Managers -----")) continue;
+            if (o.name.Equals("---- UI -----")) continue;
+            o.SetActive(pActive);
+        }
+    }
     public static void UnloadScene(string pSceneName)
     {
         SceneManager.UnloadSceneAsync(pSceneName);

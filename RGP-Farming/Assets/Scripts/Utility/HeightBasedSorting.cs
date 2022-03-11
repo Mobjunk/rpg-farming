@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
+[RequireComponent(typeof(SortingGroup))]
 public class HeightBasedSorting : MonoBehaviour
 {
     [SerializeField]
