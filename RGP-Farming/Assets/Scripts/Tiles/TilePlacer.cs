@@ -46,15 +46,15 @@ public class TilePlacer : Singleton<TilePlacer>
     {
         if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
         {
-            //if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
+            if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
 
             //Checks if the crops the player is clicking is finished growing
-            //CropsGrowManager cropsGrowManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsGrowManager>();
-            //if (cropsGrowManager != null && cropsGrowManager.ReadyToHarvest) return;
+            CropsGrowManager cropsGrowManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<CropsGrowManager>();
+            if (cropsGrowManager != null && cropsGrowManager.ReadyToHarvest) return;
 
             //Checks if the crops you are hovering is in the interactable list
-            //InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
-            if (_player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0)
+            InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
+            if (interactionManager != null && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0)
                 _player.SetAction(new TileInteractionAction(_player, "watering", PlayerDirtTiles, _location, WateredDirtTile, true));
         }
     }

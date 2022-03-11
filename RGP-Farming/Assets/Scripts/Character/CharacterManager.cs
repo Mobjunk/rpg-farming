@@ -59,6 +59,7 @@ public class CharacterManager : MonoBehaviour
 
         //Handles setting the right offset and size for the boxcollider
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        
         boxCollider.offset = new Vector2(0, 0);
         boxCollider.size = new Vector2(0.4959272f, 0.1186142f);
     }

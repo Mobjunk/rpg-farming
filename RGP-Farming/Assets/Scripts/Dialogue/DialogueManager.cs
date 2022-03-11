@@ -20,7 +20,8 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] private GameObject _dialogueBox;
     [SerializeField] private GameObject _sentenceBox;
     [SerializeField] private GameObject _nameBox;
-
+    [SerializeField] private Npc _activeNpc;
+    
     [HideInInspector]
     public bool DialogueIsPlaying;
     [Header("In Characters per Second")]
@@ -44,12 +45,13 @@ public class DialogueManager : Singleton<DialogueManager>
     }*/
 
     //TODO %p , aanpassen naar de player naam. Dan komt overal de playernaam automatisch te staan.
-    public void StartDialogue (Dialogue pDialogue)
+    public void StartDialogue(Dialogue pDialogue, Npc pNpc = null)
     {
         _sentenceBox.SetActive(true);
         _nameBox.SetActive(true);
         DialogueIsPlaying = true;
-        //_player.ToggleInput();
+        if(_player.InputEnabled) _player.ToggleInput();
+        _activeNpc = pNpc;
         _npcNameUI.text = pDialogue.Npc;
         //Clear last queue.
         _sentences.Clear();
@@ -67,7 +69,7 @@ public class DialogueManager : Singleton<DialogueManager>
                 }
             }
             else 
-            _sentences.Enqueue(sentence);
+                _sentences.Enqueue(sentence);
         }
         DisplayNextLine();
     }
@@ -75,7 +77,7 @@ public class DialogueManager : Singleton<DialogueManager>
     public void StartDialogue (string pSentence,string pName = "")
     {
         DialogueIsPlaying = true;
-        //_player.ToggleInput();
+        if(_player.InputEnabled) _player.ToggleInput();
         _sentenceBox.SetActive(true);
         StartCoroutine(WriteSentence(pSentence));
         if (!pName.Equals("")) { _npcNameUI.text = pName; _nameBox.SetActive(true); } 
@@ -100,7 +102,12 @@ public class DialogueManager : Singleton<DialogueManager>
         _nameBox.SetActive(false);
         Debug.Log("Einde Gesprek");
         DialogueIsPlaying = false;
-        //_player.ToggleInput();
+        if(!_player.InputEnabled) _player.ToggleInput();
+        if (_activeNpc != null)
+        {
+            _activeNpc.IsBusy = false;
+            _activeNpc = null;
+        }
     }
 
     //Slowly types text instead of instantly showing.

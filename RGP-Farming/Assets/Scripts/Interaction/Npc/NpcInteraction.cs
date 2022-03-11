@@ -1,8 +1,16 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class NpcInteraction : InteractionManager
 {
+    public Npc Npc;
+
+    private void Awake()
+    {
+        Npc = GetComponent<Npc>();
+    }
+
     public virtual void OnTriggerEnter2D(Collider2D pOther)
     {
         Player characterManager = pOther.GetComponent<Player>();
@@ -17,9 +25,8 @@ public abstract class NpcInteraction : InteractionManager
 
     public override void OnInteraction(CharacterManager pCharacterManager)
     {
-        Npc npc = GetComponent<Npc>();
         CharacterContractManager characterContractManager = pCharacterManager.GetComponent<CharacterContractManager>();
-        List<Contract> contracts = characterContractManager.GetListForNpcData(npc.NpcData);
+        List<Contract> contracts = characterContractManager.GetListForNpcData(Npc.NpcData);
 
         if (contracts.Count > 0) ContractManager.Instance().CompleteContract(contracts[0]);
         else HandleOthers();

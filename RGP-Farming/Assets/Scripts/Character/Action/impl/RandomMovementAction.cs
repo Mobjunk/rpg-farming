@@ -33,6 +33,8 @@ public class RandomMovementManager : CharacterAction
     {
         base.Update();
 
+        if (_npc.IsBusy) return;
+
         if (_movementTime > 0)
         {
             

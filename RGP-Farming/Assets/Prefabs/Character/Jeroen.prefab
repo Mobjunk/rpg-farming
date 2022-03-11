@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 6691201549877387314}
   - component: {fileID: 1754874557848276885}
   - component: {fileID: 1431076819630508362}
+  - component: {fileID: 1879236917436319990}
   m_Layer: 0
   m_Name: Jeroen
   m_TagString: Untagged
@@ -605,7 +606,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0051189065, y: -0.06685965}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -616,7 +617,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2883247, y: 0.41228792}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!95 &655042512654746547
 Animator:
@@ -650,6 +651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcData: {fileID: 11400000, guid: 7c798176de79c114d8215644631f55e3, type: 2}
+  IsBusy: 0
 --- !u!114 &4655263976673120023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +710,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentHealth: 0
+--- !u!114 &1879236917436319990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4781272785694954864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa101c886b8080469d4c83b94415605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Npc: {fileID: 0}
+  _jeroenDialogue: {fileID: 11400000, guid: 34ee7a01da7ba324f8975a5e0b7a8848, type: 2}
 --- !u!1 &4954499642647908934
 GameObject:
   m_ObjectHideFlags: 0

@@ -71,7 +71,7 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
                 groundItemManager?.SetSprite(pGroundItem.Item.uiSprite);
                 
                 SpreadGroundItem spreadGroundItem = gObject.GetComponent<SpreadGroundItem>();
-                if(pGroundItem.Amount > 0) spreadGroundItem?.SetSpread(gObject, 10, pRemoveAfterwards);
+                if(pGroundItem.Amount > 0) spreadGroundItem?.SetSpread(gObject, 60, pRemoveAfterwards);
         
                 groundItems.Add(new GroundItem(new GameItem(pGroundItem.Item), gObject));
             }

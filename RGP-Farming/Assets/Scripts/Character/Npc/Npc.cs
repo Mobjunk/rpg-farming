@@ -15,6 +15,8 @@ public class Npc : CharacterManager
         set => _npcData = value;
     }
 
+    public bool IsBusy;
+
     public override void Awake()
     {
         base.Awake();
