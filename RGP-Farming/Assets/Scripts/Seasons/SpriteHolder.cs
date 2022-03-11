@@ -6,11 +6,11 @@ public class SpriteHolder : MonoBehaviour
 {
     public Sprite[] sprites;
 
-    public int seasonCount;
+    public int SpriteCount;
 
     private void Update()
     {   
-            GetComponent<SpriteRenderer>().sprite = sprites[seasonCount];  
+            GetComponent<SpriteRenderer>().sprite = sprites[SpriteCount];  
     }
     //Check Season 
 

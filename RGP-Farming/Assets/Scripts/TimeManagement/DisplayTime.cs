@@ -8,13 +8,15 @@ using static Utility;
 public class DisplayTime : MonoBehaviour
 {
     private TimeManager _timeManager => TimeManager.Instance();
-    public TextMeshProUGUI TimeText;
-    public TextMeshProUGUI DayText;
+    [SerializeField] private TextMeshProUGUI _timeText;
+    [SerializeField] private TextMeshProUGUI _dayText;
+    [SerializeField] private TextMeshProUGUI _dayNRText;
     private string _clockAMPM = "AM";
 
     void Update()
     {
         DisplayTimeUI();
+        DisplayDateUI();
     }
     void DisplayTimeUI()
     {
@@ -31,11 +33,22 @@ public class DisplayTime : MonoBehaviour
             if (hours == 0) addition = "12";
             _clockAMPM = "AM";
         }
-        TimeText.text = (addition.Equals(string.Empty) ? hours.ToString("00") : addition) + ":" + _timeManager.ElapsedTime.Minutes.ToString("00") + _clockAMPM;
+        _timeText.text = (addition.Equals(string.Empty) ? hours.ToString("00") : addition) + ":" + _timeManager.ElapsedTime.Minutes.ToString("00") + " "+  _clockAMPM;
         //currentGameTime = _startDate.Add(elapsedTime);
 
-        string day = _timeManager.CurrentGameTime.DayOfWeek.ToString().Substring(0,3);
-        DayText.text = day + ".";
+       
+    }
+    void DisplayDateUI()
+    {
+        string day = _timeManager.CurrentGameTime.DayOfWeek.ToString().Substring(0, 3);
+        _dayText.text = day + ".";
+
+        int dayNR = _timeManager.CurrentGameTime.Day;
+        if(dayNR < 10)
+        {
+            _dayNRText.text = "0" + dayNR.ToString();
+        }
+        else _dayNRText.text = dayNR.ToString();
     }
     void DayChecker()
     {
