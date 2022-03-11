@@ -19,7 +19,7 @@ public abstract class MenuManager<T> : Singleton<T> where T : MonoBehaviour
         
     }
     
-    public void Unhide(bool pHideButtons = false)
+    public virtual void Unhide(bool pHideButtons = false)
     {
         if(pHideButtons)
             foreach(GameObject o in _buttons)
@@ -27,7 +27,7 @@ public abstract class MenuManager<T> : Singleton<T> where T : MonoBehaviour
         _content.SetActive(true);
     }
 
-    public void Hide(bool pUnhideButtons = false)
+    public virtual void Hide(bool pUnhideButtons = false)
     {
         if(pUnhideButtons)
             foreach(GameObject o in _buttons)

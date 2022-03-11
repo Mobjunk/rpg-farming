@@ -11,8 +11,6 @@ public abstract class HarvestSkillManager : CharacterAction
     public HarvestSkillManager(CharacterManager pCharacterManager) : base(pCharacterManager)
     {
         _characterContractManager = pCharacterManager.GetComponent<CharacterContractManager>();
-        if(_characterContractManager == null) Debug.Log("characterContractManager is null");
-        else Debug.Log("characterContractManager is not null");
     }
 
     private float timePassedBy;
@@ -37,7 +35,7 @@ public abstract class HarvestSkillManager : CharacterAction
             else
             {
                 _failedAttempts++;
-                Debug.Log("_failedAttempts: " + _failedAttempts);
+                //Debug.Log("_failedAttempts: " + _failedAttempts);
                 if (_failedAttempts >= GetMaxFailures())
                 {
                     HandleFailure();

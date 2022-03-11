@@ -63,6 +63,12 @@ public static class Utility
     public static float GetAnimationClipTime(Animator pAnimator, string pAnimationName)
     {
         AnimationClip[] clips = pAnimator.runtimeAnimatorController.animationClips;
+        switch (pAnimationName)
+        {
+            case "pickaxe_swing":
+            case "axe_swing":
+                return 0.75f;
+        }
         return (from clip in clips where clip.name.ToLower().Equals(pAnimationName.ToLower()) select clip.length).FirstOrDefault();
     }
 

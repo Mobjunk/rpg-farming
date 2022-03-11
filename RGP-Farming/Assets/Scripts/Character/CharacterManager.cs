@@ -82,8 +82,8 @@ public class CharacterManager : MonoBehaviour
         if (_characterAction != null)
         {
             if (!_characterAction.Interruptable()) return;
-            _characterStateManager.SetCharacterState(CharacterStates.IDLE);
             _characterAction.OnStop();
+            _characterStateManager.SetCharacterState(CharacterStates.IDLE);
         }
 
         _characterAction = pAction;

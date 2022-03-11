@@ -40,9 +40,9 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// <summary>
     /// The main ui that gets activated and hidden
     /// </summary>
-    [SerializeField] private GameObject _inventoryUI;
+    [SerializeField] private GameObject[] _inventoryUI;
 
-    public GameObject InventoryUI
+    public GameObject[] InventoryUI
     {
         get => _inventoryUI;
         set => _inventoryUI = value;
@@ -86,10 +86,11 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// </summary>
     public override void Open()
     {
+        Debug.Log("????");
         base.Open();
         if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem();
         IsOpened = true;
-        InventoryUI.SetActive(IsOpened);
+        InventoryUI[0].SetActive(IsOpened);
     }
 
     /// <summary>
@@ -99,10 +100,11 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     {
         if (!IsOpened) return;
         base.Close();
-        if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem();
+        if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem(false);
         IsOpened = false;
         ItemBarManager.Instance().UpdateSlot();
-        InventoryUI.SetActive(IsOpened);
+        InventoryUI[0].SetActive(IsOpened);
+        if(InventoryUI.Length > 1) InventoryUI[1].SetActive(false);
         onInventoryUIClosing.Invoke();
     }
 

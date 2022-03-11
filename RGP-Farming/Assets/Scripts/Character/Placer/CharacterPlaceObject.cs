@@ -61,7 +61,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
                     
                     bool hasTile = _tileMaps[1].GetTile(currentTile) != null;
-                    
+
                     _tileMaps[0].SetTile(currentTile, hasTile || !canPlaceObject ? _cannotPlace : _canPlace);
                     
                     if (hasTile) canPlaceObject = false;
@@ -95,8 +95,8 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             }
 
             Vector3 position = _tileMaps[1].GetCellCenterWorld(tilePosition);
-            float additionalX = 0.005f * ((placeableItem.uiSprite.bounds.size.x * 100) - 16);
-            float additionalY = 0.005f * ((placeableItem.uiSprite.bounds.size.y * 100) - 16);
+            float additionalX = 0;//0.005f * ((placeableItem.uiSprite.bounds.size.x * 100) - 16);
+            float additionalY = 0;//0.005f * ((placeableItem.uiSprite.bounds.size.y * 100) - 16);
             Instantiate(placeableItem.objectPrefab, new Vector3(position.x + additionalX, position.y + additionalY, position.z), Quaternion.identity);
         }
     }
