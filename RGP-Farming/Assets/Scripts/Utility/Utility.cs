@@ -29,6 +29,13 @@ public static class Utility
     public const int WEST = 6;
     public const int NORTH_WEST = 7;
 
+    public static bool PointIsVisibleToCamera(Vector2 point)
+    {
+        if (Camera.main.WorldToViewportPoint(point).x < 0 || Camera.main.WorldToViewportPoint(point).x > 1 || Camera.main.WorldToViewportPoint(point).y > 1 || Camera.main.WorldToViewportPoint(point).y < 0)
+            return false;
+        return true;
+    }
+    
     public static int WrapIndex(int pIndex, int pMaxLength, int pIndexUsed)
     {
         int newIndex = pIndexUsed + pIndex;

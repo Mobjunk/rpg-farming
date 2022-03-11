@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Npc : CharacterManager
 {
-
+    private GameObject _renderingObject;
+    private Animator _animator;
+    
     [SerializeField] private NpcData _npcData;
 
     public NpcData NpcData
@@ -15,6 +19,9 @@ public class Npc : CharacterManager
     {
         base.Awake();
 
+        _animator = GetComponent<Animator>();
+        _renderingObject = transform.GetChild(0).gameObject;
+        
         if (_npcData != null)
         {
 
@@ -23,5 +30,13 @@ public class Npc : CharacterManager
                 SetAction(new RandomMovementManager(this));
             }
         }
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        bool renderNpc = Utility.PointIsVisibleToCamera(transform.position);
+        _renderingObject.SetActive(renderNpc);
+        _animator.enabled = renderNpc;
     }
 }
