@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterHealthManager))]
 public class CharacterManager : MonoBehaviour
 {
+    private DialogueManager _dialogueManager => DialogueManager.Instance();
+    
     /// <summary>
     /// Input manager of the character
     /// </summary>
@@ -59,6 +61,7 @@ public class CharacterManager : MonoBehaviour
 
         //Handles setting the right offset and size for the boxcollider
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        
         boxCollider.offset = new Vector2(0, 0);
         boxCollider.size = new Vector2(0.4959272f, 0.1186142f);
     }
@@ -79,6 +82,8 @@ public class CharacterManager : MonoBehaviour
     /// <param name="pAction">A action a character can perform</param>
     public void SetAction(CharacterAction pAction)
     {
+        if (_dialogueManager.DialogueIsPlaying && pAction != null) return;
+        
         if (_characterAction != null)
         {
             if (!_characterAction.Interruptable()) return;

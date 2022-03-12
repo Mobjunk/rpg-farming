@@ -96,7 +96,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2441749199587268108}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e6eb4ee5861530a49ba8e648e1b2182c, type: 2}
   m_CullingMode: 0
@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   houseName: PlayerHouse
+  TempPlayerPosition: {x: 0, y: 0}
 --- !u!114 &200337024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,9 +249,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2441749200057379522}
   m_Enabled: 1
-  m_SortingLayerID: 1428061395
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 800
 --- !u!114 &865892027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,7 +369,7 @@ MonoBehaviour:
   - {fileID: -1871733230414839170, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: -6461180478891004496, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: -4970514875814739065, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
-  seasonCount: 0
+  SpriteCount: 0
 --- !u!61 &617791330
 BoxCollider2D:
   m_ObjectHideFlags: 0

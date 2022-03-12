@@ -1,19 +1,27 @@
+using System.Collections;
 using UnityEngine;
+using static Utility;
 
 public class ChestInteraction : ObjectInteractionManager
 {
+    private ItemBarManager _itemBarManager => ItemBarManager.Instance();
+    
     public override void OnInteraction(CharacterManager pCharacterManager)
     {
         base.OnInteraction(pCharacterManager);
 
-        ChestInventory chestInventory = GetComponent<ChestInventory>();
-        if (chestInventory.SlotsOccupied() > 0) return;
-
-        if (ItemBarManager.Instance().IsWearingCorrectTools(new[] { ToolType.AXE, ToolType.HOE, ToolType.PICKAXE }))
+        if (_itemBarManager.IsWearingCorrectTools(new[] { ToolType.AXE, ToolType.PICKAXE }))
         {
-            AbstractPlaceableItem placeableItem = (AbstractPlaceableItem) ItemManager.Instance().ForName("Chest");
-            GroundItemsManager.Instance().Add(new GameItem(placeableItem), gameObject.transform.position);
-            DestroyObject(gameObject, placeableItem);
+            string animationName = string.Empty;
+            AbstractToolItem tool = (AbstractToolItem) _itemBarManager.GetItemSelected();
+            if (tool.tooltype is ToolType.AXE) animationName = "axe_swing";//SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), "axe_swing", true, true);
+            else if (tool.tooltype is ToolType.PICKAXE) animationName = "pickaxe_swing";//SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), "pickaxe_swing", true, true);
+
+            if (animationName.Equals(string.Empty) || pCharacterManager.CharacterAction is SmashChest) return;
+            
+            SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), animationName, true, true);
+            
+            pCharacterManager.SetAction(new SmashChest(pCharacterManager, this, gameObject, GetAnimationClipTime(pCharacterManager.CharacterStateManager.GetAnimator(), animationName)));
         }
     }
 
@@ -30,5 +38,46 @@ public class ChestInteraction : ObjectInteractionManager
         }
         
         chestOpener.Interact(pCharacterManager);
+    }
+}
+
+public class SmashChest : CharacterAction
+{
+    private ObjectInteractionManager objectInteractionManager;
+    private GameObject gameObject;
+    private float _animationTime;
+    private float _requiredTime;
+    
+    public SmashChest(CharacterManager pCharacterManager, ObjectInteractionManager pObjectInteractionManager, GameObject pGameObject, float pRequiredTime) : base(pCharacterManager)
+    {
+        objectInteractionManager = pObjectInteractionManager;
+        gameObject = pGameObject;
+        _requiredTime = pRequiredTime;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        _animationTime += Time.deltaTime;
+        if (_animationTime > _requiredTime)
+        {
+            ChestInventory chestInventory = gameObject.GetComponent<ChestInventory>();
+            if (chestInventory.SlotsOccupied() > 0)
+            {
+                DialogueManager.Instance().StartDialogue("Maybe I should take the items out of the chest.");
+            }
+            else
+            {
+                AbstractPlaceableItem placeableItem = (AbstractPlaceableItem) ItemManager.Instance().ForName("Chest");
+                GroundItemsManager.Instance().Add(new GameItem(placeableItem), gameObject.transform.position);
+                objectInteractionManager.DestroyObject(gameObject, placeableItem);
+            }
+            CharacterManager.SetAction(null);
+        }
+    }
+
+    public override CharacterStates GetCharacterState()
+    {
+        return CharacterStates.NONE;
     }
 }

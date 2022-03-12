@@ -1158,7 +1158,6 @@ GameObject:
   m_Component:
   - component: {fileID: 889500057}
   - component: {fileID: 889500056}
-  - component: {fileID: 889500055}
   - component: {fileID: 889500058}
   m_Layer: 0
   m_Name: Prefab Camera here
@@ -1167,14 +1166,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &889500055
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889500054}
-  m_Enabled: 1
 --- !u!20 &889500056
 Camera:
   m_ObjectHideFlags: 0
@@ -4061,7 +4052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   houseName: Playerhouse
   TempPlayerPosition: {x: 0, y: 0}
-  Overworld: Test Scene
+  Overworld: TestScene
   TempPlayerLocation: {x: -40.48, y: -8.1}
 --- !u!4 &2106599856
 Transform:

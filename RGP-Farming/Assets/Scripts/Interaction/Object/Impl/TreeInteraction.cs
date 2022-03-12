@@ -22,14 +22,11 @@ public class TreeInteraction : ObjectInteractionManager
     {
         if (itemBarManager.IsWearingCorrectTool(ToolType.AXE))
         {
-            if (pCharacterManager.CharacterAction.GetType() == typeof(TreeInteractionAction))
-            {
-                Debug.Log("This is a test!");
-                return;
-            }
+            if (pCharacterManager.CharacterAction is TreeInteractionAction) return;
+            
             pCharacterManager.SetAction(new TreeInteractionAction(pCharacterManager, new Tree(_healthManager, _animators, _treeTop)));
         }
-        else _dialogueManager.StartDialogue("Maybe I should be using a different tool.");//Debug.LogError("Not the correct tool.");
+        else _dialogueManager.StartDialogue("Maybe I should be using a different tool.");
     }
 }
 

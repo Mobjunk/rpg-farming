@@ -11,7 +11,7 @@ public abstract class CharacterBodyPartManager : BodyPartManager
     private CharacterStateManager _characterStateManager;
     private SpriteRenderer _spriteRenderer;
     
-    public virtual void Awake()
+    public override void Awake()
     {
         base.Awake();
         
@@ -21,7 +21,7 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         _characterStateManager = GetComponentInParent<CharacterStateManager>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         
-        _characterStateManager.OnStateChanged += OnStateChange;
+        if(_characterStateManager != null) _characterStateManager.OnStateChanged += OnStateChange;
     }
 
     /// <summary>
@@ -109,7 +109,12 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         int modifiedIndex = baseIndex + currentIndex;
         if (pBodyPart.RequiresMultiplier()) modifiedIndex += (totalFrames * multiplier);
         
-        Sprite sprite = CachedSpritesManager.GetSprite(fileName + "" + modifiedIndex);
+        Sprite sprite = CachedSpritesManager.GetCachedSprite(fileName + "" + modifiedIndex);
+        if (sprite == null)
+        {
+            sprite = CachedSpritesManager.GetSprite(fileName + "" + modifiedIndex);
+            CachedSpritesManager.CachedSprites.Add(sprite);
+        }
         if (sprite != null)
         {
             _spriteRenderer.sprite = sprite;
@@ -120,7 +125,7 @@ public abstract class CharacterBodyPartManager : BodyPartManager
     public void SetBodyPart(BodyPart pBodyPart)
     {
         CurrentBodyPart = pBodyPart;
-        LoadSprites();
+        //LoadSprites();
         OnStateChange();
     }
 }

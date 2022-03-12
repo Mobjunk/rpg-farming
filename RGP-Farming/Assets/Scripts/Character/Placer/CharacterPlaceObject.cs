@@ -4,18 +4,22 @@ using UnityEngine.Tilemaps;
 public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 {
     private TilePlacer _tilePlacer => TilePlacer.Instance();
+    private TilemapManager _tilemapManager => TilemapManager.Instance();
     
     private Player _player;
     private GameObject _currentGameObjectHoverd;
 
     [SerializeField] private GameObject[] _tileChecker;
     [SerializeField] private Grid _grid;
-    [SerializeField] private Tilemap[] _tileMaps;
+    [SerializeField] private Tilemap _hoverTilemap;
 
-    public Tilemap[] GetTilemaps() => _tileMaps;
+    [SerializeField] private Tilemap[] _tilemapsToCheck;
+
+    public Tilemap GetPlayerTileMap => _tilemapsToCheck[2];
     
     [SerializeField] private Tile _canPlace;
     [SerializeField] private Tile _cannotPlace;
+    [SerializeField] private Tile _occupiedTile;
 
     private Vector3Int _placeHolderPosition;
     private bool _canPlaceObject;
@@ -33,17 +37,24 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 
     private void Update()
     {
+        if (_grid == null)
+        {
+            _grid = _tilemapManager.MainGrid;
+            _hoverTilemap = _tilemapManager.HoverTilemap;
+            _tilemapsToCheck = _tilemapManager.TilemapsToCheck;
+        }
+        
         if (_player.CharacterUIManager.CurrentUIOpened != null)
         {
-            _tileMaps[0].ClearAllTiles();
+            _hoverTilemap.ClearAllTiles();
             return;
         }
         
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3Int tilePosition = _tileMaps[0].WorldToCell(mousePosition);
+        Vector3Int tilePosition = _hoverTilemap.WorldToCell(mousePosition);
         
-        _tileMaps[0].ClearAllTiles();
+        _hoverTilemap.ClearAllTiles();
 
         if (CursorManager.Instance().IsPointerOverUIElement()) return;
 
@@ -59,10 +70,19 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 for (int height = 0; height < placeableItem.height; height++)
                 {
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
-                    
-                    bool hasTile = _tileMaps[1].GetTile(currentTile) != null;
 
-                    _tileMaps[0].SetTile(currentTile, hasTile || !canPlaceObject ? _cannotPlace : _canPlace);
+                    bool hasTile = false; //_tileMaps[1].GetTile(currentTile) != null;
+
+                    foreach (Tilemap tilemap in _tilemapsToCheck)
+                    {
+                        if (tilemap.GetTile(currentTile) != null)
+                        {
+                            hasTile = true;
+                            break;
+                        }
+                    }
+
+                    _hoverTilemap.SetTile(currentTile, hasTile || !canPlaceObject ? _cannotPlace : _canPlace);
                     
                     if (hasTile) canPlaceObject = false;
                 }
@@ -90,11 +110,11 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 for (int height = 0; height < placeableItem.height; height++)
                 {
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
-                    _tileMaps[1].SetTile(currentTile, _cannotPlace);
+                    GetPlayerTileMap.SetTile(currentTile, _occupiedTile);
                 }
             }
 
-            Vector3 position = _tileMaps[1].GetCellCenterWorld(tilePosition);
+            Vector3 position = GetPlayerTileMap.GetCellCenterWorld(tilePosition);
             float additionalX = 0;//0.005f * ((placeableItem.uiSprite.bounds.size.x * 100) - 16);
             float additionalY = 0;//0.005f * ((placeableItem.uiSprite.bounds.size.y * 100) - 16);
             Instantiate(placeableItem.objectPrefab, new Vector3(position.x + additionalX, position.y + additionalY, position.z), Quaternion.identity);
