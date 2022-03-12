@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public abstract class BodyPart : ScriptableObject
 {
     [Header("Type")] public BodyType bodyType;

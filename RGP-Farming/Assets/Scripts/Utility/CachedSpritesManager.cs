@@ -10,6 +10,11 @@ public class CachedSpritesManager : Singleton<CachedSpritesManager>
 
     public List<Sprite> CachedSprites = new List<Sprite>();
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public Sprite GetSprite(string pSpriteName)
     {
         foreach (Sprite sprite in AllSprites.ToArray())
@@ -24,6 +29,7 @@ public class CachedSpritesManager : Singleton<CachedSpritesManager>
     {
         foreach (Sprite sprite in CachedSprites.ToArray())
         {
+            if(sprite == null) continue;
             if (sprite.name.Equals(pSpriteName)) return sprite;
         }
         return null;
