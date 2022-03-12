@@ -39,7 +39,7 @@ public class DoorInteraction : InteractionManager
         //Set players location to have him at the door
         Player.transform.position = new Vector3(0, 0, 0);
 
-        ToggleRootObjectsInScene("TestScene");
+        ToggleRootObjectsInScene("Main Level");
 
         Debug.Log(TempPlayerPosition);
 

@@ -96,7 +96,7 @@ public class FishingManager : HarvestSkillManager
 
     public override bool Successful()
     {
-        return Random.Range(0, 100) >= 95;
+        return Random.Range(0, 100) >= 85;
     }
 
     public override AbstractItemData ItemToReceive()

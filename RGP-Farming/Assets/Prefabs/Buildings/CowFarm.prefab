@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7226903261320682677}
   - component: {fileID: 3195914819591043388}
   - component: {fileID: 4478554503881880274}
-  - component: {fileID: 4206651507845652907}
   - component: {fileID: 3822942423635540464}
   m_Layer: 0
   m_Name: Garage
@@ -104,19 +103,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4206651507845652907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1007287899722676797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08edc1d06007bc5469303597f2d09324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  houseName: House
 --- !u!61 &3822942423635540464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -154,7 +140,6 @@ GameObject:
   - component: {fileID: 2441749199587268109}
   - component: {fileID: 2441749199587268110}
   - component: {fileID: 2441749199587268111}
-  - component: {fileID: 2441749199587268104}
   - component: {fileID: 2441749199587268105}
   m_Layer: 0
   m_Name: Door
@@ -247,19 +232,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2441749199587268104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2441749199587268108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08edc1d06007bc5469303597f2d09324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  houseName: House
 --- !u!61 &2441749199587268105
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -420,7 +392,7 @@ MonoBehaviour:
   - {fileID: 8245331059212435397, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: 2841073974410389458, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: -6385264620312183023, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
-  seasonCount: 0
+  SpriteCount: 0
 --- !u!61 &5570407822572223701
 BoxCollider2D:
   m_ObjectHideFlags: 0

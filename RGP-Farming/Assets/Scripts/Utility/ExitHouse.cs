@@ -19,13 +19,13 @@ public class ExitHouse : DoorInteraction
         Player.transform.position = TempPlayerPosition;
 
         //Turn all root objects back on
-        ToggleRootObjectsInScene("TestScene",true);
+        ToggleRootObjectsInScene("Main Level",true);
 
         yield return new WaitForSeconds(GetAnimationClipTime(_animator, "Door_Close"));
     }
     void ExitDoorTest()
     {
-        ToggleRootObjectsInScene("TestScene", true);
+        ToggleRootObjectsInScene("Main Level", true);
         UnloadScene(houseName);
         Player.transform.position = TempPlayerLocation;
     }
