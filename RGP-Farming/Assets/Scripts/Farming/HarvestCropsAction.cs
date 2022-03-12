@@ -47,7 +47,7 @@ public class HarvestCropsManager : HarvestSkillManager
         
         if (_requiredAmount <= 0)
         {
-            CharacterPlaceObject.Instance().GetTilemaps()[1].SetTile(_tileLocation, null);
+            CharacterPlaceObject.Instance().GetPlayerTileMap.SetTile(_tileLocation, null);
             Object.Destroy(_interactedObject);
             CharacterManager.SetAction(null);
         }

@@ -12,8 +12,6 @@ public class ButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         Utility.UnloadScene("MainMenu");
         Utility.AddSceneIfNotLoaded("Character Design");
-        //Utility.AddSceneIfNotLoaded("Core");
-        //Utility.AddSceneIfNotLoaded("Level");
     }
     
     public void Quit()

@@ -12,8 +12,6 @@ public class DialogueManager : Singleton<DialogueManager>
     private Player _player => Player.Instance();
     private Queue<string> _sentences;
 
-
-
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _npcNameUI;
     [SerializeField] private TextMeshProUGUI _sentencesUI;
@@ -50,8 +48,15 @@ public class DialogueManager : Singleton<DialogueManager>
         _sentenceBox.SetActive(true);
         _nameBox.SetActive(true);
         DialogueIsPlaying = true;
-        if(_player.InputEnabled) _player.ToggleInput();
+        
+        if (_player.InputEnabled)
+        {
+            _player.ToggleInput();
+            _player.CharacterMovementMananger.ResetMovement();
+        }
         _activeNpc = pNpc;
+        _activeNpc?.CharacterMovementMananger.ResetMovement();
+        
         _npcNameUI.text = pDialogue.Npc;
         //Clear last queue.
         _sentences.Clear();
@@ -77,7 +82,11 @@ public class DialogueManager : Singleton<DialogueManager>
     public void StartDialogue (string pSentence,string pName = "")
     {
         DialogueIsPlaying = true;
-        if(_player.InputEnabled) _player.ToggleInput();
+        if (_player.InputEnabled)
+        {
+            _player.ToggleInput();
+            _player.CharacterMovementMananger.ResetMovement();
+        }
         _sentenceBox.SetActive(true);
         StartCoroutine(WriteSentence(pSentence));
         if (!pName.Equals("")) { _npcNameUI.text = pName; _nameBox.SetActive(true); } 
