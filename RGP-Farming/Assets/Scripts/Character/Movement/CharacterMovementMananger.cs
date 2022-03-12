@@ -51,6 +51,11 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
         _sorting.UpdateOrder();
     }
 
+    public void ResetMovement()
+    {
+        _animator.SetBool("moving", false);
+    }
+
     public void ResetSkillingAnimations()
     {
         _animator.SetBool("axe_swing", false);

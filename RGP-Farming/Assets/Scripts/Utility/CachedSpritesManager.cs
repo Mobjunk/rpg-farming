@@ -27,6 +27,5 @@ public class CachedSpritesManager : Singleton<CachedSpritesManager>
             if (sprite.name.Equals(pSpriteName)) return sprite;
         }
         return null;
-        //return CachedSprites.FirstOrDefault(sprite => sprite.name.Equals(pSpriteName));
     }
 }

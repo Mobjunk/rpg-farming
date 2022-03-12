@@ -8,6 +8,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
 {
     private ItemSnapperManager _itemSnapper => ItemSnapperManager.Instance();
     private Player _player => Player.Instance();
+    private DialogueManager _dialogueManager => DialogueManager.Instance();
     
     [HideInInspector] public int SelectedSlot = 0;
     [SerializeField] private ItemContainerGrid _itemDisplayer;
@@ -23,6 +24,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
 
     public void Update()
     {
+        if (_player.CharacterAction != null || _dialogueManager.DialogueIsPlaying) return;
+        
         if (_player.ControllerConnected)
         {
             

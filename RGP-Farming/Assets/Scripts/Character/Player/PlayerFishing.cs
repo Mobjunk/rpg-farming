@@ -22,6 +22,8 @@ public class PlayerFishing : Singleton<PlayerFishing>
 
     public void StartFishing(AbstractFishingData pFishData, Vector3 pTilePosition)
     {
+        if (_characterManager.CharacterAction is FishingManager) return;
+        
         if (!_characterManager.CharacterInventory.HasItem(pFishData.baitRequired))
         {
             //Debug.Log("Player does not have the required bait.");

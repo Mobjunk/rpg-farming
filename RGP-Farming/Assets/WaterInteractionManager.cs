@@ -22,6 +22,7 @@ public class WaterInteractionManager : MonoBehaviour
         Vector3Int tileLocation = _waterTiles.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
         if (!Input.GetMouseButtonDown(0)) return;
+        
         if (CursorManager.Instance().IsPointerOverUIElement()) return;
         TileBase tileBase = _waterTiles.GetTile(tileLocation);
         if (tileBase == null) return;
