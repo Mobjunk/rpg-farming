@@ -22,7 +22,7 @@ public class TreeInteraction : ObjectInteractionManager
     {
         if (itemBarManager.IsWearingCorrectTool(ToolType.AXE))
         {
-            if (pCharacterManager.CharacterAction.GetType() == typeof(TreeInteractionAction))
+            if (pCharacterManager.CharacterAction != null && pCharacterManager.CharacterAction.GetType() == typeof(TreeInteractionAction))
             {
                 Debug.Log("This is a test!");
                 return;

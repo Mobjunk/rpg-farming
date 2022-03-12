@@ -44,9 +44,9 @@ public class BodyPartManager : MonoBehaviour
             Object[] sprites = Resources.LoadAll(path, typeof(Sprite));
             foreach (Object sprite in sprites)
             {
-                if (CachedSpritesManager.CachedSprites.Contains((Sprite) sprite)) continue;
+                if (CachedSpritesManager.AllSprites.Contains((Sprite) sprite)) continue;
                 
-                CachedSpritesManager.CachedSprites.Add((Sprite) sprite);
+                CachedSpritesManager.AllSprites.Add((Sprite) sprite);
             }
             CachedSpritesManager.LoadedPaths.Add(path);
         }

@@ -109,7 +109,12 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         int modifiedIndex = baseIndex + currentIndex;
         if (pBodyPart.RequiresMultiplier()) modifiedIndex += (totalFrames * multiplier);
         
-        Sprite sprite = CachedSpritesManager.GetSprite(fileName + "" + modifiedIndex);
+        Sprite sprite = CachedSpritesManager.GetCachedSprite(fileName + "" + modifiedIndex);
+        if (sprite == null)
+        {
+            sprite = CachedSpritesManager.GetSprite(fileName + "" + modifiedIndex);
+            CachedSpritesManager.CachedSprites.Add(sprite);
+        }
         if (sprite != null)
         {
             _spriteRenderer.sprite = sprite;
