@@ -11,6 +11,7 @@ public class DialogueManager : Singleton<DialogueManager>
     //FIFO
     private Player _player => Player.Instance();
     private Queue<string> _sentences;
+    private bool _textShown;
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _npcNameUI;
@@ -76,7 +77,7 @@ public class DialogueManager : Singleton<DialogueManager>
             else 
                 _sentences.Enqueue(sentence);
         }
-        DisplayNextLine();
+        DisplayNextLineTest();
     }
     //Start dialogue without a name.
     public void StartDialogue (string pSentence,string pName = "")
@@ -104,6 +105,27 @@ public class DialogueManager : Singleton<DialogueManager>
         StopAllCoroutines();
         //Start typing dialogue
         StartCoroutine(WriteSentence(sentence));      
+    }
+    public void DisplayNextLineTest()
+    {
+        _textShown = !_textShown;
+        if (_sentences.Count == 0)
+        {
+            EndDialogue();
+            return;
+        }
+        //Clear any running coroutines within the script.
+        StopAllCoroutines();
+        if (_textShown)
+        {
+            string sentence = _sentences.Peek();
+            StartCoroutine(WriteSentence(sentence));
+        }
+        else
+        {
+            string sentence = _sentences.Dequeue();
+            _sentencesUI.text = sentence;
+        }
     }
     void EndDialogue()
     {
