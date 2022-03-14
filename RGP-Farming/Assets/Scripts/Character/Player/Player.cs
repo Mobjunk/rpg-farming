@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterInventory), typeof(PlayerInvenotryUIManager), typeof(CharacterInteractionManager))]
-[RequireComponent(typeof(CharacterPlaceObject), typeof(CharacterUIManager))]
+[RequireComponent(typeof(CharacterPlaceObject), typeof(CharacterUIManager), typeof(PlayerAttackManager))]
 public class Player : CharacterManager
 {
     private ItemManager _itemManager => ItemManager.Instance();
@@ -28,6 +28,10 @@ public class Player : CharacterManager
         get => _itemAboveHead;
         set => _itemAboveHead = value;
     }
+
+    [SerializeField] private Transform[] _attackPoints;
+
+    public Transform[] AttackPoints => _attackPoints;
 
     [SerializeField] private SpriteRenderer _itemAboveHeadRenderer;
     public SpriteRenderer ItemAboveHeadRenderer => _itemAboveHeadRenderer;
@@ -63,6 +67,15 @@ public class Player : CharacterManager
 
     public PlayerFishing PlayerFishing => _playerFishing;
 
+    private PlayerAttackManager _playerAttackManager;
+
+    public PlayerAttackManager PlayerAttackManager => _playerAttackManager;
+
+    private CharacterEnergyManager _characterEnergyManager;
+
+    public CharacterEnergyManager CharacterEnergyManager => _characterEnergyManager;
+    
+
     /// <summary>
     /// Checks if a player has a controller connected
     /// </summary>
@@ -82,6 +95,8 @@ public class Player : CharacterManager
         _characterPlaceObject = GetComponent<CharacterPlaceObject>();
         _characterUIManager = GetComponent<CharacterUIManager>();
         _playerFishing = GetComponent<PlayerFishing>();
+        _playerAttackManager = GetComponent<PlayerAttackManager>();
+        _characterEnergyManager = GetComponent<CharacterEnergyManager>();
     }
 
     public override void Start()
@@ -134,6 +149,7 @@ public class Player : CharacterManager
         _characterInputManager.OnCharacterMovement += CharacterMovementMananger.Move;
         _characterInputManager.OnCharacterInteraction += _characterInteractionManager.OnCharacterInteraction;
         _characterInputManager.OnCharacterSecondaryInteraction += _characterInteractionManager.OnCharacterSecondaryInteraction;
+        _characterInputManager.OnCharacterAttack += _playerAttackManager.Attack;
         _inputEnabled = true;
     }
 
@@ -144,6 +160,7 @@ public class Player : CharacterManager
             _characterInputManager.OnCharacterMovement -= CharacterMovementMananger.Move;
             _characterInputManager.OnCharacterInteraction -= _characterInteractionManager.OnCharacterInteraction;
             _characterInputManager.OnCharacterSecondaryInteraction -= _characterInteractionManager.OnCharacterSecondaryInteraction;
+            _characterInputManager.OnCharacterAttack -= _playerAttackManager.Attack;
             _inputEnabled = false;
         } else SubscribeToInput();
     }
@@ -154,6 +171,7 @@ public class Player : CharacterManager
         _characterInventory.AddItem(_itemManager.ForName("Axe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Fishing bait"), 10, pShow: true);

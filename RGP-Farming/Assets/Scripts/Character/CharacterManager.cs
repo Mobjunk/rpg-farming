@@ -50,6 +50,8 @@ public class CharacterManager : MonoBehaviour
 
     public CharacterActionBubbles CharacterActionBubbles => _characterActionBubbles;
 
+    [SerializeField] private bool _stopAutoAdjustingBoxCollider;
+
     public virtual void Awake()
     {
         CharacterMovementMananger = GetComponent<CharacterMovementMananger>();
@@ -61,9 +63,12 @@ public class CharacterManager : MonoBehaviour
 
         //Handles setting the right offset and size for the boxcollider
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
-        
-        boxCollider.offset = new Vector2(0, 0);
-        boxCollider.size = new Vector2(0.4959272f, 0.1186142f);
+
+        if (!_stopAutoAdjustingBoxCollider)
+        {
+            boxCollider.offset = new Vector2(0, 0);
+            boxCollider.size = new Vector2(0.4959272f, 0.1186142f);
+        }
     }
     
     public virtual void Start()

@@ -25,6 +25,8 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 
     public void Move(Vector2 pDirection)
     {
+        if (_characterManager.CharacterAction != null && !_characterManager.CharacterAction.Interruptable()) return;
+        
         pDirection.Normalize();
 
         CurrentDirection = pDirection;
@@ -37,7 +39,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
             _animator.SetFloat("moveY", Mathf.Round(pDirection.y));
             //Make sure it resets the player action when moving
             //But only do this for players, not for npcs
-            if(_characterManager.GetType() == typeof(Player))
+            if(_characterManager is Player)
                 if (_characterStateManager.GetCharacterState() != CharacterStates.IDLE)
                 {
                     ResetSkillingAnimations();

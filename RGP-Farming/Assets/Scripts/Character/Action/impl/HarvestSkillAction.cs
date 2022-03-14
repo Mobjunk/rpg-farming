@@ -10,6 +10,7 @@ public abstract class HarvestSkillManager : CharacterAction
     
     public HarvestSkillManager(CharacterManager pCharacterManager) : base(pCharacterManager)
     {
+        pCharacterManager.CharacterMovementMananger.ResetMovement();
         _characterContractManager = pCharacterManager.GetComponent<CharacterContractManager>();
     }
 

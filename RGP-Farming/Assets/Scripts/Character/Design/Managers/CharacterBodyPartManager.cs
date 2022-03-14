@@ -97,6 +97,7 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         }
         if (action.Equals("IDLE") || carry_idle) totalFrames = 8;
         else if (action.Equals("WATERING")) totalFrames = 2;
+        else if (_characterStateManager.GetCharacterState().Equals(CharacterStates.FISHING_IDLE)) totalFrames = 5;
 
         
         string fileName = pBodyPart.GetFileName(action, !pBodyPart.bodyType.Equals(BodyType.BODY) ? 0 : pSkinColor);
@@ -108,11 +109,12 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         
         int modifiedIndex = baseIndex + currentIndex;
         if (pBodyPart.RequiresMultiplier()) modifiedIndex += (totalFrames * multiplier);
-        
-        Sprite sprite = CachedSpritesManager.GetCachedSprite(fileName + "" + modifiedIndex);
+
+        string realFileName = fileName + "" + modifiedIndex;
+        Sprite sprite = CachedSpritesManager.GetCachedSprite(realFileName);
         if (sprite == null)
         {
-            sprite = CachedSpritesManager.GetSprite(fileName + "" + modifiedIndex);
+            sprite = CachedSpritesManager.GetSprite(realFileName);
             CachedSpritesManager.CachedSprites.Add(sprite);
         }
         if (sprite != null)

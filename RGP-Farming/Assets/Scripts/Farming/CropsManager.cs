@@ -53,7 +53,7 @@ public class CropsManager : MonoBehaviour
 
     public void HandleInteraction()
     {
-        if (!_cropsGrowManager.ReadyToHarvest) return;
+        if (!_cropsGrowManager.ReadyToHarvest || _player.CharacterAction is HarvestCropsManager) return;
 
         Vector3Int tileLocation = CharacterPlaceObject.Instance().GetPlayerTileMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         _player.SetAction(new HarvestCropsManager(_player, tileLocation, gameObject, Crops.harvestedItem, _amountToYield));

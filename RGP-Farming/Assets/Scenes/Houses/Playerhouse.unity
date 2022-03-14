@@ -213,7 +213,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753395298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1321,7 +1321,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932514619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1489,7 +1489,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162428703}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2674,7 +2674,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460062373}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -4052,7 +4052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   houseName: Playerhouse
   TempPlayerPosition: {x: 0, y: 0}
-  Overworld: TestScene
+  Overworld: Main Level
   TempPlayerLocation: {x: -40.48, y: -8.1}
 --- !u!4 &2106599856
 Transform:
@@ -4543,6 +4543,10 @@ PrefabInstance:
     - target: {fileID: 4320685803064175499, guid: ff6b6badc90ac1347bccd0dfc9440b66, type: 3}
       propertyPath: m_SortingLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320685803064175499, guid: ff6b6badc90ac1347bccd0dfc9440b66, type: 3}
+      propertyPath: m_SortingOrder
+      value: -525
       objectReference: {fileID: 0}
     - target: {fileID: 4320685803064175499, guid: ff6b6badc90ac1347bccd0dfc9440b66, type: 3}
       propertyPath: m_SortingLayerID

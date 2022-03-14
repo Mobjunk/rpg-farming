@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBarManager : MonoBehaviour
 {
     private CharacterHealthManager _characterHealthManager;
 
-    [SerializeField] private RectTransform _healthBar;
+    [SerializeField] private Image _healthBar;
 
     private void Start()
     {
@@ -16,7 +17,8 @@ public class HealthBarManager : MonoBehaviour
     {
         int oneProcent = (_characterHealthManager.MaxHealth / 100);
         int currentProcent = (_characterHealthManager.CurrentHealth / oneProcent);
-        int realSize = Mathf.FloorToInt((54F / 100F) * currentProcent);
-        _healthBar.sizeDelta = new Vector2(_healthBar.sizeDelta.x, realSize);
+        float realSize = (1 / 100F) * currentProcent;
+        _healthBar.fillAmount = realSize;
+        //_healthBar.sizeDelta = new Vector2(_healthBar.sizeDelta.x, realSize);
     }
 }

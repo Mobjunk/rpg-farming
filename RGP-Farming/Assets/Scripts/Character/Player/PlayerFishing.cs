@@ -22,7 +22,7 @@ public class PlayerFishing : Singleton<PlayerFishing>
 
     public void StartFishing(AbstractFishingData pFishData, Vector3 pTilePosition)
     {
-        if (_characterManager.CharacterAction is FishingManager) return;
+        if (_characterManager.CharacterAction is FishingAction) return;
         
         if (!_characterManager.CharacterInventory.HasItem(pFishData.baitRequired))
         {
@@ -37,7 +37,7 @@ public class PlayerFishing : Singleton<PlayerFishing>
             return;
         }
         
-        _characterManager.SetAction(new FishingManager(_characterManager, pFishData, pTilePosition));
+        _characterManager.SetAction(new FishingAction(_characterManager, pFishData, pTilePosition));
     }
     
     public Vector3 GetStartingPosition()

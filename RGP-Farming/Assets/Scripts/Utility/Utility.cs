@@ -74,6 +74,7 @@ public static class Utility
         {
             case "pickaxe_swing":
             case "axe_swing":
+            case "sword_swing":
                 return 0.75f;
         }
         return (from clip in clips where clip.name.ToLower().Equals(pAnimationName.ToLower()) select clip.length).FirstOrDefault();
@@ -93,9 +94,9 @@ public static class Utility
         GameObject[] allObjects = activeScene.GetRootGameObjects();
         foreach (GameObject o in allObjects)
         {
-            if (o.name.Equals("---- Player -----")) continue;
-            if (o.name.Equals("---- Managers -----")) continue;
-            if (o.name.Equals("---- UI -----")) continue;
+            //if (o.name.Equals("---- Player -----")) continue;
+            //if (o.name.Equals("---- Managers -----")) continue;
+            //if (o.name.Equals("---- UI -----")) continue;
             o.SetActive(pActive);
         }
     }
