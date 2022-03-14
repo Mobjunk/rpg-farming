@@ -10,6 +10,8 @@ public class WaterInteractionManager : MonoBehaviour
     private Player _player => Player.Instance();
     private DialogueManager _dialogueManager => DialogueManager.Instance();
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
+    private CursorManager _cursorManager => CursorManager.Instance();
+    
 
     [SerializeField] private Grid _grid;
     [SerializeField] private Tilemap _waterTiles;
@@ -18,20 +20,30 @@ public class WaterInteractionManager : MonoBehaviour
 
     private void Update()
     {
-        //TODO: Add check if the player is wielding a fishing rod
         Vector3Int tileLocation = _waterTiles.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-        if (!Input.GetMouseButtonDown(0)) return;
         
-        if (CursorManager.Instance().IsPointerOverUIElement()) return;
         TileBase tileBase = _waterTiles.GetTile(tileLocation);
-        if (tileBase == null) return;
-        Debug.Log("name: " + tileBase.name);
-        if (!tileBase.name.Equals("WaterTile")) return;
-        if (!Utility.CanInteractWithTile(_grid, tileLocation, _player.TileChecker, 2)) return;
+        if (tileBase == null || !tileBase.name.Equals("WaterTile")) return;
+
+        bool canInteract = Utility.CanInteractWithTile(_grid, tileLocation, _player.TileChecker, 2);
+        
+        //_cursorManager.SetDefaultCursor();
+        
         if (!_itemBarManager.IsWearingCorrectTool(ToolType.FISHING_ROD)) return;
         
+        if (_cursorManager.IsPointerOverUIElement()) return;
+        
         List<AbstractFishingData> filteredFish = FilteredFish();
+        
+        //if (filteredFish.Count != 0) _cursorManager.SetUsableInteractionCursor();
+        //else if(canInteract) _cursorManager.SetNonUsableInteractionCursor();
+            
+        if (!Input.GetMouseButtonDown(0)) return;
+        
+        Debug.Log("name: " + tileBase.name);
+        
+        if (!canInteract) return;
+        
         if (filteredFish.Count != 0) _player.PlayerFishing.StartFishing(filteredFish[Random.Range(0, filteredFish.Count)], _waterTiles.GetCellCenterWorld(tileLocation));
         else _dialogueManager.StartDialogue("You do not have any bait to fish with.");
     }

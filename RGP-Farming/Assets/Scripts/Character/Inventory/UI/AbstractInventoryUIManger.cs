@@ -86,7 +86,6 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     /// </summary>
     public override void Open()
     {
-        Debug.Log("????");
         base.Open();
         if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem();
         IsOpened = true;

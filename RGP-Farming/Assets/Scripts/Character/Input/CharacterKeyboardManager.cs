@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
 {
+    private ItemBarManager _itemBarManager => ItemBarManager.Instance();
+    
     private CharacterManager _characterManager;
     
-    public event CharacterInputAction OnCharacterAttack = delegate {  };
+    public event CharacterInputActionAttack OnCharacterAttack = delegate {  };
     public event CharacterInputActionMove OnCharacterMovement = delegate {  };
     public event CharacterInteraction OnCharacterInteraction = delegate {  };
     public event CharacterSecondaryInteraction OnCharacterSecondaryInteraction = delegate {  };
@@ -17,11 +19,15 @@ public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0)) OnCharacterInteraction(_characterManager);
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (_itemBarManager.IsWearingCorrectTool(ToolType.SWORD)) OnCharacterAttack(_characterManager);
+            else OnCharacterInteraction(_characterManager);
+        }
         if(Input.GetMouseButtonDown(1)) OnCharacterSecondaryInteraction(_characterManager);
         //if(Input.GetMouseButtonDown(0)) OnCharacterAttack();
         //if (Input.GetKeyDown(KeyCode.F)) OnCharacterInteraction(characterManager);
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !DialogueManager.Instance().DialogueIsPlaying)
         {
             Player player = (Player) _characterManager;
             

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FishingManager : HarvestSkillManager
+public class FishingAction : HarvestSkillManager
 {
     private DialogueManager _dialogueManager => DialogueManager.Instance();
 
@@ -16,9 +16,10 @@ public class FishingManager : HarvestSkillManager
     private bool _startedFishing = false;
     private float fishOnHookTimer;
     private float _animationTimePassed;
+
+    private bool _interuptable;
     
-    
-    public FishingManager(CharacterManager pCharacterManager, AbstractFishingData pFishingData, Vector3 pTilePosition) : base(pCharacterManager)
+    public FishingAction(CharacterManager pCharacterManager, AbstractFishingData pFishingData, Vector3 pTilePosition) : base(pCharacterManager)
     {
         _abstractFishingData = pFishingData;
         _tilePosition = pTilePosition;
@@ -41,10 +42,23 @@ public class FishingManager : HarvestSkillManager
                 Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing_idle", true);
         
                 CharacterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.WAITING);
+
+                if (CharacterManager is Player player)
+                    player.CharacterEnergyManager.RemoveEnergy(2.5f);
+
                 _startedFishing = true;
             }
         }
-        else if(!_fishOnTheHook && _startedFishing) base.Update();
+        else if (!_fishOnTheHook && _startedFishing)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameObject.Destroy(_drawFishingLine.gameObject);
+                _interuptable = true;
+                CharacterManager.SetAction(null);
+            }
+            base.Update();
+        }
         else
         {
             fishOnHookTimer += Time.deltaTime;
@@ -57,6 +71,7 @@ public class FishingManager : HarvestSkillManager
                     _dialogueManager.StartDialogue($"You have caught a {_abstractFishingData.fish.itemName}.");
                 }
                 GameObject.Destroy(_drawFishingLine.gameObject);
+                _interuptable = true;
                 CharacterManager.SetAction(null);
             } else if (fishOnHookTimer >= 5f)
             {
@@ -67,6 +82,7 @@ public class FishingManager : HarvestSkillManager
                 }
 
                 GameObject.Destroy(_drawFishingLine.gameObject);
+                _interuptable = true;
                 CharacterManager.SetAction(null);
             }
         }
@@ -117,11 +133,17 @@ public class FishingManager : HarvestSkillManager
             _dialogueManager.StartDialogue("The bait fell off your hook.");
         }
         GameObject.Destroy(_drawFishingLine.gameObject);
+        _interuptable = true;
     }
 
     public override void OnStop()
     {
         base.OnStop();
         GameObject.Destroy(_drawFishingLine.gameObject);
+    }
+
+    public override bool Interruptable()
+    {
+        return _interuptable;
     }
 }
