@@ -11,7 +11,8 @@ public class DialogueManager : Singleton<DialogueManager>
     //FIFO
     private Player _player => Player.Instance();
     private Queue<string> _sentences;
-    private bool _textShown;
+    public bool _textShown;
+    public bool _lettersShown;
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _npcNameUI;
@@ -30,20 +31,7 @@ public class DialogueManager : Singleton<DialogueManager>
     void Start()
     {
         _sentences = new Queue<string>();
-    }
-    
-    /*public void TestDialogue()
-    {
-        string[] tester = Split(text, 25, true).ToArray();
-
-        
-        foreach (string line in tester)
-        {
-            Debug.Log(line);
-        }
-    }*/
-
-    //TODO %p , aanpassen naar de player naam. Dan komt overal de playernaam automatisch te staan.
+    }   
     public void StartDialogue(Dialogue pDialogue, Npc pNpc = null)
     {
         _sentenceBox.SetActive(true);
@@ -77,7 +65,7 @@ public class DialogueManager : Singleton<DialogueManager>
             else 
                 _sentences.Enqueue(sentence);
         }
-        DisplayNextLineTest();
+        DisplayNextLine();
     }
     //Start dialogue without a name.
     public void StartDialogue (string pSentence,string pName = "")
@@ -89,42 +77,58 @@ public class DialogueManager : Singleton<DialogueManager>
             _player.CharacterMovementMananger.ResetMovement();
         }
         _sentenceBox.SetActive(true);
+
         StartCoroutine(WriteSentence(pSentence));
         if (!pName.Equals("")) { _npcNameUI.text = pName; _nameBox.SetActive(true); } 
     }
-    public void DisplayNextLine()
+    public void StartDialogueTEST(string pSentence, string pName = "")
     {
-        if (_sentences.Count == 0)
+        DialogueIsPlaying = true;
+        if (_player.InputEnabled)
         {
-            EndDialogue();
-            return;
+            _player.ToggleInput();
+            _player.CharacterMovementMananger.ResetMovement();
         }
-        string sentence = _sentences.Dequeue();
-
-        //Clear any running coroutines within the script.
-        StopAllCoroutines();
-        //Start typing dialogue
-        StartCoroutine(WriteSentence(sentence));      
-    }
-    public void DisplayNextLineTest()
-    {
-        _textShown = !_textShown;
-        if (_sentences.Count == 0)
+        if (pSentence.Length > maxCharacters)
         {
-            EndDialogue();
-            return;
-        }
-        //Clear any running coroutines within the script.
-        StopAllCoroutines();
-        if (_textShown)
-        {
-            string sentence = _sentences.Peek();
-            StartCoroutine(WriteSentence(sentence));
+            //Split the string up in substrings.
+            string[] subSentences = Split(pSentence, maxCharacters, true).ToArray();
+            foreach (string subSentence in subSentences)
+            {
+                _sentences.Enqueue(subSentence);
+            }
         }
         else
         {
+            _sentences.Enqueue(pSentence);
+        }
+
+        _sentenceBox.SetActive(true);
+
+        DisplayNextLine();
+     
+        if (!pName.Equals("")) { _npcNameUI.text = pName; _nameBox.SetActive(true); }
+    }
+    public void DisplayNextLine()
+    {      
+        if (_sentences.Count == 0)
+        {
+            EndDialogue();
+            return;
+        }
+        //Clear any running coroutines within the script.
+        StopAllCoroutines();
+
+        if (!_textShown)
+        {
+            string sentence = _sentences.Peek();
+            StartCoroutine(WriteSentence(sentence));           
+        }
+        else 
+        {
             string sentence = _sentences.Dequeue();
             _sentencesUI.text = sentence;
+            _textShown = false;
         }
     }
     void EndDialogue()
@@ -144,6 +148,7 @@ public class DialogueManager : Singleton<DialogueManager>
     //Slowly types text instead of instantly showing.
     IEnumerator WriteSentence (string pSentence)
     {
+        _textShown = true;
         _sentencesUI.text = ""; 
         foreach (char letter in pSentence.ToCharArray())
         {
@@ -152,8 +157,9 @@ public class DialogueManager : Singleton<DialogueManager>
             float speed = TextSpeed / (TextSpeed * TextSpeed);
             yield return new WaitForSeconds(speed);
         }
+        _textShown = false;
+        _sentences.Dequeue();
     }
-    
     static IEnumerable<string> Split(string pOrgString, int pChunkSize, bool pWholeWords = true)
     {
         if (pWholeWords)
