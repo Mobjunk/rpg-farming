@@ -12,6 +12,9 @@ public abstract class CharacterAction : ICharacterAction
         set => characterManager = value;
     }
 
+    public float AnimationTime;
+    public float TimeRequired;
+
     public abstract CharacterStates GetCharacterState();
 
     public CharacterAction(CharacterManager pCharacterManager)
@@ -24,20 +27,22 @@ public abstract class CharacterAction : ICharacterAction
     {
         if (!GetCharacterState().Equals(CharacterStates.NONE))
             _characterStateManager.SetCharacterState(GetCharacterState());
+
+        AnimationTime += Time.deltaTime;
+        if (AnimationTime >= TimeRequired) OnEndReached();
     }
 
-    public virtual void OnStart()
-    {
-        
-    }
+    public virtual void OnStart() { }
 
     public virtual void OnStop()
     {
-        Debug.LogError("Stopped the character action...");
+        //Debug.LogError("Stopped the character action...");
     }
 
     public virtual bool Interruptable()
     {
         return true;
     }
+
+    public virtual void OnEndReached() { }
 }
