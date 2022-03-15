@@ -18,6 +18,8 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 
     [SerializeField] private Tilemap[] _tilemapsToCheck;
 
+    [SerializeField] private Tilemap _playerDirtTiles;
+
     public Tilemap GetPlayerTileMap => _tilemapsToCheck[2];
     
     [SerializeField] private Tile _canPlace;
@@ -74,14 +76,22 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 {
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
 
-                    bool hasTile = false; //_tileMaps[1].GetTile(currentTile) != null;
+                    bool hasTile = false;
 
-                    foreach (Tilemap tilemap in _tilemapsToCheck)
+                    if (placeableItem.GetType() == typeof(AbstractPlantData))
                     {
-                        if (tilemap.GetTile(currentTile) != null)
+                        canPlaceObject = _playerDirtTiles.GetTile(currentTile) != null;
+                        hasTile = GetPlayerTileMap.GetTile(currentTile) != null;
+                    }
+                    else
+                    {
+                        foreach (Tilemap tilemap in _tilemapsToCheck)
                         {
-                            hasTile = true;
-                            break;
+                            if (tilemap.GetTile(currentTile) != null)
+                            {
+                                hasTile = true;
+                                break;
+                            }
                         }
                     }
 
@@ -96,8 +106,6 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             //Checks if you are trying to plant a crop on anything other then dirt
             if (placeableItem.GetType() == typeof(AbstractPlantData) && !_tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
             
-            Debug.Log("1");
-            
             //Handles removing the item from the inventory
             _player.CharacterInventory.RemoveItem(placeableItem);
             //Checks if the player still has the item it has to remove
@@ -109,7 +117,6 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 ItemBarManager.Instance().ItemDisplayer.gameObject.SetActive(false);
                 ItemSnapperManager.Instance().ResetSnappedItem();
             }
-            Debug.Log("2");
 
             for (int width = 0; width < placeableItem.width; width++)
             {
@@ -121,7 +128,6 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                     
                 }
             }
-            Debug.Log("3");
 
             Vector3 position = GetPlayerTileMap.GetCellCenterWorld(tilePosition);
             float additionalX = 0;//0.005f * ((placeableItem.uiSprite.bounds.size.x * 100) - 16);

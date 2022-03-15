@@ -58,11 +58,11 @@ public class CropsGrowManager : MonoBehaviour
         {
             if (!PlantHasDied())
             {
-                if (_currentCropCycle < _crops.spriteStages.Length)
+                if (_currentCropCycle < _crops.growStages.Length)
                 {
                     _cropsManager.SpriteRenderer.sprite = _crops.growStages[++_currentCropCycle].Sprite;
                 }
-                if (_currentCropCycle == _crops.spriteStages.Length - 1 && !_readyToHarvest)
+                if (_currentCropCycle == _crops.growStages.Length - 1 && !_readyToHarvest)
                 {
                     _cropsManager.AmountToYield = Random.Range(_crops.harvestAmount - _crops.harvestModifier, _crops.harvestAmount + _crops.harvestModifier);
                     _readyToHarvest = true;
