@@ -11,6 +11,9 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 
     [SerializeField] private GameObject[] _tileChecker;
     [SerializeField] private Grid _grid;
+
+    public Grid Grid => _grid;
+    
     [SerializeField] private Tilemap _hoverTilemap;
 
     [SerializeField] private Tilemap[] _tilemapsToCheck;

@@ -9,6 +9,9 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
     [SerializeField] private CharacterManager _characterManager;
     [SerializeField] private CharacterStateManager _characterStateManager;
     [SerializeField] private float _movementSpeed = 0.65f;
+
+    public float MovementSpeed => _movementSpeed;
+    
     private Rigidbody2D _rigidBody2D;
     private Animator _animator;
     private HeightBasedSorting _sorting;
@@ -35,8 +38,8 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 
         if (!pDirection.Equals(Vector2.zero))
         {
-            _animator.SetFloat("moveX", Mathf.Round(pDirection.x));
-            _animator.SetFloat("moveY", Mathf.Round(pDirection.y));
+            //_animator.SetFloat("moveX", Mathf.Round(pDirection.x));
+            //_animator.SetFloat("moveY", Mathf.Round(pDirection.y));
             //Make sure it resets the player action when moving
             //But only do this for players, not for npcs
             if(_characterManager is Player)
@@ -48,7 +51,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
                 }
         }
 
-        _animator.SetBool("moving", !pDirection.Equals(Vector2.zero));
+        //_animator.SetBool("moving", !pDirection.Equals(Vector2.zero));
         
         _sorting.UpdateOrder();
     }

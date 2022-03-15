@@ -10,7 +10,7 @@ public class EnemyManager : Npc
     {
         base.Awake();
         
-        SetAction(new RandomMovementAction(this));
+        //SetAction(new RandomMovementAction(this));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
