@@ -42,6 +42,7 @@ public class DoorInteraction : InteractionManager
 
         Debug.Log(TempPlayerPosition);
 
+        
     }
-
+    
 }
