@@ -66,22 +66,8 @@ public class DialogueManager : Singleton<DialogueManager>
                 _sentences.Enqueue(sentence);
         }
         DisplayNextLine();
-    }
-    //Start dialogue without a name.
-    public void StartDialogue (string pSentence,string pName = "")
-    {
-        DialogueIsPlaying = true;
-        if (_player.InputEnabled)
-        {
-            _player.ToggleInput();
-            _player.CharacterMovementMananger.ResetMovement();
-        }
-        _sentenceBox.SetActive(true);
-
-        StartCoroutine(WriteSentence(pSentence));
-        if (!pName.Equals("")) { _npcNameUI.text = pName; _nameBox.SetActive(true); } 
-    }
-    public void StartDialogueTEST(string pSentence, string pName = "")
+    }  
+    public void StartDialogue(string pSentence, string pName = "")
     {
         DialogueIsPlaying = true;
         if (_player.InputEnabled)

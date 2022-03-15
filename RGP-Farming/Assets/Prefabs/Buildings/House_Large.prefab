@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 2441749200057379523}
   - component: {fileID: 865892026}
   - component: {fileID: 865892027}
+  - component: {fileID: 1384862681531742115}
   m_Layer: 0
   m_Name: House_Large
   m_TagString: Untagged
@@ -251,7 +252,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 800
+  m_SortingOrder: 0
 --- !u!114 &865892027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +269,19 @@ MonoBehaviour:
   _positionScaling: -100
   _offset: 0
   _skip: 0
+--- !u!114 &1384862681531742115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441749200057379522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f01709383053e46908e0ec8b6b51b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionManager: {fileID: 0}
 --- !u!1 &2441749200416327746
 GameObject:
   m_ObjectHideFlags: 0
