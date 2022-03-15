@@ -9,6 +9,7 @@ public class TilePlacer : Singleton<TilePlacer>
 {
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
     private Player _player => Player.Instance();
+    private TileHover _tileHover => TileHover.Instance();
 
     public Tilemap PlayerDirtTiles;
     public Tilemap TilesGrass;
@@ -23,7 +24,7 @@ public class TilePlacer : Singleton<TilePlacer>
     {
         _mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         _location = PlayerDirtTiles.WorldToCell(_mp);
-        if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && Utility.CanInteractWithTile(Grid, _location, _player.TileChecker))
+        if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && CanInteractWithTile(Grid, _location, _player.TileChecker))
         {
             PlaceWaterTile();
             PlaceDirtTile();
@@ -32,13 +33,13 @@ public class TilePlacer : Singleton<TilePlacer>
     }
     public void PlaceDirtTile()
     {
-        if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == null && _itemBarManager.IsWearingCorrectTool(ToolType.HOE))
+        if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == null && _itemBarManager.IsWearingCorrectTool(ToolType.HOE) && _tileHover.CanInteractNow)
             _player.SetAction(new TileInteractionAction(_player, "hoe", PlayerDirtTiles, _location, DirtTile));
     }
 
     public void RemoveDirtTile()
     {
-        if ((PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile || PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == WateredDirtTile) && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null)
+        if ((PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile || PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == WateredDirtTile) && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null && _tileHover.CanInteractNow)
             _player.SetAction(new TileInteractionAction(_player, "pickaxe_swing", PlayerDirtTiles, _location, null));
     }
     

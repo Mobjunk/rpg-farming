@@ -217,6 +217,27 @@ public static class Utility
         }
         return new int[] { pX, pY };
     }
+    
+    
+    public static int[] GetPositionForBasicDirection(int pX, int pY, int pDir)
+    {
+        switch (pDir)
+        {
+            case 0: //North
+                pY++;
+                break;
+            case 1: //East
+                pX++;
+                break;
+            case 2: //South
+                pY--;
+                break;
+            case 3: //West
+                pX--;
+                break;
+        }
+        return new int[] { pX, pY };
+    }
 }
 
 public enum AnchorsPresets

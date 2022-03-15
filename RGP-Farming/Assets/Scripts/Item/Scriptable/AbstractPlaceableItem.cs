@@ -8,4 +8,6 @@ public class AbstractPlaceableItem : AbstractItemData
     [Header("Settings")]
     public int width = 1;
     public int height = 1;
+
+    public bool walkable = false;
 }

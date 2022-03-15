@@ -30,7 +30,7 @@ public class CharacterContractManager : MonoBehaviour
 
     public void HandleContractDevelopment(AbstractItemData pItemData)
     {
-        foreach (var contract in _contractsInProgress.Where(contract => contract != null).Where(contract => contract.AbstractContractData.linkedItem.Equals(pItemData)))
+        foreach (Contract contract in _contractsInProgress.Where(contract => contract != null).Where(contract => contract.AbstractContractData.linkedItem.Equals(pItemData)))
         {
             contract.CompletedAmount++;
             Debug.Log($"{contract.CompletedAmount}/{contract.RequiredAmount} progress of the {contract.AbstractContractData.name} contract");

@@ -29,7 +29,7 @@ public class Npc : CharacterManager
 
             if (_npcData.randomWalking)
             {
-                SetAction(new RandomMovementManager(this));
+                SetAction(new RandomMovementAction(this));
             }
         }
     }

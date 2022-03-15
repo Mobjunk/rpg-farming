@@ -11,9 +11,14 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 
     [SerializeField] private GameObject[] _tileChecker;
     [SerializeField] private Grid _grid;
+
+    public Grid Grid => _grid;
+    
     [SerializeField] private Tilemap _hoverTilemap;
 
     [SerializeField] private Tilemap[] _tilemapsToCheck;
+
+    [SerializeField] private Tilemap _playerDirtTiles;
 
     public Tilemap GetPlayerTileMap => _tilemapsToCheck[2];
     
@@ -64,21 +69,29 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
         {
             placeableItem = (AbstractPlaceableItem) _player.ItemAboveHead.Item;
             if (placeableItem == null) placeableItem = (AbstractPlantData) _player.ItemAboveHead.Item;
-            
+
             for (int width = 0; width < placeableItem.width; width++)
             {
                 for (int height = 0; height < placeableItem.height; height++)
                 {
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
 
-                    bool hasTile = false; //_tileMaps[1].GetTile(currentTile) != null;
+                    bool hasTile = false;
 
-                    foreach (Tilemap tilemap in _tilemapsToCheck)
+                    if (placeableItem.GetType() == typeof(AbstractPlantData))
                     {
-                        if (tilemap.GetTile(currentTile) != null)
+                        canPlaceObject = _playerDirtTiles.GetTile(currentTile) != null;
+                        hasTile = GetPlayerTileMap.GetTile(currentTile) != null;
+                    }
+                    else
+                    {
+                        foreach (Tilemap tilemap in _tilemapsToCheck)
                         {
-                            hasTile = true;
-                            break;
+                            if (tilemap.GetTile(currentTile) != null)
+                            {
+                                hasTile = true;
+                                break;
+                            }
                         }
                     }
 
@@ -111,6 +124,8 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 {
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
                     GetPlayerTileMap.SetTile(currentTile, _occupiedTile);
+                    GridManager.Instance().UpdateGrid(new Vector2(currentTile.x, currentTile.y), placeableItem.walkable);
+                    
                 }
             }
 
