@@ -34,12 +34,12 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 
         CurrentDirection = pDirection;
 
-        _rigidBody2D.MovePosition((Vector2)transform.position + (pDirection * _movementSpeed));
+        _rigidBody2D.MovePosition((Vector2) transform.position + (pDirection * _movementSpeed));
 
         if (!pDirection.Equals(Vector2.zero))
         {
-            //_animator.SetFloat("moveX", Mathf.Round(pDirection.x));
-            //_animator.SetFloat("moveY", Mathf.Round(pDirection.y));
+            _animator.SetFloat("moveX", Mathf.Round(pDirection.x));
+            _animator.SetFloat("moveY", Mathf.Round(pDirection.y));
             //Make sure it resets the player action when moving
             //But only do this for players, not for npcs
             if(_characterManager is Player)
@@ -51,7 +51,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
                 }
         }
 
-        //_animator.SetBool("moving", !pDirection.Equals(Vector2.zero));
+        _animator.SetBool("moving", !pDirection.Equals(Vector2.zero));
         
         _sorting.UpdateOrder();
     }

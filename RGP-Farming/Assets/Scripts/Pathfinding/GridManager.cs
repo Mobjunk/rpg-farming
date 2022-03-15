@@ -5,11 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : Singleton<GridManager>
 {
+    private Player _player => Player.Instance();
+    
     [SerializeField] private bool _drawGizmos;
     [SerializeField] private Grid _unityGrid;
     public Grid UnityGrid => _unityGrid;
-    
-    [SerializeField] private Transform _playerTransform;
 
     [SerializeField] private Tilemap[] _allTilemaps;
     
@@ -54,7 +54,8 @@ public class GridManager : Singleton<GridManager>
                 {
                     if (tilemap.HasTile(tilePos))
                     {
-                        walkable = false;
+                        TileBase tile = tilemap.GetTile(tilePos);
+                        walkable = tile.name.Equals("Walkable (not placeable)");
                         break;
                     }
                 }
@@ -87,28 +88,56 @@ public class GridManager : Singleton<GridManager>
     {
         List<Node> neighbours = new List<Node>();
 
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                if (x == 0 && y == 0) continue;
+        if (pStopDiagonal)
+        {
+            for (int dir = 0; dir < 4; dir++)
+            {
+                int[] pos = Utility.GetPositionForBasicDirection(pCurrentNode.GridX, pCurrentNode.GridY, dir);
 
-                int checkX = pCurrentNode.GridX + x;
-                int checkY = pCurrentNode.GridY + y;
+                int checkX = pCurrentNode.GridX + pos[0];
+                int checkY = pCurrentNode.GridY + pos[1];
 
-                if (checkX >= 0 && checkX < _gridSizeX && checkY >= 0 && checkY < _gridSizeY) {
-                    neighbours.Add(_gridArray[checkX,checkY]);
+                if (checkX >= 0 && checkX < _gridSizeX && checkY >= 0 && checkY < _gridSizeY)
+                    neighbours.Add(_gridArray[checkX, checkY]);
+            }
+        }
+        else
+        {
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (x == 0 && y == 0) continue;
+
+                    int checkX = pCurrentNode.GridX + x;
+                    int checkY = pCurrentNode.GridY + y;
+
+                    if (checkX >= 0 && checkX < _gridSizeX && checkY >= 0 && checkY < _gridSizeY)
+                        neighbours.Add(_gridArray[checkX, checkY]);
                 }
             }
         }
 
         return neighbours;
     }
+
+    public Vector2[] Waypoints;
     
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, GridWorldSize);
         if (_gridArray != null && _drawGizmos)
         {
-            Vector3Int vector3Int = _unityGrid.WorldToCell(_playerTransform.position);
+            if (Waypoints != null)
+            {
+                foreach (Vector2 pos in Waypoints)
+                {
+                    Gizmos.color = Color.black;
+                    Gizmos.DrawCube(pos, Vector2.one);
+                }
+            }
+
+            Vector3Int vector3Int = _unityGrid.WorldToCell(_player.transform.position);
             Node playerNode = GetNodeFromPosition(new Vector2(vector3Int.x, vector3Int.y));
             foreach (Node node in _gridArray)
             {

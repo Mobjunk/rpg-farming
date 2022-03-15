@@ -8,13 +8,13 @@ public class PathRequestManager : Singleton<PathRequestManager>
 
     private PathRequest _currentPathRequest;
 
-    private PathFinderManager _pathFinderManager;
+    private PathfinderManager _pathfinderManager;
 
     private bool _isProcessingPath;
 
     private void Awake()
     {
-        _pathFinderManager = GetComponent<PathFinderManager>();
+        _pathfinderManager = GetComponent<PathfinderManager>();
     }
 
     public void RequestPath(Vector3 pPathStart, Vector3 pPathEnd, Action<Vector2[], bool> pCallback)
@@ -31,7 +31,7 @@ public class PathRequestManager : Singleton<PathRequestManager>
         {
             _currentPathRequest = _pathRequestQueue.Dequeue();
             _isProcessingPath = true;
-            //_pathFinderManager.StartFindPath(_currentPathRequest.PathStart, _currentPathRequest.PathEnd);
+            _pathfinderManager.StartFindPath(_currentPathRequest.PathStart, _currentPathRequest.PathEnd);
         }
     }
 

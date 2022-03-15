@@ -5,17 +5,26 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    private PathFinderManager _pathFinderManager => PathFinderManager.Instance();
+    private PathfinderManager _pathfinderManager => PathfinderManager.Instance();
+
+    [SerializeField] private Animator _animator;
     
     public float MovementSpeed;
     public Transform Target;
     private Vector2[] _path;
-    private int _targetIndex;
+    private int _waypoint;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        Application.targetFrameRate = 60;
+    }
 
     public void Test()
     {
-        Vector3Int posA = _pathFinderManager.GetWorldToCell(transform.position);
-        Vector3Int posB = _pathFinderManager.GetWorldToCell(Target.position);
+        Vector3Int posA = _pathfinderManager.GetWorldToCell(transform.position);
+        Vector3Int posB = _pathfinderManager.GetWorldToCell(Target.position);
+        
         PathRequestManager.Instance().RequestPath(posA, posB, OnPathFound);
     }
 
@@ -23,11 +32,13 @@ public class Unit : MonoBehaviour
     {
         if (pPathSuccesful)
         {
+            _waypoint = 0;
             _path = pPath;
-            Debug.Log("_path: " + _path.Length);
+            Debug.Log("_path length: " + _path.Length);
             StopCoroutine("FollowPath");
             StartCoroutine("FollowPath");
         }
+        else _path = null;
     }
 
     private IEnumerator FollowPath()
@@ -38,13 +49,33 @@ public class Unit : MonoBehaviour
         {
             if ((Vector2)transform.position == currentWayPoint)
             {
-                _targetIndex++;
-                if (_targetIndex >= _path.Length) yield break;
+                _waypoint++;
+                if (_waypoint >= _path.Length)
+                {
+                    _waypoint = 0;
+                    _path = null;
+                    yield break;
+                }
 
-                currentWayPoint = _path[_targetIndex];
+                currentWayPoint = _path[_waypoint];
             }
 
+            Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
+            Vector2 moveDir = (currentWayPoint - currentPosition);
+
+            int x = moveDir.x < 0 ? -1 : moveDir.x > 0 ? 1 : 0;
+            int y = moveDir.y < 0 ? -1 : moveDir.y > 0 ? 1 : 0;
+            
+            
             transform.position = Vector2.MoveTowards (transform.position, currentWayPoint, MovementSpeed * Time.deltaTime);
+
+            if (!moveDir.Equals(Vector2.zero) && _animator != null && _animator.enabled)
+            {
+                _animator.SetFloat("moveX", x);
+                _animator.SetFloat("moveY", y);
+                _animator.SetBool("moving", !moveDir.Equals(Vector2.zero));
+            }
+
             yield return null;
         }
     }
@@ -53,12 +84,12 @@ public class Unit : MonoBehaviour
     {
         if (_path != null)
         {
-            for (int index = _targetIndex; index < _path.Length; index++)
+            for (int index = _waypoint; index < _path.Length; index++)
             {
                 Gizmos.color = Color.black;
                 Gizmos.DrawWireCube(_path[index], Vector2.one);
 
-                if (index == _targetIndex) Gizmos.DrawLine(transform.position, _path[index]);
+                if (index == _waypoint) Gizmos.DrawLine(transform.position, _path[index]);
                 else Gizmos.DrawLine(_path[index - 1], _path[index]);
             }
         }

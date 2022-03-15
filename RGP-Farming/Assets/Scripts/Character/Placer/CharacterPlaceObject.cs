@@ -67,7 +67,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
         {
             placeableItem = (AbstractPlaceableItem) _player.ItemAboveHead.Item;
             if (placeableItem == null) placeableItem = (AbstractPlantData) _player.ItemAboveHead.Item;
-            
+
             for (int width = 0; width < placeableItem.width; width++)
             {
                 for (int height = 0; height < placeableItem.height; height++)
@@ -96,6 +96,8 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             //Checks if you are trying to plant a crop on anything other then dirt
             if (placeableItem.GetType() == typeof(AbstractPlantData) && !_tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
             
+            Debug.Log("1");
+            
             //Handles removing the item from the inventory
             _player.CharacterInventory.RemoveItem(placeableItem);
             //Checks if the player still has the item it has to remove
@@ -107,6 +109,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 ItemBarManager.Instance().ItemDisplayer.gameObject.SetActive(false);
                 ItemSnapperManager.Instance().ResetSnappedItem();
             }
+            Debug.Log("2");
 
             for (int width = 0; width < placeableItem.width; width++)
             {
@@ -114,8 +117,11 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 {
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
                     GetPlayerTileMap.SetTile(currentTile, _occupiedTile);
+                    GridManager.Instance().UpdateGrid(new Vector2(currentTile.x, currentTile.y), placeableItem.walkable);
+                    
                 }
             }
+            Debug.Log("3");
 
             Vector3 position = GetPlayerTileMap.GetCellCenterWorld(tilePosition);
             float additionalX = 0;//0.005f * ((placeableItem.uiSprite.bounds.size.x * 100) - 16);

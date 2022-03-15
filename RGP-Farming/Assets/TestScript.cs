@@ -11,17 +11,22 @@ public class TestScript : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     [SerializeField] private Vector2 _objectSize;
+
+    [HideInInspector] public Vector3Int TilePosition;
     
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Vector2 spriteSize = _spriteRenderer.sprite.bounds.size;
-        //Debug.Log(transform.name + " " + spriteSize);
+        
+        TilePosition = _player.CharacterPlaceObject.Grid.WorldToCell(transform.position);
 
-        Vector3Int tilePos = _player.CharacterPlaceObject.Grid.WorldToCell(transform.position);
-        //TileBase tile = _player.CharacterPlaceObject.GetPlayerTileMap.GetTile(tilePos);
+        UpdateGrid();
+    }
 
-        _player.CharacterPlaceObject.GetPlayerTileMap.SetTile(tilePos, _occupiedTile);
-        GridManager.Instance().UpdateGrid(new Vector2(tilePos.x, tilePos.y), false);
+    public void UpdateGrid(bool pWalkable = false)
+    {
+        _player.CharacterPlaceObject.GetPlayerTileMap.SetTile(TilePosition, pWalkable ? null : _occupiedTile);
+        GridManager.Instance().UpdateGrid(new Vector2(TilePosition.x, TilePosition.y), pWalkable);
     }
 }
