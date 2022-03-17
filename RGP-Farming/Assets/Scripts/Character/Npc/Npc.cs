@@ -22,6 +22,7 @@ public class Npc : CharacterManager
         base.Awake();
 
         _animator = GetComponent<Animator>();
+        
         _renderingObject = transform.GetChild(0).gameObject;
         
         if (_npcData != null)

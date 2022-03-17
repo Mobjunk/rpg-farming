@@ -7,12 +7,10 @@ using UnityEngine;
 public class PathfinderManager : Singleton<PathfinderManager>
 {
     private GridManager _grid;
-    private PathRequestManager _pathRequestManager;
 
     private void Awake()
     {
         _grid = GetComponent<GridManager>();
-        _pathRequestManager = GetComponent<PathRequestManager>();
     }
 
     public Vector3Int GetWorldToCell(Vector3 pPos)
@@ -20,7 +18,7 @@ public class PathfinderManager : Singleton<PathfinderManager>
         return _grid.UnityGrid.WorldToCell(pPos);
     }
     
-    public IEnumerator FindPath(Vector3 pStartPos, Vector3 pTargetPos)
+    public Vector2[] FindPath(Vector3 pStartPos, Vector3 pTargetPos)
     {
         Vector3Int startPos = _grid.UnityGrid.WorldToCell(pStartPos);
         Vector3Int targetPos = _grid.UnityGrid.WorldToCell(pTargetPos);
@@ -74,12 +72,13 @@ public class PathfinderManager : Singleton<PathfinderManager>
             }
         }
 
-        yield return null;
+        //yield return null;
         
         if (wasSuccesful) waypoints = RetracePath(startNode, targetNode);
         else _grid.Waypoints = null;
-        
-        _pathRequestManager.FinishedProcessingPath(waypoints, wasSuccesful);
+
+        return waypoints;
+        //_pathRequestManager.FinishedProcessingPath(waypoints, wasSuccesful);
     }
     
     private bool CheckDiagonal(Node currentNode, Node neighbour, List<Node> neighbours) {
@@ -156,10 +155,5 @@ public class PathfinderManager : Singleton<PathfinderManager>
         if (dstX > dstY) return 14 * dstY + 10 * (dstX - dstY);
         
         return 14 * dstX + 10 * (dstY - dstX);
-    }
-
-    public void StartFindPath(Vector2 pPathStart, Vector2 pPathEnd)
-    {
-        StartCoroutine(FindPath(pPathStart,pPathEnd));
     }
 }

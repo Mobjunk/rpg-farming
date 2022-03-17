@@ -86,6 +86,8 @@ public class Player : CharacterManager
     {
         base.Awake();
 
+        Application.targetFrameRate = 60;
+
         _intsance = this;
 
         _characterInteractionManager = GetComponent<CharacterInteractionManager>();

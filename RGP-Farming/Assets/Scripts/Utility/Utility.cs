@@ -74,8 +74,13 @@ public static class Utility
         {
             case "pickaxe_swing":
             case "axe_swing":
-            case "sword_swing":
                 return 0.75f;
+            case "sword_swing":
+                return 0.65f;
+            case "attacking":
+                return 0.35f;
+            case "death":
+                return 0.5f;
         }
         return (from clip in clips where clip.name.ToLower().Equals(pAnimationName.ToLower()) select clip.length).FirstOrDefault();
     }

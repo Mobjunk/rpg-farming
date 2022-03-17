@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class HealthManager : MonoBehaviour
+public abstract class HealthManager : MonoBehaviour
 {
 
     public delegate void OnHealthChanged();
@@ -26,7 +26,7 @@ public class HealthManager : MonoBehaviour
     /// <summary>
     /// Handles setting the current health to the max health on awake
     /// </summary>
-    public void Awake()
+    public virtual void Awake()
     {
         MaxHealth = _currentHealth;
     }
