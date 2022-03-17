@@ -63,6 +63,8 @@ public class ItemBarManager : MenuManager<ItemBarManager>
 
     public void UpdateSlot(int pNextSlot)
     {
+        if (_player.CharacterAction != null || _dialogueManager.DialogueIsPlaying) return;
+        
         CharacterInventory characterInventory = _player.CharacterInventory;
 
         if (characterInventory.Items[pNextSlot].Item == null) return;

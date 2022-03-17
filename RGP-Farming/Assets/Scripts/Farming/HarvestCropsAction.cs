@@ -20,7 +20,7 @@ public class HarvestCropsManager : HarvestSkillManager
 
     public override CharacterStates GetCharacterState()
     {
-        return CharacterStates.HARVESTING;
+        return CharacterStates.NONE;
     }
 
     public override float TimeRequired()
@@ -47,6 +47,7 @@ public class HarvestCropsManager : HarvestSkillManager
         
         if (_requiredAmount <= 0)
         {
+            CursorManager.Instance().SetDefaultCursor();
             CharacterPlaceObject.Instance().GetPlayerTileMap.SetTile(_tileLocation, null);
             Object.Destroy(_interactedObject);
             CharacterManager.SetAction(null);

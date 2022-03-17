@@ -70,6 +70,13 @@ public class SmashChest : CharacterAction
             {
                 AbstractPlaceableItem placeableItem = (AbstractPlaceableItem) ItemManager.Instance().ForName("Chest");
                 GroundItemsManager.Instance().Add(new GameItem(placeableItem), gameObject.transform.position);
+
+                if (CharacterManager is Player player)
+                {
+                    Vector3Int tilePos = player.CharacterPlaceObject.Grid.WorldToCell(gameObject.transform.position);
+                    GridManager.Instance().UpdateGrid(new Vector2(tilePos.x, tilePos.y));
+                }
+                
                 objectInteractionManager.DestroyObject(gameObject, placeableItem);
             }
             CharacterManager.SetAction(null);

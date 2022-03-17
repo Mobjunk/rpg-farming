@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RandomMovementManager : CharacterAction
+public class RandomMovementAction : CharacterAction
 {
     /// <summary>
     /// How long the npc needs to walk into the same direction
@@ -23,7 +23,7 @@ public class RandomMovementManager : CharacterAction
     /// </summary>
     bool _debug = false;
 
-    public RandomMovementManager(CharacterManager pCharacterManager) : base(pCharacterManager)
+    public RandomMovementAction(CharacterManager pCharacterManager) : base(pCharacterManager)
     {
         _npc = (Npc) pCharacterManager;
         _startPosition = _npc.transform.position;

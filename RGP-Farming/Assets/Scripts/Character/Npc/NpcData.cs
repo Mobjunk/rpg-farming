@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "", menuName = "New Npc")]
+[CreateAssetMenu(fileName = "New Npc", menuName = "Npcs/New Npc")]
 public class NpcData : ScriptableObject
 {
     [Header("Randomizer")] public bool randomizeValues;
