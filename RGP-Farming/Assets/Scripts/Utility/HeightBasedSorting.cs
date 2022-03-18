@@ -17,9 +17,7 @@ public class HeightBasedSorting : MonoBehaviour
     private void OnValidate()
     {
         if (_sortingGroup == null)
-        {
             _sortingGroup = GetComponent<SortingGroup>();
-        }
 
         UpdateOrder();
     }
@@ -32,9 +30,6 @@ public class HeightBasedSorting : MonoBehaviour
     public void UpdateOrder()
     {
         if (_skip) return;
-        if (_sortingGroup != null)
-        {
-            _sortingGroup.sortingOrder = (int)(transform.position.y * _positionScaling - _offset);
-        }
+        if (_sortingGroup != null) _sortingGroup.sortingOrder = (int)(transform.position.y * _positionScaling - _offset);
     }
 }
