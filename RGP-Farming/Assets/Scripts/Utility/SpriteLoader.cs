@@ -21,6 +21,8 @@ public class SpriteLoader : MonoBehaviour
     
     private void Awake()
     {
+        Application.targetFrameRate = 60;
+        
         List<string> paths = new List<string>();
 
         foreach (BodyPart bodyPart in _allBodyParts)

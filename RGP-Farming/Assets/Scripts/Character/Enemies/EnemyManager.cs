@@ -3,13 +3,21 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyHealth), typeof(EnemyFollowManager))]
 public class EnemyManager : Npc
 {
-    [SerializeField] private EnemyData _enemyData;
-    public EnemyData EnemyData => _enemyData;
+    //[SerializeField] private EnemyData _enemyData;
+    public EnemyData EnemyData => (EnemyData) NpcData;
+
+
+    public override void Update()
+    {
+        CharacterAction?.Update();
+    }
 
     public override void Awake()
     {
         base.Awake();
-        
+
+        //NpcData = _enemyData;
+
         //SetAction(new RandomMovementAction(this));
     }
 

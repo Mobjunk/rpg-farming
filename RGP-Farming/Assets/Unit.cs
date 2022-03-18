@@ -17,7 +17,6 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        Application.targetFrameRate = 60;
     }
 
     public void Test()
@@ -25,7 +24,7 @@ public class Unit : MonoBehaviour
         Vector3Int posA = _pathfinderManager.GetWorldToCell(transform.position);
         Vector3Int posB = _pathfinderManager.GetWorldToCell(Target.position);
         
-        PathRequestManager.Instance().RequestPath(posA, posB, OnPathFound);
+        //PathRequestManager.Instance().RequestPath(posA, posB, OnPathFound);
     }
 
     private void OnPathFound(Vector2[] pPath, bool pPathSuccesful)
