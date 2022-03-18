@@ -8,8 +8,10 @@ using static Utility;
 public class TimeManager : Singleton<TimeManager>
 {
     [Header("Display")]
-    private static float _timeSpeedMultiplier = 5000;
+    private static float _timeSpeedMultiplier ;
     private static float _startTime;
+
+    public float MinutesADay; 
 
     public int StartingHour;
 
@@ -24,6 +26,9 @@ public class TimeManager : Singleton<TimeManager>
         _startTime = Time.time * _timeSpeedMultiplier;
         _startDate = new DateTime(2022,1,1,StartingHour,0,0);
         CurrentGameTime = _startDate.Add(ElapsedTime);
+        
+        //Calculates the modifier based on seconds in a day.
+        _timeSpeedMultiplier =  86400 / (MinutesADay * 60); 
     }
     void Update()
     {
