@@ -347,6 +347,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4059224968542370779, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _circleTransitionUI
+      value: 
+      objectReference: {fileID: 6427470178051855029}
     - target: {fileID: 4059224969031030425, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
       propertyPath: _nameBox
       value: 
@@ -367,6 +371,10 @@ PrefabInstance:
       propertyPath: _sentencesUI
       value: 
       objectReference: {fileID: 720837625}
+    - target: {fileID: 4059224969150193897, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: StartingHour
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4059224969770371538, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
       propertyPath: m_Name
       value: ----- Managers -----
@@ -424,6 +432,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 832592874350771120, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4559945064370873738, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -482,6 +494,11 @@ PrefabInstance:
       objectReference: {fileID: 231259477}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+--- !u!1 &6427470178051855029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 832592874350771120, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+  m_PrefabInstance: {fileID: 6427470178051855028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7533515531496575479 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3584472110733411139, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}

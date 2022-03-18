@@ -20,23 +20,20 @@ public class DisplayTime : MonoBehaviour
     }
     void DisplayTimeUI()
     {
-        int hours = _timeManager.ElapsedTime.Hours;
+        int hours = _timeManager.CurrentGameTime.Hour;
         string addition = string.Empty;
         if (hours >= 12)
         {
             if (hours == 12) addition = "12";
             hours %= 12;
-            _clockAMPM = "PM";           
+            _clockAMPM = "PM";
         }
-        else 
+        else
         {
             if (hours == 0) addition = "12";
             _clockAMPM = "AM";
         }
-        _timeText.text = (addition.Equals(string.Empty) ? hours.ToString("00") : addition) + ":" + _timeManager.ElapsedTime.Minutes.ToString("00") + " "+  _clockAMPM;
-        //currentGameTime = _startDate.Add(elapsedTime);
-
-       
+        _timeText.text = (addition.Equals(string.Empty) ? hours.ToString("00") : addition) + ":" + _timeManager.CurrentGameTime.Minute.ToString("00") + " " + _clockAMPM;
     }
     void DisplayDateUI()
     {
