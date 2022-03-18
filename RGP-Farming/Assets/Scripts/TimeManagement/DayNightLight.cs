@@ -48,7 +48,7 @@ public class DayNightLight : MonoBehaviour
             Light.intensity =  1 - weightValue;
             Debug.Log("Light.Intensity" + Light.intensity);
         }
-        if (hour >= 8 && hour < 18)
+        if (hour >= _timeManager.StartingHour && hour < 18)
         {
             Light.intensity = 1;
         }
