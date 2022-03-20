@@ -5553,6 +5553,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _playerDirtTiles: {fileID: 0}
   _canPlace: {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
   _cannotPlace: {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
   _occupiedTile: {fileID: 11400000, guid: 5cad6f0404834dd4a9e24642171f5b49, type: 2}
@@ -16420,6 +16421,7 @@ GameObject:
   - component: {fileID: 9222951108975204618}
   - component: {fileID: 9041831325263689440}
   - component: {fileID: 6062871437800320087}
+  - component: {fileID: -6964396440603937750}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -16524,3 +16526,17 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &-6964396440603937750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855195623809724940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
+  ListenerNumber: -1
