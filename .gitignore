@@ -35,3 +35,21 @@ RGP-Farming/sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Never ignore DLLs in the FMOD subfolder.
+!RGP-Farming/[Aa]ssets/Plugins/FMOD/**/lib/*
+
+# Don't ignore images and gizmos used by FMOD in the Unity Editor.
+!RGP-Farming/[Aa]ssets/Gizmos/FMOD/*
+!RGP-Farming/[Aa]ssets/Editor Default Resources/FMOD/*
+                    
+# Ignore the Cache folder since it is updated locally.
+RGP-Farming/[Aa]ssets/Plugins/FMOD/Cache/*
+                    
+# Ignore bank files in the StreamingAssets folder.
+RGP-Farming/[Aa]ssets/StreamingAssets/**/*.bank
+RGP-Farming/[Aa]ssets/StreamingAssets/**/*.bank.meta
+                    
+# If the source bank files are kept outside of the StreamingAssets folder then these can be ignored.
+# Log files can be ignored.
+RGP-Farming/fmod_editor.log
