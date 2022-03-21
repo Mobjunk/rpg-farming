@@ -64,7 +64,11 @@
 			<destination>{2610c733-b00c-4253-b339-5f7cb80451d2}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{71b0ddac-445c-4122-a0e7-308c858fe307}" />
+	<object class="EventAutomatableProperties" id="{71b0ddac-445c-4122-a0e7-308c858fe307}">
+		<property name="maximumDistance">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{f62b691d-a469-49e5-9641-68294d2af571}" />
 	<object class="GroupTrack" id="{5939e70a-77df-4eaa-a4e0-2647cb6b1b0e}">
 		<relationship name="automationTracks">
@@ -140,9 +144,6 @@
 			<destination>{feeb1d37-6024-48b4-b6c7-3bc14987c77f}</destination>
 			<destination>{d6bd4284-bb34-472b-bbfa-48bc8eb81b6e}</destination>
 			<destination>{eb410973-1374-464b-8bf0-e1b837002e4a}</destination>
-		</relationship>
-		<relationship name="markers">
-			<destination>{aec02b4d-db07-4ca6-a91c-ca1ea76d2165}</destination>
 		</relationship>
 	</object>
 	<object class="ParameterProxy" id="{dffa5a52-cf42-4ae1-a687-ef211963461b}">
@@ -480,34 +481,13 @@
 			<destination>{25fa9e74-5b38-4e50-a785-3e953a8834d8}</destination>
 		</relationship>
 	</object>
-	<object class="LoopRegion" id="{aec02b4d-db07-4ca6-a91c-ca1ea76d2165}">
-		<property name="position">
-			<value>0</value>
-		</property>
-		<property name="length">
-			<value>0.58339583333333334</value>
-		</property>
-		<relationship name="timeline">
-			<destination>{59879d28-d684-4524-9939-d4f36e8ad2d9}</destination>
-		</relationship>
-		<relationship name="markerTrack">
-			<destination>{f62b691d-a469-49e5-9641-68294d2af571}</destination>
-		</relationship>
-	</object>
 	<object class="MixerBusEffectChain" id="{9d572f67-dd22-4ce8-a3e6-8aa709a3ae11}">
 		<relationship name="effects">
 			<destination>{a5070153-2555-4059-964e-ee7d89817920}</destination>
 			<destination>{60917ab0-4d7d-47db-8a68-668355d98481}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{d311f261-2a40-45e8-a970-f58d78d28010}">
-		<property name="surroundPanDirection">
-			<value>-29.7448788</value>
-		</property>
-		<property name="surroundPanExtent">
-			<value>292.402832</value>
-		</property>
-	</object>
+	<object class="MixerBusPanner" id="{d311f261-2a40-45e8-a970-f58d78d28010}" />
 	<object class="MixerBusFader" id="{a29e256a-429d-4072-93a7-f06dc8116211}" />
 	<object class="RandomizerModulator" id="{ae5e01a2-3e4a-492a-a5e5-e15e53190e37}">
 		<property name="nameOfPropertyBeingModulated">
@@ -1067,7 +1047,11 @@
 	</object>
 	<object class="MixerBusPanner" id="{2c4aef7d-5f0c-4807-ad99-4b1ca3769ff4}" />
 	<object class="MixerBusFader" id="{a5070153-2555-4059-964e-ee7d89817920}" />
-	<object class="SpatialiserEffect" id="{60917ab0-4d7d-47db-8a68-668355d98481}" />
+	<object class="SpatialiserEffect" id="{60917ab0-4d7d-47db-8a68-668355d98481}">
+		<property name="maximumDistance">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="AutomationCurve" id="{15e746f1-6f04-4eb0-a7cc-bee8420a806f}">
 		<relationship name="parameter">
 			<destination>{dfe7c050-e4c2-41c2-8f3f-6232a772e819}</destination>

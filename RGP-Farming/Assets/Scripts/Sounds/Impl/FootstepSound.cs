@@ -4,7 +4,8 @@ public class FootstepSounds : Sounds
 {
     public override void HandleSound(int pIntParameter = -1)
     {
-        Debug.Log("foot step sound with paramenter: " + pIntParameter);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/FX/Character/Walking/Walk");
+        Debug.Log("test");
     }
 
     public override string SoundName()
