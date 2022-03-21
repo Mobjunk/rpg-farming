@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class GridManager : Singleton<GridManager>
 {
     private Player _player => Player.Instance();
+    private TilemapManager _tilemapManager => TilemapManager.Instance();
     
     [SerializeField] private bool _drawGizmos;
     [SerializeField] private Grid _unityGrid;
@@ -22,8 +23,15 @@ public class GridManager : Singleton<GridManager>
     private int _gridSizeX;
     private int _gridSizeY;
     
-    private void Awake()
+    private void Start()
     {
+        if (_unityGrid == null)
+        {
+            _unityGrid = _tilemapManager.MainGrid;
+            _allTilemaps = _tilemapManager.AllTilemaps;
+            _unwalkableTilemaps = _tilemapManager.UnwalkableTilemaps;
+        }
+        
         //Grabs the biggest x,y combi for the grid size
         int biggestX = 0, biggestY = 0;
         foreach (Tilemap tilemap in _allTilemaps)

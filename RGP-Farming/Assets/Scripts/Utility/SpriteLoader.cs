@@ -36,6 +36,7 @@ public class SpriteLoader : MonoBehaviour
             paths.AddRange(bodyPart.fishingPathName);
             paths.AddRange(bodyPart.swordPathName);
         }
+
         StartCoroutine(LoadSpritesFromPath(paths.ToArray()));
     }
 
@@ -46,7 +47,10 @@ public class SpriteLoader : MonoBehaviour
             DateTime after = DateTime.Now; 
             TimeSpan duration = after.Subtract(before);
             Debug.Log("Duration in milliseconds: " + duration.Milliseconds);
-            Utility.AddSceneIfNotLoaded("Main");
+            
+            Utility.AddSceneIfNotLoaded("New Core");
+            Utility.AddSceneIfNotLoaded("Main Level");
+            
             Destroy(GetComponent<SpriteLoader>());
             _canvas.gameObject.SetActive(false);
         } else
