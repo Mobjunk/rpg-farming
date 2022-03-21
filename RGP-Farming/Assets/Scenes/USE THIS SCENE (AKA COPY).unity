@@ -7529,6 +7529,7 @@ GameObject:
   - component: {fileID: 747752282}
   - component: {fileID: 747752286}
   - component: {fileID: 747752285}
+  - component: {fileID: 747752287}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -7654,6 +7655,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &747752287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747752281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc8d130eb264fdc8336e4586f71b5a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllSprites: []
+  LoadedPaths: []
+  CachedSprites: []
 --- !u!1001 &766921773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8229,77 +8245,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4581522e4508e6d419ebb7ae32e868ba, type: 3}
---- !u!1 &1104132124
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1104132125}
-  - component: {fileID: 1104132127}
-  - component: {fileID: 1104132126}
-  m_Layer: 0
-  m_Name: Pathfinder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1104132125
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104132124}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1680507593}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1104132126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104132124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d861d63e96a84fe9873c180842082be3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1104132127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104132124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfa6bd2ed5d64a82aa3ac5a9b8e71148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _drawGizmos: 0
-  _unityGrid: {fileID: 1288589286}
-  _allTilemaps:
-  - {fileID: 1452434483}
-  - {fileID: 2050820117}
-  - {fileID: 1152890697}
-  - {fileID: 529847008}
-  - {fileID: 1655373948}
-  - {fileID: 239629755}
-  _unwalkableTilemaps:
-  - {fileID: 529847008}
-  - {fileID: 1152890697}
-  - {fileID: 1655373948}
-  GridWorldSize: {x: 0, y: 0}
-  Waypoints: []
 --- !u!1001 &1148923590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8307,6 +8252,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _unityGrid
+      value: 
+      objectReference: {fileID: 1288589286}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _allTilemaps.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _allTilemaps.Array.data[0]
+      value: 
+      objectReference: {fileID: 1452434483}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _allTilemaps.Array.data[1]
+      value: 
+      objectReference: {fileID: 2050820117}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _allTilemaps.Array.data[2]
+      value: 
+      objectReference: {fileID: 1152890697}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _allTilemaps.Array.data[3]
+      value: 
+      objectReference: {fileID: 529847008}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _allTilemaps.Array.data[4]
+      value: 
+      objectReference: {fileID: 1655373948}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _allTilemaps.Array.data[5]
+      value: 
+      objectReference: {fileID: 239629755}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _unwalkableTilemaps.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _unwalkableTilemaps.Array.data[0]
+      value: 
+      objectReference: {fileID: 529847008}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _unwalkableTilemaps.Array.data[1]
+      value: 
+      objectReference: {fileID: 1152890697}
+    - target: {fileID: 396298985291467065, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: _unwalkableTilemaps.Array.data[2]
+      value: 
+      objectReference: {fileID: 1655373948}
+    - target: {fileID: 4059224968523818481, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4059224968542370779, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
       propertyPath: _circleTransitionUI
       value: 
@@ -12161,6 +12158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1288589287}
   - component: {fileID: 1288589286}
+  - component: {fileID: 1288589289}
   - component: {fileID: 1288589285}
   - component: {fileID: 1288589284}
   - component: {fileID: 1288589288}
@@ -12279,6 +12277,35 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 12886b4d9e519504d9ad381fb92b4adb, type: 2}
   _placeHolderTile: {fileID: 11400000, guid: 7e522e64027831849828b8763e79866d, type: 2}
   _placedTiles: []
+--- !u!114 &1288589289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288589283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a49d66782b990d48b5bc058e5b09f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainGrid: {fileID: 0}
+  _hoverTilemap: {fileID: 1860990878}
+  _tilemapsToCheck:
+  - {fileID: 1152890697}
+  - {fileID: 529847008}
+  - {fileID: 1655373948}
+  _allTilemaps:
+  - {fileID: 1452434483}
+  - {fileID: 2050820117}
+  - {fileID: 1152890697}
+  - {fileID: 529847008}
+  - {fileID: 1655373948}
+  - {fileID: 239629755}
+  _unwalkableTilemaps:
+  - {fileID: 529847008}
+  - {fileID: 1152890697}
+  - {fileID: 1655373948}
 --- !u!1001 &1290917239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47683,11 +47710,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!4 &1680507593 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4059224969770371541, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
-  m_PrefabInstance: {fileID: 1148923590}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1711122748
 GameObject:
   m_ObjectHideFlags: 0
@@ -48082,6 +48104,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1958663632400148468, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _grid
+      value: 
+      objectReference: {fileID: 1288589286}
+    - target: {fileID: 1958663632400148468, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _hoverTilemap
+      value: 
+      objectReference: {fileID: 1860990878}
+    - target: {fileID: 1958663632400148468, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _tilemapsToCheck.Array.data[0]
+      value: 
+      objectReference: {fileID: 1152890697}
+    - target: {fileID: 1958663632400148468, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _tilemapsToCheck.Array.data[1]
+      value: 
+      objectReference: {fileID: 529847008}
+    - target: {fileID: 1958663632400148468, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _tilemapsToCheck.Array.data[2]
+      value: 
+      objectReference: {fileID: 1655373948}
+    - target: {fileID: 1958663632400148468, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _tilemapsToCheck.Array.data[3]
+      value: 
+      objectReference: {fileID: 1621565703}
     - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
       propertyPath: _inventoryUI.Array.data[0]
       value: 
