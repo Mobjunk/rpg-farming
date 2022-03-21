@@ -40,8 +40,6 @@ public class WaterInteractionManager : MonoBehaviour
             
         if (!Input.GetMouseButtonDown(0)) return;
         
-        Debug.Log("name: " + tileBase.name);
-        
         if (!canInteract) return;
         
         if (filteredFish.Count != 0) _player.PlayerFishing.StartFishing(filteredFish[Random.Range(0, filteredFish.Count)], _waterTiles.GetCellCenterWorld(tileLocation));

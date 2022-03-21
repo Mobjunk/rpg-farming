@@ -8,12 +8,10 @@ public class EnemyDeathAction : CharacterAction
     
     public EnemyDeathAction(CharacterManager pCharacterManager, GameObject pObjectToRemove, Animator pAnimator) : base(pCharacterManager)
     {
-        Debug.Log("???");
         _objectToRemove = pObjectToRemove;
         _animator = pAnimator;
         SetAnimator(_animator, "death", true);
         TimeRequired = GetAnimationClipTime(_animator, "death");
-        Debug.Log("324324");
     }
 
     public override CharacterStates GetCharacterState()
@@ -28,7 +26,6 @@ public class EnemyDeathAction : CharacterAction
 
     public override void OnEndReached()
     {
-        Debug.Log("???????????");
         GameObject.Destroy(_objectToRemove);
     }
 }
