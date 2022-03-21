@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aca5f0b027d7aa448e9fa459d1215a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeText: {fileID: 707490420}
+  MinutesADay: 0
+  StartingHour: 0
 --- !u!4 &98988513
 Transform:
   m_ObjectHideFlags: 0
@@ -631,6 +632,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2

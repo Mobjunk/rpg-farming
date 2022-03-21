@@ -14,7 +14,7 @@ public class IntroManager : MonoBehaviour
 
     private void EndReached(VideoPlayer pSource)
     {
-        //Utility.AddSceneIfNotLoaded("Main");
-        //gameObject.SetActive(false);
+        Utility.AddSceneIfNotLoaded("Main");
+        gameObject.SetActive(false);
     }
 }
