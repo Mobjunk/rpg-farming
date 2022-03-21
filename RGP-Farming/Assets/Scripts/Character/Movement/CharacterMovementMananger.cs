@@ -41,7 +41,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 
         if (!pDirection.Equals(Vector2.zero))
         {
-            if (!(_characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_0) && _characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_4)))
+            if (_characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_3) || _characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_7))
             {
                 int footstepParameter = _tilemapManager.GetTileType(transform.position);
                 Debug.Log("Parameter name: " + _tilemapManager.GetFootstepName(footstepParameter));
