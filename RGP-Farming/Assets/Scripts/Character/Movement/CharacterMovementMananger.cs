@@ -5,17 +5,15 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody2D)), DisallowMultipleComponent()]
 public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 {
-    [FormerlySerializedAs("speed")]
     [SerializeField] private CharacterManager _characterManager;
     [SerializeField] private CharacterStateManager _characterStateManager;
     [SerializeField] private float _movementSpeed = 0.65f;
-
     public float MovementSpeed => _movementSpeed;
     
     private Rigidbody2D _rigidBody2D;
     private Animator _animator;
     private HeightBasedSorting _sorting;
-    public Vector2 CurrentDirection;
+    [HideInInspector] public Vector2 CurrentDirection;
     
     private void Awake()
     {
@@ -35,6 +33,8 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
         CurrentDirection = pDirection;
 
         _rigidBody2D.MovePosition((Vector2) transform.position + (pDirection * _movementSpeed));
+        
+        Debug.Log("GetCharacterState " + _characterStateManager.GetCharacterState());
 
         if (!pDirection.Equals(Vector2.zero))
         {
