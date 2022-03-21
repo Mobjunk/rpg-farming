@@ -1,10 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D)), DisallowMultipleComponent()]
 public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 {
+    private SoundManager _soundManager => SoundManager.Instance();
+    private TilemapManager _tilemapManager => TilemapManager.Instance();
+    
     [SerializeField] private CharacterManager _characterManager;
     [SerializeField] private CharacterStateManager _characterStateManager;
     [SerializeField] private float _movementSpeed = 0.65f;
@@ -34,10 +38,16 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 
         _rigidBody2D.MovePosition((Vector2) transform.position + (pDirection * _movementSpeed));
         
-        Debug.Log("GetCharacterState " + _characterStateManager.GetCharacterState());
 
         if (!pDirection.Equals(Vector2.zero))
         {
+            if (!(_characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_0) && _characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_4)))
+            {
+                int footstepParameter = _tilemapManager.GetTileType(transform.position);
+                Debug.Log("Parameter name: " + _tilemapManager.GetFootstepName(footstepParameter));
+                _soundManager.ExecuteSound("footsteps", footstepParameter);
+            }
+            
             _animator.SetFloat("moveX", Mathf.Round(pDirection.x));
             _animator.SetFloat("moveY", Mathf.Round(pDirection.y));
             //Make sure it resets the player action when moving

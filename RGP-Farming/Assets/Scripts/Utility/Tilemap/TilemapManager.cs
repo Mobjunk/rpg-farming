@@ -28,4 +28,26 @@ public class TilemapManager : Singleton<TilemapManager>
     {
         _mainGrid = GetComponent<Grid>();
     }
+
+    public int GetTileType(Vector3 pCurrentPosition)
+    {
+        TileBase grassTile = _allTilemaps[1].GetTile(_mainGrid.WorldToCell(pCurrentPosition));
+        if (grassTile != null) return 1;
+        
+        TileBase dirtTile = _allTilemaps[0].GetTile(_mainGrid.WorldToCell(pCurrentPosition));
+        if (dirtTile != null) return 0;
+        return -1;
+    }
+
+    public string GetFootstepName(int pTileType)
+    {
+        switch (pTileType)
+        {
+            case 0:
+                return "Gravel";
+            case 1:
+                return "Grass";
+        }
+        return "DEFAULT";
+    }
 }

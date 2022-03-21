@@ -22,7 +22,25 @@ public class GridManager : Singleton<GridManager>
 
     private int _gridSizeX;
     private int _gridSizeY;
-    
+
+    private void Awake()
+    {
+        if (_unityGrid != null)
+        {
+            //Grabs the biggest x,y combi for the grid size
+            int biggestX = 0, biggestY = 0;
+            foreach (Tilemap tilemap in _allTilemaps)
+            {
+                if (tilemap.cellBounds.size.x > biggestX) biggestX = tilemap.cellBounds.size.x;
+                if (tilemap.cellBounds.size.y > biggestY) biggestY = tilemap.cellBounds.size.y;
+            }
+
+            GridWorldSize = new Vector2(biggestX, biggestY);
+        
+            CreateGrid(biggestX, biggestY);
+        }
+    }
+
     private void Start()
     {
         if (_unityGrid == null)
@@ -30,19 +48,19 @@ public class GridManager : Singleton<GridManager>
             _unityGrid = _tilemapManager.MainGrid;
             _allTilemaps = _tilemapManager.AllTilemaps;
             _unwalkableTilemaps = _tilemapManager.UnwalkableTilemaps;
-        }
-        
-        //Grabs the biggest x,y combi for the grid size
-        int biggestX = 0, biggestY = 0;
-        foreach (Tilemap tilemap in _allTilemaps)
-        {
-            if (tilemap.cellBounds.size.x > biggestX) biggestX = tilemap.cellBounds.size.x;
-            if (tilemap.cellBounds.size.y > biggestY) biggestY = tilemap.cellBounds.size.y;
-        }
+            
+            //Grabs the biggest x,y combi for the grid size
+            int biggestX = 0, biggestY = 0;
+            foreach (Tilemap tilemap in _allTilemaps)
+            {
+                if (tilemap.cellBounds.size.x > biggestX) biggestX = tilemap.cellBounds.size.x;
+                if (tilemap.cellBounds.size.y > biggestY) biggestY = tilemap.cellBounds.size.y;
+            }
 
-        GridWorldSize = new Vector2(biggestX, biggestY);
+            GridWorldSize = new Vector2(biggestX, biggestY);
         
-        CreateGrid(biggestX, biggestY);
+            CreateGrid(biggestX, biggestY);
+        }
     }
 
     private void CreateGrid(int pX, int pY)
@@ -79,6 +97,8 @@ public class GridManager : Singleton<GridManager>
     
     public Node GetNodeFromPosition(Vector2 pWorldPos)
     {
+        if (_gridArray == null) return null;
+        
         foreach (Node node in _gridArray)
             if (node.WorldPosition.Equals(pWorldPos)) return node;
         return null;
