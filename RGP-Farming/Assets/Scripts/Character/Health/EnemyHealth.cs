@@ -3,13 +3,14 @@ using UnityEngine;
 public class EnemyHealth : CharacterHealthManager
 {
     private EnemyManager _enemyManager;
-    [SerializeField] private Animator _animator;
+    private Animator _animator;
     
     public override void Awake()
     {
         base.Awake();
         _enemyManager = GetComponent<EnemyManager>();
         _animator = GetComponent<Animator>();
+        if (_animator == null) _animator = GetComponentInChildren<Animator>();
     }
 
     public override void HandleDeath()

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Npc : CharacterManager
 {
@@ -22,17 +20,12 @@ public class Npc : CharacterManager
         base.Awake();
 
         _animator = GetComponent<Animator>();
+        if (_animator == null) _animator = GetComponentInChildren<Animator>();
         
         _renderingObject = transform.GetChild(0).gameObject;
         
-        if (_npcData != null)
-        {
-
-            if (_npcData.randomWalking)
-            {
-                SetAction(new RandomMovementAction(this));
-            }
-        }
+        if (_npcData != null && _npcData.randomWalking)
+            SetAction(new RandomMovementAction(this));
     }
 
     public override void Update()

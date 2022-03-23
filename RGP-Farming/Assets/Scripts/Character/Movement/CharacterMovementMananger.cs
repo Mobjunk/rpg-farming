@@ -15,7 +15,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
     public float MovementSpeed => _movementSpeed;
     
     private Rigidbody2D _rigidBody2D;
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
     private HeightBasedSorting _sorting;
     [HideInInspector] public Vector2 CurrentDirection;
     
@@ -25,6 +25,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
         _characterStateManager = GetComponent<CharacterStateManager>();
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        if (_animator == null) _animator = GetComponentInChildren<Animator>();
         _sorting = GetComponent<HeightBasedSorting>();
     }
 
@@ -43,9 +44,9 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
         {
             if (_characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_3) || _characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_7))
             {
-                int footstepParameter = _tilemapManager.GetTileType(transform.position);
-                Debug.Log("Parameter name: " + _tilemapManager.GetFootstepName(footstepParameter));
-                _soundManager.ExecuteSound("footsteps", footstepParameter);
+                //int footstepParameter = ;
+                //Debug.Log("Parameter name: " + _tilemapManager.GetFootstepName(footstepParameter));
+                _soundManager.ExecuteSound("footsteps", _tilemapManager.GetTileType(transform.position));
             }
             
             _animator.SetFloat("moveX", Mathf.Round(pDirection.x));
