@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
-[RequireComponent(typeof(HeightBasedSorting),typeof(CharacterStateManager))]
+[RequireComponent(typeof(HeightBasedSorting))]
 [RequireComponent(typeof(CharacterHealthManager))]
 public class CharacterManager : MonoBehaviour
 {
@@ -74,6 +74,7 @@ public class CharacterManager : MonoBehaviour
     public virtual void Start()
     {
         _characterStateManager = GetComponent<CharacterStateManager>();
+        if (_characterStateManager == null) _characterStateManager = GetComponentInChildren<CharacterStateManager>();
     }
 
     public virtual void Update()

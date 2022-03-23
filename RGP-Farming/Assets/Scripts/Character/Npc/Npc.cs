@@ -23,9 +23,6 @@ public class Npc : CharacterManager
         if (_animator == null) _animator = GetComponentInChildren<Animator>();
         
         _renderingObject = transform.GetChild(0).gameObject;
-        
-        if (_npcData != null && _npcData.randomWalking)
-            SetAction(new RandomMovementAction(this));
     }
 
     public override void Update()

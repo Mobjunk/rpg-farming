@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 3011300093616533217}
   - component: {fileID: 3011300093616533023}
   - component: {fileID: 3011300093616533020}
-  - component: {fileID: 3011300093616533021}
   - component: {fileID: 3011300093616533018}
   - component: {fileID: 3011300093616533019}
-  - component: {fileID: 3011300093616533219}
+  - component: {fileID: 7696252272884431587}
   m_Layer: 7
   m_Name: Cow
   m_TagString: Untagged
@@ -113,19 +112,6 @@ MonoBehaviour:
   _positionScaling: -100
   _offset: 0
   _skip: 0
---- !u!114 &3011300093616533021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3011300093616533017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b05ff58d6a4e94abe5af5510979c63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterState: 0
 --- !u!114 &3011300093616533018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +140,7 @@ MonoBehaviour:
   _stopAutoAdjustingBoxCollider: 1
   _npcData: {fileID: 11400000, guid: 9656a6bc18e22de448e21573a6f720f4, type: 2}
   IsBusy: 0
---- !u!114 &3011300093616533219
+--- !u!114 &7696252272884431587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,14 +149,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3011300093616533017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c2fbc2420e682e41b2b11f374461305, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b4d6131f7154c1486cbf811ba4f31a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterManager: {fileID: 0}
-  _characterStateManager: {fileID: 0}
-  _movementSpeed: 0.064
-  _animator: {fileID: 0}
-  CurrentDirection: {x: 0, y: 0}
+  _movementSpeed: 1.5
+  _drawPath: 0
+  _path: []
+  _centerPoint: {fileID: 3011300093616533016}
 --- !u!1 &3011300094695530718
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +184,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4364461210606869798}
   m_Father: {fileID: 3011300093616533016}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -273,3 +259,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &3103544290958295762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4364461210606869798}
+  m_Layer: 0
+  m_Name: Center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4364461210606869798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3103544290958295762}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3011300094695530657}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

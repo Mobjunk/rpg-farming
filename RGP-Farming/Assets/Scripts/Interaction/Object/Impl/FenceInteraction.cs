@@ -6,8 +6,6 @@ public class FenceInteraction : InteractionManager
     [SerializeField] private BoxCollider2D _collider2D;
     
     private Animator _animator;
-
-    private TestScript _testScript;
     
     /// <summary>
     /// If the gate is closed or not
@@ -22,7 +20,6 @@ public class FenceInteraction : InteractionManager
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _testScript = GetComponent<TestScript>();
     }
 
     private void Start()
@@ -41,13 +38,11 @@ public class FenceInteraction : InteractionManager
             {
                 _collider2D.size = new Vector2(0.3267612f, 0.5f);
                 _collider2D.offset = new Vector2(-0.3366194f, -0.25f);
-                _testScript.UpdateGrid(true);
             }
             else
             {
                 _collider2D.size = _realSize;
                 _collider2D.offset = _realOffset;
-                _testScript.UpdateGrid();
             }
         }
     }

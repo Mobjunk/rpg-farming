@@ -6,6 +6,8 @@ public abstract class PathManager : MonoBehaviour
 {
     protected PathfinderManager _pathfinderManager => PathfinderManager.Instance();
 
+    public PathfinderManager PathfinderManager => _pathfinderManager;
+
     protected CharacterManager _characterManager;
     
     private Animator _animator;
@@ -23,6 +25,9 @@ public abstract class PathManager : MonoBehaviour
     [SerializeField, Tooltip("Visualize the path in the scene view")] private bool _drawPath;
     
     [SerializeField] protected Vector2[] _path;
+
+    public Vector2[] Path => _path;
+    
     protected int _waypoint;
 
     public virtual void Awake()
@@ -49,7 +54,7 @@ public abstract class PathManager : MonoBehaviour
     /// </summary>
     /// <param name="pPath"></param>
     /// <param name="pPathSuccesful"></param>
-    protected void OnPathFound(Vector2[] pPath, bool pPathSuccesful)
+    public void OnPathFound(Vector2[] pPath, bool pPathSuccesful)
     {
         if (pPathSuccesful)
         {
@@ -80,6 +85,7 @@ public abstract class PathManager : MonoBehaviour
                 _waypoint++;
                 if (_waypoint >= _path.Length)
                 {
+                    _animator.SetBool("moving", false);
                     _waypoint = 0;
                     _path = null;
                     yield break;
@@ -96,10 +102,15 @@ public abstract class PathManager : MonoBehaviour
             
             
             transform.position = Vector2.MoveTowards (transform.position, currentWayPoint, _movementSpeed * Time.deltaTime);
-            
+
             if (!moveDir.Equals(Vector2.zero) && _animator != null && _animator.enabled)
             {
-                _animator.SetFloat("moveX", x);
+                if (_characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_3) || _characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_7)) {
+                    Debug.Log("TESTER");
+                    SoundManager.Instance().ExecuteSound("footsteps", TilemapManager.Instance().GetTileType(transform.position), gameObject);
+                }
+
+            _animator.SetFloat("moveX", x);
                 _animator.SetFloat("moveY", y);
                 _animator.SetBool("moving", !moveDir.Equals(Vector2.zero));
             }

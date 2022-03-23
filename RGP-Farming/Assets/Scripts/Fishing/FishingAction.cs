@@ -29,7 +29,11 @@ public class FishingAction : HarvestSkillManager
     {
         if (!_startedFishing)
         {
-            if(_animationTimePassed <= 0) Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing", true);
+            if (_animationTimePassed <= 0)
+            {
+                Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing", true);
+                //GOOI GELUID
+            }
             _animationTimePassed += Time.deltaTime;
             if (_animationTimePassed > Utility.GetAnimationClipTime(CharacterManager.CharacterStateManager.GetAnimator(), "fishing"))
             {
@@ -40,6 +44,7 @@ public class FishingAction : HarvestSkillManager
                 _drawFishingLine.Draw(_playerFishing.GetStartingPosition(), _playerFishing.GetSegmentLength());
                 
                 Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing_idle", true);
+                //Dobber GELUID
         
                 CharacterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.WAITING);
 
