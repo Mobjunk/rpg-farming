@@ -593,10 +593,10 @@ GameObject:
   - component: {fileID: 1808926792586625250}
   - component: {fileID: 4655263976673120023}
   - component: {fileID: 6691201549877387314}
-  - component: {fileID: 1754874557848276885}
   - component: {fileID: 1431076819630508362}
   - component: {fileID: 1879236917436319990}
   - component: {fileID: 4681931366018028953}
+  - component: {fileID: 3871800625534013410}
   m_Layer: 0
   m_Name: Jeroen
   m_TagString: Untagged
@@ -708,6 +708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846b10ab808f8844bb837a1139d7fa65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stopAutoAdjustingBoxCollider: 0
   _npcData: {fileID: 11400000, guid: 7c798176de79c114d8215644631f55e3, type: 2}
   IsBusy: 0
 --- !u!114 &4655263976673120023
@@ -739,22 +740,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterState: 0
---- !u!114 &1754874557848276885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4781272785694954864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c2fbc2420e682e41b2b11f374461305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterManager: {fileID: 0}
-  _characterStateManager: {fileID: 0}
-  _movementSpeed: 0.064
-  CurrentDirection: {x: 0, y: 0}
 --- !u!114 &1431076819630508362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,6 +793,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5048084, y: 1.802433}
   m_EdgeRadius: 0
+--- !u!114 &3871800625534013410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4781272785694954864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b4d6131f7154c1486cbf811ba4f31a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementSpeed: 1.5
+  _drawPath: 0
+  _path: []
+  _centerPoint: {fileID: 6070908821105277171}
 --- !u!1 &4954499642647908934
 GameObject:
   m_ObjectHideFlags: 0

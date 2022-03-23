@@ -17,10 +17,10 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public void ExecuteSound(string pSoundName, int pIntParameter = 0)
+    public void ExecuteSound(string pSoundName, int pIntParameter = -1, GameObject pAttachedObject = null)
     {
         if(sounds.ContainsKey(pSoundName))
-            sounds[pSoundName].HandleSound(pIntParameter);
+            sounds[pSoundName].HandleSound(pIntParameter, pAttachedObject);
         else Debug.LogError(pSoundName + " sound does not exist!");
     }
 }
