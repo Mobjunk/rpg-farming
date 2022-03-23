@@ -12,6 +12,7 @@ public class CharacterAttackAction : CharacterAction
         _attackPosition = pAttackPosition;
         _hitBox = pHitbox;
         _layerMask = pLayerMask;
+        SoundManager.Instance().ExecuteSound("sword_swing");
         TimeRequired = GetAnimationClipTime(pCharacterManager.CharacterStateManager.GetAnimator(), "sword_swing");
         SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), "sword_swing", true, true);
     }
