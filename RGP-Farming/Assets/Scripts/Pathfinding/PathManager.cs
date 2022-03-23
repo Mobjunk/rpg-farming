@@ -10,9 +10,7 @@ public abstract class PathManager : MonoBehaviour
     
     private Animator _animator;
     
-    [SerializeField] private HeightBasedSorting _heightBasedSorting;
-
-    [SerializeField] private Transform _transformToMove;
+    private HeightBasedSorting _heightBasedSorting;
     
     /// <summary>
     /// The movement speed of the characther
@@ -30,7 +28,9 @@ public abstract class PathManager : MonoBehaviour
     public virtual void Awake()
     {
         _animator = GetComponent<Animator>();
+        if (_animator == null) _animator = GetComponentInChildren<Animator>();
         _characterManager = GetComponent<CharacterManager>();
+        _heightBasedSorting = GetComponent<HeightBasedSorting>();
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public abstract class PathManager : MonoBehaviour
         {
             if(_characterManager.CharacterAction is EnemyDeathAction) yield break;
             
-            if ((Vector2)_transformToMove.position == currentWayPoint)
+            if ((Vector2)transform.position == currentWayPoint)
             {
                 _waypoint++;
                 if (_waypoint >= _path.Length)
@@ -88,14 +88,14 @@ public abstract class PathManager : MonoBehaviour
                 currentWayPoint = _path[_waypoint];
             }
 
-            Vector2 currentPosition = new Vector2(_transformToMove.position.x, _transformToMove.position.y);
+            Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
             Vector2 moveDir = (currentWayPoint - currentPosition);
 
             int x = moveDir.x < 0 ? -1 : moveDir.x > 0 ? 1 : 0;
             int y = moveDir.y < 0 ? -1 : moveDir.y > 0 ? 1 : 0;
             
             
-            _transformToMove.position = Vector2.MoveTowards (_transformToMove.position, currentWayPoint, _movementSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards (transform.position, currentWayPoint, _movementSpeed * Time.deltaTime);
             
             if (!moveDir.Equals(Vector2.zero) && _animator != null && _animator.enabled)
             {
@@ -122,7 +122,7 @@ public abstract class PathManager : MonoBehaviour
                 Gizmos.color = Color.black;
                 Gizmos.DrawWireCube(_path[index], Vector2.one);
 
-                if (index == _waypoint) Gizmos.DrawLine(_transformToMove.position, _path[index]);
+                if (index == _waypoint) Gizmos.DrawLine(transform.position, _path[index]);
                 else Gizmos.DrawLine(_path[index - 1], _path[index]);
             }
         }
