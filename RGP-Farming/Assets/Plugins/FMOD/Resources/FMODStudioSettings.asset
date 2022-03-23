@@ -335,8 +335,8 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: 
-  sourceBankPath: 
+  sourceProjectPath: Assets/Audio/farming RPG audio/farming RPG audio.fspro
+  sourceBankPath: Assets/Audio/farming RPG audio/Build
   SourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -358,8 +358,19 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
-  Banks: []
+  MasterBanks:
+  - Master
+  Banks:
+  - Ambience
+  - Attack
+  - Combat
+  - General
+  - Hurt
+  - Mobs
+  - Music
+  - Skills
+  - UI
+  - Walking
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
