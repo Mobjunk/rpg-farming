@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 [RequireComponent(typeof(HeightBasedSorting),typeof(CharacterStateManager))]
 [RequireComponent(typeof(CharacterHealthManager))]
 public class CharacterManager : MonoBehaviour

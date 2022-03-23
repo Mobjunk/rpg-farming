@@ -7,10 +7,9 @@ public class EnemyManager : Npc
     public EnemyData EnemyData => (EnemyData) NpcData;
 
 
-    public override void Update()
-    {
-        CharacterAction?.Update();
-    }
+    //public override void Update()
+    //{
+    //}
 
     public override void Awake()
     {
