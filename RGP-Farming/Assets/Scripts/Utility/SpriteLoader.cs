@@ -21,7 +21,7 @@ public class SpriteLoader : MonoBehaviour
     
     private void Awake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
         
         List<string> paths = new List<string>();
 

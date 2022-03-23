@@ -43,9 +43,9 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
         {
             if (_characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_3) || _characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_7))
             {
-                int footstepParameter = _tilemapManager.GetTileType(transform.position);
-                Debug.Log("Parameter name: " + _tilemapManager.GetFootstepName(footstepParameter));
-                _soundManager.ExecuteSound("footsteps", footstepParameter);
+                //int footstepParameter = ;
+                //Debug.Log("Parameter name: " + _tilemapManager.GetFootstepName(footstepParameter));
+                _soundManager.ExecuteSound("footsteps", _tilemapManager.GetTileType(transform.position));
             }
             
             _animator.SetFloat("moveX", Mathf.Round(pDirection.x));
