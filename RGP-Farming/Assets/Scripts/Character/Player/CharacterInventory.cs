@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CharacterInventory : AbstractItemInventory
 {
+    private CollectionLogManager _collectionLogManager => CollectionLogManager.Instance();
+    
     public int GoldCoins;
 
     public void PurchaseItem(AbstractItemData pItem, int pItemPrice, int pAmount = 1)
@@ -31,5 +33,6 @@ public class CharacterInventory : AbstractItemInventory
     {
         if (pShow) ItemReceiverManager.Instance().Add(new GameItem(pItem, pItemAmount));
         base.AddItem(pItem, pItemAmount);
+        _collectionLogManager.SetCollectionLogEntry(pItem);
     }
 }

@@ -346,9 +346,9 @@ MonoBehaviour:
   TriggerOnce: 0
   Preload: 0
   Params: []
-  OverrideAttenuation: 1
+  OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 5
+  OverrideMaxDistance: 50
 --- !u!4 &147059665
 Transform:
   m_ObjectHideFlags: 0
@@ -356,13 +356,18 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147059663}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -49.08, y: -9.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &185503989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3166190364922574916, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+  m_PrefabInstance: {fileID: 483598742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &239629752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,7 +1566,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 676180777539249391, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 676180777539249391, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 832592874350771120, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584472110733411139, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1569,6 +1586,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1148923591}
+    - target: {fileID: 4628183685794782066, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6427470178201131761, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
       propertyPath: m_Name
       value: ----- UI -----
@@ -1615,6 +1636,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6427470178201131762, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427470179448030293, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7682763793646438399, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
@@ -12139,7 +12164,7 @@ Tilemap:
       - {fileID: 7644848394801402811, guid: b3a54a62982293d4eaf7927a81c5a2ca, type: 3}
       - {fileID: 8230276858137921176, guid: b3a54a62982293d4eaf7927a81c5a2ca, type: 3}
       - {fileID: -5557060688539980719, guid: b3a54a62982293d4eaf7927a81c5a2ca, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 6, y: -10, z: 0}
@@ -46288,9 +46313,9 @@ MonoBehaviour:
   TriggerOnce: 0
   Preload: 0
   Params: []
-  OverrideAttenuation: 1
+  OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 2.2719955
+  OverrideMaxDistance: 50
 --- !u!4 &1572542164
 Transform:
   m_ObjectHideFlags: 0
@@ -48789,6 +48814,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1621565703}
     - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _inventoryUI.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
       propertyPath: _inventoryUI.Array.data[0]
       value: 
       objectReference: {fileID: 483598751}
@@ -48796,6 +48825,14 @@ PrefabInstance:
       propertyPath: _inventoryUI.Array.data[1]
       value: 
       objectReference: {fileID: 483598749}
+    - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _inventoryUI.Array.data[2]
+      value: 
+      objectReference: {fileID: 2022421005}
+    - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _inventoryUI.Array.data[3]
+      value: 
+      objectReference: {fileID: 185503989}
     - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
       propertyPath: _craftingInventoryUIManager
       value: 
@@ -49469,6 +49506,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4631731620402578748, guid: de844f50caa45a443a4f4ed567b3e2d9, type: 3}
   m_PrefabInstance: {fileID: 2022149857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2022421005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6427470178308034398, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+  m_PrefabInstance: {fileID: 483598742}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2050820116
 GameObject:
@@ -60861,6 +60903,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jeroen Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4781272785694954864, guid: b292bc6d6eb5c1f4c8f2ab2a2266f4d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6070908821105277171, guid: b292bc6d6eb5c1f4c8f2ab2a2266f4d2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -61263,6 +61309,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 388005923}
     m_Modifications:
+    - target: {fileID: 8886991104492043809, guid: fd202affd307b304b88161c1dbbe1e04, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.53
+      objectReference: {fileID: 0}
     - target: {fileID: 8886991105564717208, guid: fd202affd307b304b88161c1dbbe1e04, type: 3}
       propertyPath: m_RootOrder
       value: 5

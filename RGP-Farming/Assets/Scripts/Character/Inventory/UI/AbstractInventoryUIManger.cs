@@ -90,6 +90,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
         if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem();
         IsOpened = true;
         InventoryUI[0].SetActive(IsOpened);
+        InventoryUI[1].SetActive(true);
     }
 
     /// <summary>
@@ -103,7 +104,11 @@ public abstract class AbstractInventoryUIManger : GameUIManager
         IsOpened = false;
         ItemBarManager.Instance().UpdateSlot();
         InventoryUI[0].SetActive(IsOpened);
-        if(InventoryUI.Length > 1) InventoryUI[1].SetActive(false);
+        if (InventoryUI.Length > 1)
+        {
+            for (int index = 0; index < InventoryUI.Length; index++)
+                InventoryUI[index].SetActive(false);
+        }
         onInventoryUIClosing.Invoke();
     }
 
@@ -126,7 +131,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
             {
                 GameObject containment = Instantiate(ContainmentPrefab[parent.UseSecondSlotPrefab ? 1 : 0], parent.InventoryContainer, true);
                 containment.name = $"{index}";
-                containment.transform.localScale = new Vector3(1, 1, 1);
+                containment.transform.localScale = Vector3.one;
 
                 //TODO: ALSO CLEAN THIS SHIT
                 UIContainerbase<GameItem> container = containment.GetComponent<UIContainerbase<GameItem>>();

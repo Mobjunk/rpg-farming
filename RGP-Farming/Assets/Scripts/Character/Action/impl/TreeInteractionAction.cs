@@ -40,17 +40,4 @@ public class TreeInteractionAction : CharacterAction
     {
         return CharacterStates.NONE;
     }
-    
-    /*Utility.SetAnimator(characterManager.CharacterStateManager.GetAnimator(), "axe_swing", true, true);
-    AbstractToolItem tool = (AbstractToolItem) itemBarManager.GetItemSelected();
-    healthManager.TakeDamage(tool.toolDamage);
-    if (_animators != null)
-    {
-        if (_treeTop != null) _animators[1].SetBool("treeHit", true);
-        else _animators[0].SetBool("hit", true);
-    }
-
-    if (healthManager.CurrentHealth < (healthManager.MaxHealth / 2) && _treeTop != null)
-    _animators[1].SetBool("treeFalling", true);
-    Debug.Log($"Tree stump took {tool.toolDamage} damage!");*/
 }

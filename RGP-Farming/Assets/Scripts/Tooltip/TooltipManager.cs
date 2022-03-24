@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
+public abstract class TooltipManager<T, Y> : Singleton<T> where T : MonoBehaviour
 {
     private ItemSnapperManager _itemSnapperManager => ItemSnapperManager.Instance();
     
@@ -10,14 +10,16 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
     
     [SerializeField] private RectTransform _mainBackground;
     [SerializeField] private TextMeshProUGUI _itemName;
+    public TextMeshProUGUI ItemName => _itemName;
     [SerializeField] private TextMeshProUGUI _itemDescription;
+    public TextMeshProUGUI ItemDescription => _itemDescription;
 
     protected float _increasedY;
-    private AbstractItemData _hoveredItem;
+    private Y _hoveredItem;
 
     public void Awake()
     {
-        SetTooltip(null);
+        SetTooltip(default);
         _mainBackground.gameObject.SetActive(false);
     }
 
@@ -55,16 +57,15 @@ public abstract class TooltipManager<T> : Singleton<T> where T : MonoBehaviour
         _mainBackground.pivot = pivot;
     }
     
-    public virtual void SetTooltip(AbstractItemData pHoveredItem)
+    public virtual bool SetTooltip(Y pHoveredItem)
     {
-        this._hoveredItem = pHoveredItem;
-        if (this._hoveredItem == null)
+        _hoveredItem = pHoveredItem;
+        if (_hoveredItem == null)
         {
             ResetTooltip();
-            return;
+            return false;
         }
-        _itemName.text = $"{Utility.UppercaseFirst(this._hoveredItem.itemName.ToLower())}";
-        _itemDescription.text = $"{this._hoveredItem.itemDescription}";
+        return true;
     }
 
     public virtual void ResetTooltip()
