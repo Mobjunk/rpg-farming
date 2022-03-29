@@ -7,7 +7,6 @@ public class ShopUIManager : AbstractInventoryUIManger
     private ShopUI _shopUI => ShopUI.Instance();
     private Player _player => Player.Instance();
     private ShopInventory _shopInventory;
-    private PlayerInvenotryUIManager _inventoryUIManager;
     
     public override void Awake()
     {
@@ -23,7 +22,6 @@ public class ShopUIManager : AbstractInventoryUIManger
 
     public void Start()
     {
-        _inventoryUIManager = _player.GetComponent<PlayerInvenotryUIManager>();
         InventoryContainers[0].MaxSlots = _shopInventory._maxInventorySize;
     }
 
@@ -72,7 +70,8 @@ public class ShopUIManager : AbstractInventoryUIManger
         for (int slot = 0; slot < _player.CharacterInventory.Items.Length; slot++)
         {
             if (_player.CharacterInventory.Items[slot].Item == null) continue;
-            ((ShopContainerGrid)_inventoryUIManager._containers[2][slot]).UpdateItemPrice(_shopInventory.GetSellPrice(_player.CharacterInventory.Items[slot].Item));
+
+            ((ShopContainerGrid)_player.PlayerInventoryUIManager._containers[2][slot]).UpdateItemPrice(_shopInventory.GetSellPrice(_player.CharacterInventory.Items[slot].Item));
         }
     }
 

@@ -69,7 +69,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)) Close();
+        if(Input.GetKeyDown(KeyCode.Escape) && !DialogueManager.Instance().DialogueIsPlaying) Close();
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
         if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem();
         IsOpened = true;
         InventoryUI[0].SetActive(IsOpened);
-        InventoryUI[1].SetActive(true);
+        if (InventoryUI.Length > 1) InventoryUI[1].SetActive(true);
     }
 
     /// <summary>

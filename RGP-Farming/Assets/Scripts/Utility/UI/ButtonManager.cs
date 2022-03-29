@@ -58,4 +58,9 @@ public class ButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         yield return new WaitForSeconds(0.1f);
         _hoveringImage.color = _isHovering ? _highlightedColor : _defaultColor;
     }
+
+    public void SwitchTab(int index)
+    {
+        Player.Instance().CharacterUIManager.CurrentUIOpened.SwitchToTab(index);
+    }
 }

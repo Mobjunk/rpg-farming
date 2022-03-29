@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MiningInteraction : ObjectInteractionManager
 {
+    private DialogueManager _dialogueManager => DialogueManager.Instance();
+
     private HealthManager _healthManager;
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
 
@@ -12,14 +14,14 @@ public class MiningInteraction : ObjectInteractionManager
         _healthManager = GetComponent<HealthManager>();
     }
 
-    public override void OnInteraction(CharacterManager characterManager)
+    public override void OnInteraction(CharacterManager pCharacterManager)
     {
         if (_itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE))
         {
-            AbstractToolItem tool = (AbstractToolItem)_itemBarManager.GetItemSelected();
-            _healthManager.TakeDamage(tool.toolDamage);
-            Debug.Log($"Tree stump took {tool.toolDamage} damage!");
+            if (pCharacterManager.CharacterAction is RockInteractionAction) return;
+            
+            pCharacterManager.SetAction(new RockInteractionAction(pCharacterManager, _healthManager, gameObject.name));
         }
-        else Debug.LogError("Not the correct tool.");
+        else _dialogueManager.StartDialogue("Maybe I should be using a different tool.");
     }
 }

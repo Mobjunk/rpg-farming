@@ -17,8 +17,12 @@ public class CollectionLogManager : Singleton<CollectionLogManager>
     private void Start()
     {
         foreach (AbstractItemData item in _itemManager.Items)
+        {
+            if(item == null) continue;
+            
             _collectionLog.Add(new CollectionLogEntry(item));
-        
+        }
+
         Debug.Log("collectionLog: " + _collectionLog.Count);
     }
 

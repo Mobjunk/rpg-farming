@@ -256,6 +256,8 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     public virtual void SplitItemStack()
     {
+        if (Container is ShopInventory) return;
+        
         ItemSnapperManager snapperManager = ItemSnapperManager.Instance();
         
         GameItem currentItem = Container.Items[SlotIndex];
