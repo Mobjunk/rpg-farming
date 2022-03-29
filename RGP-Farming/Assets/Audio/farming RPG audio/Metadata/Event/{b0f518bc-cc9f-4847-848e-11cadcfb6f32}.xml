@@ -103,11 +103,9 @@
 		</relationship>
 		<relationship name="sounds">
 			<destination>{d94b1c79-d517-4e13-8dea-0d1150bdf637}</destination>
-			<destination>{85491f36-b9e1-422e-b7b0-aca70b86f818}</destination>
 			<destination>{a61dc71b-352e-4daa-bcfe-d22aac050570}</destination>
 			<destination>{aa392a0a-2dc4-4f39-8ab9-314f589eec9c}</destination>
 			<destination>{34fd95c1-d8db-4a8d-807a-ec49587a7d66}</destination>
-			<destination>{d23ad62b-0557-4731-8194-93587c3ffbb4}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{eb44738e-173c-47c1-98c1-939a4ebed371}">
@@ -149,11 +147,6 @@
 			<destination>{689891cc-7544-4fa7-99f7-8b7bb3d544e0}</destination>
 		</relationship>
 	</object>
-	<object class="SingleSound" id="{85491f36-b9e1-422e-b7b0-aca70b86f818}">
-		<relationship name="audioFile">
-			<destination>{7e5c2100-270d-43c4-9093-d9f914c91c72}</destination>
-		</relationship>
-	</object>
 	<object class="SingleSound" id="{a61dc71b-352e-4daa-bcfe-d22aac050570}">
 		<relationship name="audioFile">
 			<destination>{73838eaa-2279-47f1-be4c-1c73c46549b6}</destination>
@@ -169,14 +162,10 @@
 			<destination>{fc73f490-548d-4058-9e63-48b63821fb7b}</destination>
 		</relationship>
 	</object>
-	<object class="SingleSound" id="{d23ad62b-0557-4731-8194-93587c3ffbb4}">
-		<relationship name="audioFile">
-			<destination>{3304c1e4-5329-4106-847d-745eb53d4ab3}</destination>
-		</relationship>
-	</object>
 	<object class="MixerBusEffectChain" id="{a0e6a9fd-bfb5-4d1e-a206-529ccacf1311}">
 		<relationship name="effects">
 			<destination>{d3304021-bede-4588-8b1d-d805477b0afa}</destination>
+			<destination>{ff5f310f-aaee-4088-89fa-5259f6280f89}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{d5f94be3-1eec-4150-b543-c4ce11c80819}" />
@@ -184,8 +173,13 @@
 	<object class="SpatialiserEffect" id="{55529df2-872a-4a52-a3ee-0492dc02fdc7}" />
 	<object class="GainEffect" id="{6897e8e1-0783-458c-aa38-c8d619a3a51a}">
 		<property name="gain">
-			<value>4</value>
+			<value>1.5</value>
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{d3304021-bede-4588-8b1d-d805477b0afa}" />
+	<object class="GainEffect" id="{ff5f310f-aaee-4088-89fa-5259f6280f89}">
+		<property name="gain">
+			<value>2.5</value>
+		</property>
+	</object>
 </objects>
