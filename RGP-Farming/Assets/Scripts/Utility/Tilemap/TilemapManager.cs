@@ -39,6 +39,11 @@ public class TilemapManager : Singleton<TilemapManager>
         set => _houseGrid = value;
     }
 
+    private void Awake()
+    {
+        if (_mainGrid != null) _mainGrid = GetComponent<Grid>();
+    }
+
     public int GetTileType(Vector3 pCurrentPosition)
     {
         if (_playerHouseTiles != null)

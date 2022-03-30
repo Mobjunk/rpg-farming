@@ -27,6 +27,8 @@ public class SpriteLoader : MonoBehaviour
 
         foreach (BodyPart bodyPart in _allBodyParts)
         {
+            if(bodyPart == null) continue;
+            
             paths.AddRange(bodyPart.walkPathName);
             paths.AddRange(bodyPart.axePathName);
             paths.AddRange(bodyPart.pickaxePathName);
