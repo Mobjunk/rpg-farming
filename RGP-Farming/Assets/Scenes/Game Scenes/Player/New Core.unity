@@ -429,7 +429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8370532528250513668, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d63f7bb42f888c46bee37012348504c, type: 3}
@@ -500,6 +500,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6427470178430585155, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427470178751966621, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427470178774924919, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6427470179448030293, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -513,6 +525,16 @@ PrefabInstance:
 --- !u!1 &6427470178051855029 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 832592874350771120, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+  m_PrefabInstance: {fileID: 6427470178051855028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6427470178051855030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3166190364922574916, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
+  m_PrefabInstance: {fileID: 6427470178051855028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6427470178051855031 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6427470178308034398, guid: 88e5c165d8fbfc4428f9ad97f8eaedb4, type: 3}
   m_PrefabInstance: {fileID: 6427470178051855028}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7533515531496575479 stripped
@@ -535,6 +557,14 @@ PrefabInstance:
       propertyPath: _inventoryUI.Array.data[1]
       value: 
       objectReference: {fileID: 3977598626729320678}
+    - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _inventoryUI.Array.data[2]
+      value: 
+      objectReference: {fileID: 6427470178051855031}
+    - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
+      propertyPath: _inventoryUI.Array.data[3]
+      value: 
+      objectReference: {fileID: 6427470178051855030}
     - target: {fileID: 3603664140926757640, guid: 423807c67a26df148af04be910c798e6, type: 3}
       propertyPath: _craftingInventoryUIManager
       value: 

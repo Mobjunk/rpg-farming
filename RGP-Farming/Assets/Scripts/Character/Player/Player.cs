@@ -170,13 +170,14 @@ public class Player : CharacterManager
         _characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("fishing bait"), 5, pShow: true);
-        //_characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
-        //_characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Fishing bait"), 10, pShow: true);
-        //_characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
+        _characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
+        _characterInventory.AddItem(_itemManager.ForName("Chest"), pShow: true);
 
     }
 }
