@@ -12,14 +12,14 @@ public class ItemManager : Singleton<ItemManager>
     
     public AbstractItemData ForName(string pItemName)
     {
-        return Items.FirstOrDefault(itemData => itemData.name.ToLower().Equals(pItemName.ToLower()));
+        return Items.FirstOrDefault(itemData => itemData != null && itemData.name.ToLower().Equals(pItemName.ToLower()));
     }
 
     private void Awake()
     {
         foreach (AbstractItemData item in Items)
         {
-            if (item.craftingRecipe == null) continue;
+            if (item == null || item.craftingRecipe == null) continue;
             CraftingRecipes.Add(new CraftingRecipeData(item, item.craftingRecipe));
         }
     }

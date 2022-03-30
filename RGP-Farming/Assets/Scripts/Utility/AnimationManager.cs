@@ -22,7 +22,7 @@ public class AnimationManager : MonoBehaviour
     {
         //_treeFadeOut = true;
         _groundItemsManager.Add(new GameItem(ItemManager.Instance().ForName("wood"), 15), gameObject.transform.GetChild(0).position);
-        _groundItemsManager.Add(new GameItem(ItemManager.Instance().ForName("leaf"), 10), gameObject.transform.GetChild(0).position, true);
+        _groundItemsManager.Add(new GameItem(ItemManager.Instance().ForName("leaf"), 10), gameObject.transform.GetChild(0).position);
         Destroy(gameObject);
     }
 

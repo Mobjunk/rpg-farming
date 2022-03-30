@@ -40,8 +40,10 @@ public class GameUIManager : MonoBehaviour
         _currentTabId = 0;
         ItemTooltipManager.Instance().SetTooltip(null);
         CraftingTooltipManager.Instance().SetTooltip(null);
+        CollectionTooltipManager.Instance().SetTooltip(null);
         _player.CharacterUIManager.CurrentUIOpened = null;
-        if (!_player.InputEnabled) _player.ToggleInput();
+        if(!_player.InputEnabled) _player.ToggleInput();
+        //if (!_player.InputEnabled && !DialogueManager.Instance().DialogueIsPlaying) _player.ToggleInput();
     }
 
     public virtual void Set()

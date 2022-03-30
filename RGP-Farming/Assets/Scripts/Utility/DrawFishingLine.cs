@@ -14,11 +14,14 @@ public class DrawFishingLine : MonoBehaviour
     private float _lineSegLen = 0.25f;
     [SerializeField, Range(0, 35)] private int _segmentLength = 35;
     private float _lineWidth = 0.02f;
+    [SerializeField] private bool _drawOnStart;
+    [SerializeField] private Transform _startingPoint;
 
     void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (_drawOnStart) Draw(_startingPoint.position);
     }
 
     public void SetFishOn()

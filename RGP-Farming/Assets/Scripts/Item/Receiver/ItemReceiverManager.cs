@@ -55,7 +55,7 @@ public class ItemReceiverManager : Singleton<ItemReceiverManager>
         //Check if the item already exists
         ItemReceivedData data = ForItem(pGameItem);
         //If it doesnt exist create a new one
-        if (data == null)
+        if (data == null && _itemsReceived.Count < 8)
         {
             GameObject containment = Instantiate(_slotPrefab, _parent.transform, true);
             containment.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
@@ -71,6 +71,8 @@ public class ItemReceiverManager : Singleton<ItemReceiverManager>
         //If it does exist update the amount
         else
         {
+            if (data == null) return;
+            
             //Handles updating the opacity for the images
             foreach (Image bg in data.Container.Backgrounds)
             {
@@ -101,8 +103,8 @@ public class ItemReceivedData
 
     public ItemReceivedData(GameObject pContainment, ItemReceiverContainer pContainer, float pTimeRemaning)
     {
-        this.Containment = pContainment;
-        this.Container = pContainer;
-        this.TimeRemaning = pTimeRemaning;
+        Containment = pContainment;
+        Container = pContainer;
+        TimeRemaning = pTimeRemaning;
     }
 }

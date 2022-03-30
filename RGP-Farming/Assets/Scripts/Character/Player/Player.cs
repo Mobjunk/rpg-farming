@@ -74,13 +74,16 @@ public class Player : CharacterManager
     private CharacterEnergyManager _characterEnergyManager;
 
     public CharacterEnergyManager CharacterEnergyManager => _characterEnergyManager;
+
+    private bool _inputEnabled;
+    public bool InputEnabled => _inputEnabled;
     
 
     /// <summary>
     /// Checks if a player has a controller connected
     /// </summary>
-    private bool _controllerConnected;
-    public bool ControllerConnected => _controllerConnected;
+    //private bool _controllerConnected;
+    //public bool ControllerConnected => _controllerConnected;
 
     public override void Awake()
     {
@@ -110,7 +113,7 @@ public class Player : CharacterManager
         _playerInventoryUIManager.Initialize(_characterInventory);
     }
 
-    public override void Update()
+    /*public override void Update()
     {
         base.Update();
         
@@ -129,7 +132,7 @@ public class Player : CharacterManager
 
         if (_controllerConnected && _characterInputManager.GetType() != typeof(CharacterControllerManager)) UpdateInput<CharacterKeyboardManager, CharacterControllerManager>();
         else if (!_controllerConnected && _characterInputManager.GetType() != typeof(CharacterKeyboardManager)) UpdateInput<CharacterControllerManager, CharacterKeyboardManager>();
-    }
+    }*/
 
     public void UpdateInput<T, Y>() where T : MonoBehaviour, ICharacterInput where Y : MonoBehaviour, ICharacterInput
     {
@@ -137,13 +140,6 @@ public class Player : CharacterManager
         _characterInputManager = gameObject.AddComponent<Y>();
 
         SubscribeToInput();
-    }
-
-    private bool _inputEnabled;
-    public bool InputEnabled
-    {
-        get => _inputEnabled;
-        set => _inputEnabled = value;
     }
 
     void SubscribeToInput()
@@ -171,27 +167,13 @@ public class Player : CharacterManager
     {
         _characterInventory.AddItem(_itemManager.ForName("Pickaxe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Axe"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Fishing bait"), 10, pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
-        //_characterInventory.AddItem(_itemManager.ForName("Coal"), 100);
-        //_characterInventory.AddItem(_itemManager.ForName("Iron ore"), 100);
-        _characterInventory.AddItem(_itemManager.ForName("Chest"));
-        //_characterInventory.AddItem(_itemManager.ForName("Furnace"));
-        /*_characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
-        _characterInventory.AddItem(_itemManager.ForName("Cabbage seed"), 10);
-        _characterInventory.AddItem(_itemManager.ForName("Eggplant seed"), 10);
-        _characterInventory.AddItem(_itemManager.ForName("Lemon seed"), 10);
-        _characterInventory.AddItem(_itemManager.ForName("Onion seed"), 10);
-        _characterInventory.AddItem(_itemManager.ForName("Pineapple seed"), 10);
-        _characterInventory.AddItem(_itemManager.ForName("Tomato seed"), 10);
-        _characterInventory.AddItem(_itemManager.ForName("Watermelon seed"), 10);
-        _characterInventory.AddItem(_itemManager.ForName("Wood"), 50);
-        _characterInventory.AddItem(_itemManager.ForName("Stone"), 50);*/
+        //_characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Fishing bait"), 10, pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
 
     }
 }

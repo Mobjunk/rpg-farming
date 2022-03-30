@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51cda5d24d34a31a669c13310a157b9, type: 3}
+  m_Name: Farm Shop
+  m_EditorClassIdentifier: 
+  isGeneralStore: 0
+  buyRatio: 1.5
+  sellRatio: 0.33
+  linkedNpc: {fileID: 11400000, guid: 56e2646f74edc4a4daf9c67ecb4a055c, type: 2}
+  items:
+  - Item: {fileID: 11400000, guid: 4763cb946c733a54a98f977ae3a957d4, type: 2}
+    Amount: 1
+    Durability: 0
+    MaxDurability: 100
+  - Item: {fileID: 11400000, guid: e173ddbd995ab5f4dab5ea48d8bbd8c9, type: 2}
+    Amount: 100
+    Durability: -1
+    MaxDurability: -1
+  - Item: {fileID: 11400000, guid: 61bd8abc11e55a64493e23f845df2d63, type: 2}
+    Amount: 0
+    Durability: -1
+    MaxDurability: -1

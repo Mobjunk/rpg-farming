@@ -42,7 +42,7 @@ public class CharacterMovementMananger : MonoBehaviour, ICharacterMovement
 
         if (!pDirection.Equals(Vector2.zero))
         {
-            if (_characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_3) || _characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_7))
+            if (_characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_3) || _characterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_7) || _characterStateManager.GetCharacterState().Equals(CharacterStates.CARRY_3) || _characterStateManager.GetCharacterState().Equals(CharacterStates.CARRY_7))
                 _soundManager.ExecuteSound("footsteps", _tilemapManager.GetTileType(transform.position), gameObject);
             
             _animator.SetFloat("moveX", Mathf.Round(pDirection.x));
