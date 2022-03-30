@@ -48,7 +48,10 @@ public class CharacterKeyboardManager : MonoBehaviour, ICharacterInput
         float verticalMovement = Input.GetAxisRaw("Vertical");
         
         Vector2 direction = new Vector2(horizontalMovement, verticalMovement);
-         
+
+        if (direction == null) Debug.LogError("3214234324??????????");
+        if(OnCharacterMovement == null) Debug.LogError("DAFUQ??????????");
+        
         OnCharacterMovement(direction);
     }
 }

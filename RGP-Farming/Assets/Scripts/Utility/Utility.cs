@@ -102,6 +102,7 @@ public static class Utility
             //if (o.name.Equals("---- Player -----")) continue;
             //if (o.name.Equals("---- Managers -----")) continue;
             //if (o.name.Equals("---- UI -----")) continue;
+            if(o.name.Equals("----Tilemap Manager----")) continue;
             o.SetActive(pActive);
         }
     }

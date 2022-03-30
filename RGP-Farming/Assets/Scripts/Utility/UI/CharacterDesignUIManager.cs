@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CharacterDesignUIManager : Singleton<CharacterDesignUIManager>
 {
+    private SoundManager _soundManager => SoundManager.Instance();
     private DesignManager _designManager => DesignManager.Instance();
     private PlayerInformationManager _playerInformationManager => PlayerInformationManager.Instance();
     
@@ -188,6 +189,7 @@ public class CharacterDesignUIManager : Singleton<CharacterDesignUIManager>
     {
         _playerInformationManager.Initialize(_playerName.InputField.text, _farmName.InputField.text, _favoriteThing.InputField.text, CharacterSkinColor, _currentShirtIndex, _currentPantsIndex, _currentFeetIndex, CharacterHairColor, _currentHairIndex, _currentBeardIndex, _currentEyesIndex);
 
+        
         Utility.AddSceneIfNotLoaded("Loading Screen");
         
         SceneManager.UnloadSceneAsync("Character Design");
@@ -197,18 +199,21 @@ public class CharacterDesignUIManager : Singleton<CharacterDesignUIManager>
     {
         _playerName.InputText.color = _textColors[_playerName.InputField.text.Equals(string.Empty) ? 0 : 1];
         _confirmButton.interactable = AllowedToConfirm();
+        _soundManager.ExecuteSound("type_machine");
     }
 
     private void FarmNameChanged()
     {
         _farmName.InputText.color = _textColors[_farmName.InputField.text.Equals(string.Empty) ? 0 : 1];
         _confirmButton.interactable = AllowedToConfirm();
+        _soundManager.ExecuteSound("type_machine");
     }
 
     private void FavoriteThingChanged()
     {
         _favoriteThing.InputText.color = _textColors[_favoriteThing.InputField.text.Equals(string.Empty) ? 0 : 1];
         _confirmButton.interactable = AllowedToConfirm();
+        _soundManager.ExecuteSound("type_machine");
     }
 
     public bool AllowedToConfirm()

@@ -48,6 +48,8 @@ public class SpriteLoader : MonoBehaviour
             TimeSpan duration = after.Subtract(before);
             Debug.Log("Duration in milliseconds: " + duration.Milliseconds);
             
+            MainMenuTheme.Instance().DestroyNow();
+            
             Utility.AddSceneIfNotLoaded("New Core");
             Utility.AddSceneIfNotLoaded("Main Level");
             
