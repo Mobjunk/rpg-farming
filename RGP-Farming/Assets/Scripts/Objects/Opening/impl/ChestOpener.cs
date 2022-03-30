@@ -1,7 +1,11 @@
+using FMOD;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class ChestOpener : Opener
 {
+    private SoundManager _soundManager => SoundManager.Instance();
+    
     private Animator _animator;
     private float _openingTimer;
     private bool _animationRunning, _isOpened;
@@ -28,6 +32,7 @@ public class ChestOpener : Opener
             _isOpened = true;
             _animationRunning = false;
             _animator.SetBool("opening", false);
+            _animator.SetBool("open", true);
         }
     }
 
@@ -38,11 +43,14 @@ public class ChestOpener : Opener
         _animationRunning = true;
         _animator.SetBool("opening", true);
         _openingTimer = 0.4f;
+        _soundManager.ExecuteSound("ChestOpenSound");
     }
 
     public override void Close(CharacterManager pCharacterManager)
     {
         base.Close(pCharacterManager);
-        _animator.SetBool("opening", false);
+        _animator.SetBool("open", false);
+        Utility.SetAnimator(_animator, "closing", true, true);
+        _soundManager.ExecuteSound("ChestClosedSound");
     }
 }

@@ -31,6 +31,8 @@ public class DoorInteraction : InteractionManager
         Debug.Log(TempPlayerPosition);
 
         _animator.SetBool("Open", true);
+        
+        SoundManager.Instance().ExecuteSound("DoorOpenSound");
 
         yield return new WaitForSeconds(GetAnimationClipTime(_animator,"Door_Open"));       
 

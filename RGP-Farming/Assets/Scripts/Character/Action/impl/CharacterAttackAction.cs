@@ -2,6 +2,7 @@ using UnityEngine;
 using static Utility;
 public class CharacterAttackAction : CharacterAction
 {
+    private SoundManager _soundManager => SoundManager.Instance();
     private Vector2 _attackPosition;
     private Vector2 _hitBox;
     private LayerMask _layerMask;
@@ -12,7 +13,8 @@ public class CharacterAttackAction : CharacterAction
         _attackPosition = pAttackPosition;
         _hitBox = pHitbox;
         _layerMask = pLayerMask;
-        SoundManager.Instance().ExecuteSound("sword_swing");
+        _soundManager.ExecuteSound("player_attack");
+        _soundManager.ExecuteSound("sword_swing");
         TimeRequired = GetAnimationClipTime(pCharacterManager.CharacterStateManager.GetAnimator(), "sword_swing");
         SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), "sword_swing", true, true);
     }

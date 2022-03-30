@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD;
 using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
@@ -21,6 +22,7 @@ public class AnimationManager : MonoBehaviour
     public void RemoveTreeTop()
     {
         //_treeFadeOut = true;
+        SoundManager.Instance().ExecuteSound("tree_explosion");
         _groundItemsManager.Add(new GameItem(ItemManager.Instance().ForName("wood"), 15), gameObject.transform.GetChild(0).position);
         _groundItemsManager.Add(new GameItem(ItemManager.Instance().ForName("leaf"), 10), gameObject.transform.GetChild(0).position);
         Destroy(gameObject);

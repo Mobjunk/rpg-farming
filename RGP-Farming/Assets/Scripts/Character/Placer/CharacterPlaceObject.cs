@@ -104,7 +104,9 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
         if (Input.GetMouseButtonDown(0) && canPlaceObject && placeableItem != null)
         {
             //Checks if you are trying to plant a crop on anything other then dirt
-            if (placeableItem.GetType() == typeof(AbstractPlantData) && !_tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
+            if (placeableItem is AbstractPlantData && !_tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;
+            
+            if(placeableItem is AbstractPlantData) SoundManager.Instance().ExecuteSound("PlantSeed");
             
             //Handles removing the item from the inventory
             _player.CharacterInventory.RemoveItem(placeableItem);

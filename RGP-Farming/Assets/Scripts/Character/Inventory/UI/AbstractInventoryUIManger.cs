@@ -69,7 +69,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && !DialogueManager.Instance().DialogueIsPlaying) Close();
+        if (Input.GetKeyDown(KeyCode.Escape) && !DialogueManager.Instance().DialogueIsPlaying) Close();
     }
 
     /// <summary>

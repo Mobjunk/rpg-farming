@@ -25,6 +25,7 @@ public abstract class Opener : MonoBehaviour, IOpener
 
     public virtual void Close(CharacterManager pCharacterManager)
     {
+        Debug.Log("ooooof");
         _inventoryUIManager.Close();
         //((Player)characterManager).ToggleInput();
         _inventoryUIManager.onInventoryUIClosing -= OnInventoryUIClosing;
@@ -32,6 +33,7 @@ public abstract class Opener : MonoBehaviour, IOpener
 
     public virtual void OnInventoryUIClosing()
     {
+        Close(Player.Instance());
         //Player.Instance().ToggleInput();
         //inventoryUIManager.onInventoryUIClosing -= OnInventoryUIClosing;
     }

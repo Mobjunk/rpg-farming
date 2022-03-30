@@ -42,6 +42,7 @@ public class HarvestCropsManager : HarvestSkillManager
             return;
         }
             
+        SoundManager.Instance().ExecuteSound("PickUpSound");
         _requiredAmount--;
         _player.CharacterInventory.AddItem(ItemToReceive(), pShow:true);
         

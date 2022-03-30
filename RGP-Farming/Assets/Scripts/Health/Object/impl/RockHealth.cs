@@ -16,6 +16,7 @@ public class RockHealth : HealthManager
 
     public override void HandleDeath()
     {
+        SoundManager.Instance().ExecuteSound("MiningBreakSound");
         GroundItemsManager.Instance().Add(new GameItem(_resource, 1 + Random.Range(0, 4)), gameObject.transform.position);
         Destroy(gameObject);
         CursorManager.Instance().SetDefaultCursor();
