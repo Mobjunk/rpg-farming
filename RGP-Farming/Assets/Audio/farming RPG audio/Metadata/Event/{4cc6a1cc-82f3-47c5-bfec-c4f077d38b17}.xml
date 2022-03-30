@@ -53,7 +53,7 @@
 			<destination>{41f6196f-45a7-42ec-89f3-05dc86d98ff9}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{2610c733-b00c-4253-b339-5f7cb80451d2}</destination>
+			<destination>{018979df-a36b-4f12-be70-b52936782066}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{d0254a0a-6fbc-4682-a477-9dc35ca2fc74}" />
@@ -93,7 +93,7 @@
 			<value>1.0153333333333334</value>
 		</property>
 		<property name="volume">
-			<value>-5.5</value>
+			<value>2.5</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{e469f7fa-a856-4b28-97f0-6f47a0200fe5}</destination>
@@ -167,6 +167,9 @@
 	<object class="ThreeEQEffect" id="{ec03a971-68f4-47a6-bbcd-f52caa2c0fda}">
 		<property name="lowGain">
 			<value>-5.5</value>
+		</property>
+		<property name="highGain">
+			<value>1.5</value>
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{a682cf8a-ec9a-4cce-a3cc-476004b898e2}" />
