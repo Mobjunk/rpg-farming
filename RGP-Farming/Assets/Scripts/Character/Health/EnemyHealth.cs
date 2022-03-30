@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyHealth : CharacterHealthManager
+public class EnemyHealth : HealthManager
 {
     private EnemyManager _enemyManager;
     private Animator _animator;
@@ -13,10 +13,16 @@ public class EnemyHealth : CharacterHealthManager
         if (_animator == null) _animator = GetComponentInChildren<Animator>();
     }
 
+    public override void TakeDamage(int pDamage)
+    {
+        base.TakeDamage(pDamage);
+        SoundManager.Instance().ExecuteSound("slime_hurt");
+    }
+
     public override void HandleDeath()
     {
-        Debug.Log("HANDLE ENEMY DEATHS!");
-        _enemyManager.SetAction(new EnemyDeathAction(_enemyManager, transform.parent.gameObject, _animator));
+        Debug.Log($"HANDLE ENEMY DEATHS {gameObject.name} {transform.parent.name}!");
+        _enemyManager.SetAction(new EnemyDeathAction(_enemyManager, transform.gameObject, _animator));
         //Destroy(gameObject);
     }
 }

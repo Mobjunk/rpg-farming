@@ -2,6 +2,7 @@
 
 public class FishingAction : HarvestSkillManager
 {
+    private SoundManager _soundManager => SoundManager.Instance();
     private DialogueManager _dialogueManager => DialogueManager.Instance();
 
     private PlayerFishing _playerFishing => PlayerFishing.Instance();
@@ -32,7 +33,7 @@ public class FishingAction : HarvestSkillManager
             if (_animationTimePassed <= 0)
             {
                 Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing", true);
-                //GOOI GELUID
+                _soundManager.ExecuteSound("fishing");
             }
             _animationTimePassed += Time.deltaTime;
             if (_animationTimePassed > Utility.GetAnimationClipTime(CharacterManager.CharacterStateManager.GetAnimator(), "fishing"))
@@ -44,7 +45,7 @@ public class FishingAction : HarvestSkillManager
                 _drawFishingLine.Draw(_playerFishing.GetStartingPosition(), _playerFishing.GetSegmentLength());
                 
                 Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing_idle", true);
-                //Dobber GELUID
+                _soundManager.ExecuteSound("FishFloat");
         
                 CharacterManager.CharacterActionBubbles.SetBubbleAction(BubbleActions.WAITING);
 

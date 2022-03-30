@@ -167,6 +167,7 @@ public class Player : CharacterManager
     {
         _characterInventory.AddItem(_itemManager.ForName("Pickaxe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Axe"), pShow: true);
+        _characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);

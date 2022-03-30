@@ -93,6 +93,7 @@ public class GroundItemsManager : Singleton<GroundItemsManager>
     /// <param name="pGameObject">The game object a player walked over</param>
     public void Remove(GameObject pGameObject, bool pAddToInventory = false)
     {
+        SoundManager.Instance().ExecuteSound("PickupItem");
         Remove(ForGameObject(pGameObject), pAddToInventory);
     }
 

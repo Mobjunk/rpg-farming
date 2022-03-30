@@ -4,6 +4,7 @@ using static Utility;
 
 public class TileInteractionAction : CharacterAction
 {
+    private SoundManager _soundManager => SoundManager.Instance();
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
     
     private string _animationName;
@@ -23,6 +24,7 @@ public class TileInteractionAction : CharacterAction
         _updateDurability = pUpdateDurability;
         _requiredTime = GetAnimationClipTime(CharacterManager.CharacterStateManager.GetAnimator(), _animationName);
         SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), pAnimationName, true, true);
+        if(pAnimationName.Equals("hoe")) _soundManager.ExecuteSound("PloughSound");
     }
     
     public TileInteractionAction(CharacterManager pCharacterManager, string pAnimationName, Tilemap pTileMap, Vector3Int pTileLocation, TileBase pTile, float pAnimationTime, bool pUpdateDurability = false) : base(pCharacterManager)
@@ -34,6 +36,7 @@ public class TileInteractionAction : CharacterAction
         _updateDurability = pUpdateDurability;
         _requiredTime = pAnimationTime;
         SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), pAnimationName, true, true);
+        if(pAnimationName.Equals("hoe")) _soundManager.ExecuteSound("PloughSound");
     }
 
     public override void Update()
@@ -42,7 +45,10 @@ public class TileInteractionAction : CharacterAction
 
         _animationTime += Time.deltaTime;
         if (_animationName.Equals("watering") && _animationTime > (_requiredTime / 2))
+        {
+            _soundManager.ExecuteSound("WaterPlantSound");
             GetWateringPartical()?.SetActive(true);
+        }
 
         if (_animationTime > _requiredTime)
         {

@@ -11,6 +11,7 @@ public class EnemyDeathAction : CharacterAction
         _objectToRemove = pObjectToRemove;
         _animator = pAnimator;
         SetAnimator(_animator, "death", true);
+        SoundManager.Instance().ExecuteSound("slime_death");
         TimeRequired = GetAnimationClipTime(_animator, "death");
     }
 

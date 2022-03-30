@@ -15,6 +15,7 @@ public class SoundManager : Singleton<SoundManager>
             Debug.Log($"Added {sound.SoundName()} as a sound.");
             sounds.Add(sound.SoundName(), sound);
         }
+        Debug.Log($"{sounds.Count} sounds loaded.");
     }
 
     public void ExecuteSound(string pSoundName, int pIntParameter = -1, GameObject pAttachedObject = null)
