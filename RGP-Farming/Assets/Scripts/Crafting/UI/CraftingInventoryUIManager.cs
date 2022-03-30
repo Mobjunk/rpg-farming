@@ -21,6 +21,8 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
         {
             if (pIndex == 1)
             {
+                ClearCraftingChildren();
+                
                 if (InventoryContainers[0].MaxSlots == 0)
                     InventoryContainers[0].MaxSlots = _craftingInventory._maxInventorySize;
 

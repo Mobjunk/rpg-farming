@@ -14,9 +14,11 @@ public class FishingAction : HarvestSkillManager
     private DrawFishingLine _drawFishingLine;
     
     private bool _fishOnTheHook;
-    private bool _startedFishing = false;
+    private bool _startedFishing;
+    private bool _playedSound;
     private float fishOnHookTimer;
     private float _animationTimePassed;
+    private float _timeToPass;
 
     private bool _interuptable;
     
@@ -24,19 +26,21 @@ public class FishingAction : HarvestSkillManager
     {
         _abstractFishingData = pFishingData;
         _tilePosition = pTilePosition;
+        _timeToPass = Utility.GetAnimationClipTime(CharacterManager.CharacterStateManager.GetAnimator(), "fishing");
     }
 
     public override void Update()
     {
         if (!_startedFishing)
         {
-            if (_animationTimePassed <= 0)
-            {
-                Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing", true);
-                _soundManager.ExecuteSound("fishing");
-            }
+            if (_animationTimePassed <= 0) Utility.SetAnimator(CharacterManager.CharacterStateManager.GetAnimator(), "fishing", true);
             _animationTimePassed += Time.deltaTime;
-            if (_animationTimePassed > Utility.GetAnimationClipTime(CharacterManager.CharacterStateManager.GetAnimator(), "fishing"))
+            if (_animationTimePassed >= _timeToPass / 2 && !_playedSound)
+            {
+                _soundManager.ExecuteSound("fishing");
+                _playedSound = true;
+            } 
+            if (_animationTimePassed > _timeToPass)
             {
                 GameObject bobber = GameObject.Instantiate(_playerFishing.BobberPrefab, _tilePosition, Quaternion.identity);
 

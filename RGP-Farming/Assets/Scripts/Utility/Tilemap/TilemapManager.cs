@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class TilemapManager : Singleton<TilemapManager>
@@ -23,14 +24,41 @@ public class TilemapManager : Singleton<TilemapManager>
     [SerializeField] private Tilemap[] _unwalkableTilemaps;
 
     public Tilemap[] UnwalkableTilemaps => _unwalkableTilemaps;
-    
-    private void Awake()
+
+    [SerializeField] private Tilemap _playerHouseTiles;
+
+    public Tilemap PlayerHouseTiles
     {
-        _mainGrid = GetComponent<Grid>();
+        set => _playerHouseTiles = value;
+    }
+
+    [SerializeField] private Grid _houseGrid;
+
+    public Grid HouseGrid
+    {
+        set => _houseGrid = value;
     }
 
     public int GetTileType(Vector3 pCurrentPosition)
     {
+        if (_playerHouseTiles != null)
+        {
+            TileBase indoorTiles = _playerHouseTiles.GetTile(_mainGrid.WorldToCell(pCurrentPosition));
+
+            if (SceneManager.GetSceneByName("Playerhouse").isLoaded)
+                indoorTiles = _playerHouseTiles.GetTile(_houseGrid.WorldToCell(pCurrentPosition));
+
+            if (indoorTiles != null)
+            {
+                Debug.Log("indoorTiles.name: " + indoorTiles.name);
+                switch (indoorTiles.name)
+                {
+                    case "wallpapers_1615":
+                        return 3;
+                    default: return 2;
+                }
+            }
+        }
         TileBase walkableTiles = _allTilemaps[5].GetTile(_mainGrid.WorldToCell(pCurrentPosition));
         if (walkableTiles != null)
         {

@@ -142,6 +142,7 @@ public class DialogueManager : Singleton<DialogueManager>
             _sentencesUI.text += letter;
             //Calculates time between characters if Textspeed is amount of characters a second.
             float speed = TextSpeed / (TextSpeed * TextSpeed);
+            SoundManager.Instance().ExecuteSound("type_machine");
             yield return new WaitForSeconds(speed);
         }
         _textShown = false;

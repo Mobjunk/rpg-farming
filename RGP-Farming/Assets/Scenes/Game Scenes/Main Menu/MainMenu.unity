@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 71092890}
   - component: {fileID: 71092889}
   - component: {fileID: 71092888}
+  - component: {fileID: 71092891}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -206,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 602954984}
+      - m_Target: {fileID: 71092891}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
@@ -256,6 +257,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71092886}
   m_CullTransparentMesh: 1
+--- !u!114 &71092891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71092886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9702a3bd168a9d46bc67bedd46a7653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useCustomCode: 0
+  _defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  _highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  _clickColor: {r: 0, g: 0, b: 0, a: 0}
+  _hoveringImage: {fileID: 0}
 --- !u!1 &449425290
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +352,7 @@ GameObject:
   - component: {fileID: 598167122}
   - component: {fileID: 598167121}
   - component: {fileID: 598167120}
+  - component: {fileID: 598167123}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -405,7 +424,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 602954984}
+      - m_Target: {fileID: 598167123}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
@@ -455,6 +474,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598167118}
   m_CullTransparentMesh: 1
+--- !u!114 &598167123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598167118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9702a3bd168a9d46bc67bedd46a7653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useCustomCode: 0
+  _defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  _highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  _clickColor: {r: 0, g: 0, b: 0, a: 0}
+  _hoveringImage: {fileID: 0}
 --- !u!1 &602954983
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +500,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 602954985}
-  - component: {fileID: 602954984}
   m_Layer: 0
   m_Name: ButtonManager
   m_TagString: Untagged
@@ -472,19 +507,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &602954984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602954983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9702a3bd168a9d46bc67bedd46a7653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopUIManager: {fileID: 0}
 --- !u!4 &602954985
 Transform:
   m_ObjectHideFlags: 0

@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    private SoundManager _soundManager => SoundManager.Instance();
     
     public void StartGame()
     {
@@ -25,6 +27,8 @@ public class ButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             _defaultColor = _hoveringImage.color;
     }
 
+    [SerializeField] private bool _useCustomCode = true;
+
     [SerializeField] private Color _defaultColor;
     
     [SerializeField] private Color _highlightedColor;
@@ -37,20 +41,32 @@ public class ButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _hoveringImage.color = _highlightedColor;
-        _isHovering = true;
+        
+        if (_useCustomCode)
+        {
+            _hoveringImage.color = _highlightedColor;
+            _isHovering = true;
+        }
+        _soundManager.ExecuteSound("menu_hover");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _hoveringImage.color = _defaultColor;
-        _isHovering = false;
+        if (_useCustomCode)
+        {
+            _hoveringImage.color = _defaultColor;
+            _isHovering = false;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        _hoveringImage.color = _clickColor;
-        StartCoroutine(ResetClick());
+        if (_useCustomCode)
+        {
+            _hoveringImage.color = _clickColor;
+            StartCoroutine(ResetClick());
+        }
+        _soundManager.ExecuteSound("menu_select");
     }
 
     IEnumerator ResetClick()
