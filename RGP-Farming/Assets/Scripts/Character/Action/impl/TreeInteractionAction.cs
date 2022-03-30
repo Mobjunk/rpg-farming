@@ -6,13 +6,25 @@ public class TreeInteractionAction : CharacterAction
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
 
     private Tree _interactedTree;
+
+    private bool _soundPlayed;
     
     public TreeInteractionAction(CharacterManager pCharacterManager, Tree pInteractedTree) : base(pCharacterManager)
     {
         _interactedTree = pInteractedTree;
         Utility.SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), "axe_swing", true, true);
         TimeRequired = Utility.GetAnimationClipTime(pCharacterManager.CharacterStateManager.GetAnimator(), "axe_swing");
-        _soundManager.ExecuteSound("SwingTool");
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        
+        if (AnimationTime >= TimeRequired / 2 && !_soundPlayed)
+        {
+            SoundManager.Instance().ExecuteSound("SwingTool");
+            _soundPlayed = true;
+        }
     }
 
     public override CharacterStates GetCharacterState()

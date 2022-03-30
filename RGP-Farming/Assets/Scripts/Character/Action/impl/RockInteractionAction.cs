@@ -7,6 +7,8 @@ public class RockInteractionAction : CharacterAction
     private HealthManager _healthManager;
     
     private string objectName;
+
+    private bool _soundPlayed;
     
     public RockInteractionAction(CharacterManager pCharacterManager, HealthManager pHealthManager, string pObjectName = "") : base(pCharacterManager)
     {
@@ -14,7 +16,16 @@ public class RockInteractionAction : CharacterAction
         objectName = pObjectName;
         Utility.SetAnimator(pCharacterManager.CharacterStateManager.GetAnimator(), "pickaxe_swing", true, true);
         TimeRequired = Utility.GetAnimationClipTime(pCharacterManager.CharacterStateManager.GetAnimator(), "pickaxe_swing");
-        SoundManager.Instance().ExecuteSound("SwingTool");
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (AnimationTime >= TimeRequired / 2 && !_soundPlayed)
+        {
+            SoundManager.Instance().ExecuteSound("SwingTool");
+            _soundPlayed = true;
+        }
     }
 
     public override CharacterStates GetCharacterState()
