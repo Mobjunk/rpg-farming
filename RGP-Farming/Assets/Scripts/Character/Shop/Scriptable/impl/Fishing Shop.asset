@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51cda5d24d34a31a669c13310a157b9, type: 3}
+  m_Name: Fishing Shop
+  m_EditorClassIdentifier: 
+  isGeneralStore: 0
+  buyRatio: 1.5
+  sellRatio: 0.33
+  linkedNpc: {fileID: 11400000, guid: d49a7ea3f3b53124f857256678ddb8c2, type: 2}
+  items:
+  - Item: {fileID: 11400000, guid: 739a96e08b04541488ba5fdedf081f10, type: 2}
+    Amount: 10
+    Durability: -1
+    MaxDurability: -1
+  - Item: {fileID: 11400000, guid: c5bbf17798ee2dc4f84edc637ea7646e, type: 2}
+    Amount: 1000
+    Durability: -1
+    MaxDurability: -1
+  - Item: {fileID: 11400000, guid: e6cd6fd285d12cc408dc4190e06b06b8, type: 2}
+    Amount: 0
+    Durability: -1
+    MaxDurability: -1

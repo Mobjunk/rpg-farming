@@ -117,7 +117,8 @@ public class DialogueManager : Singleton<DialogueManager>
             _textShown = false;
         }
     }
-    void EndDialogue()
+
+    public void EndDialogue()
     {
         _sentenceBox.SetActive(false);
         _nameBox.SetActive(false);

@@ -5,6 +5,7 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
 {
     private InventoryMenuManager _inventoryMenuManager => InventoryMenuManager.Instance();
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
+    private CollectionLogManager _collectionLogManager => CollectionLogManager.Instance();
     
     [SerializeField] private CraftingInventory _craftingInventory;
 
@@ -18,10 +19,13 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
     {
         if (base.SwitchToTab(pIndex))
         {
-            if (InventoryContainers[0].MaxSlots == 0)
-                InventoryContainers[0].MaxSlots = _craftingInventory._maxInventorySize;
+            if (pIndex == 1)
+            {
+                if (InventoryContainers[0].MaxSlots == 0)
+                    InventoryContainers[0].MaxSlots = _craftingInventory._maxInventorySize;
 
-            Initialize(_craftingInventory);
+                Initialize(_craftingInventory);
+            } else if(pIndex == 2) _collectionLogManager.Initialize();
         }
     }
 
@@ -32,6 +36,7 @@ public class CraftingInventoryUIManager : AbstractInventoryUIManger
 
     public void ClearCraftingChildren()
     {
+        _collectionLogManager.ClearChildren();
         for (int parentIndex = 0; parentIndex < InventoryContainers.Length; parentIndex++)
         {
             ParentData parent = InventoryContainers[parentIndex];

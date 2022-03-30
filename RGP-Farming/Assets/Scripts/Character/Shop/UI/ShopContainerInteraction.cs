@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ShopContainerInteraction : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    private DialogueManager _dialogueManager => DialogueManager.Instance();
+    
     private Player _player = Player.Instance();
     
     private ShopContainerGrid _shopContainerGrid;
@@ -35,6 +37,8 @@ public class ShopContainerInteraction : MonoBehaviour, IPointerEnterHandler, IPo
     {
         if (pEventData.button == PointerEventData.InputButton.Left)
         {
+            if (_dialogueManager.DialogueIsPlaying) return;
+            
             AbstractItemData item = _shopContainerGrid.Containment.Item;
             //Checks if the container you clicked is a shop
             if (_shopContainerGrid.Container.GetType() == typeof(ShopInventory))
@@ -49,9 +53,10 @@ public class ShopContainerInteraction : MonoBehaviour, IPointerEnterHandler, IPo
                         {
                             _player.CharacterInventory.PurchaseItem(item, shopInventory.GetBuyPrice(item));
                             shopInventory.SellItem(item);
-                        } else Debug.LogError("Has not enough gold for this item...");
-                    } else Debug.LogError("Shop has no stock...");
-                } else Debug.LogError("Has no room for this item...");
+                        }
+                        else _dialogueManager.StartDialogue("You do not have enough gold for this item.");//Debug.LogError("Has not enough gold for this item...");
+                    } else _dialogueManager.StartDialogue("The shop does not have any stock of this item.");//Debug.LogError("Shop has no stock...");
+                } else _dialogueManager.StartDialogue("You do not have enough space in your inventory.");//Debug.LogError("Has no room for this item...");
             }
             //Checks if the container that was clicked was a character inventory
             else if (_shopContainerGrid.Container.GetType() == typeof(CharacterInventory))

@@ -30,37 +30,7 @@ public class CharacterStateManager : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
-
-    /*public void SetAnimator(string pName, bool pSet, bool pStopAnimation = false)
-    {
-        _animator.SetBool(pName, pSet);
-        if(pStopAnimation) StartCoroutine(ResetAnimation(pName, GetAnimationClipTime(pName)));
-    }
-
-    public void SetAnimator(string pName, float pSet, bool pStopAnimation = false)
-    {
-        _animator.SetFloat(pName, pSet);
-        if(pStopAnimation) StartCoroutine(ResetAnimation(pName, GetAnimationClipTime(pName)));
-    }
-
-    public void SetAnimator(string pName, int pSet, bool pStopAnimation = false)
-    {
-        _animator.SetInteger(pName, pSet);
-        if(pStopAnimation) StartCoroutine(ResetAnimation(pName, GetAnimationClipTime(pName)));
-    }
-
-    IEnumerator ResetAnimation(string pAnimationName, float pAnimationTime)
-    {
-        yield return new WaitForSeconds(pAnimationTime);
-        _animator.SetBool(pAnimationName, false);
-    }
     
-    private float GetAnimationClipTime(string pAnimationName)
-    {
-        AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
-        return (from clip in clips where clip.name.ToLower().Equals(pAnimationName.ToLower()) select clip.length).FirstOrDefault();
-    }*/
-
     /// <summary>
     /// The current direction the character is facing based on the moveX and moveY in the animator
     /// </summary>

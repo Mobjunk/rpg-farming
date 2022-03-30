@@ -6,9 +6,10 @@ public abstract class NpcInteraction : InteractionManager
 {
     public Npc Npc;
 
-    private void Awake()
+    public virtual void Awake()
     {
         Npc = GetComponent<Npc>();
+        if(Npc == null) Debug.Log("????????");
     }
 
     public virtual void OnTriggerEnter2D(Collider2D pOther)
@@ -26,10 +27,13 @@ public abstract class NpcInteraction : InteractionManager
     public override void OnInteraction(CharacterManager pCharacterManager)
     {
         CharacterContractManager characterContractManager = pCharacterManager.GetComponent<CharacterContractManager>();
-        List<Contract> contracts = characterContractManager.GetListForNpcData(Npc.NpcData);
+        if (characterContractManager != null && Npc != null)
+        {
+            List<Contract> contracts = characterContractManager.GetListForNpcData(Npc.NpcData);
 
-        if (contracts.Count > 0) ContractManager.Instance().CompleteContract(contracts[0]);
-        else HandleOthers();
+            if (contracts.Count > 0) ContractManager.Instance().CompleteContract(contracts[0]);
+            else HandleOthers();
+        } else HandleOthers();
     }
 
     public abstract void HandleOthers();

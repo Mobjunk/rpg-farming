@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager>
+public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager, AbstractItemData>
 {
 
     [SerializeField] private RectTransform _itemRequiredParent;
@@ -21,14 +21,17 @@ public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager>
         return new Vector2(45, 95);
     }
 
-    public override void SetTooltip(AbstractItemData pHoveredItem)
+    public override bool SetTooltip(AbstractItemData pHoveredItem)
     {
-        base.SetTooltip(pHoveredItem);
+        if (!base.SetTooltip(pHoveredItem))
+        {
+            return false;
+        }
 
         if (pHoveredItem == null)
         {
             ResetTooltip();
-            return;
+            return false;
         }
 
         _increasedY = pHoveredItem.craftingRecipe.requiredItems.Count * 20;
@@ -49,8 +52,12 @@ public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager>
             itemName.text = $"{item.Item.itemName}";
         }
         
+        ItemName.text = $"{Utility.UppercaseFirst(pHoveredItem.itemName.ToLower())}";
+        ItemDescription.text = $"{pHoveredItem.itemDescription}";
+        
         _deviderRect.anchoredPosition = new Vector2(_deviderRect.anchoredPosition.x, -21 - _increasedY);
         _descriptionRect.offsetMax = new Vector2(_descriptionRect.offsetMax.x, -22 - _increasedY);
+        return true;
     }
 
     public override void ResetTooltip()

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ItemTooltipManager : TooltipManager<ItemTooltipManager>
+public class ItemTooltipManager : TooltipManager<ItemTooltipManager, AbstractItemData>
 {
     [SerializeField] private TextMeshProUGUI _itemType;
     
@@ -15,15 +15,21 @@ public class ItemTooltipManager : TooltipManager<ItemTooltipManager>
         return new Vector2(45, 80);
     }
 
-    public override void SetTooltip(AbstractItemData pHoveredItem)
+    public override bool SetTooltip(AbstractItemData pHoveredItem)
     {
-        base.SetTooltip(pHoveredItem);
+        if (!base.SetTooltip(pHoveredItem))
+        {
+            return false;
+        }
         if(pHoveredItem == null)
         {
             ResetTooltip();
-            return;
+            return false;
         }
         
+        ItemName.text = $"{Utility.UppercaseFirst(pHoveredItem.itemName.ToLower())}";
+        ItemDescription.text = $"{pHoveredItem.itemDescription}";
         _itemType.text = $"{Utility.UppercaseFirst(pHoveredItem.itemType.ToString().ToLower().Replace("_", " "))}";
+        return true;
     }
 }
