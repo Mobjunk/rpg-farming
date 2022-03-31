@@ -85,6 +85,13 @@ public static class Utility
         return (from clip in clips where clip.name.ToLower().Equals(pAnimationName.ToLower()) select clip.length).FirstOrDefault();
     }
 
+    public static IEnumerable<IEnumerable<T>> Split<T>(this T[] arr, int size)
+    {
+        for (var i = 0; i < arr.Length / size + 1; i++) {
+            yield return arr.Skip(i * size).Take(size);
+        }
+    }
+    
     public static void AddSceneIfNotLoaded(string pSceneName)
     {
         Scene playerScene = SceneManager.GetSceneByName(pSceneName);

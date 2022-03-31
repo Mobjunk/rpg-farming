@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BodyPartManager : MonoBehaviour
 {
+    public PlayerInformationManager PlayerInformationManager => PlayerInformationManager.Instance();
     public CachedSpritesManager CachedSpritesManager => CachedSpritesManager.Instance();
     
     private BodyPart _currentBodyPart;
@@ -44,9 +45,11 @@ public class BodyPartManager : MonoBehaviour
             Object[] sprites = Resources.LoadAll(path, typeof(Sprite));
             foreach (Object sprite in sprites)
             {
-                if (CachedSpritesManager.AllSprites.Contains((Sprite) sprite)) continue;
+                Sprite s = (Sprite) sprite;
+                if(CachedSpritesManager.GetDictionary(CurrentBodyPart.bodyType).ContainsKey(s.name)) continue;
+                //if (CachedSpritesManager.AllSprites.Contains((Sprite) sprite)) continue;
                 
-                CachedSpritesManager.AllSprites.Add((Sprite) sprite);
+                CachedSpritesManager.AddSprite(s, CurrentBodyPart.bodyType);
             }
             CachedSpritesManager.LoadedPaths.Add(path);
         }

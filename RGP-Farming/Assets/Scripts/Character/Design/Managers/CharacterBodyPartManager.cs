@@ -5,9 +5,9 @@ using Object = UnityEngine.Object;
 
 public abstract class CharacterBodyPartManager : BodyPartManager
 {
-    private PlayerInformationManager _playerInformationManager => PlayerInformationManager.Instance();
     
     private Animator _animator;
+    private CharacterManager _characterManager;
     private CharacterStateManager _characterStateManager;
     private SpriteRenderer _spriteRenderer;
     
@@ -18,6 +18,7 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         LoadSprites();
         
         _animator = GetComponentInParent<Animator>();
+        _characterManager = GetComponentInParent<CharacterManager>();
         _characterStateManager = GetComponentInParent<CharacterStateManager>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         
@@ -29,7 +30,18 @@ public abstract class CharacterBodyPartManager : BodyPartManager
     /// </summary>
     private void OnStateChange()
     {
-        UpdateBodyPart(CurrentBodyPart, _characterStateManager == null ? 0 : _characterStateManager.GetDirection(),_playerInformationManager == null ? 0 : _playerInformationManager.CharacterSkinColor, _playerInformationManager == null ? 0 : _playerInformationManager.CharacterHairColor);
+        int skinColor = 0;
+        int hairColor = 0;
+        int direction = 0;
+        if (PlayerInformationManager != null && _characterManager is Player)
+        {
+            skinColor = PlayerInformationManager.CharacterSkinColor;
+            hairColor = PlayerInformationManager.CharacterHairColor;
+        }
+
+        if (_characterStateManager != null) direction = _characterStateManager.GetDirection();
+        UpdateBodyPart(CurrentBodyPart, direction, skinColor, hairColor);
+        //UpdateBodyPart(CurrentBodyPart, _characterStateManager == null ? 0 : _characterStateManager.GetDirection(),_playerInformationManager == null ? 0 : _playerInformationManager.CharacterSkinColor, _playerInformationManager == null ? 0 : _playerInformationManager.CharacterHairColor);
     }
 
     /// <summary>
@@ -111,12 +123,8 @@ public abstract class CharacterBodyPartManager : BodyPartManager
         if (pBodyPart.RequiresMultiplier()) modifiedIndex += (totalFrames * multiplier);
 
         string realFileName = fileName + "" + modifiedIndex;
-        Sprite sprite = CachedSpritesManager.GetCachedSprite(realFileName);
-        if (sprite == null)
-        {
-            sprite = CachedSpritesManager.GetSprite(realFileName);
-            CachedSpritesManager.CachedSprites.Add(sprite);
-        }
+        Sprite sprite = CachedSpritesManager.GetSprite(realFileName, pBodyPart.bodyType);
+
         if (sprite != null)
         {
             _spriteRenderer.sprite = sprite;

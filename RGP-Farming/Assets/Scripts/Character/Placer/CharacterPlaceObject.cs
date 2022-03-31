@@ -47,6 +47,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             _grid = _tilemapManager.MainGrid;
             _hoverTilemap = _tilemapManager.HoverTilemap;
             _tilemapsToCheck = _tilemapManager.TilemapsToCheck;
+            _playerDirtTiles = _tilemapManager.PlayerDirtTiles;
         }
         
         if (_player.CharacterUIManager.CurrentUIOpened != null)
