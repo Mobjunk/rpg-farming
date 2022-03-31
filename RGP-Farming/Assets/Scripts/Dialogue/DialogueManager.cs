@@ -41,10 +41,10 @@ public class DialogueManager : Singleton<DialogueManager>
         if (_player.InputEnabled)
         {
             _player.ToggleInput();
-            _player.CharacterMovementMananger.ResetMovement();
+            _player.CharacterMovementMananger?.ResetMovement();
         }
         _activeNpc = pNpc;
-        _activeNpc?.CharacterMovementMananger.ResetMovement();
+        _activeNpc?.CharacterMovementMananger?.ResetMovement();
         
         _npcNameUI.text = pDialogue.Npc;
         //Clear last queue.
