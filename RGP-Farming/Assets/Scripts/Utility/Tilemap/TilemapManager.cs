@@ -39,6 +39,10 @@ public class TilemapManager : Singleton<TilemapManager>
         set => _houseGrid = value;
     }
 
+    [SerializeField] private Tilemap _playerDirtTiles;
+    
+    public Tilemap PlayerDirtTiles => _playerDirtTiles;
+
     public int GetTileType(Vector3 pCurrentPosition)
     {
         if (_playerHouseTiles != null)
