@@ -38,14 +38,8 @@ public class CharacterUIBodyPartManager<T> : BodyPartManager
         
         if (CurrentBodyPart.RequiresMultiplier()) baseIndex += (8 * multiplier);
         
-        Sprite sprite = CachedSpritesManager.GetCachedSprite(fileName + "" + baseIndex);
-        if (sprite == null)
-        {
-            sprite = CachedSpritesManager.GetSprite(fileName + "" + baseIndex);
-            CachedSpritesManager.CachedSprites.Add(sprite);
-        }
-        
-        
+        Sprite sprite = CachedSpritesManager.GetSprite(fileName + "" + baseIndex, CurrentBodyPart.bodyType);
+
         if (sprite != null)
         {
             _image.sprite = sprite;

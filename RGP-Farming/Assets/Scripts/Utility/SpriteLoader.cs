@@ -1,9 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
+
+public class BodySprite
+{
+    public BodyType BodyType;
+    public List<string> Paths = new List<string>();
+
+    public BodySprite(BodyType pBodyType) => BodyType = pBodyType;
+}
 
 public class SpriteLoader : MonoBehaviour
 {
@@ -21,23 +30,31 @@ public class SpriteLoader : MonoBehaviour
     
     private void Awake()
     {
-        Application.targetFrameRate = 30;
+        //Application.targetFrameRate = 120;
         
-        List<string> paths = new List<string>();
+        List<BodySprite> paths = new List<BodySprite>();
 
         foreach (BodyPart bodyPart in _allBodyParts)
         {
             if(bodyPart == null) continue;
+
+            BodySprite bodySprite = new BodySprite(bodyPart.bodyType);
             
-            paths.AddRange(bodyPart.walkPathName);
-            paths.AddRange(bodyPart.axePathName);
-            paths.AddRange(bodyPart.pickaxePathName);
-            paths.AddRange(bodyPart.wateringCanPathName);
-            paths.AddRange(bodyPart.hoePathName);
-            paths.AddRange(bodyPart.carryPathName);
-            paths.AddRange(bodyPart.fishingPathName);
-            paths.AddRange(bodyPart.swordPathName);
+            bodySprite.Paths.AddRange(bodyPart.walkPathName);
+            bodySprite.Paths.AddRange(bodyPart.axePathName);
+            bodySprite.Paths.AddRange(bodyPart.pickaxePathName);
+            bodySprite.Paths.AddRange(bodyPart.wateringCanPathName);
+            bodySprite.Paths.AddRange(bodyPart.hoePathName);
+            bodySprite.Paths.AddRange(bodyPart.carryPathName);
+            bodySprite.Paths.AddRange(bodyPart.fishingPathName);
+            bodySprite.Paths.AddRange(bodyPart.swordPathName);
+            
+            Debug.Log("bodySprite.Paths length: " + bodySprite.Paths);
+            
+            paths.Add(bodySprite);
         }
+        
+        Debug.Log("paths: " + paths.Count);
 
         StartCoroutine(LoadSpritesFromPath(paths.ToArray()));
     }
@@ -50,13 +67,16 @@ public class SpriteLoader : MonoBehaviour
             TimeSpan duration = after.Subtract(before);
             Debug.Log("Duration in milliseconds: " + duration.Milliseconds);
             
+            _canvas.gameObject.SetActive(false);
+            
+            Debug.LogWarning("totalSprites = " + _cachedSpritesManager.GetTotalSpriteSize());
+            
             MainMenuTheme.Instance().DestroyNow();
             
             Utility.AddSceneIfNotLoaded("New Core");
             Utility.AddSceneIfNotLoaded("Main Level");
             
             Destroy(GetComponent<SpriteLoader>());
-            _canvas.gameObject.SetActive(false);
         } else
         {
             _timePassed += Time.deltaTime;
@@ -75,31 +95,31 @@ public class SpriteLoader : MonoBehaviour
         }
     }
 
-    IEnumerator LoadSpritesFromPath(string[] pPath)
+    IEnumerator LoadSpritesFromPath(BodySprite[] pBodySprites) //string[] pPath
     {
-        foreach (string path in pPath)
+        for (int index = 0; index < pBodySprites.Length; index++)
         {
-            //if(path.Equals("Character/fish/hair_fish/braids_fish")) Debug.Log("TESTER " + _cachedSpritesManager.AllSprites.Count);
-            if (_cachedSpritesManager.LoadedPaths.Contains(path))
+            BodySprite bodySprite = pBodySprites[index];
+            for (int pathIndex = 0; pathIndex < bodySprite.Paths.Count; pathIndex++)
             {
-                //Debug.Log("Skipping path " + path);
-                continue;
-            }
-            
-            Object[] sprites = Resources.LoadAll(path, typeof(Sprite));
-            foreach (Object sprite in sprites)
-            {
-                //Debug.Log(sprite.name);
-                if (_cachedSpritesManager.AllSprites.Contains((Sprite) sprite))
-                {
-                    //Debug.Log("Skipping sprite: " + sprite.name);
-                    continue;
-                }
+                string path = bodySprite.Paths[pathIndex];
+                if (_cachedSpritesManager.LoadedPaths.Contains(path)) continue;
                 
-                _cachedSpritesManager.AllSprites.Add((Sprite) sprite);
+                Object[] sprites = Resources.LoadAll(path, typeof(Sprite));
+                for (int spriteIndex = 0; spriteIndex < sprites.Length; spriteIndex++)
+                {
+                    Sprite sprite = (Sprite) sprites[spriteIndex];
+                    if (_cachedSpritesManager.GetDictionary(bodySprite.BodyType).ContainsKey(sprite.name))
+                    {
+                        Debug.LogError($"SPRITE WITH NAME {sprite.name} already exist!");
+                        continue;
+                    }
+                    
+                    _cachedSpritesManager.AddSprite(sprite, bodySprite.BodyType);
+                }
+                _cachedSpritesManager.LoadedPaths.Add(path);
+                yield return null;
             }
-            _cachedSpritesManager.LoadedPaths.Add(path);
-            yield return null;
         }
 
         FinishedLoading = true;

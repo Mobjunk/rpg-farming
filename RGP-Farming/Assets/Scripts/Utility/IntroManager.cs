@@ -8,6 +8,7 @@ public class IntroManager : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         _videoPlayer = GetComponent<VideoPlayer>();
         _videoPlayer.loopPointReached += EndReached;
     }
