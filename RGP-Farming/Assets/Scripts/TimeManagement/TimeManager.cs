@@ -21,14 +21,16 @@ public class TimeManager : Singleton<TimeManager>
     public TimeSpan ElapsedTime;
     public DateTime CurrentGameTime;
 
-    void Awake()
+    void Start()
     {
+        _timeSpeedMultiplier = 86400 / (MinutesADay * 60);
         _startTime = Time.time * _timeSpeedMultiplier;
         _startDate = new DateTime(2022,1,1,StartingHour,0,0);
-        CurrentGameTime = _startDate.Add(ElapsedTime);
         
         //Calculates the modifier based on seconds in a day.
-        _timeSpeedMultiplier =  86400 / (MinutesADay * 60); 
+        Debug.Log("Game starts already");
+        Debug.Log(_startTime);
+        Debug.Log("Time = " + Time.time);
     }
     void Update()
     {

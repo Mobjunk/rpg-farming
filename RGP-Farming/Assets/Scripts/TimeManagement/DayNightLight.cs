@@ -8,49 +8,38 @@ using UnityEngine.Rendering;
 public class DayNightLight : MonoBehaviour
 {
     private TimeManager _timeManager => TimeManager.Instance();
-    public Volume volume;
-    public Light2D Light;
+
+    private Light2D _light;
     private void Awake()
     {
-        volume = GetComponent<Volume>();
-        if(volume == null)
+        _light = GetComponent<Light2D>();
+        if(_light == null)
         {
-            Debug.Log("Error");
+            Debug.Log("No light found in the scene");
         }
     }
     void Update()
     {
         SetLighting();
     }
-    /*public void SetLighting()
-    {
-        float hour = _timeManager.ElapsedTime.Hours;
-        float minutes = _timeManager.ElapsedTime.Hours * 60 + _timeManager.ElapsedTime.Minutes;
-        if (hour >= 18 && hour <= 24)
-        {
-            float weightValue =  1 + ((minutes - (24 * 60)) / (6 * 60) );
-            volume.weight = weightValue;
-            Debug.Log("Weight"+ weightValue);
-        }
-        if(hour >= 8 && hour < 18)
-        {
-            volume.weight = 0;
-        }
-    }*/
-
     public void SetLighting()
     {
-        float hour = _timeManager.ElapsedTime.Hours;
-        float minutes = _timeManager.ElapsedTime.Hours * 60 + _timeManager.ElapsedTime.Minutes;
-        if (hour >= 18 && hour <= 24)
+        float hour = _timeManager.CurrentGameTime.Hour;
+        float minutes = _timeManager.CurrentGameTime.Hour * 60 + _timeManager.CurrentGameTime.Minute;
+        if (hour >= 18 && hour <= 23)
         {
             float weightValue = 1 + ((minutes - (24 * 60)) / (6 * 60));
-            Light.intensity =  1 - weightValue;
-            Debug.Log("Light.Intensity" + Light.intensity);
+            
+            _light.intensity = 1 - weightValue;
+            
+        }
+        if(hour >= 23 && hour <= 24)
+        {
+            _light.intensity = 0.16f;
         }
         if (hour >= _timeManager.StartingHour && hour < 18)
         {
-            Light.intensity = 1;
+            _light.intensity = 1;
         }
     }
 }

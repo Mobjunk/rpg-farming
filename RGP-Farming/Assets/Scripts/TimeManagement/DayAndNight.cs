@@ -53,7 +53,7 @@ public class DayAndNight : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //Set current time to 8 am
-        _timeManager.SetMorningDate();
+        //TODO  --->  DIT WERKT NIET : _timeManager.SetMorningDate();
 
         //Unlock player movement
         if (!_player.InputEnabled) _player.ToggleInput();
