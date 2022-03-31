@@ -89,8 +89,6 @@ public class Player : CharacterManager
     {
         base.Awake();
 
-        //Application.targetFrameRate = 120;
-
         _intsance = this;
 
         _characterInteractionManager = GetComponent<CharacterInteractionManager>();
@@ -112,27 +110,6 @@ public class Player : CharacterManager
         
         _playerInventoryUIManager.Initialize(_characterInventory);
     }
-
-    /*public override void Update()
-    {
-        base.Update();
-        
-        _controllerConnected = false;
-        foreach(string name in Input.GetJoystickNames())
-        {
-            //Debug.Log("Controllername: " + name);
-            //TODO: Add more controllers?
-            switch (name)
-            {
-                case "Controller (Xbox 360 Wireless Receiver for Windows)":
-                    _controllerConnected = true;
-                    break;
-            }
-        }
-
-        if (_controllerConnected && _characterInputManager.GetType() != typeof(CharacterControllerManager)) UpdateInput<CharacterKeyboardManager, CharacterControllerManager>();
-        else if (!_controllerConnected && _characterInputManager.GetType() != typeof(CharacterKeyboardManager)) UpdateInput<CharacterControllerManager, CharacterKeyboardManager>();
-    }*/
 
     public void UpdateInput<T, Y>() where T : MonoBehaviour, ICharacterInput where Y : MonoBehaviour, ICharacterInput
     {
@@ -167,17 +144,17 @@ public class Player : CharacterManager
     {
         _characterInventory.AddItem(_itemManager.ForName("Pickaxe"), pShow: true);
         _characterInventory.AddItem(_itemManager.ForName("Axe"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("fishing bait"), 5, pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("fishing bait"), 5, pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Hoe"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Scythe"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Sword"), pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Watering can"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Fishing rod"), pShow: true);
         //_characterInventory.AddItem(_itemManager.ForName("Fishing bait"), 10, pShow: true);
-        _characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
-        _characterInventory.AddItem(_itemManager.ForName("Chest"), pShow: true);
+        //_characterInventory.AddItem(_itemManager.ForName("Carrot seed"), 10, true);
+        //_characterInventory.AddItem(_itemManager.ForName("Chest"), pShow: true);
 
     }
 }
