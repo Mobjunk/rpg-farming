@@ -12,7 +12,6 @@ public class TimeManager : Singleton<TimeManager>
     private static float _startTime;
 
     public float MinutesADay; 
-
     public int StartingHour;
 
     DateTime _startDate;
