@@ -3,28 +3,19 @@ using UnityEngine.Tilemaps;
 
 public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 {
+    private TileManager _tileManager => TileManager.Instance();
+    
     private TilePlacer _tilePlacer => TilePlacer.Instance();
+    
     private TilemapManager _tilemapManager => TilemapManager.Instance();
     
     private Player _player;
+    
     private GameObject _currentGameObjectHoverd;
 
     [SerializeField] private GameObject[] _tileChecker;
-    [SerializeField] private Grid _grid;
 
-    public Grid Grid => _grid;
-    
-    [SerializeField] private Tilemap _hoverTilemap;
-
-    [SerializeField] private Tilemap[] _tilemapsToCheck;
-
-    [SerializeField] private Tilemap _playerDirtTiles;
-
-    public Tilemap GetPlayerTileMap => _tilemapsToCheck[2];
-    
-    [SerializeField] private Tile _canPlace;
-    [SerializeField] private Tile _cannotPlace;
-    [SerializeField] private Tile _occupiedTile;
+    public Tilemap GetPlayerTileMap => _tilemapManager.TilemapsToCheck[2];
 
     private Vector3Int _placeHolderPosition;
     private bool _canPlaceObject;
@@ -42,29 +33,21 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 
     private void Update()
     {
-        if (_grid == null)
-        {
-            _grid = _tilemapManager.MainGrid;
-            _hoverTilemap = _tilemapManager.HoverTilemap;
-            _tilemapsToCheck = _tilemapManager.TilemapsToCheck;
-            _playerDirtTiles = _tilemapManager.PlayerDirtTiles;
-        }
-        
         if (_player.CharacterUIManager.CurrentUIOpened != null)
         {
-            _hoverTilemap.ClearAllTiles();
+            _tilemapManager.HoverTilemap.ClearAllTiles();
             return;
         }
         
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3Int tilePosition = _hoverTilemap.WorldToCell(mousePosition);
+        Vector3Int tilePosition = _tilemapManager.HoverTilemap.WorldToCell(mousePosition);
         
-        _hoverTilemap.ClearAllTiles();
+        _tilemapManager.HoverTilemap.ClearAllTiles();
 
         if (CursorManager.Instance().IsPointerOverUIElement()) return;
 
-        bool canPlaceObject = Utility.CanInteractWithTile(_grid, tilePosition, _tileChecker);
+        bool canPlaceObject = Utility.CanInteractWithTile(_tilemapManager.MainGrid, tilePosition, _tileChecker);
         AbstractPlaceableItem placeableItem = null;
         if (_player.ItemAboveHeadRenderer.sprite != null && _player.ItemAboveHead.Item != null)
         {
@@ -81,12 +64,12 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
 
                     if (placeableItem.GetType() == typeof(AbstractPlantData))
                     {
-                        canPlaceObject = _playerDirtTiles.GetTile(currentTile) != null;
+                        canPlaceObject = _tilemapManager.TilemapsToCheck[_tilemapManager.TilemapsToCheck.Length - 1].GetTile(currentTile) != null;
                         hasTile = GetPlayerTileMap.GetTile(currentTile) != null;
                     }
                     else
                     {
-                        foreach (Tilemap tilemap in _tilemapsToCheck)
+                        foreach (Tilemap tilemap in _tilemapManager.TilemapsToCheck)
                         {
                             if (tilemap.GetTile(currentTile) != null)
                             {
@@ -96,7 +79,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                         }
                     }
 
-                    _hoverTilemap.SetTile(currentTile, hasTile || !canPlaceObject ? _cannotPlace : _canPlace);
+                    _tilemapManager.HoverTilemap.SetTile(currentTile, hasTile || !canPlaceObject ? _tileManager.CannotPlace : _tileManager.CanPlace);
                     
                     if (hasTile) canPlaceObject = false;
                 }
@@ -126,9 +109,8 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 for (int height = 0; height < placeableItem.height; height++)
                 {
                     Vector3Int currentTile = new Vector3Int(tilePosition.x + width, tilePosition.y + height, tilePosition.z);
-                    GetPlayerTileMap.SetTile(currentTile, _occupiedTile);
+                    GetPlayerTileMap.SetTile(currentTile, _tileManager.OccupiedTile);
                     GridManager.Instance().UpdateGrid(new Vector2(currentTile.x, currentTile.y), placeableItem.walkable);
-                    
                 }
             }
 
