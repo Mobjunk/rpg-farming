@@ -7,17 +7,18 @@ using static Utility;
 
 public class TilePlacer : Singleton<TilePlacer>
 {
+    private TileManager _tileManager => TileManager.Instance();
+    private TilemapManager _tilemapManager => TilemapManager.Instance();
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
     private Player _player => Player.Instance();
     private TileHover _tileHover => TileHover.Instance();
 
-    public Tilemap PlayerDirtTiles;
-    public Tilemap TilesGrass;
-    public Tile DirtTile;
-    public Tile WateredDirtTile;
-    public Grid Grid;
+    private Grid Grid => _tilemapManager.MainGrid;
+
+    private Tilemap PlayerDirtTiles => _tilemapManager.TilemapsToCheck[3];
 
     private Vector3Int _location;
+    
     private Vector3 _mp;
 
     private void Update()
@@ -34,18 +35,18 @@ public class TilePlacer : Singleton<TilePlacer>
     public void PlaceDirtTile()
     {
         if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == null && _itemBarManager.IsWearingCorrectTool(ToolType.HOE) && _tileHover.CanInteractNow)
-            _player.SetAction(new TileInteractionAction(_player, "hoe", PlayerDirtTiles, _location, DirtTile));
+            _player.SetAction(new TileInteractionAction(_player, "hoe", PlayerDirtTiles, _location, _tileManager.DryFarmTile));
     }
 
     public void RemoveDirtTile()
     {
-        if ((PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile || PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == WateredDirtTile) && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null && _tileHover.CanInteractNow)
+        if ((PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == _tileManager.DryFarmTile || PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == _tileManager.WateredFarmTile) && _itemBarManager.IsWearingCorrectTool(ToolType.PICKAXE) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null && _tileHover.CanInteractNow)
             _player.SetAction(new TileInteractionAction(_player, "pickaxe_swing", PlayerDirtTiles, _location, null));
     }
     
     public void PlaceWaterTile()
     {
-        if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == DirtTile && _itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
+        if (PlayerDirtTiles.GetTile(PlayerDirtTiles.WorldToCell(_mp)) == _tileManager.DryFarmTile && _itemBarManager.IsWearingCorrectTool(ToolType.WATERING_CAN))
         {
             if (_player.CharacterPlaceObject.CurrentGameObjectHoverd == null) return;
 
@@ -56,26 +57,26 @@ public class TilePlacer : Singleton<TilePlacer>
             //Checks if the crops you are hovering is in the interactable list
             InteractionManager interactionManager = _player.CharacterPlaceObject.CurrentGameObjectHoverd.GetComponent<InteractionManager>();
             if (interactionManager != null && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0)
-                _player.SetAction(new TileInteractionAction(_player, "watering", PlayerDirtTiles, _location, WateredDirtTile, true));
+                _player.SetAction(new TileInteractionAction(_player, "watering", PlayerDirtTiles, _location, _tileManager.WateredFarmTile, true));
         }
     }
     public bool CheckTileUnderObject(Vector3 pPosition, TileType pTileType)
     {
-        Tile checkTile = WateredDirtTile;
+        Tile checkTile = _tileManager.WateredFarmTile;
         if (pTileType == TileType.DIRT)
-            checkTile = DirtTile;
+            checkTile = _tileManager.DryFarmTile;
         
         return PlayerDirtTiles.GetTile(Grid.WorldToCell(pPosition)) == checkTile;
     }
     
     public void UpdateTile(GameObject pCrop, TileType pTileType)
     {
-        Tile setTile = DirtTile;
-        Tile checkTile = WateredDirtTile;
+        Tile setTile = _tileManager.DryFarmTile;
+        Tile checkTile = _tileManager.WateredFarmTile;
         if (pTileType == TileType.DIRT)
         {
-            setTile = WateredDirtTile;
-            checkTile = DirtTile;
+            setTile = _tileManager.WateredFarmTile;
+            checkTile = _tileManager.DryFarmTile;
         }
 
         //Checks position on the grid

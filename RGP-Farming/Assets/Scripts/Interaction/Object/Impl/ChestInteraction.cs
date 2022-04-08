@@ -73,7 +73,7 @@ public class SmashChest : CharacterAction
 
                 if (CharacterManager is Player player)
                 {
-                    Vector3Int tilePos = player.CharacterPlaceObject.Grid.WorldToCell(gameObject.transform.position);
+                    Vector3Int tilePos = TilemapManager.Instance().MainGrid.WorldToCell(gameObject.transform.position);
                     GridManager.Instance().UpdateGrid(new Vector2(tilePos.x, tilePos.y));
                 }
                 

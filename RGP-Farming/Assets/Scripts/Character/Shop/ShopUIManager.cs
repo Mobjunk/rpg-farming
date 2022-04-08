@@ -12,7 +12,7 @@ public class ShopUIManager : AbstractInventoryUIManger
     {
         base.Awake();
         _shopInventory = GetComponent<ShopInventory>();
-        if ((InventoryUI == null || InventoryUI[0] == null) && InventoryContainers[0].InventoryContainer == null && UiTabs[0] == null && UiTabs[1] == null)
+        if ((InventoryUI == null || InventoryUI[0] == null) || InventoryContainers[0].InventoryContainer == null || UiTabs[0] == null || UiTabs[1] == null)
         {
             InventoryUI = _shopUI.Contents;
             InventoryContainers[0].InventoryContainer = _shopUI.ItemContainer.transform;
