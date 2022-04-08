@@ -14,14 +14,7 @@ public class SeasonManager : Singleton<SeasonManager>
     [Header("Tilemaps that need refreshing")]
     [SerializeField] private Tilemap[] _tilemaps;
 
-    private void Update()
-    {
-        //After very change of SeasonalCount the tilemap has to be refreshed.
-        if(!Refreshed && SeasonalCount == 1)
-        {
-            RefreshAllTilemaps();
-        }
-    }
+    
     /// <summary>
     //Theres loads of logic behind when a season starts 
     //For now it will just devide a year by 4 and asigns a season to wich part of the year it is.
@@ -33,12 +26,11 @@ public class SeasonManager : Singleton<SeasonManager>
             //SeasonalCount = 
         }
     }
-    void RefreshAllTilemaps()
+    public void RefreshAllTilemaps()
     {
         foreach (Tilemap tilemap in _tilemaps)
         {
             tilemap.RefreshAllTiles();
         }
-        Refreshed = true;
     }
 }

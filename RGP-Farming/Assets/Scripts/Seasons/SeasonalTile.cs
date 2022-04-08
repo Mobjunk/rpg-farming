@@ -42,7 +42,7 @@ namespace UnityEngine.Tilemaps
             {
                 tile.SeasonalSprites[i] = (Sprite)EditorGUILayout.ObjectField("Sprite " + (i + 1), tile.SeasonalSprites[i], typeof(Sprite), false, null);
             }
-            tile.TileColliderType = (Tile.ColliderType)EditorGUILayout.EnumPopup("Collider Type", tile.TileColliderType);
+            tile.TileColliderType = (Tile.ColliderType)EditorGUILayout.EnumPopup("Collider Type", tile.TileColliderType);           
             if (EditorGUI.EndChangeCheck())
                 EditorUtility.SetDirty(tile);
         }
