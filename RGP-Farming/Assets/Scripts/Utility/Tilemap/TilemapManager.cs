@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class TilemapManager : Singleton<TilemapManager>
 {
+    [Header("Main Level Tilemap Variables")]
     [SerializeField] private Grid _mainGrid;
 
     public Grid MainGrid => _mainGrid;
@@ -25,23 +26,21 @@ public class TilemapManager : Singleton<TilemapManager>
 
     public Tilemap[] UnwalkableTilemaps => _unwalkableTilemaps;
 
+
+    [Header("House Tilemap Variables")]
     [SerializeField] private Tilemap _playerHouseTiles;
 
     public Tilemap PlayerHouseTiles
     {
         set => _playerHouseTiles = value;
     }
-
+    
     [SerializeField] private Grid _houseGrid;
 
     public Grid HouseGrid
     {
         set => _houseGrid = value;
     }
-
-    [SerializeField] private Tilemap _playerDirtTiles;
-    
-    public Tilemap PlayerDirtTiles => _playerDirtTiles;
 
     public int GetTileType(Vector3 pCurrentPosition)
     {

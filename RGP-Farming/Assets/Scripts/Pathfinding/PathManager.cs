@@ -105,10 +105,8 @@ public abstract class PathManager : MonoBehaviour
 
             if (!moveDir.Equals(Vector2.zero) && _animator != null && _animator.enabled)
             {
-                if (_characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_3) || _characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_7) || _characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.CARRY_3) || _characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.CARRY_7)) {
-                    Debug.Log("TESTER");
+                if (_characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_3) || _characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.WALKING_7) || _characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.CARRY_3) || _characterManager.CharacterStateManager.GetCharacterState().Equals(CharacterStates.CARRY_7))
                     SoundManager.Instance().ExecuteSound("footsteps", TilemapManager.Instance().GetTileType(transform.position), gameObject);
-                }
 
                 _animator.SetFloat("moveX", x);
                 _animator.SetFloat("moveY", y);
