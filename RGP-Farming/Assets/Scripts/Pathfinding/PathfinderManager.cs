@@ -37,6 +37,8 @@ public class PathfinderManager : Singleton<PathfinderManager>
             openSet.Add(startNode);
 
             while (openSet.Count > 0) {
+                if (openSet.Count > 50) break;
+                
                 Node currentNode = openSet[0];
                 for (int i = 1; i < openSet.Count; i ++) {
                     if (openSet[i].FCost < currentNode.FCost || openSet[i].FCost == currentNode.FCost) {

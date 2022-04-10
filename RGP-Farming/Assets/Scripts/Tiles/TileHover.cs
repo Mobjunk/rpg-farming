@@ -3,12 +3,13 @@ using UnityEngine.Tilemaps;
 
 public class TileHover : Singleton<TileHover>
 {
+    private TileManager _tileManager => TileManager.Instance();
     private ItemBarManager _itemBarManager => ItemBarManager.Instance();
     private Player _player => Player.Instance();
 
     [SerializeField] private Grid _grid;
     [SerializeField] private Tilemap[] _tileMaps;
-    [SerializeField] private Tile[] _tiles;
+    //[SerializeField] private Tile[] _tiles;
 
     [SerializeField] private Tilemap[] _tilesToCheck;
     
@@ -29,12 +30,12 @@ public class TileHover : Singleton<TileHover>
         tileLocation = _tileMaps[0].WorldToCell(mousePosition);
 
         CanInteractNow = CanInteract(ToolType.HOE, _tilesToCheck, _tileMaps[1], null) || 
-                         CanInteract(ToolType.PICKAXE, _tilesToCheck, _tileMaps[1], _tiles[2]) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null || 
-                         CanInteract(ToolType.WATERING_CAN, _tilesToCheck, _tileMaps[1], _tiles[2], true) && _player.CharacterPlaceObject.CurrentGameObjectHoverd != null && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0;
+                         CanInteract(ToolType.PICKAXE, _tilesToCheck, _tileMaps[1], _tileManager.DryFarmTile) && _player.CharacterPlaceObject.CurrentGameObjectHoverd == null || 
+                         CanInteract(ToolType.WATERING_CAN, _tilesToCheck, _tileMaps[1], _tileManager.DryFarmTile, true) && _player.CharacterPlaceObject.CurrentGameObjectHoverd != null && _player.CharacterInventory.Items[_itemBarManager.SelectedSlot].Durability > 0;
 
         if (!CanInteractNow) return;
         
-        _tileMaps[0].SetTile(tileLocation, _tiles[0]);
+        _tileMaps[0].SetTile(tileLocation, _tileManager.CanPlace);
     }
 
     private bool CanInteract(ToolType pToolType, Tilemap[] pTilemaps, Tilemap pTilemap, Tile pTile, bool pWateringCan = false)
