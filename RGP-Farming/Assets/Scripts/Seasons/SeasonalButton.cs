@@ -26,4 +26,8 @@ public class SeasonalButton : MonoBehaviour
         _seasonManager.SeasonalCount = 1;
         _seasonManager.RefreshAllTilemaps();
     }
+    public void ChangeButtonSprites()
+    {
+        _seasonManager.DayNightSwitch();
+    }
 }
