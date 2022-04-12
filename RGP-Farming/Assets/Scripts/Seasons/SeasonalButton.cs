@@ -30,4 +30,8 @@ public class SeasonalButton : MonoBehaviour
     {
         _seasonManager.DayNightSwitch();
     }
+    public void BackToPlay()
+    {
+        _seasonManager.TurnOffPanel();
+    }
 }

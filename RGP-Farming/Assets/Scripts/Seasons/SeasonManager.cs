@@ -86,4 +86,12 @@ public class SeasonManager : Singleton<SeasonManager>
             }
         }
     }
+    public void TurnOffPanel()
+    {
+        if (_panelOn)
+        {
+            _fullSeasonPanel.gameObject.SetActive(false);
+            _panelOn = false;
+        }
+    }
 }
