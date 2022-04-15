@@ -5,8 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class MainLevelTiles : Singleton<MainLevelTiles>
 {
-    private TilemapManager _tilemapManager => TilemapManager.Instance();
-
     [SerializeField] public Grid MainGrid;
 
     [SerializeField] public Tilemap HoverTilemap;
