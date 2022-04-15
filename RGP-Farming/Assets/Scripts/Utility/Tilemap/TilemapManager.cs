@@ -5,28 +5,27 @@ using UnityEngine.Tilemaps;
 
 public class TilemapManager : Singleton<TilemapManager>
 {
-    [Header("Main Level Tilemap Variables")]
-    [SerializeField] private Grid _mainGrid;
+    private MainLevelTiles _mainLevelTiles => MainLevelTiles.Instance();
+    //[Header("Main Level Tilemap Variables")]
 
+    [SerializeField] private Grid _mainGrid=> _mainLevelTiles.MainGrid;
     public Grid MainGrid => _mainGrid;
 
-    [SerializeField] private Tilemap _hoverTilemap;
+    [SerializeField] private Tilemap _hoverTilemap => _mainLevelTiles.HoverTilemap;
 
     public Tilemap HoverTilemap => _hoverTilemap;
-
+    
     [SerializeField] private Tilemap[] _tilemapsToCheck;
 
-    public Tilemap[] TilemapsToCheck => _tilemapsToCheck;
+    public Tilemap[] TilemapsToCheck => _mainLevelTiles.TilemapsToCheck;
 
-    [SerializeField] private Tilemap[] _allTilemaps;
-
+    [SerializeField] private Tilemap[] _allTilemaps => _mainLevelTiles.AllTilemaps;
     public Tilemap[] AllTilemaps => _allTilemaps;
-
-    [SerializeField] private Tilemap[] _unwalkableTilemaps;
+    
+    [SerializeField] private Tilemap[] _unwalkableTilemaps => _mainLevelTiles.UnwalkableTilemaps;
 
     public Tilemap[] UnwalkableTilemaps => _unwalkableTilemaps;
-
-
+    
     [Header("House Tilemap Variables")]
     [SerializeField] private Tilemap _playerHouseTiles;
 
@@ -41,7 +40,6 @@ public class TilemapManager : Singleton<TilemapManager>
     {
         set => _houseGrid = value;
     }
-
     public int GetTileType(Vector3 pCurrentPosition)
     {
         if (_playerHouseTiles != null)
@@ -121,4 +119,5 @@ public class TilemapManager : Singleton<TilemapManager>
         }
         return "DEFAULT";
     }
+    
 }

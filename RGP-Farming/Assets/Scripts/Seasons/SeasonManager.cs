@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class SeasonManager : Singleton<SeasonManager>
 {
     private TimeManager _timeManager => TimeManager.Instance();
+    private TilemapManager _tilemapManager => TilemapManager.Instance();
 
     //This is the index of the sprite array for the tile data.
     // Summer = 0 , Autumn = 1 , Winter = 2 , Spring = 3.
@@ -24,32 +25,15 @@ public class SeasonManager : Singleton<SeasonManager>
     private bool _night = true;
     private bool _panelOn;
 
-    [Header("Tilemaps that need refreshing")]
-    [SerializeField] private Tilemap[] _tilemaps;
+    
+    private Tilemap[] _tilemaps => _tilemapManager.AllTilemaps;
 
 
     /// <summary>
     //Theres loads of logic behind when a season starts 
     //For now it will just devide a year by 4 and asigns a season to wich part of the year it is.
     /// <summary>
-    private void Update()
-    {
-        //TODO 
-        //When the panel is on pause the game. Might need an option manager.
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (_panelOn)
-            {
-                _fullSeasonPanel.gameObject.SetActive(false);
-                _panelOn = false;
-            }
-            else if (!_panelOn)
-            {
-                _fullSeasonPanel.gameObject.SetActive(true);
-                _panelOn = true;
-            }
-        }
-    }
+    
     void CheckSeason()
     {      
         if (_timeManager.CurrentGameTime.Month >= 3)
@@ -86,12 +70,17 @@ public class SeasonManager : Singleton<SeasonManager>
             }
         }
     }
-    public void TurnOffPanel()
+    public void TogglePanel()
     {
         if (_panelOn)
         {
             _fullSeasonPanel.gameObject.SetActive(false);
             _panelOn = false;
+        }
+        else if (!_panelOn)
+        {
+            _fullSeasonPanel.gameObject.SetActive(true);
+            _panelOn = true;
         }
     }
 }

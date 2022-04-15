@@ -115,69 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d861d63e96a84fe9873c180842082be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2309347282500553948
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2792544960633678152}
-  - component: {fileID: 6825114430112323855}
-  m_Layer: 0
-  m_Name: TilemapManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2792544960633678152
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2309347282500553948}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4059224969770371541}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6825114430112323855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2309347282500553948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a49d66782b990d48b5bc058e5b09f25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainGrid: {fileID: 0}
-  _hoverTilemap: {fileID: 0}
-  _tilemapsToCheck:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _allTilemaps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _unwalkableTilemaps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _playerHouseTiles: {fileID: 0}
-  _houseGrid: {fileID: 0}
 --- !u!1 &4059224967859230487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,8 +1432,8 @@ Transform:
   - {fileID: 3587935016797653982}
   - {fileID: 2456289835951174650}
   - {fileID: 3931361820483685256}
-  - {fileID: 2792544960633678152}
   - {fileID: 8482967870209423578}
+  - {fileID: 263383613077943673}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1707,7 +1644,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4059224969770371541}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &861967239698430816
 MonoBehaviour:
@@ -1726,6 +1663,56 @@ MonoBehaviour:
   _occupiedTile: {fileID: 11400000, guid: 5cad6f0404834dd4a9e24642171f5b49, type: 2}
   _dryFarmTile: {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
   _wateredFarmTile: {fileID: 11400000, guid: de142ec513921c8428f0aed28c504fc2, type: 2}
+--- !u!1 &7386588758732296775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 263383613077943673}
+  - component: {fileID: 6640100102465723893}
+  m_Layer: 0
+  m_Name: TilemapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &263383613077943673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386588758732296775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4059224969770371541}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6640100102465723893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386588758732296775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a49d66782b990d48b5bc058e5b09f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainGrid: {fileID: 0}
+  _hoverTilemap: {fileID: 0}
+  _tilemapsToCheck: []
+  _allTilemaps: []
+  _unwalkableTilemaps: []
+  _playerHouseTiles: {fileID: 0}
+  _houseGrid: {fileID: 0}
 --- !u!1 &8043114566809835733
 GameObject:
   m_ObjectHideFlags: 0
