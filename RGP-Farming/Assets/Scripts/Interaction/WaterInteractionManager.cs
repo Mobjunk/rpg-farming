@@ -23,7 +23,8 @@ public class WaterInteractionManager : MonoBehaviour
         Vector3Int tileLocation = _waterTiles.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         
         TileBase tileBase = _waterTiles.GetTile(tileLocation);
-        if (tileBase == null || !tileBase.name.Equals("WaterTile")) return;
+        //TODO : Check op een tile based on catches. Quick Fix : "WaterTile" is now "Water"
+        if (tileBase == null || !tileBase.name.Equals("Water")) return;
 
         bool canInteract = Utility.CanInteractWithTile(_grid, tileLocation, _player.TileChecker, 2);
         
