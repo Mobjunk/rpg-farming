@@ -9,21 +9,25 @@ public class SeasonalButton : MonoBehaviour
     public void Winter()
     {
         _seasonManager.SeasonalCount = 2;
+        _seasonManager.SetSeasonalIndex();
         _seasonManager.RefreshAllTilemaps();
     }
     public void Summer()
     {
         _seasonManager.SeasonalCount = 0;
+        _seasonManager.SetSeasonalIndex();
         _seasonManager.RefreshAllTilemaps();
     }
     public void Spring()
     {
         _seasonManager.SeasonalCount = 3;
+        _seasonManager.SetSeasonalIndex();
         _seasonManager.RefreshAllTilemaps();
     }
     public void Autum()
     {
         _seasonManager.SeasonalCount = 1;
+        _seasonManager.SetSeasonalIndex();
         _seasonManager.RefreshAllTilemaps();
     }
     public void ChangeButtonSprites()

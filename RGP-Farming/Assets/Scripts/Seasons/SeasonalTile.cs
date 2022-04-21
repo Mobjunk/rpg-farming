@@ -23,7 +23,7 @@ namespace UnityEngine.Tilemaps
             {
                 tileData.sprite = SeasonalSprites[_seasonManager.SeasonalCount];
             }
-            tileData.colliderType = TileColliderType;
+            tileData.colliderType = Tile.ColliderType.Sprite;
         }
 
     }
@@ -42,7 +42,6 @@ namespace UnityEngine.Tilemaps
             {
                 tile.SeasonalSprites[i] = (Sprite)EditorGUILayout.ObjectField("Sprite " + (i + 1), tile.SeasonalSprites[i], typeof(Sprite), false, null);
             }
-            tile.TileColliderType = (Tile.ColliderType)EditorGUILayout.EnumPopup("Collider Type", tile.TileColliderType);           
             if (EditorGUI.EndChangeCheck())
                 EditorUtility.SetDirty(tile);
         }
