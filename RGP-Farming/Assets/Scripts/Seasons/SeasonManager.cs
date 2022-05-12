@@ -15,6 +15,8 @@ public class SeasonManager : Singleton<SeasonManager>
     [HideInInspector]
     public int SeasonalCount = 0;
 
+    //bla bla static seasoncount = SeasonalCount;
+
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private Button[] _buttons;
@@ -28,18 +30,25 @@ public class SeasonManager : Singleton<SeasonManager>
     
     private Tilemap[] _tilemaps => _tilemapManager.AllTilemaps;
 
-
+    private void Update()
+    {
+        SetSeasonalIndex();
+    }
     /// <summary>
     //Theres loads of logic behind when a season starts 
     //For now it will just devide a year by 4 and asigns a season to wich part of the year it is.
     /// <summary>
-    
+
     void CheckSeason()
     {      
         if (_timeManager.CurrentGameTime.Month >= 3)
         {
             //SeasonalCount = 
         }
+    }
+    public void SetSeasonalIndex()
+    {
+        SeasonalRuleTile.SeasonalIndex = SeasonalCount;
     }
     public void RefreshAllTilemaps()
     {
