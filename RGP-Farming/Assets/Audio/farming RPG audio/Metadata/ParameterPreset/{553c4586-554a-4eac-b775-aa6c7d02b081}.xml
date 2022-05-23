@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{553c4586-554a-4eac-b775-aa6c7d02b081}">
+		<property name="name">
+			<value>season</value>
+		</property>
+		<relationship name="folder">
+			<destination>{a6128a0e-68f5-4706-b4c0-95db35576d39}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{c05d14d7-14c4-42c5-bec7-88a2ebc05099}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{c05d14d7-14c4-42c5-bec7-88a2ebc05099}">
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>1.5199999809265137</value>
+		</property>
+	</object>
+</objects>
