@@ -27,7 +27,6 @@
 		</relationship>
 		<relationship name="groupTracks">
 			<destination>{6f684970-34e3-488b-8f42-6613a6525b37}</destination>
-			<destination>{493511b4-7ab8-49a1-918e-4a1ba37e69d7}</destination>
 		</relationship>
 		<relationship name="timeline">
 			<destination>{cf4e532b-ab88-42c7-bf78-b88d332166a8}</destination>
@@ -65,11 +64,6 @@
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{4a1c909f-080a-4773-b2bb-9df303d006ce}</destination>
-		</relationship>
-	</object>
-	<object class="GroupTrack" id="{493511b4-7ab8-49a1-918e-4a1ba37e69d7}">
-		<relationship name="mixerGroup">
-			<destination>{5f621555-fea9-442f-a13b-3ff14036c0e5}</destination>
 		</relationship>
 	</object>
 	<object class="Timeline" id="{cf4e532b-ab88-42c7-bf78-b88d332166a8}">
@@ -125,23 +119,6 @@
 			<destination>{6b6a2d79-114c-4420-bf36-10c01592d5a8}</destination>
 		</relationship>
 	</object>
-	<object class="EventMixerGroup" id="{5f621555-fea9-442f-a13b-3ff14036c0e5}">
-		<property name="volume">
-			<value>4.5</value>
-		</property>
-		<property name="name">
-			<value>Flesh hit</value>
-		</property>
-		<relationship name="effectChain">
-			<destination>{359a0da2-1426-4823-8b2b-8171414f25cf}</destination>
-		</relationship>
-		<relationship name="panner">
-			<destination>{8e329765-1809-4bb9-a74d-083cd0ad1d84}</destination>
-		</relationship>
-		<relationship name="output">
-			<destination>{6b6a2d79-114c-4420-bf36-10c01592d5a8}</destination>
-		</relationship>
-	</object>
 	<object class="MixerBusEffectChain" id="{bdeefd57-f44e-45e4-b530-20ccd94c71b1}">
 		<relationship name="effects">
 			<destination>{a1a7fb31-8b37-47c4-af37-2f3633a3c0c0}</destination>
@@ -186,12 +163,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{0c0822a9-bbbf-4912-80b2-acc33d051aa8}" />
-	<object class="MixerBusEffectChain" id="{359a0da2-1426-4823-8b2b-8171414f25cf}">
-		<relationship name="effects">
-			<destination>{aaa81b41-8055-4e85-b678-133a675aa75d}</destination>
-		</relationship>
-	</object>
-	<object class="MixerBusPanner" id="{8e329765-1809-4bb9-a74d-083cd0ad1d84}" />
 	<object class="MixerBusFader" id="{a1a7fb31-8b37-47c4-af37-2f3633a3c0c0}" />
 	<object class="SpatialiserEffect" id="{860eb103-0419-4db8-9212-d32f13ef745c}" />
 	<object class="AutomationPoint" id="{5367a53a-8702-446d-b7c3-35d611d51631}">
@@ -227,5 +198,4 @@
 			<value>2</value>
 		</property>
 	</object>
-	<object class="MixerBusFader" id="{aaa81b41-8055-4e85-b678-133a675aa75d}" />
 </objects>
