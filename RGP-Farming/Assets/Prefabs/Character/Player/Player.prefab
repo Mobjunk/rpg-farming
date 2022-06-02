@@ -5259,6 +5259,7 @@ GameObject:
   - component: {fileID: 1522028517932298024}
   - component: {fileID: 4493897893610542968}
   - component: {fileID: 5265636001166262470}
+  - component: {fileID: -3368802164934608191}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -5548,17 +5549,6 @@ MonoBehaviour:
   _tileChecker:
   - {fileID: 7175613189052391787}
   - {fileID: 4864515225408918063}
-  _grid: {fileID: 0}
-  _hoverTilemap: {fileID: 0}
-  _tilemapsToCheck:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _playerDirtTiles: {fileID: 0}
-  _canPlace: {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
-  _cannotPlace: {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
-  _occupiedTile: {fileID: 11400000, guid: 5cad6f0404834dd4a9e24642171f5b49, type: 2}
 --- !u!114 &2482437820657588259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5678,6 +5668,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentEnergy: 100
+--- !u!114 &-3368802164934608191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990165636136102972}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1159833362
+      Data2: 1133185493
+      Data3: -1477597508
+      Data4: 910671574
+    Path: event:/Music/Music
+  Event: 
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params:
+  - Name: Location
+    Value: 0
+  - Name: season
+    Value: 0
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &4990165636548847576
 GameObject:
   m_ObjectHideFlags: 0
