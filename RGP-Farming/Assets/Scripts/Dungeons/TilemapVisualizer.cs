@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TilemapVisualizer : MonoBehaviour
+public class TilemapVisualizer : Singleton<TilemapVisualizer>
 {
+    private DungeonPrefabManager _dungeonPrefabManager => DungeonPrefabManager.Instance();
+    
     [SerializeField] private Tilemap _floorTilemap;
 
     [SerializeField] private Tilemap _wallTilemap;
+
+    public Tilemap WallTilemap => _wallTilemap;
+
+    [SerializeField] private Tilemap _placeableTilemap;
+
+    [SerializeField] private TileBase _placeableTile;
 
     [SerializeField] private TileBase _floorTile;
 
@@ -32,8 +40,13 @@ public class TilemapVisualizer : MonoBehaviour
     [SerializeField] private TileBase _wallDiagonalCornerUpRight;
     
     [SerializeField] private TileBase _wallDiagonalCornerUpLeft;
-    
 
+
+    public void PaintPlaceableTiles(IEnumerable<Vector2Int> pFloorPositions)
+    {
+        PaintTiles(pFloorPositions, _placeableTilemap, _placeableTile);
+    }
+    
     public void PaintFloorTiles(IEnumerable<Vector2Int> pFloorPositions)
     {
         PaintTiles(pFloorPositions, _floorTilemap, _floorTile);
@@ -52,6 +65,8 @@ public class TilemapVisualizer : MonoBehaviour
 
     public void Clear()
     {
+        _dungeonPrefabManager.Clear();
+        _placeableTilemap.ClearAllTiles();
         _wallTilemap.ClearAllTiles();
         _floorTilemap.ClearAllTiles();
     }
@@ -67,7 +82,7 @@ public class TilemapVisualizer : MonoBehaviour
         else if (WallByteTypes.wallSideLeft.Contains(typeAsInt)) tile = _wallSideLeft;
         else if (WallByteTypes.wallBottm.Contains(typeAsInt)) tile = _wallBottom;
         else if (WallByteTypes.wallFull.Contains(typeAsInt)) tile = _wallFull;
-        else Debug.LogError("[PaintSingleBasicWall] pBinaryType missing " + pBinaryType);
+        //else Debug.LogError("[PaintSingleBasicWall] pBinaryType missing " + pBinaryType);
         
         if(tile != null) PaintSingleTile(_wallTilemap, tile, pPosition);
     }
@@ -85,7 +100,7 @@ public class TilemapVisualizer : MonoBehaviour
         else if (WallByteTypes.wallDiagonalCornerUpRight.Contains(typeAsInt)) tile = _wallDiagonalCornerUpRight;
         else if (WallByteTypes.wallFullEightDirections.Contains(typeAsInt)) tile = _wallFull;
         else if (WallByteTypes.wallBottmEightDirections.Contains(typeAsInt)) tile = _wallBottom;
-        else Debug.LogError("[PaintSingleCornerWall] pBinaryType missing " + pBinaryType);
+        //else Debug.LogError("[PaintSingleCornerWall] pBinaryType missing " + pBinaryType);
         
         if(tile != null) PaintSingleTile(_wallTilemap, tile, pPosition);
     }

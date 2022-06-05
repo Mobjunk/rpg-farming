@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class AbstractDungeonGenerator : MonoBehaviour
 {
-    [SerializeField] protected TilemapVisualizer _tilemapVisualizer = null;
+    protected TilemapVisualizer _tilemapVisualizer => TilemapVisualizer.Instance();
     
     [SerializeField] protected  Vector2Int _startPosition = Vector2Int.zero;
 

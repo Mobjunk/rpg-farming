@@ -13,7 +13,7 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
         WallGenerator.CreateWalls(floorPositions, _tilemapVisualizer);
     }
 
-    protected HashSet<Vector2Int> RunRandomWalk(AbstractRandomDungeon pParameters, Vector2Int pPosition)
+    protected HashSet<Vector2Int> RunRandomWalk(AbstractRandomDungeon pParameters, Vector2Int pPosition, bool pPaintPlaceable = true)
     {
         Vector2Int currentPosition = pPosition;
 
@@ -28,7 +28,9 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
             if (pParameters.StartRandomlyEachIteration)
                 currentPosition = floorPositions.ElementAt(Random.Range(0, floorPositions.Count));
         }
-
+        
+        if(pPaintPlaceable) _tilemapVisualizer.PaintPlaceableTiles(floorPositions);
+        
         return floorPositions;
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 {
+    private DungeonPrefabManager _dungeonPrefabManager => DungeonPrefabManager.Instance();
+    
     private AbstractRandomCorridorFirst _randomDungeon => (AbstractRandomCorridorFirst) _abstractRandomDungeon;
     
     protected override void RunProceduralGeneration()
@@ -38,7 +40,12 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             if (!pRoomFloors.Contains(position))
             {
                 HashSet<Vector2Int> room = RunRandomWalk(_randomDungeon, position);
+
+                _tilemapVisualizer.PaintPlaceableTiles(room);
+                
                 pRoomFloors.UnionWith(room);
+                
+                _dungeonPrefabManager.CurrentRooms.Add(position, room);
             }
         }
     }
@@ -73,8 +80,15 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         foreach (Vector2Int roomPosition in roomsToCreate)
         {
-            HashSet<Vector2Int> roomFloor = RunRandomWalk(_randomDungeon, roomPosition);
-            roomPositions.UnionWith(roomFloor);
+            HashSet<Vector2Int> room = RunRandomWalk(_randomDungeon, roomPosition);
+
+            _tilemapVisualizer.PaintPlaceableTiles(room);
+            
+            roomPositions.UnionWith(room);
+                
+            if(_dungeonPrefabManager == null) Debug.Log("A");
+            if(_dungeonPrefabManager.CurrentRooms == null) Debug.Log("B");
+            _dungeonPrefabManager.CurrentRooms.Add(roomPosition, room);
         }
 
         return roomPositions;

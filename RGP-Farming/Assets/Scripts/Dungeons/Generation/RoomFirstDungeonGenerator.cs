@@ -17,7 +17,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();
 
         if (_randomDungeon.RandomRooms) floor = CreateRoomsRandomly(rooms);
-        else floor =CreateSimpleRooms(rooms);
+        else floor = CreateSimpleRooms(rooms);
 
         List<Vector2Int> roomCenterPoints = new List<Vector2Int>();
 
@@ -38,7 +38,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         {
             BoundsInt roomBounds = pRooms[index];
             Vector2Int centerOfRoom = new Vector2Int(Mathf.RoundToInt(roomBounds.center.x), Mathf.RoundToInt(roomBounds.center.y));
-            HashSet<Vector2Int> randomFloor = RunRandomWalk(_randomDungeon, centerOfRoom);
+            HashSet<Vector2Int> randomFloor = RunRandomWalk(_randomDungeon, centerOfRoom, false);
 
             foreach (Vector2Int position in randomFloor)
             {
@@ -46,6 +46,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                     floor.Add(position);
             }
         }
+        
+        _tilemapVisualizer.PaintPlaceableTiles(floor);
 
         return floor;
     }
@@ -129,6 +131,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 }
             }
         }
+        
+        _tilemapVisualizer.PaintPlaceableTiles(floor);
         
         return floor;
     }
