@@ -9363,9 +9363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc8d130eb264fdc8336e4586f71b5a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllSprites: []
   LoadedPaths: []
-  CachedSprites: []
 --- !u!1001 &752464745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14975,10 +14973,6 @@ MonoBehaviour:
   _tileMaps:
   - {fileID: 1711122751}
   - {fileID: 1621565703}
-  _tiles:
-  - {fileID: 11400000, guid: a16adcfec1d8c8249bdf1b45f1059edb, type: 2}
-  - {fileID: 11400000, guid: 88b36a53dd9ba494f9db7d711f5ad795, type: 2}
-  - {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
   _tilesToCheck:
   - {fileID: 1152890697}
   - {fileID: 529847008}
@@ -14997,11 +14991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2d0bf0e1ea69047bb8babccc946d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerDirtTiles: {fileID: 1621565703}
-  TilesGrass: {fileID: 2050820117}
-  DirtTile: {fileID: 11400000, guid: 31ef88ddb85934e48b8fd58a10d37d93, type: 2}
-  WateredDirtTile: {fileID: 11400000, guid: de142ec513921c8428f0aed28c504fc2, type: 2}
-  Grid: {fileID: 1288589286}
 --- !u!156049354 &1288589286
 Grid:
   m_ObjectHideFlags: 0
@@ -15079,23 +15068,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a49d66782b990d48b5bc058e5b09f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainGrid: {fileID: 0}
-  _hoverTilemap: {fileID: 1860990878}
   _tilemapsToCheck:
   - {fileID: 1152890697}
   - {fileID: 529847008}
   - {fileID: 1655373948}
-  _allTilemaps:
-  - {fileID: 1452434483}
-  - {fileID: 2050820117}
-  - {fileID: 1152890697}
-  - {fileID: 529847008}
-  - {fileID: 1655373948}
-  - {fileID: 239629755}
-  _unwalkableTilemaps:
-  - {fileID: 529847008}
-  - {fileID: 1152890697}
-  - {fileID: 1655373948}
+  _playerHouseTiles: {fileID: 0}
+  _houseGrid: {fileID: 0}
 --- !u!1001 &1290917239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62819,8 +62797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaad6a9af07125c4f842c3548e32d879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: {fileID: 1988662783}
-  Light: {fileID: 931349617}
 --- !u!114 &1988662783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78809,7 +78785,7 @@ MonoBehaviour:
       Data2: 1103331489
       Data3: 2006105776
       Data4: 458823045
-    Path: event:/Music/Explore
+    Path: event:/Music/Village
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -79718,7 +79694,6 @@ MonoBehaviour:
   - {fileID: -1871733230414839170, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: -6461180478891004496, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: -4970514875814739065, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
-  SpriteCount: 0
 --- !u!1 &2441749198810372404
 GameObject:
   m_ObjectHideFlags: 0
@@ -79950,7 +79925,6 @@ MonoBehaviour:
   - {fileID: -1709365468723713213, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: -1129475585816058729, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: -5195883363227723877, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
-  SpriteCount: 0
 --- !u!1 &2441749198920663060
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class TestParameter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_studioTrigger.Emitters.Length);
+        //Debug.Log(_studioTrigger.Emitters.Length);
         if(_studioTrigger.Emitters.Length == 0)
         {
             _studioTrigger.Emitters = new FMODUnity.EmitterRef[] {

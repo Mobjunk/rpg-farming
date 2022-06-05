@@ -49,8 +49,6 @@ public class SpriteLoader : MonoBehaviour
             bodySprite.Paths.AddRange(bodyPart.fishingPathName);
             bodySprite.Paths.AddRange(bodyPart.swordPathName);
             
-            Debug.Log("bodySprite.Paths length: " + bodySprite.Paths);
-            
             paths.Add(bodySprite);
         }
         
