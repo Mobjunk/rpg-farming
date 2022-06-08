@@ -15,6 +15,8 @@ public class SeasonManager : Singleton<SeasonManager>
     [HideInInspector]
     public int SeasonalCount = 0;
 
+    [SerializeField] private FMODUnity.StudioEventEmitter _studioEventEmitter;
+    
     //bla bla static seasoncount = SeasonalCount;
 
     [Header("UI")]
@@ -49,6 +51,7 @@ public class SeasonManager : Singleton<SeasonManager>
     public void SetSeasonalIndex()
     {
         SeasonalRuleTile.SeasonalIndex = SeasonalCount;
+        _studioEventEmitter.SetParameter("season", SeasonalCount);
     }
     public void RefreshAllTilemaps()
     {
