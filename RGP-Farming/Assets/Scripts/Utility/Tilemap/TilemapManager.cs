@@ -60,6 +60,10 @@ public class TilemapManager : Singleton<TilemapManager>
                 }
             }
         }
+
+        if (SeasonManager.Instance().SeasonalCount == (int) SeasonValues.WINTER)
+            return (int) FootstepsValues.SNOW;
+        
         TileBase walkableTiles = _allTilemaps[5].GetTile(_mainGrid.WorldToCell(pCurrentPosition));
         if (walkableTiles != null)
         {
