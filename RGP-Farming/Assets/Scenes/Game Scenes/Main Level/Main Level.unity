@@ -333,7 +333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &25696900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeasonalCount: 0
+  _studioEventEmitter: {fileID: 2117159505}
   _timeText: {fileID: 0}
   _buttons: []
   _UISpritesDay: []
@@ -130381,7 +130382,7 @@ Tilemap:
       - {fileID: -1126972871205624270, guid: 21a2710b1d5be8d4ca23973673d337f5, type: 3}
       - {fileID: 4405188631749898878, guid: 21a2710b1d5be8d4ca23973673d337f5, type: 3}
       - {fileID: 4012902038583707984, guid: 21a2710b1d5be8d4ca23973673d337f5, type: 3}
-      m_AnimationSpeed: 6.0000005
+      m_AnimationSpeed: 6
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -39, y: -44, z: 0}

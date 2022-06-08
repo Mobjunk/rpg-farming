@@ -51,7 +51,9 @@ public class SeasonManager : Singleton<SeasonManager>
     public void SetSeasonalIndex()
     {
         SeasonalRuleTile.SeasonalIndex = SeasonalCount;
-        _studioEventEmitter.SetParameter("season", SeasonalCount);
+        if (_studioEventEmitter != null)
+            _studioEventEmitter.SetParameter("season", SeasonalCount);
+        else _studioEventEmitter = GameObject.FindWithTag("Music").GetComponent<FMODUnity.StudioEventEmitter>();
     }
     public void RefreshAllTilemaps()
     {
