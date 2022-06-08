@@ -98,3 +98,11 @@ public class SeasonManager : Singleton<SeasonManager>
         }
     }
 }
+
+public enum SeasonValues
+{
+    SUMMER = 0,
+    AUTUM = 1,
+    WINTER = 2,
+    SPRING = 3
+}
