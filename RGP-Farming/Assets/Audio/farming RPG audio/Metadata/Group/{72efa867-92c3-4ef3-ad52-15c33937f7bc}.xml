@@ -16,11 +16,14 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{4a4095b6-ead6-4f75-ab92-cbc5a19e82cf}">
 		<relationship name="effects">
+			<destination>{fea606e4-10b2-43c7-bb23-6dcb00ea9f0d}</destination>
 			<destination>{1d8c94af-c5c5-4601-94da-f692bfd58439}</destination>
 			<destination>{5c6b5601-4f9b-447c-aab0-d2204f94bb56}</destination>
+			<destination>{fce35659-16de-4f99-a321-9bee2d92c72a}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{da0f42d6-263e-428c-be85-a8696e02d0d1}" />
+	<object class="SFXReverbEffect" id="{fea606e4-10b2-43c7-bb23-6dcb00ea9f0d}" />
 	<object class="MixerBusFader" id="{1d8c94af-c5c5-4601-94da-f692bfd58439}" />
 	<object class="MixerSend" id="{5c6b5601-4f9b-447c-aab0-d2204f94bb56}">
 		<property name="level">
@@ -33,4 +36,5 @@
 			<destination>{0552f4a9-b1fd-4dde-b169-afda9ae0c74f}</destination>
 		</relationship>
 	</object>
+	<object class="ThreeEQEffect" id="{fce35659-16de-4f99-a321-9bee2d92c72a}" />
 </objects>

@@ -54,7 +54,7 @@
 			<destination>{e5afe057-5527-43d4-9d18-1140efff791e}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{2610c733-b00c-4253-b339-5f7cb80451d2}</destination>
+			<destination>{72efa867-92c3-4ef3-ad52-15c33937f7bc}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{242b55be-3260-431b-841e-87c788a28b60}" />
@@ -137,7 +137,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{2a9a5e85-0555-417c-9596-7b828215e4f3}">
 		<property name="name">
-			<value>village</value>
+			<value>birds</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{989cfe10-002d-40d7-bfa0-a1bf882746d9}</destination>
@@ -150,6 +150,9 @@
 		</relationship>
 	</object>
 	<object class="SoundScatterer" id="{bc56042b-d29e-4c09-9352-e610ec2ab530}">
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
 		<property name="length">
 			<value>3</value>
 		</property>
@@ -170,6 +173,12 @@
 		</relationship>
 	</object>
 	<object class="SoundScatterer" id="{b545a654-52c7-4bec-a33e-dac0c1071a5b}">
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>49.5</value>
+		</property>
 		<property name="start">
 			<value>6.5</value>
 		</property>
@@ -193,6 +202,12 @@
 		</relationship>
 	</object>
 	<object class="SoundScatterer" id="{e2316cda-5ead-48e5-a18f-1b6c1a67c9b5}">
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>49.5</value>
+		</property>
 		<property name="start">
 			<value>11</value>
 		</property>
@@ -216,6 +231,12 @@
 		</relationship>
 	</object>
 	<object class="SoundScatterer" id="{f1faac1f-0571-49dc-be39-2f43f7869732}">
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>49.5</value>
+		</property>
 		<property name="start">
 			<value>3.5</value>
 		</property>
@@ -239,6 +260,12 @@
 		</relationship>
 	</object>
 	<object class="SoundScatterer" id="{9d52ba8f-c363-4cdd-898e-40ec8ee5286b}">
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>49.5</value>
+		</property>
 		<property name="start">
 			<value>15.5</value>
 		</property>
@@ -262,6 +289,12 @@
 		</relationship>
 	</object>
 	<object class="SoundScatterer" id="{2e837162-bde5-493a-a341-7f9678c8ca2e}">
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>49.5</value>
+		</property>
 		<property name="start">
 			<value>20.5</value>
 		</property>
@@ -285,6 +318,12 @@
 		</relationship>
 	</object>
 	<object class="SoundScatterer" id="{7fb17649-bf66-434c-bcb0-c07ef74c3a92}">
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>49.5</value>
+		</property>
 		<property name="start">
 			<value>24</value>
 		</property>
@@ -308,6 +347,12 @@
 		</relationship>
 	</object>
 	<object class="SoundScatterer" id="{9bc1ae2b-b923-4b80-b434-7b78b27a2290}">
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>49.5</value>
+		</property>
 		<property name="start">
 			<value>27</value>
 		</property>
@@ -332,7 +377,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{1c2de505-9a07-461d-94bc-b185e4d68aac}">
 		<property name="name">
-			<value>village</value>
+			<value>oneshots</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{bd68fdbb-5f25-4dba-8c29-ba55f7ad0fe0}</destination>
