@@ -179,7 +179,7 @@
 	</object>
 	<object class="EventMixerMaster" id="{25fa9e74-5b38-4e50-a785-3e953a8834d8}">
 		<property name="volume">
-			<value>-6.5</value>
+			<value>-5.5</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{9d572f67-dd22-4ce8-a3e6-8aa709a3ae11}</destination>
@@ -363,7 +363,7 @@
 			<value>0.41904166666666665</value>
 		</property>
 		<property name="volume">
-			<value>2</value>
+			<value>-3</value>
 		</property>
 		<property name="playlistMode">
 			<value>3</value>
@@ -517,7 +517,7 @@
 			<value>0.53125</value>
 		</property>
 		<property name="volume">
-			<value>4</value>
+			<value>5.5</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{41680e57-cbbe-4267-b97e-4b515a00b03e}</destination>
@@ -569,7 +569,7 @@
 			<value>0.41904166666666665</value>
 		</property>
 		<property name="volume">
-			<value>4.5</value>
+			<value>7</value>
 		</property>
 		<relationship name="fadeOutCurve">
 			<destination>{5cfdae87-c4e5-4d25-9446-e1ccb6ddc1e1}</destination>
@@ -814,6 +814,7 @@
 		<relationship name="effects">
 			<destination>{4ad888d7-491a-49b4-bc12-13b76c3ad1d1}</destination>
 			<destination>{9af75ce4-69d0-49fc-be42-ea9ceee6b7dd}</destination>
+			<destination>{fb9f0864-ca43-430f-97e7-f72c645f8d05}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{078ac5ec-8b54-4e8d-82a2-038080356db6}" />
@@ -1349,7 +1350,11 @@
 			<value>9.40000057</value>
 		</property>
 	</object>
-	<object class="GainEffect" id="{c7de3df4-d149-4c3a-ad69-c5803fca4c2d}" />
+	<object class="GainEffect" id="{c7de3df4-d149-4c3a-ad69-c5803fca4c2d}">
+		<property name="gain">
+			<value>-0.5</value>
+		</property>
+	</object>
 	<object class="AutomationCurve" id="{15e746f1-6f04-4eb0-a7cc-bee8420a806f}">
 		<relationship name="parameter">
 			<destination>{dfe7c050-e4c2-41c2-8f3f-6232a772e819}</destination>
@@ -1410,6 +1415,11 @@
 		</property>
 		<property name="highGain">
 			<value>5</value>
+		</property>
+	</object>
+	<object class="GainEffect" id="{fb9f0864-ca43-430f-97e7-f72c645f8d05}">
+		<property name="gain">
+			<value>3</value>
 		</property>
 	</object>
 	<object class="AutomationCurve" id="{424cac2a-2571-4889-9dc2-85e9e7829d38}">
