@@ -18,7 +18,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (TestTrigger) { TriggerDialogue(); TestTrigger = false; }
 
-        if (Input.GetKeyDown(KeyCode.Space)) _dialogueManager.DisplayNextLine();
+        if (CharacterInputManager.Instance().SpaceAction.WasPressedThisFrame() && _dialogueManager.DialogueIsPlaying) _dialogueManager.DisplayNextLine();
     }
     public void TriggerDialogue()
     {

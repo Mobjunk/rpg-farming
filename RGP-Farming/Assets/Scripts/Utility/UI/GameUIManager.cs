@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameUIManager : MonoBehaviour
 {
-    private Player _player => Player.Instance();
+    protected Player Player => Player.Instance();
 
     [Header("Allow to open inventory")]
     [SerializeField] private bool _allowedToOpenInvnetory;
@@ -29,10 +30,31 @@ public class GameUIManager : MonoBehaviour
         set => _uiTabs = value;
     }
 
+    private float _timeSinceInteracting;
+
+    public float TimeSinceInteracting
+    {
+        get => _timeSinceInteracting;
+        set => _timeSinceInteracting = value;
+    }
+    
+    public virtual void Update()
+    {
+        if (_timeSinceInteracting > 0) _timeSinceInteracting -= Time.deltaTime;
+        
+        if (CharacterInputManager.Instance().EscapeAction.WasPressedThisFrame() && Player.CharacterUIManager.CurrentUIOpened == this &&  TimeSinceInteracting <= 0 && !DialogueManager.Instance().DialogueIsPlaying)
+        {
+            Debug.Log("JE MOEDER" + gameObject.name);
+            Close();
+        }
+    }
+    
     public virtual void Open()
     {
-        _player.CharacterUIManager.CurrentUIOpened = this;
-        if (_player.InputEnabled) _player.ToggleInput();
+        Player.CharacterUIManager.CurrentUIOpened = this;
+        if (Player.InputEnabled) Player.ToggleInput();
+        TimeSinceInteracting = 0.1f;
+        Debug.Log("1");
     }
 
     public virtual void Close()
@@ -41,14 +63,16 @@ public class GameUIManager : MonoBehaviour
         ItemTooltipManager.Instance().SetTooltip(null);
         CraftingTooltipManager.Instance().SetTooltip(null);
         CollectionTooltipManager.Instance().SetTooltip(null);
-        _player.CharacterUIManager.CurrentUIOpened = null;
-        if(!_player.InputEnabled) _player.ToggleInput();
-        //if (!_player.InputEnabled && !DialogueManager.Instance().DialogueIsPlaying) _player.ToggleInput();
+        Player.CharacterUIManager.CurrentUIOpened = null;
+        if (!Player.InputEnabled) Player.ToggleInput();
+        EventSystem.current.SetSelectedGameObject(null);
+        TimeSinceInteracting = 0.1f;
+        Debug.Log("2");
     }
 
     public virtual void Set()
     {
-        _player.CharacterUIManager.CurrentUIOpened = this;
+        Player.CharacterUIManager.CurrentUIOpened = this;
     }
 
     public virtual bool SwitchToTab(int pIndex)

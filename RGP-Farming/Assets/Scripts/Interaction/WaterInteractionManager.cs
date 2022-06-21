@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -20,7 +21,7 @@ public class WaterInteractionManager : MonoBehaviour
 
     private void Update()
     {
-        Vector3Int tileLocation = _waterTiles.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Vector3Int tileLocation = _waterTiles.WorldToCell(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
         
         TileBase tileBase = _waterTiles.GetTile(tileLocation);
         //TODO : Check op een tile based on catches. Quick Fix : "WaterTile" is now "Water"

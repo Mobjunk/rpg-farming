@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ItemBarManager : MenuManager<ItemBarManager>
 {
+    private CharacterInputManager _characterInputManager => CharacterInputManager.Instance();
     private ItemSnapperManager _itemSnapper => ItemSnapperManager.Instance();
     private Player _player => Player.Instance();
     private DialogueManager _dialogueManager => DialogueManager.Instance();
@@ -27,25 +29,26 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         if (_player.CharacterAction != null || _dialogueManager.DialogueIsPlaying) return;
         
         //TODO: Clean this mess
-        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) UpdateSlot(0);
-        else if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) UpdateSlot(1);
-        else if(Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) UpdateSlot(2);
-        else if(Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) UpdateSlot(3);
-        else if(Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) UpdateSlot(4);
-        else if(Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6)) UpdateSlot(5);
-        else if(Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) UpdateSlot(6);
-        else if(Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8)) UpdateSlot(7);
-        else if(Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) UpdateSlot(8);
-        else if(Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0)) UpdateSlot(9);
-        else if(Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus)) UpdateSlot(10);
-        else if(Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.KeypadEquals)) UpdateSlot(11);
-        else UpdateSlot(Input.mouseScrollDelta.y);
+        if(_characterInputManager.SlotOne.WasPressedThisFrame()) UpdateSlot(0);
+        else if(_characterInputManager.SlotTwo.WasPressedThisFrame()) UpdateSlot(1);
+        else if(_characterInputManager.SlotThree.WasPressedThisFrame()) UpdateSlot(2);
+        else if(_characterInputManager.SlotFour.WasPressedThisFrame()) UpdateSlot(3);
+        else if(_characterInputManager.SlotFive.WasPressedThisFrame()) UpdateSlot(4);
+        else if(_characterInputManager.SlotSix.WasPressedThisFrame()) UpdateSlot(5);
+        else if(_characterInputManager.SlotSeven.WasPressedThisFrame()) UpdateSlot(6);
+        else if(_characterInputManager.SlotEight.WasPressedThisFrame()) UpdateSlot(7);
+        else if(_characterInputManager.SlotNine.WasPressedThisFrame()) UpdateSlot(8);
+        else if(_characterInputManager.SlotTen.WasPressedThisFrame()) UpdateSlot(9);
+        else if(_characterInputManager.SlotEleven.WasPressedThisFrame()) UpdateSlot(10);
+        else if(_characterInputManager.SlotTwelve.WasPressedThisFrame()) UpdateSlot(11);
+        else if(_characterInputManager.NextSlot.WasPressedThisFrame()) UpdateSlot(1f);
+        else if(_characterInputManager.PrevSlot.WasPressedThisFrame()) UpdateSlot(-1f);
+        else if(!_characterInputManager.GamepadActive) UpdateSlot(Mouse.current.scroll.ReadValue().y); //Input.mouseScrollDelta.y
     }
 
     void UpdateSlot(float pValue)
     {
-        //TODO: Add a check to see if the player has a UI element open (Like shops/inventory)
-        if (Input.mouseScrollDelta.y == 0 || _player.CharacterUIManager.CurrentUIOpened != null) return;
+        if ((Mouse.current.scroll.ReadValue().y == 0 && !_characterInputManager.GamepadActive) || _player.CharacterUIManager.CurrentUIOpened != null) return;
 
         CharacterInventory characterInventory = _player.CharacterInventory;
         int nextSlot = characterInventory.GetNextOccupiedSlot(SelectedSlot, pValue > 0);
@@ -61,6 +64,7 @@ public class ItemBarManager : MenuManager<ItemBarManager>
         CharacterInventory characterInventory = _player.CharacterInventory;
 
         if (characterInventory.Items[pNextSlot].Item == null) return;
+     
         
         _inventoryUIManager._containers[0][SelectedSlot].SetHighlighted(false);
         SelectedSlot = pNextSlot;

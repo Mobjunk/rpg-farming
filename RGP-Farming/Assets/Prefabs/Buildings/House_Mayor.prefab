@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2441749199587268109}
   - component: {fileID: 2441749199587268110}
   - component: {fileID: 2441749199587268111}
-  - component: {fileID: 2441749199587268104}
   - component: {fileID: 2441749199587268105}
   m_Layer: 0
   m_Name: Door
@@ -104,19 +103,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2441749199587268104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2441749199587268108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08edc1d06007bc5469303597f2d09324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  houseName: House
 --- !u!61 &2441749199587268105
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -202,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2441749200416327746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2441749200057379523}
@@ -276,7 +262,6 @@ MonoBehaviour:
   - {fileID: -2094858093569778188, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: 1745714949675119110, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
   - {fileID: -6311235502532588422, guid: fa600ffd42b2fec4cae474c70658d345, type: 3}
-  seasonCount: 0
 --- !u!61 &1311816543310515775
 BoxCollider2D:
   m_ObjectHideFlags: 0

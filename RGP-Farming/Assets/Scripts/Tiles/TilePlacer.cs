@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using static Utility;
 
@@ -23,9 +24,9 @@ public class TilePlacer : Singleton<TilePlacer>
 
     private void Update()
     {
-        _mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        _mp = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         _location = PlayerDirtTiles.WorldToCell(_mp);
-        if (Input.GetMouseButtonDown(0) && !CursorManager.Instance().IsPointerOverUIElement() && CanInteractWithTile(Grid, _location, _player.TileChecker))
+        if (Mouse.current.leftButton.wasPressedThisFrame && !CursorManager.Instance().IsPointerOverUIElement() && CanInteractWithTile(Grid, _location, _player.TileChecker))
         {
             PlaceWaterTile();
             PlaceDirtTile();

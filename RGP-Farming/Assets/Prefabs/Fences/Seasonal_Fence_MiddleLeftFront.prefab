@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8359004030107775140}
   - component: {fileID: 8359004030107775143}
   - component: {fileID: 8359004030107775142}
+  - component: {fileID: 4387862297459136606}
   m_Layer: 0
   m_Name: Seasonal_Fence_Summer_4
   m_TagString: Untagged
@@ -127,6 +128,21 @@ MonoBehaviour:
   - {fileID: 7702091940200224113, guid: 235fda4a05355364988a10b26eef2c41, type: 3}
   - {fileID: 7702091940200224113, guid: 8c680db85533d4b4993af0eb20d9d3e8, type: 3}
   - {fileID: 7702091940200224113, guid: 8e6aa2b7ab9128049a5d91e89b9a3635, type: 3}
+--- !u!114 &4387862297459136606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8359004030107775136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ed1161f5f6a194d937b63aaf535fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _occupiedTile: {fileID: 11400000, guid: 5cad6f0404834dd4a9e24642171f5b49, type: 2}
+  _objectSize: {x: 0, y: 0}
+  TilePosition: {x: 0, y: 0, z: 0}
 --- !u!1 &8359004031634597875
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8359004031634597875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.125, y: -11.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8359004030107775137}
@@ -170,7 +186,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1125
+  m_SortingOrder: 0
 --- !u!114 &8359004031634597872
 MonoBehaviour:
   m_ObjectHideFlags: 0

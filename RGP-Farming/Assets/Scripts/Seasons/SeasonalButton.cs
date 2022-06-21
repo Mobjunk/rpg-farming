@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SeasonalButton : MonoBehaviour
+public class SeasonalButton : GameUIManager
 {
     private SeasonManager _seasonManager => SeasonManager.Instance();
     
@@ -39,11 +40,36 @@ public class SeasonalButton : MonoBehaviour
     
     public void ToggleSettings()
     {
-        _seasonManager.TogglePanel();
+        base.Open();
     }
     
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Intro");
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (CharacterInputManager.Instance().EscapeAction.WasPressedThisFrame() && Player.CharacterUIManager.CurrentUIOpened == null && TimeSinceInteracting <= 0 && !DialogueManager.Instance().DialogueIsPlaying)
+            Open();
+    }
+
+    public override void Open()
+    {
+        _seasonManager.TogglePanel();
+        base.Open();
+    }
+
+    public override void Close()
+    {
+        _seasonManager.TogglePanel();
+        base.Close();
     }
 }

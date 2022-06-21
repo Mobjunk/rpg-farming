@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
 
 public class CursorManager : Singleton<CursorManager>
@@ -16,21 +17,22 @@ public class CursorManager : Singleton<CursorManager>
     {
         SetDefaultCursor();
         UILayer = LayerMask.NameToLayer("UI");
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void SetDefaultCursor()
     {
-        Cursor.SetCursor(_regularCursor, Vector2.zero, CursorMode.ForceSoftware);
+        //Cursor.SetCursor(_regularCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
     
     public void SetUsableInteractionCursor()
     {
-        Cursor.SetCursor(_useableInteractionCursor, Vector2.zero, CursorMode.ForceSoftware);
+        //Cursor.SetCursor(_useableInteractionCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
     
     public void SetNonUsableInteractionCursor()
     {
-        Cursor.SetCursor(_nonUseableInteractionCursor, Vector2.zero, CursorMode.ForceSoftware);
+        //Cursor.SetCursor(_nonUseableInteractionCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
     
     public bool IsPointerOverUIElement()
@@ -52,7 +54,7 @@ public class CursorManager : Singleton<CursorManager>
     static List<RaycastResult> GetEventSystemRaycastResults()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Input.mousePosition;
+        eventData.position = Mouse.current.position.ReadValue();
         List<RaycastResult> raysastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raysastResults);
         return raysastResults;

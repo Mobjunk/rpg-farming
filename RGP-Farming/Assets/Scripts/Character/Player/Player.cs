@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CharacterInventory), typeof(PlayerInvenotryUIManager), typeof(CharacterInteractionManager))]
 [RequireComponent(typeof(CharacterPlaceObject), typeof(CharacterUIManager), typeof(PlayerAttackManager))]
@@ -109,6 +110,15 @@ public class Player : CharacterManager
         SubscribeToInput();
         
         _playerInventoryUIManager.Initialize(_characterInventory);
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        
+        
+        //EventSystem m_EventSystem = EventSystem.current;
+        //Debug.Log("m_EventSystem.currentSelectedGameObject: " + m_EventSystem.currentSelectedGameObject);
     }
 
     public void UpdateInput<T, Y>() where T : MonoBehaviour, ICharacterInput where Y : MonoBehaviour, ICharacterInput

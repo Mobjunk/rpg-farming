@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CollectionLogGrid : AbstractItemContainer<CollectionLogEntry>
@@ -31,5 +32,22 @@ public class CollectionLogGrid : AbstractItemContainer<CollectionLogEntry>
     {
         base.OnPointerExit(pEventData);
         _collectionTooltipManager.SetTooltip(null);
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        GameObject gObject = EventSystem.current.currentSelectedGameObject;
+        if (gObject == null) return;
+        
+        CollectionLogGrid itemContainerGrid = gObject.GetComponent<CollectionLogGrid>();
+        if (itemContainerGrid == null) return;
+
+        if (itemContainerGrid == this)
+            if(Containment != null)
+                CollectionTooltipManager.Instance().SetTooltip(Containment);
+            else
+                CollectionTooltipManager.Instance().SetTooltip(null);
     }
 }

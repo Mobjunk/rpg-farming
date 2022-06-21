@@ -34,20 +34,25 @@ public class AbstractCraftingContainer : AbstractItemContainer<GameItem>
         if (pEventData.button == PointerEventData.InputButton.Left || pEventData.button == PointerEventData.InputButton.Middle)
         {
             Debug.Log("Crafting debug...");
-            if (Containment.Item.craftingRecipe == null) return;
-            
-            Player player = Player.Instance();
-
-            if (player.CharacterInventory.HasItems(Containment.Item.craftingRecipe.requiredItems))
-            {
-                foreach(GameItem item in Containment.Item.craftingRecipe.requiredItems)
-                    player.CharacterInventory.RemoveItem(item.Item, item.Amount);
-                player.CharacterInventory.AddItem(Containment.Item);
-
-                UpdateItemContainer();
-
-            } else Debug.LogError("Player is missing some of the items...");
+            CraftItem();
         }
+    }
+
+    private void CraftItem()
+    {
+        if (Containment.Item.craftingRecipe == null) return;
+            
+        Player player = Player.Instance();
+
+        if (player.CharacterInventory.HasItems(Containment.Item.craftingRecipe.requiredItems))
+        {
+            foreach(GameItem item in Containment.Item.craftingRecipe.requiredItems)
+                player.CharacterInventory.RemoveItem(item.Item, item.Amount);
+            player.CharacterInventory.AddItem(Containment.Item);
+
+            UpdateItemContainer();
+
+        } else Debug.LogError("Player is missing some of the items...");
     }
 
     public override void OnPointerEnter(PointerEventData pEventData)
@@ -60,5 +65,30 @@ public class AbstractCraftingContainer : AbstractItemContainer<GameItem>
     {
         base.OnPointerExit(pEventData);
         CraftingTooltipManager.Instance().SetTooltip(null);
+    }
+    
+    public override void Update()
+    {
+        base.Update();
+
+        GameObject gObject = EventSystem.current.currentSelectedGameObject;
+        if (gObject == null) return;
+
+        AbstractCraftingContainer itemContainerGrid = gObject.GetComponent<AbstractCraftingContainer>();
+        if (itemContainerGrid == null) return;
+
+        if (itemContainerGrid == this)
+        {
+            if (CharacterInputManager.Instance().InteractAction.WasPressedThisFrame() && CharacterInputManager.Instance().GamepadActive)
+            {
+                Debug.Log("Crafting debug KANKER...");
+                CraftItem();
+            }
+            
+            if (Containment != null)
+                CraftingTooltipManager.Instance().SetTooltip(Containment.Item);
+            else
+                CraftingTooltipManager.Instance().SetTooltip(null);
+        }
     }
 }

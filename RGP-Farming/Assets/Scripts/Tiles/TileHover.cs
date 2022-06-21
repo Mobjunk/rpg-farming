@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class TileHover : Singleton<TileHover>
@@ -26,7 +27,7 @@ public class TileHover : Singleton<TileHover>
         
         if (CursorManager.Instance().IsPointerOverUIElement() || !wearingCorrectTool) return;
         
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         tileLocation = _tileMaps[0].WorldToCell(mousePosition);
 
         CanInteractNow = CanInteract(ToolType.HOE, _tilesToCheck, _tileMaps[1], null) || 

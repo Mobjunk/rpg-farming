@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
@@ -39,7 +40,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
             return;
         }
         
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         Vector3Int tilePosition = _tilemapManager.HoverTilemap.WorldToCell(mousePosition);
         
@@ -85,7 +86,7 @@ public class CharacterPlaceObject : Singleton<CharacterPlaceObject>
                 }
             }
         }
-        if (Input.GetMouseButtonDown(0) && canPlaceObject && placeableItem != null)
+        if (CharacterInputManager.Instance().UseAction.WasPerformedThisFrame() && canPlaceObject && placeableItem != null)
         {
             //Checks if you are trying to plant a crop on anything other then dirt
             if (placeableItem is AbstractPlantData && !_tilePlacer.CheckTileUnderObject(mousePosition, TileType.DIRT)) return;

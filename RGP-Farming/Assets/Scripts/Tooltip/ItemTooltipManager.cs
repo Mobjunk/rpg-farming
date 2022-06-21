@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ItemTooltipManager : TooltipManager<ItemTooltipManager, AbstractItemData>
+public class ItemTooltipManager : TooltipManager<ItemTooltipManager, AbstractItemData, ItemContainerGrid>
 {
     [SerializeField] private TextMeshProUGUI _itemType;
     

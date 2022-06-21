@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public abstract class AbstractInventoryUIManger : GameUIManager
 {
@@ -59,17 +60,12 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     }
     
     public bool IsOpened;
-
+    
     public virtual void Awake()
     {
         //Handles setting up the array of lists
         for (int index = 0; index < _containers.Length; index++)
             _containers[index] = new List<UIContainerbase<GameItem>>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !DialogueManager.Instance().DialogueIsPlaying) Close();
     }
 
     /// <summary>
@@ -99,6 +95,8 @@ public abstract class AbstractInventoryUIManger : GameUIManager
     public override void Close()
     {
         if (!IsOpened) return;
+        Debug.Log("abcdef");
+        EventSystem.current.SetSelectedGameObject(null);
         base.Close();
         if(_itemSnapper.IsSnapped) _itemSnapper.ResetSnappedItem(false);
         IsOpened = false;
@@ -141,6 +139,7 @@ public abstract class AbstractInventoryUIManger : GameUIManager
                 container.Container = pInventory;
                 container.SetIndicator(parent.ShowIdicator);
                 container.AllowMoving = parent.AllowSnapping;
+                container.AllowNavigation = parent.AllowNavigation;
                 container.SetContainment(ContainmentContainer.Items[index]);
                 
                 _containers[parentIndex].Add(container);
@@ -175,4 +174,5 @@ public class ParentData
     public bool ShowIdicator;
     public bool UseSecondSlotPrefab;
     public bool AllowSnapping = true;
+    public bool AllowNavigation;
 }

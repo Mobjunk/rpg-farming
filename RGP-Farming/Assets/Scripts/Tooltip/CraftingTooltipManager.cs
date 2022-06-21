@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager, AbstractItemData>
+public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager, AbstractItemData, AbstractCraftingContainer>
 {
 
     [SerializeField] private RectTransform _itemRequiredParent;
@@ -34,6 +34,9 @@ public class CraftingTooltipManager : TooltipManager<CraftingTooltipManager, Abs
             return false;
         }
 
+        foreach(Transform childParent in _itemRequiredParent)
+            Destroy(childParent.gameObject);
+        
         _increasedY = pHoveredItem.craftingRecipe.requiredItems.Count * 20;
         _itemRequiredParent.sizeDelta = new Vector2(_itemRequiredParent.sizeDelta.x, _increasedY);
         

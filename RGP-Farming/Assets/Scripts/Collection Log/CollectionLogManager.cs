@@ -57,6 +57,7 @@ public class CollectionLogManager : Singleton<CollectionLogManager>
             container.Container = null;
             container.SetIndicator(false);
             container.AllowMoving = false;
+            container.AllowNavigation = true;
             container.SetContainment(entry);
 
             container.Icon.color = new Color(container.Icon.color.r, container.Icon.color.g, container.Icon.color.b, entry.DateAcquired.Equals(DateTime.MinValue) ? 0.25f : 1);

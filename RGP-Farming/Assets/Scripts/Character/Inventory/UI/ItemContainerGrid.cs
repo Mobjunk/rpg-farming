@@ -28,6 +28,23 @@ public class ItemContainerGrid : AbstractItemContainer<GameItem>
         }
     }
 
+    public override void Update()
+    {
+        base.Update();
+
+        GameObject gObject = EventSystem.current.currentSelectedGameObject;
+        if (gObject == null) return;
+        
+        ItemContainerGrid itemContainerGrid = gObject.GetComponent<ItemContainerGrid>();
+        if (itemContainerGrid == null) return;
+
+        if (itemContainerGrid == this)
+            if(Containment != null)
+                ItemTooltipManager.Instance().SetTooltip(Containment.Item);
+            else
+                ItemTooltipManager.Instance().SetTooltip(null);
+    }
+
     public override void OnPointerEnter(PointerEventData pEventData)
     {
         base.OnPointerEnter(pEventData);

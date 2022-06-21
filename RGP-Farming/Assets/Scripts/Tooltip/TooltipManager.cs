@@ -1,8 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-public abstract class TooltipManager<T, Y> : Singleton<T> where T : MonoBehaviour
+public abstract class TooltipManager<T, Y, J> : Singleton<T> where T : MonoBehaviour
 {
+    private CharacterInputManager _characterInputManager => CharacterInputManager.Instance();
+    private VirtualMouseManager _virtualMouseManager => VirtualMouseManager.Instance();
     private ItemSnapperManager _itemSnapperManager => ItemSnapperManager.Instance();
     
     public abstract Vector2 MinSize();
@@ -25,7 +29,17 @@ public abstract class TooltipManager<T, Y> : Singleton<T> where T : MonoBehaviou
 
     private void Update()
     {
-        SetPosition(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+        if (_characterInputManager.GamepadActive && EventSystem.current.currentSelectedGameObject != null)
+        {
+            if (EventSystem.current.currentSelectedGameObject.GetComponent<J>() == null)
+            {
+                SetTooltip(default);
+                return;
+            }
+            SetPosition(new Vector2(_virtualMouseManager.transform.position.x,
+                _virtualMouseManager.transform.position.y));
+        }
+        else SetPosition(new Vector2(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y));
     }
 
     private void SetPosition(Vector2 pMousePosition)

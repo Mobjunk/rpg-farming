@@ -40,7 +40,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2124916917677514975, guid: 2c0ae22f6165ff744a6cf7f2ff235f75, type: 3}
       propertyPath: _inventoryUI.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2124916917677514975, guid: 2c0ae22f6165ff744a6cf7f2ff235f75, type: 3}
       propertyPath: _inventoryUI.Array.data[0]
@@ -59,8 +59,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2124916917677514975, guid: 2c0ae22f6165ff744a6cf7f2ff235f75, type: 3}
+      propertyPath: _inventoryUI.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124916917677514975, guid: 2c0ae22f6165ff744a6cf7f2ff235f75, type: 3}
       propertyPath: _craftingInventoryUIManager
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124916917677514975, guid: 2c0ae22f6165ff744a6cf7f2ff235f75, type: 3}
+      propertyPath: _inventoryContainers.Array.data[1].AllowNavigation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124916917677514975, guid: 2c0ae22f6165ff744a6cf7f2ff235f75, type: 3}
+      propertyPath: _inventoryContainers.Array.data[2].AllowNavigation
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2124916917677514975, guid: 2c0ae22f6165ff744a6cf7f2ff235f75, type: 3}
       propertyPath: _inventoryContainers.Array.data[0].InventoryContainer

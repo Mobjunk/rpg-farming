@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ItemSnapperManager : Singleton<ItemSnapperManager>
 {
@@ -38,9 +39,13 @@ public class ItemSnapperManager : Singleton<ItemSnapperManager>
     {
         if (IsSnapped)
         {
-            Vector3 movePoint = Input.mousePosition;
+            Vector3 movePoint = Mouse.current.position.ReadValue();
+
+            bool gamePad = CharacterInputManager.Instance().GamepadActive;
+            if (gamePad)
+                movePoint = VirtualMouseManager.Instance().transform.position;
             
-            Vector3 position = new Vector3(movePoint.x + 65, movePoint.y - 65);
+            Vector3 position = new Vector3(movePoint.x + (gamePad ? 45 : 65), movePoint.y - (gamePad ? 45 : 65));
             
             CurrentItemSnapped.Icon.transform.position = position;
             CurrentItemSnapped.Amount.transform.position = position;

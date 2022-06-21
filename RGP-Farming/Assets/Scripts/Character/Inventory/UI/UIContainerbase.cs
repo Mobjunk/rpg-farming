@@ -114,6 +114,14 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         set => _allowMoving = value;
     }
 
+    private bool _allowNavigation;
+    
+    public bool AllowNavigation
+    {
+        get => _allowNavigation;
+        set => _allowNavigation = value;
+    }
+    
     #endregion
     
     private bool _hoveringContainment;
@@ -123,8 +131,21 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         ContainerInstances.Add(this);
     }
 
-    private void Update()
+    public virtual void Update()
     {
+        if (CharacterInputManager.Instance().InteractAction.WasPressedThisFrame() && CharacterInputManager.Instance().GamepadActive)
+        {
+            GameObject gObject = EventSystem.current.currentSelectedGameObject;
+            if (gObject == null) return;
+            
+            UIContainerbase<GameItem> containerBase = gObject.GetComponent<UIContainerbase<GameItem>>();
+
+            if (containerBase == this)
+            {
+                if (_allowMoving) SnapContainment();
+                else SwitchContainment();
+            }
+        }
         if (_hoveringContainment)
         {
             var iconTransform = Icon.transform;
@@ -168,6 +189,14 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
         else _slot.text = "";
         
         if (_isHighlighted) _highlight.enabled = true;
+
+        Button button = GetComponent<Button>();
+        if (button != null)
+        {
+            Navigation customNav = new Navigation();
+            customNav.mode = _allowNavigation ? Navigation.Mode.Automatic : Navigation.Mode.None;
+            button.navigation = customNav;
+        }
     }
 
     /// <summary>
@@ -175,6 +204,8 @@ public abstract class UIContainerbase<T> : MonoBehaviour, IPointerDownHandler, I
     /// </summary>
     void SwitchContainment()
     {
+        if (GetType() == typeof(AbstractCraftingContainer)) return;
+        
         ItemBarManager.Instance().UpdateSlot(SlotIndex);
     }
 

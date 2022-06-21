@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class CollectionTooltipManager : TooltipManager<CollectionTooltipManager, CollectionLogEntry>
+public class CollectionTooltipManager : TooltipManager<CollectionTooltipManager, CollectionLogEntry, CollectionLogGrid>
 {
     [SerializeField] private TextMeshProUGUI _itemType;
     

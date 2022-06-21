@@ -1706,11 +1706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a49d66782b990d48b5bc058e5b09f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainGrid: {fileID: 0}
-  _hoverTilemap: {fileID: 0}
   _tilemapsToCheck: []
-  _allTilemaps: []
-  _unwalkableTilemaps: []
   _playerHouseTiles: {fileID: 0}
   _houseGrid: {fileID: 0}
 --- !u!1 &8043114566809835733
@@ -1757,6 +1753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeasonalCount: 0
+  _studioEventEmitter: {fileID: 0}
   _timeText: {fileID: 0}
   _buttons:
   - {fileID: 0}
@@ -1774,14 +1771,6 @@ MonoBehaviour:
   - {fileID: 1970451772421400530, guid: f743a9104ed68624d961fb8adb7c8d62, type: 3}
   - {fileID: -9121885194721440806, guid: f743a9104ed68624d961fb8adb7c8d62, type: 3}
   _fullSeasonPanel: {fileID: 0}
-  _tilemaps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &8370532528250513668
 GameObject:
   m_ObjectHideFlags: 0
